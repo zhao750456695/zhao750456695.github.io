@@ -136,6 +136,56 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/03/29/re/" title="一起来学习正则表达式吧.">&#39;re&#39;</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-03-29  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="python3-urllib网络爬虫"><a href="#python3-urllib网络爬虫" class="headerlink" title="python3+urllib网络爬虫"></a><center>python3+urllib网络爬虫</center></h1><h2 id="3-1网络爬虫简介"><a href="#3-1网络爬虫简介" class="headerlink" title="3.1网络爬虫简介"></a>3.1网络爬虫简介</h2><h2 id="3-2正则表达式"><a href="#3-2正则表达式" class="headerlink" title="3.2正则表达式"></a>3.2正则表达式</h2><h3 id="3-2-1什么是正则表达式"><a href="#3-2-1什么是正则表达式" class="headerlink" title="3.2.1什么是正则表达式"></a>3.2.1什么是正则表达式</h3><p>&emsp;&emsp;下面我们来看一下什么是正则表达式。</p>
+<pre><code>class AddReplyView(View):
+    &quot;&quot;&quot;
+    回复
+    &quot;&quot;&quot;
+    def get(self, request, answer_id):
+        answer = AskAnswers.objects.get(id=answer_id)
+        return render(request, &apos;post.html&apos;,{&apos;answer&apos;: answer})
+    def post(self, request, answer_id):
+        if not request.user.is_authenticated():
+            # 判断用户登录状态
+            return HttpResponse(&apos;{&quot;status&quot;:&quot;fail&quot;, &quot;msg&quot;:&quot;用户未登录&quot;}&apos;, content_type=&apos;application/json&apos;)
+        answer = AskAnswers.objects.get(id=answer_id)
+        title = request.POST.get(&apos;title&apos;)
+        detail = request.POST.get(&apos;content&apos;)
+        ask = answer.ask
+        reply =AnswersReply()
+        reply.answer = answer
+        reply.user = request.user
+        reply.add_time = timezone.now()
+        reply.answer_reply = detail
+        reply.save()
+        return HttpResponseRedirect(reverse(&apos;topics:chushiask&apos;,  kwargs={&quot;ask_id&quot;: ask.id}))
+</code></pre>
+	
+	</div>
+  <a type="button" href="/2018/03/29/re/#more" class="btn btn-default more">Leia Mais</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/03/28/new-article/" >new article</a>
 		</h3>
 		</div>
@@ -153,7 +203,7 @@ var _hmt = _hmt || [];
 		
 	
 	</div>
-  <a type="button" href="/2018/03/28/new-article/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2018/03/28/new-article/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -189,7 +239,7 @@ var _hmt = _hmt || [];
 
 	
 	</div>
-  <a type="button" href="/2018/03/28/hello-world/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2018/03/28/hello-world/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -217,7 +267,7 @@ var _hmt = _hmt || [];
 
 	
 	</div>
-  <a type="button" href="/2015/11/25/helloword/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2015/11/25/helloword/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -246,7 +296,7 @@ var _hmt = _hmt || [];
 			
   <div id="site_search">
    <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="Busca" class="st-search-input st-default-search-input form-control"/>
    </div>  
   <div id="local-search-result"></div>
   </div>
@@ -255,10 +305,10 @@ var _hmt = _hmt || [];
 		
 			
 	<div class="widget">
-		<h4>Categories</h4>
+		<h4>Categorias</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/code/">code<span>1</span></a></li>
+			<li><a href="/categories/code/">code<span>2</span></a></li>
 		
 		</ul>
 	</div>
@@ -268,6 +318,8 @@ var _hmt = _hmt || [];
 	<div class="widget">
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/python-爬虫/">python 爬虫<span>1</span></a></li>
 		
 			<li><a href="/tags/hexo/">hexo<span>1</span></a></li>
 		
@@ -279,8 +331,12 @@ var _hmt = _hmt || [];
 		
 			
 <div class="widget">
-  <h4>Recent Posts</h4>
+  <h4>Posts recentes</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/03/29/re/"  title="一起来学习正则表达式吧." ><i class="fa fa-file-o"></i>&#39;re&#39;</a>
+      </li>
     
       <li>
         <a href="/2018/03/28/new-article/" ><i class="fa fa-file-o"></i>new article</a>

@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>&#39;re&#39;</title>
+      <link href="/2018/03/29/re/"/>
+      <url>/2018/03/29/re/</url>
+      <content type="html"><![CDATA[<h1 id="python3-urllib网络爬虫"><a href="#python3-urllib网络爬虫" class="headerlink" title="python3+urllib网络爬虫"></a><center>python3+urllib网络爬虫</center></h1><h2 id="3-1网络爬虫简介"><a href="#3-1网络爬虫简介" class="headerlink" title="3.1网络爬虫简介"></a>3.1网络爬虫简介</h2><h2 id="3-2正则表达式"><a href="#3-2正则表达式" class="headerlink" title="3.2正则表达式"></a>3.2正则表达式</h2><h3 id="3-2-1什么是正则表达式"><a href="#3-2-1什么是正则表达式" class="headerlink" title="3.2.1什么是正则表达式"></a>3.2.1什么是正则表达式</h3><p>&emsp;&emsp;下面我们来看一下什么是正则表达式。</p><pre><code>class AddReplyView(View):    &quot;&quot;&quot;    回复    &quot;&quot;&quot;    def get(self, request, answer_id):        answer = AskAnswers.objects.get(id=answer_id)        return render(request, &apos;post.html&apos;,{&apos;answer&apos;: answer})    def post(self, request, answer_id):        if not request.user.is_authenticated():            # 判断用户登录状态            return HttpResponse(&apos;{&quot;status&quot;:&quot;fail&quot;, &quot;msg&quot;:&quot;用户未登录&quot;}&apos;, content_type=&apos;application/json&apos;)        answer = AskAnswers.objects.get(id=answer_id)        title = request.POST.get(&apos;title&apos;)        detail = request.POST.get(&apos;content&apos;)        ask = answer.ask        reply =AnswersReply()        reply.answer = answer        reply.user = request.user        reply.add_time = timezone.now()        reply.answer_reply = detail        reply.save()        return HttpResponseRedirect(reverse(&apos;topics:chushiask&apos;,  kwargs={&quot;ask_id&quot;: ask.id}))</code></pre>]]></content>
+      
+      <categories>
+          
+          <category> code </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python 爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>new article</title>
       <link href="/2018/03/28/new-article/"/>
       <url>/2018/03/28/new-article/</url>
