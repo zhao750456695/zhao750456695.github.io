@@ -149,8 +149,28 @@ var _hmt = _hmt || [];
 <p>match(string[, pos[, endpos]])<br>如果没有指定pos和endpos，默认为0和len(string)，即match函数将会从头部(左侧第一个字符)开始进行匹配，若匹配成功将返回<font face="黑体" color="red">Match对象</font>，没有匹配成功，则返回None。<br>search(string[, pos[, endpos]])<br>与match的差别是可以从任何地方开始，只要待匹配的字符串中有可匹配对象，就会匹配成功，返回<font face="黑体" color="red">Match对象</font>。也是只匹配一次。</p>
 <p>上面的方法只匹配一次，如果我们想把字符串中所有匹配的情况都找出来该怎么办办呢？我们可以使用findall(string,[, pos[, endpos]]),findall会找到所有能够匹配的结果，结果是以<font face="黑体" color="red">列表</font>形式返回的所有子串。</p>
 <hr>
-<p><em>小括号和group</em><br>search和match中的pattern中有括号会形成group，多个括号就有多个group<br>只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    import re</span><br><span class="line"></span><br><span class="line">    line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">    searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> searchObj:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)</span><br><span class="line">``` </span><br><span class="line">		</span><br><span class="line">结果是：</span><br><span class="line">``` python</span><br><span class="line">    searchObj.group() :  Cats are smarter than dogs</span><br><span class="line">    searchObj.group(1) :  Cats</span><br><span class="line">    searchObj.group(2) :  smarter</span><br><span class="line">    searchObj.group(1, 2) :  (<span class="string">'Cats'</span>, <span class="string">'smarter'</span>)</span><br><span class="line">    searchObj.groups() :  (<span class="string">'Cats'</span>, <span class="string">'smarter'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>如果没有小括号，可以用group()显示全部，但里面不能有数字，因为没有分组。</p>
+<p><em>小括号和group</em><br>search和match中的pattern中有括号会形成group，多个括号就有多个group<br>只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。</p>
+<pre><code class="bash">import re
+
+line = <span class="string">"Cats are smarter than dogs"</span>;
+
+searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)
+
+<span class="keyword">if</span> searchObj:
+    <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span>
+    <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span>
+    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span>
+    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span>
+    <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span>
+    <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)
+</code></pre>
+<p>结果是：</p>
+<pre><code>searchObj.group() :  Cats are smarter than dogs
+searchObj.group(1) :  Cats
+searchObj.group(2) :  smarter
+searchObj.group(1, 2) :  (&apos;Cats&apos;, &apos;smarter&apos;)
+searchObj.groups() :  (&apos;Cats&apos;, &apos;smarter&apos;)
+</code></pre><p>如果没有小括号，可以用group()显示全部，但里面不能有数字，因为没有分组。</p>
 <pre><code>&gt;&gt;&gt; import re
 &gt;&gt;&gt; pattern = re.compile(r&apos;\d+&apos;)                    # 用于匹配至少一个数字
 &gt;&gt;&gt; m = pattern.match(&apos;one12twothree34four&apos;)        # 查找头部，没有匹配
