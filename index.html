@@ -157,7 +157,7 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文本时要匹配的一个或多个字符串。</p>
 <p>&emsp;&emsp;这里我们主要说下python中的正则表达式.python为我们提供了名为re的模块，这样我们就可以在python下使用着正则表达式的功能了。</p>
 <p>&emsp;&emsp;既然是模块当然为我们提供了一系列方法，而在使用正则表达式方法时要关注三点。首先是要匹配的正则表达式即模式字符串，也就是我们要找什么，我们把要找的东西根据规定好的规则写出来，称为pattern；其次就是，我们要在哪里找，我们在目标字符串里找，即string；最后，还有一个标志位flag，即正则表达式修饰符,也叫模式修正符，它规定了我们怎么找，比如要不要忽略大小写、要不要匹配换行符（默认不匹配）。</p>
-<h2 id="2-1-re中的常用函数"><a href="#2-1-re中的常用函数" class="headerlink" title="2.1 re中的常用函数"></a>2.1 re中的常用函数</h2><h2 id="2-1-re中的常用函数-1"><a href="#2-1-re中的常用函数-1" class="headerlink" title="2.1 re中的常用函数"></a><span id="jump">2.1 re中的常用函数</span></h2><p>&emsp;&emsp;我们一个个说，先说说re模块中的函数。</p>
+<h1 id="2-1-re中的常用函数"><a href="#2-1-re中的常用函数" class="headerlink" title="2.1 re中的常用函数"></a><span id="jump">2.1 re中的常用函数</span></h1><p>&emsp;&emsp;我们一个个说，先说说re模块中的函数。</p>
 <h4 id="2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><a href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0" class="headerlink" title="2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)"></a>2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</h4><p>compile函数用于编译正则表达式，生成一个Pattern对象，Pattern对象有一系列的方法，常用的有：</p>
 <ul>
 <li>match(string[, pos[, endpos]])方法</li>
@@ -306,7 +306,7 @@ matching string: 12
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="built_in">print</span> re.match(r<span class="string">'\d+'</span>, <span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> re.search(r<span class="string">'\d+'</span>, <span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(r<span class="string">'\d+'</span>, <span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
 <p>如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。</p>
 <p>因此，我们推荐使用第 1 种用法。</p>
-<h2 id="2-2-pattern"><a href="#2-2-pattern" class="headerlink" title="2.2 pattern"></a>2.2 pattern</h2><h2 id="2-2-pattern-1"><a href="#2-2-pattern-1" class="headerlink" title="2.2 pattern "></a><span id="jump1">2.2 pattern </span></h2><p>pattern由原子和元字符组成的。</p>
+<h1 id="2-2-pattern"><a href="#2-2-pattern" class="headerlink" title="2.2 pattern "></a><span id="jump1">2.2 pattern </span></h1><p>pattern由原子和元字符组成的。</p>
 <h4 id="2-2-1-原子"><a href="#2-2-1-原子" class="headerlink" title="2.2.1 原子"></a>2.2.1 原子</h4><p>原子是正则表达式中最基本的组成单元，每个正则表达式中至少包含一个原子。常见的原子类型有：</p>
 <ul>
 <li>普通字符</li>
@@ -405,7 +405,7 @@ matching string: 12
 </table>
 
 <p>贪婪模式和懒惰模式：默认是贪婪模式，即尽可能的多匹配，我们可以用？变为懒惰模式。</p>
-<h2 id="2-3-模式修正符"><a href="#2-3-模式修正符" class="headerlink" title="2.3 模式修正符"></a>2.3 模式修正符</h2><h2 id="2-3-模式修正符-1"><a href="#2-3-模式修正符-1" class="headerlink" title="2.3 模式修正符"></a><span id="jump2">2.3 模式修正符</span></h2><p>模式修正符</p>
+<h1 id="2-3-模式修正符"><a href="#2-3-模式修正符" class="headerlink" title="2.3 模式修正符"></a><span id="jump2">2.3 模式修正符</span></h1><p>模式修正符</p>
 <table>
   <th width="40%," bgcolor="black"><font face="黑体" color="white">模式修正符</font></th>
   <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
@@ -438,7 +438,7 @@ matching string: 12
 <h2 id="3-xpath表达式"><a href="#3-xpath表达式" class="headerlink" title="3 xpath表达式"></a>3 xpath表达式</h2><h2 id="4-json数据处理"><a href="#4-json数据处理" class="headerlink" title="4 json数据处理"></a>4 json数据处理</h2><h2 id="5-urllib初体验"><a href="#5-urllib初体验" class="headerlink" title="5 urllib初体验"></a>5 urllib初体验</h2><h2 id="6-http基本知识"><a href="#6-http基本知识" class="headerlink" title="6 http基本知识"></a>6 http基本知识</h2><h2 id="7-基本的反爬措施"><a href="#7-基本的反爬措施" class="headerlink" title="7 基本的反爬措施"></a>7 基本的反爬措施</h2><h2 id="8-模拟登陆"><a href="#8-模拟登陆" class="headerlink" title="8 模拟登陆"></a>8 模拟登陆</h2><h2 id="9-scrapy框架"><a href="#9-scrapy框架" class="headerlink" title="9 scrapy框架"></a>9 scrapy框架</h2><h2 id="10-分布式爬虫"><a href="#10-分布式爬虫" class="headerlink" title="10 分布式爬虫"></a>10 分布式爬虫</h2>
 	
 	</div>
-  <a type="button" href="/2018/03/29/爬虫/#more" class="btn btn-default more">Leia Mais</a>
+  <a type="button" href="/2018/03/29/爬虫/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -465,7 +465,7 @@ matching string: 12
 		
 	
 	</div>
-  <a type="button" href="/2018/03/28/new-article/#more" class="btn btn-default more">Leia Mais</a>
+  <a type="button" href="/2018/03/28/new-article/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -494,7 +494,7 @@ matching string: 12
 			
   <div id="site_search">
    <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Busca" class="st-search-input st-default-search-input form-control"/>
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
    </div>  
   <div id="local-search-result"></div>
   </div>
@@ -503,7 +503,7 @@ matching string: 12
 		
 			
 	<div class="widget">
-		<h4>Categorias</h4>
+		<h4>Categories</h4>
 		<ul class="tag_box inline list-unstyled">
 		
 			<li><a href="/categories/python/">python<span>1</span></a></li>
@@ -527,7 +527,7 @@ matching string: 12
 		
 			
 <div class="widget">
-  <h4>Posts recentes</h4>
+  <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
     
       <li>
