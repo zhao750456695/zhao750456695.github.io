@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <meta name="description" content="">
+    <title>pandas1 · FinGeek</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180317 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180317 media="(max-width: 980px)"/>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >FinGeek</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">pandas1</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>FinGeek</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            pandas1
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python,pandas,数据分析">python,pandas,数据分析</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/04/13</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>导入pandas</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.__version__ <span class="comment"># 查看版本</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;0.20.3&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="1-pandas的数据结构"><a href="#1-pandas的数据结构" class="headerlink" title="1 pandas的数据结构"></a>1 pandas的数据结构</h1><p>初始化<br>
+索引<br>
+取值和切片<br>
+简单算术运算<br>
+赋值和dataframe列的修改<br></p>
+<h2 id="1-1-Series构造和初始化"><a href="#1-1-Series构造和初始化" class="headerlink" title="1.1 Series构造和初始化"></a>1.1 Series构造和初始化</h2><p>Series是一种<strong>一维</strong>的数据结构,这是时刻要记住的。<br>
+类似于一维数组，但是和一位数组不同，Series是有标签的，即索引。<br>
+相对于数组，Series更像是字典，索引值就是key，我们完全可以把Series看成是一个<strong>定长的有序字典</strong>。</p>
+<h4 id="1-使用列表创建Series"><a href="#1-使用列表创建Series" class="headerlink" title="1. 使用列表创建Series"></a>1. 使用列表创建Series</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 = Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">s1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0    1</span><br><span class="line">1    2</span><br><span class="line">2    3</span><br><span class="line">3    4</span><br><span class="line">4    5</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<p>运行结果中左边是索引，右边是值。<br>
+运行结果中左边是索引，右边是值。<br>
+由于我们没有指定索引，自动创建了一个0到N-1(N为数据的长度)的整数型索引。<br></p>
+<blockquote>
+<p>Series对象本质上是一个NumPy的数组，因此NumPy的数组处理函数可以直接对Series进行处理。但是Series除了可以使用位置作为下标存取元素之外，还可以使&gt;用标签下标存取元素，这一点和字典相似。每个Series对象实际上都由两个数组组成：
+index: 它是从NumPy数组继承的Index对象，保存标签信息。
+values: 保存值的NumPy数组。</p>
+</blockquote>
+<p>index和values是两个属性，不是函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s1.values <span class="comment"># 返回的结果是数组形式</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([1, 2, 3, 4, 5], dtype=int64)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">s1.index <span class="comment"># 返回的记过是索引对象</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RangeIndex(start=0, stop=5, step=1)</span><br></pre></td></tr></table></figure>
+<p>上面s1的索引是自动生成的，我们还可以指定索引。<br>
+上面s1的索引是自动生成的，我们还可以指定索引。<br>
+指定索引要用列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s2 = Series([<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>])</span><br><span class="line">s2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a    6</span><br><span class="line">b    7</span><br><span class="line">c    8</span><br><span class="line">d    9</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">s2 = Series([<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>,], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]) <span class="comment"># 列表方式建立Series 索引和值应该是等长的</span></span><br><span class="line">s2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">ValueError                                Traceback (most recent call last)</span><br><span class="line"></span><br><span class="line">&lt;ipython-input-23-e00282bc42fe&gt; in &lt;module&gt;()</span><br><span class="line">----&gt; 1 s2 = Series([6, 7, 8,], index=[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]) # 这种方式建立Series 索引和值应该是等长的</span><br><span class="line">      2 s2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\series.py in __init__(self, data, index, dtype, name, copy, fastpath)</span><br><span class="line">    248                                        raise_cast_failure=True)</span><br><span class="line">    249 </span><br><span class="line">--&gt; 250                 data = SingleBlockManager(data, index, fastpath=True)</span><br><span class="line">    251 </span><br><span class="line">    252         generic.NDFrame.__init__(self, data, fastpath=True)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in __init__(self, block, axis, do_integrity_check, fastpath)</span><br><span class="line">   4115         if not isinstance(block, Block):</span><br><span class="line">   4116             block = make_block(block, placement=slice(0, len(axis)), ndim=1,</span><br><span class="line">-&gt; 4117                                fastpath=True)</span><br><span class="line">   4118 </span><br><span class="line">   4119         self.blocks = [block]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in make_block(values, placement, klass, ndim, dtype, fastpath)</span><br><span class="line">   2717                      placement=placement, dtype=dtype)</span><br><span class="line">   2718 </span><br><span class="line">-&gt; 2719     return klass(values, ndim=ndim, fastpath=fastpath, placement=placement)</span><br><span class="line">   2720 </span><br><span class="line">   2721 # TODO: flexible with index=None and/or items=None</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in __init__(self, values, placement, ndim, fastpath)</span><br><span class="line">    113             raise ValueError(&apos;Wrong number of items passed %d, placement &apos;</span><br><span class="line">    114                              &apos;implies %d&apos; % (len(self.values),</span><br><span class="line">--&gt; 115                                              len(self.mgr_locs)))</span><br><span class="line">    116 </span><br><span class="line">    117     @property</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ValueError: Wrong number of items passed 3, placement implies 4</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">s2 = Series(&#123;<span class="string">'a'</span>:<span class="number">6</span>, <span class="string">'b'</span>:<span class="number">7</span>, <span class="string">'c'</span>:<span class="number">8</span>,&#125;, index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]) <span class="comment"># 字典建立Series index比key多的话 多余的值被定为NaN</span></span><br><span class="line">s2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a    6.0</span><br><span class="line">b    7.0</span><br><span class="line">c    8.0</span><br><span class="line">d    NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<h4 id="2-使用字典创建Series"><a href="#2-使用字典创建Series" class="headerlink" title="2.使用字典创建Series"></a>2.使用字典创建Series</h4><h4 id="2-使用字典创建Series-1"><a href="#2-使用字典创建Series-1" class="headerlink" title="2.使用字典创建Series"></a>2.使用字典创建Series</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">province = &#123;<span class="string">'山东'</span>: <span class="number">1</span>, <span class="string">'北京'</span>:<span class="number">2</span>, <span class="string">'上海'</span>:<span class="number">3</span>&#125;</span><br><span class="line">s3 = Series(province)</span><br><span class="line">s3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">上海    3</span><br><span class="line">北京    2</span><br><span class="line">山东    1</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">province2 = [<span class="string">'山东'</span>, <span class="string">'台湾'</span>, <span class="string">'香港'</span>, <span class="string">'北京'</span>, <span class="string">'上海'</span>]</span><br><span class="line">s4 = Series(province, index=province2) <span class="comment"># 上面已经提到一次 字典中找不到的index作为key对应的值，结果将为NaN</span></span><br><span class="line">s4</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">山东    1.0</span><br><span class="line">台湾    NaN</span><br><span class="line">香港    NaN</span><br><span class="line">北京    2.0</span><br><span class="line">上海    3.0</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p>Series对象本身及索引都有一个name属性
+Series对象本身及索引都有一个name属性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s4.name = <span class="string">'p'</span></span><br><span class="line">s4.index.name = <span class="string">'pro'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s4</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pro</span><br><span class="line">山东    1.0</span><br><span class="line">台湾    NaN</span><br><span class="line">香港    NaN</span><br><span class="line">北京    2.0</span><br><span class="line">上海    3.0</span><br><span class="line">Name: p, dtype: float64</span><br></pre></td></tr></table></figure>
+<p>可以像字典判断key值一样判断索引：
+可以像字典判断key值一样判断索引：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'山东'</span> <span class="keyword">in</span> s3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">但用<span class="keyword">for</span>只能遍历value：</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> s3:</span><br><span class="line">    print(value)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-DataFrame的构造和初始化"><a href="#1-2-DataFrame的构造和初始化" class="headerlink" title="1.2 DataFrame的构造和初始化"></a>1.2 DataFrame的构造和初始化</h2><h2 id="1-2-DataFrame的构造和初始化-1"><a href="#1-2-DataFrame的构造和初始化-1" class="headerlink" title="1.2 DataFrame的构造和初始化"></a>1.2 DataFrame的构造和初始化</h2><p>DataFrame是二维的数据结构。<br>
+DataFrame是一个表格型的数据结构，它含有一组有序的列，每列可以是不同的值类型。DataFrame既有行索引，也有列索引。</p>
+<h4 id="1-使用一个由等长列表或Numpy数组组成的字典创建DataFrame"><a href="#1-使用一个由等长列表或Numpy数组组成的字典创建DataFrame" class="headerlink" title="1.使用一个由等长列表或Numpy数组组成的字典创建DataFrame"></a>1.使用一个由等长列表或Numpy数组组成的字典创建DataFrame</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'省份'</span>: [<span class="string">'山东省'</span>, <span class="string">'台湾省'</span>, <span class="string">'福建省'</span>, <span class="string">'广东省'</span>, <span class="string">'北京'</span>],</span><br><span class="line">    <span class="string">'年份'</span>: [<span class="string">'2010'</span>, <span class="string">'2011'</span>, <span class="string">'2012'</span>, <span class="string">'2013'</span>, <span class="string">'2014'</span>],</span><br><span class="line">    <span class="string">'人口'</span>: [<span class="string">'5'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'1'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(data)</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>人口</th>
+      <th>年份</th>
+      <th>省份</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>2010</td>
+      <td>山东省</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2011</td>
+      <td>台湾省</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2012</td>
+      <td>福建省</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>2013</td>
+      <td>广东省</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>2014</td>
+      <td>北京</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>上面各列的顺序创建时是不定的，可以使用参数指定列的顺序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(data, columns=[<span class="string">'年份'</span>, <span class="string">'省份'</span>, <span class="string">'人口'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年份</th>
+      <th>省份</th>
+      <th>人口</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>山东省</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>台湾省</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2012</td>
+      <td>福建省</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013</td>
+      <td>广东省</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014</td>
+      <td>北京</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>如果指定的列在数据中找不到，这一列全被定为NaN</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(data, columns=[<span class="string">'年份'</span>, <span class="string">'省份'</span>, <span class="string">'人口'</span>, <span class="string">'GDP'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年份</th>
+      <th>省份</th>
+      <th>人口</th>
+      <th>GDP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010</td>
+      <td>山东省</td>
+      <td>5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011</td>
+      <td>台湾省</td>
+      <td>2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2012</td>
+      <td>福建省</td>
+      <td>3</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013</td>
+      <td>广东省</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014</td>
+      <td>北京</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>上面的索引是自动生成的，也可以自己指定索引。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(data,  columns=[<span class="string">'年份'</span>, <span class="string">'省份'</span>, <span class="string">'人口'</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年份</th>
+      <th>省份</th>
+      <th>人口</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>2010</td>
+      <td>山东省</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>2011</td>
+      <td>台湾省</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>2012</td>
+      <td>福建省</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>2013</td>
+      <td>广东省</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>e</th>
+      <td>2014</td>
+      <td>北京</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>index的长度必须和列的长度一致,否则会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(data,  columns=[<span class="string">'年份'</span>, <span class="string">'省份'</span>, <span class="string">'人口'</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">ValueError                                Traceback (most recent call last)</span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in create_block_manager_from_arrays(arrays, names, axes)</span><br><span class="line">   4309         blocks = form_blocks(arrays, names, axes)</span><br><span class="line">-&gt; 4310         mgr = BlockManager(blocks, axes)</span><br><span class="line">   4311         mgr._consolidate_inplace()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in __init__(self, blocks, axes, do_integrity_check, fastpath)</span><br><span class="line">   2794         if do_integrity_check:</span><br><span class="line">-&gt; 2795             self._verify_integrity()</span><br><span class="line">   2796 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in _verify_integrity(self)</span><br><span class="line">   3005             if block._verify_integrity and block.shape[1:] != mgr_shape[1:]:</span><br><span class="line">-&gt; 3006                 construction_error(tot_items, block.shape[1:], self.axes)</span><br><span class="line">   3007         if len(self.items) != tot_items:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in construction_error(tot_items, block_shape, axes, e)</span><br><span class="line">   4279     raise ValueError(&quot;Shape of passed values is &#123;0&#125;, indices imply &#123;1&#125;&quot;.format(</span><br><span class="line">-&gt; 4280         passed, implied))</span><br><span class="line">   4281 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ValueError: Shape of passed values is (3, 5), indices imply (3, 6)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ValueError                                Traceback (most recent call last)</span><br><span class="line"></span><br><span class="line">&lt;ipython-input-41-3cb373f0f238&gt; in &lt;module&gt;()</span><br><span class="line">----&gt; 1 frame = DataFrame(data,  columns=[&apos;年份&apos;, &apos;省份&apos;, &apos;人口&apos;], index=[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos;])</span><br><span class="line">      2 frame</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\frame.py in __init__(self, data, index, columns, dtype, copy)</span><br><span class="line">    273                                  dtype=dtype, copy=copy)</span><br><span class="line">    274         elif isinstance(data, dict):</span><br><span class="line">--&gt; 275             mgr = self._init_dict(data, index, columns, dtype=dtype)</span><br><span class="line">    276         elif isinstance(data, ma.MaskedArray):</span><br><span class="line">    277             import numpy.ma.mrecords as mrecords</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\frame.py in _init_dict(self, data, index, columns, dtype)</span><br><span class="line">    409             arrays = [data[k] for k in keys]</span><br><span class="line">    410 </span><br><span class="line">--&gt; 411         return _arrays_to_mgr(arrays, data_names, index, columns, dtype=dtype)</span><br><span class="line">    412 </span><br><span class="line">    413     def _init_ndarray(self, values, index, columns, dtype=None, copy=False):</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\frame.py in _arrays_to_mgr(arrays, arr_names, index, columns, dtype)</span><br><span class="line">   5504     axes = [_ensure_index(columns), _ensure_index(index)]</span><br><span class="line">   5505 </span><br><span class="line">-&gt; 5506     return create_block_manager_from_arrays(arrays, arr_names, axes)</span><br><span class="line">   5507 </span><br><span class="line">   5508 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in create_block_manager_from_arrays(arrays, names, axes)</span><br><span class="line">   4312         return mgr</span><br><span class="line">   4313     except ValueError as e:</span><br><span class="line">-&gt; 4314         construction_error(len(arrays), arrays[0].shape, axes, e)</span><br><span class="line">   4315 </span><br><span class="line">   4316 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\internals.py in construction_error(tot_items, block_shape, axes, e)</span><br><span class="line">   4278         raise ValueError(&quot;Empty data passed with indices specified.&quot;)</span><br><span class="line">   4279     raise ValueError(&quot;Shape of passed values is &#123;0&#125;, indices imply &#123;1&#125;&quot;.format(</span><br><span class="line">-&gt; 4280         passed, implied))</span><br><span class="line">   4281 </span><br><span class="line">   4282 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ValueError: Shape of passed values is (3, 5), indices imply (3, 6)</span><br></pre></td></tr></table></figure>
+<h4 id="2-使用一个由Series组成的字典创建DataFrame"><a href="#2-使用一个由Series组成的字典创建DataFrame" class="headerlink" title="2.使用一个由Series组成的字典创建DataFrame"></a>2.使用一个由Series组成的字典创建DataFrame</h4><h4 id="2-使用一个由Series组成的字典创建DataFrame-1"><a href="#2-使用一个由Series组成的字典创建DataFrame-1" class="headerlink" title="2.使用一个由Series组成的字典创建DataFrame"></a>2.使用一个由Series组成的字典创建DataFrame</h4><p>DataFrame可以看成是Series的组合，每一列是一个Series，可以用Series创建DataFrame。</p>
+<p>因为Series是有索引的，因此这种创建方式是基于索引的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city = Series([<span class="string">'北京'</span>, <span class="string">'上海'</span>, <span class="string">'广州'</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br><span class="line">pop = Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'city'</span>: city,</span><br><span class="line">    <span class="string">'pop'</span>: pop</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = DataFrame(data)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>北京</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>上海</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>广州</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city = Series([<span class="string">'北京'</span>, <span class="string">'上海'</span>, <span class="string">'广州'</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br><span class="line">pop = Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], index=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'city'</span>: city,</span><br><span class="line">    <span class="string">'pop'</span>: pop</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = DataFrame(data)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>北京</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>上海</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>广州</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>e</th>
+      <td>NaN</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = DataFrame(data, index=[<span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2003</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2001</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="3-嵌套字典"><a href="#3-嵌套字典" class="headerlink" title="3.嵌套字典"></a>3.嵌套字典</h4><p>嵌套字典，会把外层字典的键作为列，内层键则作为行索引：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pop = &#123;<span class="string">'山东省'</span>: &#123;<span class="number">2001</span>: <span class="number">1</span>, <span class="number">2002</span>: <span class="number">2</span>&#125;, <span class="string">'广东省'</span>: &#123;<span class="number">2000</span>: <span class="number">1.5</span>, <span class="number">2001</span>: <span class="number">3</span>&#125;&#125;</span><br><span class="line">df = DataFrame(pop)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>山东省</th>
+      <th>广东省</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000</th>
+      <td>NaN</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="4-由列表或元组组成的列表"><a href="#4-由列表或元组组成的列表" class="headerlink" title="4.由列表或元组组成的列表"></a>4.由列表或元组组成的列表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = [[<span class="string">'山东'</span>, <span class="string">'广东'</span>], [<span class="number">1</span>, <span class="number">2</span>]]</span><br><span class="line">df = DataFrame(data)</span><br><span class="line">df</span><br><span class="line"><span class="comment"># 行列索引均是自动生成 因为既没有指定index 也没有指定columns</span></span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>山东</td>
+      <td>广东</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>还有其他可以输入给DataFrame构造器的数据</p>
+<h2 id="1-3-索引对象"><a href="#1-3-索引对象" class="headerlink" title="1.3 索引对象"></a>1.3 索引对象</h2><p>DataFrame既有行索引，也有列索引 列索引即是列名 行索引即是index</p>
+<p>介绍上面除创建Series和DataFrame时涉及到的索引知识之外的其他索引相关情况。<br>
+Index是个对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pop = &#123;<span class="string">'山东省'</span>: &#123;<span class="number">2001</span>: <span class="number">1</span>, <span class="number">2002</span>: <span class="number">2</span>&#125;, <span class="string">'广东省'</span>: &#123;<span class="number">2000</span>: <span class="number">1.5</span>, <span class="number">2001</span>: <span class="number">3</span>&#125;&#125;</span><br><span class="line">df = DataFrame(pop)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>山东省</th>
+      <th>广东省</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000</th>
+      <td>NaN</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.index</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([2000, 2001, 2002], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<p>Index对象是ndarray的派生类，values属性可以获得ndarray数组：
+Index对象是ndarray的派生类，values属性可以获得ndarray数组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.index.values</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([2000, 2001, 2002], dtype=int64)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">s4.index.values</span><br><span class="line">print(list(s4.index.values))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;山东&apos;, &apos;台湾&apos;, &apos;香港&apos;, &apos;北京&apos;, &apos;上海&apos;]</span><br></pre></td></tr></table></figure>
+<p>Index支持所有的数组下标操作：
+Index支持所有的数组下标操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = df.index</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(index[[<span class="number">1</span>, <span class="number">2</span>]])</span><br><span class="line">print(index[index &gt; <span class="number">2001</span>])</span><br><span class="line">print(index[<span class="number">1</span>::<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([2001, 2002], dtype=&apos;int64&apos;)</span><br><span class="line">Int64Index([2002], dtype=&apos;int64&apos;)</span><br><span class="line">Int64Index([2001], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<p>Index对象不可以修改，用户不能对其修改：
+Index对象不可以修改，用户不能对其修改：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = df.index</span><br><span class="line">print(index)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([2000, 2001, 2002], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2001</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index[<span class="number">1</span>]=<span class="number">2001</span> <span class="comment"># Int64Index([2000, 2001, 2002], dtype='int64')是不可改的，想对位置1上的元素重新赋值，会报错的，即使赋的值是原值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">TypeError                                 Traceback (most recent call last)</span><br><span class="line"></span><br><span class="line">&lt;ipython-input-167-a141cb1da108&gt; in &lt;module&gt;()</span><br><span class="line">----&gt; 1 index[1]=2001 # Int64Index([1, 2, 3], dtype=&apos;int64&apos;)是不可改的，想对位置1上的元素重新赋值，会报错的，即使赋的值是原值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\indexes\base.py in __setitem__(self, key, value)</span><br><span class="line">   1668 </span><br><span class="line">   1669     def __setitem__(self, key, value):</span><br><span class="line">-&gt; 1670         raise TypeError(&quot;Index does not support mutable operations&quot;)</span><br><span class="line">   1671 </span><br><span class="line">   1672     def __getitem__(self, key):</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TypeError: Index does not support mutable operations</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">df.index = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] <span class="comment"># index重新指向另外一个同等大小的数组 并没有改Int64Index([2000, 2001, 2002], dtype='int64') 而是重新指向了Int64Index([1, 2, 3], dtype='int64')</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>山东省</th>
+      <th>广东省</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>index返回的是一个不可变的数组，也就是数组里面的数据是不可变的</p>
+<p>但是可以改变的是index重新指向另外一个同等大小的数组，也就是index是一个指针，指针指向的数组里面的内容是不可变的，但是指针指向的数组是可变的。</p>
+<p>不可修改性非常重要，这样才能使Index对象在多个数据结构之间安全共享：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index = pd.Index(np.arange(<span class="number">3</span>))</span><br><span class="line">s5 = Series([<span class="number">1</span>, <span class="number">2</span> , <span class="number">3</span>], index=index)</span><br><span class="line"></span><br><span class="line">s5.index <span class="keyword">is</span> index</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+<h4 id="set-index"><a href="#set-index" class="headerlink" title="set_index"></a>set_index</h4><h4 id="set-index-1"><a href="#set-index-1" class="headerlink" title="set_index"></a>set_index</h4><p>set_index 会返回一个新的df
+DataFrame可以通过set_index方法，设置单索引和复合索引。&lt;br>
+DataFrame.set_index(keys, drop=True, append=False, <strong>inplace=False</strong>, verify_integrity=False)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ndf = df.set_index(<span class="string">'山东省'</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>山东省</th>
+      <th>广东省</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000</th>
+      <td>NaN</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndf</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>广东省</th>
+    </tr>
+    <tr>
+      <th>山东省</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>NaN</th>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.set_index(<span class="string">'山东省'</span>, inplace=<span class="keyword">True</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>广东省</th>
+    </tr>
+    <tr>
+      <th>山东省</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>NaN</th>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="reset-index"><a href="#reset-index" class="headerlink" title="reset_index"></a>reset_index</h4><p>reset_index可以还原索引，重新变为默认的整型索引&lt;br>
+DataFrame.reset_index(level=None, drop=False, <strong>inplace=False</strong>, col_level=0, col_fill=”)&lt;br>
+level控制了具体要还原的那个等级的索引
+drop为False则索引列会被还原为普通列，否则会丢失</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.reset_index() <span class="comment"># 也是返回一个新的df 要想在原df上生效 使用inplace=True</span></span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>山东省</th>
+      <th>广东省</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>广东省</th>
+    </tr>
+    <tr>
+      <th>山东省</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>NaN</th>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2.0</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="reindex"><a href="#reindex" class="headerlink" title="reindex"></a>reindex</h4><p>重新索引<br>
+既可用于Series，也可用于DataFrame</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">frame = DataFrame(np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>)), columns=[<span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>b</th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.reindex(columns=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]) <span class="comment"># 重排列索引</span></span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>3</td>
+      <td>5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>6</td>
+      <td>8</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.reindex([<span class="number">0</span>, <span class="number">1</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]) <span class="comment"># 如果某个新索引值当前不存在，就引入缺失值</span></span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>b</th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>a</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>对于时间序列这样的有序数据，重新索引时可能需要做一些插值处理。method选项可达到次目的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj6 = Series([<span class="string">'blue'</span>, <span class="string">'purple'</span>, <span class="string">'yellow'</span>], index=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj6.reindex(range(<span class="number">6</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0      blue</span><br><span class="line">1       NaN</span><br><span class="line">2    purple</span><br><span class="line">3       NaN</span><br><span class="line">4    yellow</span><br><span class="line">5       NaN</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">obj6.reindex(range(<span class="number">6</span>), method=<span class="string">'ffill'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0      blue</span><br><span class="line">1      blue</span><br><span class="line">2    purple</span><br><span class="line">3    purple</span><br><span class="line">4    yellow</span><br><span class="line">5    yellow</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+<p>reindex的（插值）method选项
+reindex的（插值）method选项</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ffill或pad</td>
+<td style="text-align:center">前向填充（或搬运）值</td>
+</tr>
+<tr>
+<td style="text-align:center">bfill或backfill</td>
+<td style="text-align:center">后向填充（或搬运）值</td>
+</tr>
+</tbody>
+</table>
+<p>可以同时对行和列进行重新索引，而插值则只能按行应用(即0轴)</p>
+<h4 id="sort-index"><a href="#sort-index" class="headerlink" title="sort_index"></a>sort_index</h4><p>对行和列的索引进行排序使用sort_index函数，返回一个新的对象，若需要按值排序，Series使用order函数，DataFrame使用sort_values函数，排序的时候，缺省值默认是放到末尾的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(np.arange(<span class="number">8</span>).reshape(<span class="number">2</span>,<span class="number">4</span>), index=[<span class="number">3</span>, <span class="number">1</span>], columns=[<span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>d</th>
+      <th>b</th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按照index升序排列</span></span><br><span class="line">In [<span class="number">296</span>]: frame.sort_index()</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>d</th>
+      <th>b</th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按照column生序排列</span></span><br><span class="line">frame.sort_index(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>5</td>
+      <td>7</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同时按照行和列排序</span></span><br><span class="line">frame.sort_index(axis=<span class="number">1</span>).sort_index()</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>5</td>
+      <td>7</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="通过索引删除"><a href="#通过索引删除" class="headerlink" title="通过索引删除"></a>通过索引删除</h4><p>drop和dropna</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">frame</span><br><span class="line"><span class="comment"># drop函数，默认参数是行索引，即index</span></span><br><span class="line">frame.drop(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>b</th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 若删除列，请指定轴方向</span></span><br><span class="line">frame.drop(<span class="string">'b'</span>, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.dataframe thead th &#123;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dataframe tbody tr th &#123;</span><br><span class="line">    vertical-align: top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h4 id="index的方法和属性"><a href="#index的方法和属性" class="headerlink" title="index的方法和属性"></a>index的方法和属性</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">append</td>
+<td style="text-align:center">连接另一个index对象，产生一个新的index</td>
+</tr>
+<tr>
+<td style="text-align:center">difference</td>
+<td style="text-align:center">计算差集，并得到一个index</td>
+</tr>
+<tr>
+<td style="text-align:center">intersection</td>
+<td style="text-align:center">计算交集</td>
+</tr>
+<tr>
+<td style="text-align:center">union</td>
+<td style="text-align:center">计算并集</td>
+</tr>
+<tr>
+<td style="text-align:center">Index.isin(values, level=None)</td>
+<td style="text-align:center">计算一个指示各值是否都包含在参数集合中的布尔型数组</td>
+</tr>
+<tr>
+<td style="text-align:center">delete</td>
+<td style="text-align:center">删除索引值i处的元素，并得到新的Index</td>
+</tr>
+<tr>
+<td style="text-align:center">Index.drop(labels, errors=’raise’)</td>
+<td style="text-align:center">删除传入的值，并得到新的Index</td>
+</tr>
+<tr>
+<td style="text-align:center">Index.insert(loc, item)</td>
+<td style="text-align:center">将元素插入到索引i处，并得到新的Index</td>
+</tr>
+<tr>
+<td style="text-align:center">is_monotonic</td>
+<td style="text-align:center">当各元素均大于等于前一个元素时即索引是单调递增的，返回true</td>
+</tr>
+<tr>
+<td style="text-align:center">is_unique</td>
+<td style="text-align:center">当Index没有重复值时，返回true</td>
+</tr>
+<tr>
+<td style="text-align:center">unique()</td>
+<td style="text-align:center">计算Index中唯一的数组</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">index1 = pd.Index(np.arange(<span class="number">5</span>))</span><br><span class="line">index2 = pd.Index(np.arange(<span class="number">8</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index1.append(index2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6, 7], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index1.union(index2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([0, 1, 2, 3, 4, 5, 6, 7], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index1.intersection(index2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([0, 1, 2, 3, 4], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index2.difference(index1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([5, 6, 7], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index2.isin([<span class="number">6</span>, <span class="number">7</span>]) <span class="comment"># 必须传入列表 看各索引值是否在这个列表中</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([False, False, False, False, False, False,  True,  True], dtype=bool)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index2.drop([<span class="number">5</span>, <span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([0, 1, 2, 3, 4, 7], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index1.insert(<span class="number">0</span>, <span class="string">'hello'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Index([&apos;hello&apos;, 0, 1, 2, 3, 4], dtype=&apos;object&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">pd.Index([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]).is_monotonic_increasing <span class="comment"># is_monotonic是简写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index2.is_unique</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​```python</span><br><span class="line">index2.unique()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int64Index([0, 1, 2, 3, 4, 5, 6, 7], dtype=&apos;int64&apos;)</span><br></pre></td></tr></table></figure>
+<h4 id="多层索引"><a href="#多层索引" class="headerlink" title="多层索引"></a>多层索引</h4><h4 id="多层索引-1"><a href="#多层索引-1" class="headerlink" title="多层索引"></a>多层索引</h4><h2 id="1-4-索引和切片"><a href="#1-4-索引和切片" class="headerlink" title="1.4 索引和切片"></a>1.4 索引和切片</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Series的索引可以通过赋值的方式就地修改</span><br></pre></td></tr></table></figure>
+<p>排序</p>
+<p>import pandas as pd<br>import numpy as np  </p>
+<h1 id="以下实现排序功能。"><a href="#以下实现排序功能。" class="headerlink" title="以下实现排序功能。"></a>以下实现排序功能。</h1><p>series=pd.Series([3,4,1,6],index=[‘b’,’a’,’d’,’c’])<br>frame=pd.DataFrame([[2,4,1,5],[3,1,4,5],[5,1,4,2]],columns=[‘b’,’a’,’d’,’c’],index=[‘one’,’two’,’three’])<br>print frame<br>print series<br>print ‘series通过索引进行排序：’<br>print series.sort_index()<br>print ‘series通过值进行排序:’<br>print series.sort_values()<br>print ‘dataframe根据行索引进行降序排序（排序时默认升序，调节ascending参数）：’<br>print frame.sort_index(ascending=False)<br>print ‘dataframe根据列索引进行排序：’<br>print frame.sort_index(axis=1)<br>print ‘dataframe根据值进行排序：’<br>print frame.sort_values(by=’a’)<br>print ‘通过多个索引进行排序：’<br>print frame.sort_values(by=[‘a’,’c’])  </p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/04/12/R语言part2/" title= R语言part2 >
+                    <div class="prevTitle">R语言part2</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-pandas的数据结构"><span class="toc-number">1.</span> <span class="toc-text">1 pandas的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Series构造和初始化"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Series构造和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用列表创建Series"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1. 使用列表创建Series</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用字典创建Series"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.使用字典创建Series</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用字典创建Series-1"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">2.使用字典创建Series</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-DataFrame的构造和初始化"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 DataFrame的构造和初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-DataFrame的构造和初始化-1"><span class="toc-number">1.3.</span> <span class="toc-text">1.2 DataFrame的构造和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用一个由等长列表或Numpy数组组成的字典创建DataFrame"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1.使用一个由等长列表或Numpy数组组成的字典创建DataFrame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用一个由Series组成的字典创建DataFrame"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">2.使用一个由Series组成的字典创建DataFrame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用一个由Series组成的字典创建DataFrame-1"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">2.使用一个由Series组成的字典创建DataFrame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-嵌套字典"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">3.嵌套字典</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-由列表或元组组成的列表"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">4.由列表或元组组成的列表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-索引对象"><span class="toc-number">1.4.</span> <span class="toc-text">1.3 索引对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#set-index"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">set_index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#set-index-1"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">set_index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset-index"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">reset_index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reindex"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">reindex</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort-index"><span class="toc-number">1.4.0.5.</span> <span class="toc-text">sort_index</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过索引删除"><span class="toc-number">1.4.0.6.</span> <span class="toc-text">通过索引删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#index的方法和属性"><span class="toc-number">1.4.0.7.</span> <span class="toc-text">index的方法和属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多层索引"><span class="toc-number">1.4.0.8.</span> <span class="toc-text">多层索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多层索引-1"><span class="toc-number">1.4.0.9.</span> <span class="toc-text">多层索引</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-索引和切片"><span class="toc-number">1.5.</span> <span class="toc-text">1.4 索引和切片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#以下实现排序功能。"><span class="toc-number">2.</span> <span class="toc-text">以下实现排序功能。</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 6 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/2018/04/13/pandas1/" >pandas1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/R语言part2/" >R语言part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/R语言part1/" >R语言part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="R语言 数据分析"><span class="iconfont-archer">&#xe606;</span>R语言 数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="R语言"><span class="iconfont-archer">&#xe60a;</span>R语言</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'JieZhao'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
