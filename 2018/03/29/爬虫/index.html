@@ -403,6 +403,7 @@ print(res)
 </code></pre><p>结果是：</p>
 <pre><code>[(&apos;3abc&apos;, &apos;56899o&apos;)]
 </code></pre><hr>
+<hr>
 <p>finditer(string[, pos[, endpos]])和findall()功能一样，也是搜索所有匹配情况，区别是finditer返回一个顺序访问每一个匹配结果的迭代器。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line">result_iter1 = pattern.finditer(<span class="string">'hello 123456 789'</span>)</span><br><span class="line">result_iter2 = pattern.finditer(<span class="string">'one1two2three3four4'</span>, 0, 10)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter1))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter2))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result1...'</span>)</span><br><span class="line"><span class="keyword">for</span> m1 <span class="keyword">in</span> result_iter1:   <span class="comment"># m1 是 Match 对象</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m1.group(), m1.span()))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result2...'</span>)</span><br><span class="line"><span class="keyword">for</span> m2 <span class="keyword">in</span> result_iter2:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m2.group(), m2.span()))</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
@@ -415,6 +416,7 @@ result2...
 matching string: 1, position: (3, 4)
 matching string: 2, position: (7, 8)
 </code></pre><p>split(string[, maxsplit])
+split(string[, maxsplit])
 split函数根据能够匹配的子串来分割字符串，结果以列表形式返回。
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'a'</span>)</span><br><span class="line">res = p.split(<span class="string">'abcadeacd'</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></p>
 <p>结果是：</p>
@@ -469,6 +471,7 @@ repl，就是replacement，被替换，的字符串的意思。</p>
 replacedStr = re.sub(r&quot;hello (\w+), nihao \1&quot;, &quot;\g&lt;1&gt;&quot;, inputStr);
 print &quot;replacedStr=&quot;,replacedStr; #crifan
 </code></pre><ul>
+<li>repl是函数</li>
 <li><p>repl是函数
 -</p>
 <pre><code>hello 123 world 456
@@ -487,7 +490,7 @@ print &quot;replacedStr=&quot;,replacedStr; #crifan
 (&apos;123 hello, 456 hello&apos;, 2)
 (&apos;hi 123, hi 456&apos;, 2)
 (&apos;hi 123, hello 456&apos;, 1)
-</code></pre><h4 id="2-1-2-match-函数"><a href="#2-1-2-match-函数" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><pre><code>re.match(pattern, string[, flags]):
+</code></pre><h4 id="2-1-2-match-函数"><a href="#2-1-2-match-函数" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><h4 id="2-1-2-match-函数-1"><a href="#2-1-2-match-函数-1" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><pre><code>re.match(pattern, string[, flags]):
 </code></pre><p>其中，pattern 是正则表达式的字符串形式，比如 \d+, [a-z]+。</p>
 <p>而 Pattern 对象的 match 方法使用形式是：</p>
 <pre><code>match(string[, pos[, endpos]])
@@ -652,11 +655,6 @@ matching string: 12
         </li>
         <li class="previous">
             
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/03/28/new-article/" title= new article >
-                    <div class="prevTitle">new article</div>
-                </a>
-            
         </li>
     </ul>
     <!-- 评论插件 -->
@@ -764,7 +762,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-re中的常用函数"><span class="toc-number">1.</span> <span class="toc-text">2.1 re中的常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-search-函数"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">2.1.3 search 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-findall-函数"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">2.1.4 findall 函数</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-pattern"><span class="toc-number">2.</span> <span class="toc-text">2.2 pattern </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-原子"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">2.2.1 原子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-元字符"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2.2.2 元字符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-模式修正符"><span class="toc-number">3.</span> <span class="toc-text">2.3 模式修正符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-xpath表达式"><span class="toc-number">3.2.</span> <span class="toc-text">3 xpath表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-json数据处理"><span class="toc-number">3.3.</span> <span class="toc-text">4 json数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-urllib初体验"><span class="toc-number">3.4.</span> <span class="toc-text">5 urllib初体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-http基本知识"><span class="toc-number">3.5.</span> <span class="toc-text">6 http基本知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基本的反爬措施"><span class="toc-number">3.6.</span> <span class="toc-text">7 基本的反爬措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-模拟登陆"><span class="toc-number">3.7.</span> <span class="toc-text">8 模拟登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-scrapy框架"><span class="toc-number">3.8.</span> <span class="toc-text">9 scrapy框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-分布式爬虫"><span class="toc-number">3.9.</span> <span class="toc-text">10 分布式爬虫</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-re中的常用函数"><span class="toc-number">1.</span> <span class="toc-text">2.1 re中的常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数-1"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-search-函数"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">2.1.3 search 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-findall-函数"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">2.1.4 findall 函数</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-pattern"><span class="toc-number">2.</span> <span class="toc-text">2.2 pattern </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-原子"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">2.2.1 原子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-元字符"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2.2.2 元字符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-模式修正符"><span class="toc-number">3.</span> <span class="toc-text">2.3 模式修正符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-xpath表达式"><span class="toc-number">3.2.</span> <span class="toc-text">3 xpath表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-json数据处理"><span class="toc-number">3.3.</span> <span class="toc-text">4 json数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-urllib初体验"><span class="toc-number">3.4.</span> <span class="toc-text">5 urllib初体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-http基本知识"><span class="toc-number">3.5.</span> <span class="toc-text">6 http基本知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基本的反爬措施"><span class="toc-number">3.6.</span> <span class="toc-text">7 基本的反爬措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-模拟登陆"><span class="toc-number">3.7.</span> <span class="toc-text">8 模拟登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-scrapy框架"><span class="toc-number">3.8.</span> <span class="toc-text">9 scrapy框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-分布式爬虫"><span class="toc-number">3.9.</span> <span class="toc-text">10 分布式爬虫</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -826,20 +824,7 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 6 </div>
+    <div class="total-archive"> Total : 5 </div>
     
     <div class="post-archive">
     
@@ -856,7 +841,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow2</a>
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow part2</a>
         </li>
     
     
@@ -874,11 +859,6 @@ top:50vh;
             <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
         </li>
     
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/28</span><a class="archive-post-title" href= "/2018/03/28/new-article/" >new article</a>
-        </li>
-    
     </div>
   </div>
         <div class="sidebar-panel-tags">
@@ -888,9 +868,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
     
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
-    
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
