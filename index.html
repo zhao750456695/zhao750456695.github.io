@@ -317,36 +317,26 @@ height:50vh;
         <article class="index-post">
             <a class="abstract-title" href = "/2018/04/17/lj/" >
                 
-                    <span>链家网租房数据分析</span>
+                    <span>[Untitled Post]</span>
             </a>
             <div class="abstract-content">
-                链家数据分析我们来根据我们之前爬取的链家网数据，做一点小小的数据分析。
-0.载入数据12import pandas as pdlj_data = pd.read_csv('./data/LJdata.csv')
-1lj_data.head(5)
+                title: 链家网租房数据分析
+date: 2018-04-17 20:55:23
+tags: 案例
+import pandas as pd
+import numpy as np
+from pandas import Series, DataFrame
+pd.set_option(&apos;expand_frame_repr&apos;, False)
+
+df = pd.read_csv(&apos;./1_LJdata.csv&apos;)
+df
 
 
-  
-    
-      
-      区域
-      地址
-      标题
-      户型
-      面积
-      价格
-      楼层
-      建造时间
-      朝向
-      更新时间
-      看房人数
-      备注
-      链接地址
-    
-  
-  
-    
-      0
-      燕莎...
+
+
+    .dataframe thead tr:only-child th {
+
+        text-align: rig...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -354,12 +344,6 @@ height:50vh;
                     <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/04/17</span>
                 </div>
                 <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "案例">案例</a>
-    
-</div>
                 
             </div>
         </article>
@@ -827,13 +811,22 @@ height:50vh;
     
     
     
-    <div class="archive-year"> 2018 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/17</span><a class="archive-post-title" href= "/2018/04/17/lj/" >链家网租房数据分析</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/04/17/lj/" >[Untitled Post]</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -884,8 +877,6 @@ height:50vh;
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
-    
-        <span class="sidebar-tag-name" data-tags="案例"><span class="iconfont-archer">&#xe606;</span>案例</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
