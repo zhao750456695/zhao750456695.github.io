@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <meta name="description" content="">
+    <title>matplotlib常用图形 · FinGeek</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180317 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180317 media="(max-width: 980px)"/>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >FinGeek</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">matplotlib常用图形</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>FinGeek</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            matplotlib常用图形
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "matplotlib python数据可视化">matplotlib python数据可视化</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/05/03</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="1-常用设置"><a href="#1-常用设置" class="headerlink" title="1 常用设置"></a>1 常用设置</h1><ul>
+<li>获得当前图表对象 fig = matplotlib.pyplot.gcf() # gcf = get current figure</li>
+<li>常用图表对象设置 fig.set_size_inches(10,10), matplotlib.pyplot.figure(figsize=(14,7))</li>
+<li>保存当前图表对象 matplotlib.pyplot.savefig(“figure1.png”)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 设置一些全局的资源参数，可以进行个性化修改</span><br><span class="line">import matplotlib</span><br><span class="line"># 设置图片尺寸 14&quot; x 7&quot;</span><br><span class="line"># rc: resource configuration</span><br><span class="line">matplotlib.rc(&apos;figure&apos;, figsize = (14, 7))</span><br><span class="line"># 设置字体 14</span><br><span class="line">matplotlib.rc(&apos;font&apos;, size = 14)</span><br><span class="line"># 不显示网格</span><br><span class="line">matplotlib.rc(&apos;axes&apos;, grid = False)</span><br><span class="line"># 设置背景颜色是白色</span><br><span class="line">matplotlib.rc(&apos;axes&apos;, facecolor = &apos;white&apos;)</span><br></pre></td></tr></table></figure>
+<p><strong>颜色/线条/标记</strong></p>
+<ul>
+<li>pyplot.plot(x, color=’g’)</li>
+<li>pyplot.plot(x, linestyle=’–’)</li>
+<li>pyplot.plot(x, marker=’+’)</li>
+<li>pyplot.plot(x, ‘ro-‘)</li>
+</ul>
+<p><strong>标题</strong></p>
+<ul>
+<li>pyplot.title(“xxxx”)</li>
+</ul>
+<p><strong>坐标轴标签</strong></p>
+<ul>
+<li>pyplot.xlabel(“xxxx”)</li>
+<li>pyplot.ylabel(“xxxx”)</li>
+</ul>
+<p><strong>图注</strong></p>
+<ul>
+<li>pyplot.legend(loc=”best”)配合pyplot.plot(label=”xxxx”)</li>
+</ul>
+<p><strong>网格</strong></p>
+<ul>
+<li>pyplot.grid(color=”xxx”, linestyle=”-“, alpha=0.5)</li>
+</ul>
+<h1 id="2-关联分析"><a href="#2-关联分析" class="headerlink" title="2 关联分析"></a>2 关联分析</h1><h2 id="2-1-散点图"><a href="#2-1-散点图" class="headerlink" title="2.1 散点图"></a>2.1 散点图</h2><p>分析变量关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scatterplot</span><span class="params">(x_data, y_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 创建一个绘图对象</span></span><br><span class="line">    fig, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 不显示顶部和右侧的坐标线</span></span><br><span class="line">    ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">    ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">    <span class="comment"># 设置数据、点的大小、点的颜色和透明度</span></span><br><span class="line">    ax.scatter(x_data, y_data, s = <span class="number">20</span>, color = <span class="string">'#539caf'</span>, alpha = <span class="number">0.2</span>) <span class="comment"># 配色查询：http://tool.oschina.net/commons?type=3</span></span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy0r93wz7j20mi0blabo.jpg" alt=""></p>
+<h2 id="2-2-曲线图"><a href="#2-2-曲线图" class="headerlink" title="2.2 曲线图"></a>2.2 曲线图</h2><p>拟合变量关系</p>
+<h3 id="2-2-1-一般曲线图"><a href="#2-2-1-一般曲线图" class="headerlink" title="2.2.1 一般曲线图"></a>2.2.1 一般曲线图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineplot</span><span class="params">(x_data, y_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 创建绘图对象</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 绘制拟合曲线，lw=linewidth，alpha=transparancy</span></span><br><span class="line">    ax.plot(x_data, y_data, lw = <span class="number">2</span>, color = <span class="string">'#539caf'</span>, alpha = <span class="number">0.5</span>)</span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy0ts1nj6j20nu0bh3z5.jpg" alt=""></p>
+<h3 id="2-2-2-带置信区间的曲线图"><a href="#2-2-2-带置信区间的曲线图" class="headerlink" title="2.2.2 带置信区间的曲线图"></a>2.2.2 带置信区间的曲线图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def lineplotCI(x_data, y_data, sorted_x, low_CI, upper_CI, x_label, y_label, title):</span><br><span class="line">    # 创建绘图对象</span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    # 绘制预测曲线</span><br><span class="line">    ax.plot(x_data, y_data, lw = 1, color = &apos;#539caf&apos;, alpha = 1, label = &apos;Fit&apos;)</span><br><span class="line">    # 绘制置信区间，顺序填充</span><br><span class="line">    ax.fill_between(sorted_x, low_CI, upper_CI, color = &apos;#539caf&apos;, alpha = 0.4, label = &apos;95% CI&apos;)</span><br><span class="line">    # 添加标题和坐标说明</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    # 显示图例，配合label参数，loc=“best”自适应方式</span><br><span class="line">    ax.legend(loc = &apos;best&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy0wjkhvhj20my0bkjsc.jpg" alt=""></p>
+<h3 id="2-2-3-双坐标曲线"><a href="#2-2-3-双坐标曲线" class="headerlink" title="2.2.3 双坐标曲线"></a>2.2.3 双坐标曲线</h3><ul>
+<li>曲线拟合不满足置信阈值时，考虑增加独立变量</li>
+<li>分析不同尺度多变量的关系</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineplot2y</span><span class="params">(x_data, x_label, y1_data, y1_color, y1_label, y2_data, y2_color, y2_label, title)</span>:</span></span><br><span class="line">    _, ax1 = plt.subplots()</span><br><span class="line">    ax1.plot(x_data, y1_data, color = y1_color)</span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax1.set_ylabel(y1_label, color = y1_color)</span><br><span class="line">    ax1.set_xlabel(x_label)</span><br><span class="line">    ax1.set_title(title)</span><br><span class="line">    ax2 = ax1.twinx() <span class="comment"># 两个绘图对象共享横坐标轴</span></span><br><span class="line">    ax2.plot(x_data, y2_data, color = y2_color)</span><br><span class="line">    ax2.set_ylabel(y2_label, color = y2_color)</span><br><span class="line">    <span class="comment"># 右侧坐标轴可见</span></span><br><span class="line">    ax2.spines[<span class="string">'right'</span>].set_visible(<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy0ypi8azj20nt0avjwh.jpg" alt=""></p>
+<h1 id="3-分布分析"><a href="#3-分布分析" class="headerlink" title="3 分布分析"></a>3 分布分析</h1><h2 id="3-1-灰度图"><a href="#3-1-灰度图" class="headerlink" title="3.1 灰度图"></a>3.1 灰度图</h2><p>粗略区间计数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 绘制灰度图的函数</span><br><span class="line">def histogram(data, x_label, y_label, title):</span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    res = ax.hist(data, color = &apos;#539caf&apos;, bins=50, edgecolor=&apos;k&apos;) # 设置bin的数量</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    return res</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy12d5w72j20mg0c0dgc.jpg" alt=""></p>
+<h2 id="3-2-堆叠直方图"><a href="#3-2-堆叠直方图" class="headerlink" title="3.2 堆叠直方图"></a>3.2 堆叠直方图</h2><p>比较两个分布</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制堆叠的直方图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">overlaid_histogram</span><span class="params">(data1, data1_name, data1_color, data2, data2_name, data2_color, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 归一化数据区间，对齐两个直方图的bins</span></span><br><span class="line">    max_nbins = <span class="number">20</span></span><br><span class="line">    data_range = [min(min(data1), min(data2)), max(max(data1), max(data2))]</span><br><span class="line">    binwidth = (data_range[<span class="number">1</span>] - data_range[<span class="number">0</span>]) / max_nbins</span><br><span class="line">    bins = np.arange(data_range[<span class="number">0</span>], data_range[<span class="number">1</span>] + binwidth, binwidth) <span class="comment"># 生成直方图bins区间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create the plot</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    ax.hist(data1, bins = bins, color = data1_color, alpha = <span class="number">1</span>, label = data1_name, edgecolor=<span class="string">'k'</span>)</span><br><span class="line">    ax.hist(data2, bins = bins, color = data2_color, alpha = <span class="number">0.75</span>, label = data2_name, edgecolor=<span class="string">'k'</span>)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'best'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call the function to create plot</span></span><br><span class="line">overlaid_histogram(data1 = daily_data[<span class="string">'registered'</span>]</span><br><span class="line">                   , data1_name = <span class="string">'Registered'</span></span><br><span class="line">                   , data1_color = <span class="string">'#539caf'</span></span><br><span class="line">                   , data2 = daily_data[<span class="string">'casual'</span>]</span><br><span class="line">                   , data2_name = <span class="string">'Casual'</span></span><br><span class="line">                   , data2_color = <span class="string">'#7663b0'</span></span><br><span class="line">                   , x_label = <span class="string">'Check outs'</span></span><br><span class="line">                   , y_label = <span class="string">'Frequency'</span></span><br><span class="line">                   , title = <span class="string">'Distribution of Check Outs By Type'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy23p0kepj20nc0bk74t.jpg" alt=""></p>
+<h2 id="3-3-密度图"><a href="#3-3-密度图" class="headerlink" title="3.3 密度图"></a>3.3 密度图</h2><ul>
+<li>精细刻画概率分布</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 计算概率密度</span><br><span class="line">from scipy.stats import gaussian_kde</span><br><span class="line">data = daily_data[&apos;registered&apos;]</span><br><span class="line">density_est = gaussian_kde(data) # kernal density estimate: https://en.wikipedia.org/wiki/Kernel_density_estimation</span><br><span class="line"># 控制平滑程度，数值越大，越平滑哈</span><br><span class="line">density_est.covariance_factor = lambda : 0.5</span><br><span class="line">density_est._compute_covariance()</span><br><span class="line">x_data = np.arange(min(data), max(data), 200)</span><br><span class="line"></span><br><span class="line"># 绘制密度估计曲线</span><br><span class="line">def densityplot(x_data, density_est, x_label, y_label, title):</span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    ax.plot(x_data, density_est(x_data), color = &apos;#539caf&apos;, lw = 4)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"># 调用绘图函数</span><br><span class="line">densityplot(x_data = x_data</span><br><span class="line">            , density_est = density_est</span><br><span class="line">            , x_label = &apos;Check outs&apos;</span><br><span class="line">            , y_label = &apos;Frequency&apos;</span><br><span class="line">            , title = &apos;Distribution of Registered Check Outs&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy25jhljzj20mr0b50tl.jpg" alt=""></p>
+<h1 id="4-组间分析"><a href="#4-组间分析" class="headerlink" title="4 组间分析"></a>4 组间分析</h1><ul>
+<li>组间定量比较</li>
+<li>分组粒度</li>
+<li>组间聚类</li>
+</ul>
+<h2 id="4-1-柱状图"><a href="#4-1-柱状图" class="headerlink" title="4.1 柱状图"></a>4.1 柱状图</h2><ul>
+<li><p>一级类间均值方差比较</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分天分析统计特征</span></span><br><span class="line">mean_total_co_day = daily_data[[<span class="string">'weekday'</span>, <span class="string">'cnt'</span>]].groupby(<span class="string">'weekday'</span>).agg([np.mean, np.std])</span><br><span class="line">mean_total_co_day.columns = mean_total_co_day.columns.droplevel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义绘制柱状图的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">barplot</span><span class="params">(x_data, y_data, error_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 柱状图</span></span><br><span class="line">    ax.bar(x_data, y_data, color = <span class="string">'#539caf'</span>, align = <span class="string">'center'</span>)</span><br><span class="line">    <span class="comment"># 绘制方差</span></span><br><span class="line">    <span class="comment"># ls='none'去掉bar之间的连线</span></span><br><span class="line">    ax.errorbar(x_data, y_data, yerr = error_data, color = <span class="string">'#297083'</span>, ls = <span class="string">'none'</span>, lw = <span class="number">5</span>) <span class="comment"># ls = line style</span></span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图函数调用</span></span><br><span class="line">barplot(x_data = mean_total_co_day.index.values</span><br><span class="line">        , y_data = mean_total_co_day[<span class="string">'mean'</span>]</span><br><span class="line">        , error_data = mean_total_co_day[<span class="string">'std'</span>]</span><br><span class="line">        , x_label = <span class="string">'Day of week'</span></span><br><span class="line">        , y_label = <span class="string">'Check outs'</span></span><br><span class="line">        , title = <span class="string">'Total Check Outs By Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy2dkhtaij20m80bk0t8.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="4-2-堆积柱状图"><a href="#4-2-堆积柱状图" class="headerlink" title="4.2 堆积柱状图"></a>4.2 堆积柱状图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分天统计注册和偶然使用的情况</span></span><br><span class="line">mean_by_reg_co_day = daily_data[[<span class="string">'weekday'</span>, <span class="string">'registered'</span>, <span class="string">'casual'</span>]].groupby(<span class="string">'weekday'</span>).mean()</span><br><span class="line"><span class="comment"># 分天统计注册和偶然使用的占比</span></span><br><span class="line">mean_by_reg_co_day[<span class="string">'total'</span>] = mean_by_reg_co_day[<span class="string">'registered'</span>] + mean_by_reg_co_day[<span class="string">'casual'</span>]</span><br><span class="line">mean_by_reg_co_day[<span class="string">'reg_prop'</span>] = mean_by_reg_co_day[<span class="string">'registered'</span>] / mean_by_reg_co_day[<span class="string">'total'</span>]</span><br><span class="line">mean_by_reg_co_day[<span class="string">'casual_prop'</span>] = mean_by_reg_co_day[<span class="string">'casual'</span>] / mean_by_reg_co_day[<span class="string">'total'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制堆积柱状图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stackedbarplot</span><span class="params">(x_data, y_data_list, y_data_names, colors, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 循环绘制堆积柱状图</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(y_data_list)):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            ax.bar(x_data, y_data_list[i], color = colors[i], align = <span class="string">'center'</span>, label = y_data_names[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 采用堆积的方式，除了第一个分类，后面的分类都从前一个分类的柱状图接着画</span></span><br><span class="line">            <span class="comment"># 用归一化保证最终累积结果为1</span></span><br><span class="line">            ax.bar(x_data, y_data_list[i], color = colors[i], bottom = y_data_list[i - <span class="number">1</span>], align = <span class="string">'center'</span>, label = y_data_names[i])</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'upper left'</span>) <span class="comment"># 设定图例位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">stackedbarplot(x_data = mean_by_reg_co_day.index.values</span><br><span class="line">               , y_data_list = [mean_by_reg_co_day[<span class="string">'reg_prop'</span>], mean_by_reg_co_day[<span class="string">'casual_prop'</span>]]</span><br><span class="line">               , y_data_names = [<span class="string">'Registered'</span>, <span class="string">'Casual'</span>]</span><br><span class="line">               , colors = [<span class="string">'#539caf'</span>, <span class="string">'#7663b0'</span>]</span><br><span class="line">               , x_label = <span class="string">'Day of week'</span></span><br><span class="line">               , y_label = <span class="string">'Proportion of check outs'</span></span><br><span class="line">               , title = <span class="string">'Check Outs By Registration Status and Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy2fupl5kj20mi0bvjs1.jpg" alt=""></p>
+<h2 id="4-3-分组柱状图"><a href="#4-3-分组柱状图" class="headerlink" title="4.3 分组柱状图"></a>4.3 分组柱状图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制分组柱状图的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupedbarplot</span><span class="params">(x_data, y_data_list, y_data_names, colors, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 设置每一组柱状图的宽度</span></span><br><span class="line">    total_width = <span class="number">0.8</span></span><br><span class="line">    <span class="comment"># 设置每一个柱状图的宽度</span></span><br><span class="line">    ind_width = total_width / len(y_data_list)</span><br><span class="line">    <span class="comment"># 计算每一个柱状图的中心偏移</span></span><br><span class="line">    alteration = np.arange(-total_width/<span class="number">2</span>+ind_width/<span class="number">2</span>, total_width/<span class="number">2</span>+ind_width/<span class="number">2</span>, ind_width)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分别绘制每一个柱状图</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(y_data_list)):</span><br><span class="line">        <span class="comment"># 横向散开绘制</span></span><br><span class="line">        ax.bar(x_data + alteration[i], y_data_list[i], color = colors[i], label = y_data_names[i], width = ind_width)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'upper right'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">groupedbarplot(x_data = mean_by_reg_co_day.index.values</span><br><span class="line">               , y_data_list = [mean_by_reg_co_day[<span class="string">'registered'</span>], mean_by_reg_co_day[<span class="string">'casual'</span>]]</span><br><span class="line">               , y_data_names = [<span class="string">'Registered'</span>, <span class="string">'Casual'</span>]</span><br><span class="line">               , colors = [<span class="string">'#539caf'</span>, <span class="string">'#7663b0'</span>]</span><br><span class="line">               , x_label = <span class="string">'Day of week'</span></span><br><span class="line">               , y_label = <span class="string">'Check outs'</span></span><br><span class="line">               , title = <span class="string">'Check Outs By Registration Status and Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy2hb37m7j20mc0bp0tc.jpg" alt=""></p>
+<h2 id="4-4-箱式图"><a href="#4-4-箱式图" class="headerlink" title="4.4 箱式图"></a>4.4 箱式图</h2><ul>
+<li>多级类间数据分布比较</li>
+<li>柱状图 + 堆叠灰度图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只需要指定分类的依据，就能自动绘制箱式图</span></span><br><span class="line">days = np.unique(daily_data[<span class="string">'weekday'</span>])</span><br><span class="line">bp_data = []</span><br><span class="line"><span class="keyword">for</span> day <span class="keyword">in</span> days:</span><br><span class="line">    bp_data.append(daily_data[daily_data[<span class="string">'weekday'</span>] == day][<span class="string">'registered'</span>].values)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义绘图函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">boxplot</span><span class="params">(x_data, y_data, base_color, median_color, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置样式</span></span><br><span class="line">    ax.boxplot(y_data</span><br><span class="line">               <span class="comment"># 箱子是否颜色填充</span></span><br><span class="line">               , patch_artist = <span class="keyword">True</span></span><br><span class="line">               <span class="comment"># 中位数线颜色</span></span><br><span class="line">               , medianprops = &#123;<span class="string">'color'</span>: base_color&#125;</span><br><span class="line">               <span class="comment"># 箱子颜色设置，color：边框颜色，facecolor：填充颜色</span></span><br><span class="line">               , boxprops = &#123;<span class="string">'color'</span>: base_color, <span class="string">'facecolor'</span>: median_color&#125;</span><br><span class="line">               <span class="comment"># 猫须颜色whisker</span></span><br><span class="line">               , whiskerprops = &#123;<span class="string">'color'</span>: median_color&#125;</span><br><span class="line">               <span class="comment"># 猫须界限颜色whisker cap</span></span><br><span class="line">               , capprops = &#123;<span class="string">'color'</span>: base_color&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 箱图与x_data保持一致</span></span><br><span class="line">    ax.set_xticklabels(x_data)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">boxplot(x_data = days</span><br><span class="line">        , y_data = bp_data</span><br><span class="line">        , base_color = <span class="string">'b'</span></span><br><span class="line">        , median_color = <span class="string">'r'</span></span><br><span class="line">        , x_label = <span class="string">'Day of week'</span></span><br><span class="line">        , y_label = <span class="string">'Check outs'</span></span><br><span class="line">        , title = <span class="string">'Total Check Outs By Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy2jfzh9vj20qi0csjrw.jpg" alt=""></p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/05/03/seaborn常用图形/" title= seaborn常用图形 >
+                    <div class="nextTitle">seaborn常用图形</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/05/03/1/" title= 1 >
+                    <div class="prevTitle">1</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-常用设置"><span class="toc-number">1.</span> <span class="toc-text">1 常用设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-关联分析"><span class="toc-number">2.</span> <span class="toc-text">2 关联分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-散点图"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 散点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-曲线图"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 曲线图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-一般曲线图"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 一般曲线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-带置信区间的曲线图"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 带置信区间的曲线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-双坐标曲线"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 双坐标曲线</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-分布分析"><span class="toc-number">3.</span> <span class="toc-text">3 分布分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-灰度图"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 灰度图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-堆叠直方图"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 堆叠直方图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-密度图"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 密度图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-组间分析"><span class="toc-number">4.</span> <span class="toc-text">4 组间分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-柱状图"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 柱状图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-堆积柱状图"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 堆积柱状图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-分组柱状图"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 分组柱状图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-箱式图"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 箱式图</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 15 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow part2</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/04/17/lj/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/matplotlib常用图形/" >matplotlib常用图形</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/numpy/" >numpy</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2018/04/20/groupby/" >pandas数据聚合和分组运算</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2018/04/15/pandas读写和存储/" >pandas读写和存储</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/2018/04/13/pandas1/" >pandas part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/R语言part2/" >R语言part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/R语言part1/" >R语言part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="R语言 数据分析"><span class="iconfont-archer">&#xe606;</span>R语言 数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="R语言"><span class="iconfont-archer">&#xe60a;</span>R语言</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'JieZhao'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
