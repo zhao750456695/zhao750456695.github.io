@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>用Eclipse创建第一个java程序</title>
+      <link href="/2018/05/05/%E7%94%A8Eclipse%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAjava%E7%A8%8B%E5%BA%8F/"/>
+      <url>/2018/05/05/%E7%94%A8Eclipse%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAjava%E7%A8%8B%E5%BA%8F/</url>
+      <content type="html"><![CDATA[<p>启动eclipse</p><p>File —-&gt; New —-&gt; Create Java Project</p><p>输入项目名称，自己起名即可，如helloworld</p><p>新创建的项目结构如下：</p><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fr0fdplqs2j20yx0hkdhs.jpg" alt=""></p><p>在scr下，右键点击Package</p><p>name中输入my：</p><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fr0fgi324hj20mp0h5jsd.jpg" alt=""></p><p>src下面会多一个叫my的包</p><p>下面添加代码</p><p>右键my</p><p>New —-&gt; Class</p><p>Name输入HelloWorld</p><p>勾选public static void main(String[] args)</p><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fr0ftmnrg7j20gi0j5js7.jpg" alt=""></p><p>my下多了一个java文件：</p><p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr0fvce59ij20t90d1757.jpg" alt=""></p><p>于是可以在HelloWorld.java中编写第一个程序：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> my;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        System.out.println(<span class="string">"helloworld"</span>);</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>右键 Run as —-&gt; 1 Java Application</p>]]></content>
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>seaborn常用图形</title>
       <link href="/2018/05/03/seaborn%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/"/>
       <url>/2018/05/03/seaborn%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/</url>
