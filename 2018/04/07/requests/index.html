@@ -433,6 +433,29 @@ $$</empty></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.auth <span class="keyword">import</span> HTTPBasicAuth</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">'http://120.27.34.24:9001'</span>, auth=HTTPBasicAuth(<span class="string">'user'</span>, <span class="string">'123'</span>))</span><br><span class="line"><span class="comment"># r = requests.get('http://120.27.34.24:9001', auth=('user', '123'))</span></span><br><span class="line">print(r.status_code)</span><br></pre></td></tr></table></figure>
 <p>异常处理</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> ReadTimeout, ConnectionError, RequestException</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    response = requests.get(<span class="string">"http://httpbin.org/get"</span>, timeout = <span class="number">0.5</span>)</span><br><span class="line">    print(response.status_code)</span><br><span class="line"><span class="keyword">except</span> ReadTimeout:</span><br><span class="line">    print(<span class="string">'Timeout'</span>)</span><br><span class="line"><span class="keyword">except</span> ConnectionError:</span><br><span class="line">    print(<span class="string">'Connection error'</span>)</span><br><span class="line"><span class="keyword">except</span> RequestException:</span><br><span class="line">    print(<span class="string">'Error'</span>)</span><br></pre></td></tr></table></figure>
+<p>r = requests.get(“<a href="http://www.baidu.com/" target="_blank" rel="noopener">http://www.baidu.com</a>“) 
+<strong>r.text返回的是Unicode型的数据。 </strong>
+<strong>使用r.content返回的是bytes型的数据。 </strong>
+<strong>也就是说，如果你想取文本，可以通过r.text。 </strong>
+<strong>如果想取图片，文件，则可以通过r.content。</strong></p>
+<h1 id="获取一个网页的内容"><a href="#获取一个网页的内容" class="headerlink" title="获取一个网页的内容"></a>获取一个网页的内容</h1><p>方法1：使用r.content，得到的是bytes型，再转为str</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url=<span class="string">'http://music.baidu.com'</span></span><br><span class="line">r = requests.get(url)</span><br><span class="line">html=r.content</span><br><span class="line">html_doc=str(html,<span class="string">'utf-8'</span>) <span class="comment">#html_doc=html.decode("utf-8","ignore")</span></span><br><span class="line">print(html_doc)</span><br></pre></td></tr></table></figure>
+<p>方法2：使用r.text 
+Requests 会自动解码来自服务器的内容。大多数 unicode 字符集都能被无缝地解码。请求发出后，Requests 会基于 HTTP 头部对响应的编码作出有根据的推测。当你访问 r.text 之时，Requests 会使用其推测的文本编码。你可以找出 Requests 使用了什么编码，并且能够使用 r.encoding 属性来改变它. 
+但是Requests库的自身编码为: r.encoding = ‘ISO-8859-1’ 
+可以 r.encoding 修改编码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url=<span class="string">'http://music.baidu.com'</span></span><br><span class="line">r=requests.get(url)</span><br><span class="line">r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+<h1 id="获取一个网页的内容后存储到本地"><a href="#获取一个网页的内容后存储到本地" class="headerlink" title="获取一个网页的内容后存储到本地"></a>获取一个网页的内容后存储到本地</h1><p>方法1：r.content为bytes型，则open时需要open(filename,”wb”)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=requests.get(<span class="string">"music.baidu.com"</span>)</span><br><span class="line">html=r.content</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test5.html'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+<p>方法2：r.content为bytes型，转为str后存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">html=r.content</span><br><span class="line">html_doc=str(html,<span class="string">'utf-8'</span>) <span class="comment">#html_doc=html.decode("utf-8","ignore")</span></span><br><span class="line"><span class="comment"># print(html_doc)</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test5.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html_doc)</span><br></pre></td></tr></table></figure>
+<p>方法3：r.text为str，可以直接存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">r=requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">html=r.text</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test6.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+<h1 id="Requests-lxml"><a href="#Requests-lxml" class="headerlink" title="Requests+lxml"></a>Requests+lxml</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf8-*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">url=<span class="string">"http://music.baidu.com"</span></span><br><span class="line">r=requests.get(url)</span><br><span class="line">r.encoding=<span class="string">"utf-8"</span></span><br><span class="line">html=r.text</span><br><span class="line"><span class="comment"># print(html)</span></span><br><span class="line">selector = etree.HTML(html)</span><br><span class="line">title=selector.xpath(<span class="string">'//title/text()'</span>)</span><br><span class="line"><span class="keyword">print</span> (title[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h1 id="终极解决方法"><a href="#终极解决方法" class="headerlink" title="终极解决方法"></a>终极解决方法</h1><p>以上的方法虽然不会出现乱码，但是保存下来的网页，图片不显示，只显示文本。而且打开速度慢，找到了一篇博客，提出了一个终极方法，非常棒。</p>
+<p>来自博客 
+<a href="http://blog.chinaunix.net/uid-13869856-id-5747417.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-13869856-id-5747417.html</a>的解决方案：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf8-*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">req = requests.get(<span class="string">"http://news.sina.com.cn/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> req.encoding == <span class="string">'ISO-8859-1'</span>:</span><br><span class="line">    encodings = requests.utils.get_encodings_from_content(req.text)</span><br><span class="line">    <span class="keyword">if</span> encodings:</span><br><span class="line">        encoding = encodings[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        encoding = req.apparent_encoding</span><br><span class="line"></span><br><span class="line">    <span class="comment"># encode_content = req.content.decode(encoding, 'replace').encode('utf-8', 'replace')</span></span><br><span class="line">    <span class="keyword">global</span> encode_content</span><br><span class="line">    encode_content = req.content.decode(encoding, <span class="string">'replace'</span>) <span class="comment">#如果设置为replace，则会用?取代非法字符；</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(encode_content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(encode_content)</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- 前后页  -->
@@ -559,7 +582,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Requests库"><span class="toc-number">1.</span> <span class="toc-text">Requests库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#各种请求方式"><span class="toc-number">1.1.</span> <span class="toc-text">各种请求方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#响应"><span class="toc-number">1.2.</span> <span class="toc-text">响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级操作"><span class="toc-number">1.3.</span> <span class="toc-text">高级操作</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Requests库"><span class="toc-number">1.</span> <span class="toc-text">Requests库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#各种请求方式"><span class="toc-number">1.1.</span> <span class="toc-text">各种请求方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#响应"><span class="toc-number">1.2.</span> <span class="toc-text">响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级操作"><span class="toc-number">1.3.</span> <span class="toc-text">高级操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取一个网页的内容"><span class="toc-number">2.</span> <span class="toc-text">获取一个网页的内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取一个网页的内容后存储到本地"><span class="toc-number">3.</span> <span class="toc-text">获取一个网页的内容后存储到本地</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Requests-lxml"><span class="toc-number">4.</span> <span class="toc-text">Requests+lxml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#终极解决方法"><span class="toc-number">5.</span> <span class="toc-text">终极解决方法</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -757,6 +780,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-archive"> Total : 15 </div>
     
     <div class="post-archive">
@@ -769,7 +810,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
         </li>
     
     
@@ -797,7 +838,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
         </li>
     
     
@@ -807,22 +848,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/numpy/" >numpy</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/numpy/" >numpy</a>
         </li>
     
     
@@ -860,6 +896,11 @@ top:50vh;
             <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
         </li>
     
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+        </li>
+    
     </div>
   </div>
         <div class="sidebar-panel-tags">
@@ -869,13 +910,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
         <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
-        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
-    
         <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
     
