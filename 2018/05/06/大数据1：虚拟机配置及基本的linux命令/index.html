@@ -435,6 +435,18 @@ shift+v  进入行选择模式，选择完成后，按y复制，按p粘贴</p>
 <p>查找并替换（在底行命令模式中输入）
 %s/sad/88888888888888     效果：查找文件中所有sad，替换为88888888888888
 /you       效果：查找文件中出现的you，并定位到第一个找到的地方，按n可以定位到下一个匹配位置（按N定位到上一个）</p>
+<p><strong>*</strong>拷贝文件</p>
+<p>不写名字还是原来的名字</p>
+<p>cp  somefile.1   /home/hadoop/  </p>
+<p>***查看文件内容
+cat    somefile    一次性将文件内容全部输出（控制台）
+more   somefile     可以翻页查看, 下翻一页(空格)    上翻一页（b）   退出（q）
+less   somefile      可以翻页查看,下翻一页(空格)    上翻一页（b），上翻一行(↑)  下翻一行（↓）  可以搜索关键字，敲/，然后输入关键字即可（/keyword）</p>
+<p>tail -10  install.log   查看文件尾部的10行 查看日志文件很有用</p>
+<p>下面两个命令查看实时最新效果：</p>
+<p>tail -f install.log    小f跟踪文件的唯一inode号，就算文件改名后，还是跟踪原来这个inode表示的文件
+tail -F install.log    大F按照文件名来跟踪</p>
+<p>head -10  install.log   查看文件头部的10行 用来</p>
 <p>3、文件权限的操作</p>
 <p><em>**</em>linux文件权限的描述格式解读
 drwxr-xr-x      （也可以用二进制表示  111 101 101  –&gt;  755）</p>
@@ -546,11 +558,38 @@ $ chmod 700 -R .ssh</p>
 <p>(3) 按”a”或”i”键可以进入编辑，将其修改为yes，即为允许root通过ssh进行连接；</p>
 <p>(4) 按”Esc”键可以退出编辑，最后输入” :wq！”(包含冒号)，回车进行保存退出。(如果不保存，可以使用” :q！”回车) </p>
 <p>(5) 然后重启sshd服务生效即可，重启命令可以使用:service sshd restart 。</p>
+<p><strong>**</strong>后台服务管理
+service network status   查看指定服务的状态
+service network stop     停止指定服务
+service network start    启动指定服务
+service network restart  重启指定服务
+service –status-all  查看系统中所有的后台服务</p>
+<p>设置后台服务的自启配置
+chkconfig   查看所有服务器自启配置
+chkconfig iptables off   关掉指定服务的自动启动
+chkconfig iptables on   开启指定服务的自动启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# chkconfig  </span><br><span class="line"></span><br><span class="line">Note: This output shows SysV services only and does not include native</span><br><span class="line">      systemd services. SysV configuration data might be overridden by native</span><br><span class="line">      systemd configuration.</span><br><span class="line"></span><br><span class="line">      If you want to list systemd services use &apos;systemctl list-unit-files&apos;.</span><br><span class="line">      To see services enabled on particular target use</span><br><span class="line">      &apos;systemctl list-dependencies [target]&apos;.</span><br><span class="line"></span><br><span class="line">YDService       0:off   1:off   2:on    3:on    4:on    5:on    6:off</span><br><span class="line">netconsole      0:off   1:off   2:off   3:off   4:off   5:off   6:off</span><br><span class="line">network         0:off   1:off   2:on    3:on    4:on    5:on    6:off</span><br></pre></td></tr></table></figure>
+<p>***系统启动级别管理
+vi  /etc/inittab</p>
+<p>Default runlevel. The runlevels used are:</p>
+<p>0 - halt (Do NOT set initdefault to this) # 关机</p>
+<p>1 - Single user mode</p>
+<p>2 - Multiuser, without NFS (The same as 3, if you do not have networking)</p>
+<p>3 - Full multiuser mode # 全功能多用户模式</p>
+<p>4 - unused</p>
+<p>5 - X11 # 图形化界面</p>
+<p>6 - reboot (Do NOT set initdefault to this) #重启</p>
+<p>id:3:initdefault:</p>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/05/06/linux一些基本软件的安装/" title= linux一些基本软件的安装 >
+                    <div class="nextTitle">linux一些基本软件的安装</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -918,7 +957,38 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 18 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 19 </div>
     
     <div class="post-archive">
     
@@ -930,7 +1000,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow part2</a>
         </li>
     
     
@@ -958,6 +1028,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/2018/05/06/linux一些基本软件的安装/" >linux一些基本软件的安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/2018/05/06/大数据1：虚拟机配置及基本的linux命令/" >大数据1：虚拟机配置及基本的linux命令</a>
         </li>
     
@@ -973,7 +1048,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/matplotlib常用图形/" >matplotlib常用图形</a>
         </li>
     
     
@@ -983,7 +1058,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/matplotlib常用图形/" >matplotlib常用图形</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
@@ -994,6 +1069,11 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/numpy/" >numpy</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
         </li>
     
     
@@ -1014,11 +1094,6 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/R语言part2/" >R语言part2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/2018/04/12/tensorflow2/" >tensorflow part2</a>
         </li>
     
     
@@ -1047,13 +1122,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
-    
         <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
+        <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
     
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
