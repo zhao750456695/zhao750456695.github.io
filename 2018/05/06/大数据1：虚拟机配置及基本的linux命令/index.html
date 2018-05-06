@@ -10,7 +10,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <meta name="description" content="">
-    <title>腾讯漫画 · FinGeek</title>
+    <title>大数据1：虚拟机配置及基本的linux命令 · FinGeek</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -191,7 +191,7 @@
                 <a href="/" >FinGeek</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">腾讯漫画</a>
+                <a href="#" class="post-name">大数据1：虚拟机配置及基本的linux命令</a>
             </div>
     </div>
     
@@ -223,7 +223,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            腾讯漫画
+            大数据1：虚拟机配置及基本的linux命令
             <!-- 404 -->
             
         </h1>
@@ -241,13 +241,13 @@ height:50vh;
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python爬虫">python爬虫</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "大数据">大数据</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/04/28</span>
+                <span class="post-intro-time">2018/05/06</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -353,48 +353,211 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="PhantomJS和腾讯漫画爬虫"><a href="#PhantomJS和腾讯漫画爬虫" class="headerlink" title="PhantomJS和腾讯漫画爬虫"></a>PhantomJS和腾讯漫画爬虫</h1><p>相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。</p>
-<p>实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理</p>
-<p>去官网<code>http://phantomjs.org/</code>下载</p>
-<p>设置一下环境变量</p>
-<p>安装selenium模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">from selenium import webdriver</span><br><span class="line"></span><br><span class="line">browser=webdriver.PhantomJS() # phantomjs的接口 生成一个对象</span><br><span class="line">browser.get(&apos;http://www.baidu.com&apos;) # get访问</span><br><span class="line">a=browser.get_screenshot_as_file(&apos;./test.jpg&apos;) # 截屏</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;kw&quot;]&apos;).clear() # 通过xpath找到输入框 清除一下</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;kw&quot;]&apos;).send_keys(&apos;爬虫&apos;) # send_keys 输入数据</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;su&quot;]&apos;).click() # 找到搜索点击按钮</span><br><span class="line"># time.sleep(5)</span><br><span class="line"># a=browser.get_screenshot_as_file(&apos;./test.jpg&apos;)</span><br><span class="line">data=browser.page_source # 找到网页源码</span><br><span class="line">browser.quit()</span><br><span class="line">print(len(data))</span><br><span class="line">import re</span><br><span class="line">title=re.compile(&apos;&lt;title&gt;(.*?)&lt;/title&gt;&apos;).findall(data)</span><br><span class="line">print(title)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
-<h2 id="腾讯动漫爬取"><a href="#腾讯动漫爬取" class="headerlink" title="腾讯动漫爬取"></a>腾讯动漫爬取</h2><p>图片地址随机生成没有规律，无法通过以前的办法爬下来漫画</p>
-<p>导入头</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.desired_capabilities <span class="keyword">import</span> DesiredCapabilities</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br></pre></td></tr></table></figure>
-<p>上面第三个是伪装浏览器要用到的</p>
-<p>浏览器伪装</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dcap = dict(DesiredCapabilities.PHANTOMJS)</span><br><span class="line">dcap[<span class="string">"phantomjs.page.settings.userAgent"</span>] = (<span class="string">"Mozilla/4.0 (compatible; MSIE 5.5; windows NT)"</span>  )</span><br><span class="line">browser = webdriver.PhantomJS(desired_capabilities=dcap)</span><br></pre></td></tr></table></figure>
-<p>访问漫画的网址，保存截图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">browser.get(<span class="string">"http://ac.qq.com/ComicView/index/id/539443/cid/1"</span>)</span><br><span class="line">a=browser.get_screenshot_as_file(<span class="string">"./test.jpg"</span>)</span><br></pre></td></tr></table></figure>
-<p>发现截图只有三张动漫</p>
-<p>必须下滑才能显示下面的图片</p>
-<p>于是，要实现下滑的操作，用js语句实现</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="comment">#browser.execute_script('window.scrollTo(0,document.body.scrollHeight)')</span></span><br><span class="line">    js=<span class="string">'window.scrollTo('</span>+str(i*<span class="number">1280</span>)+<span class="string">','</span>+str((i+<span class="number">1</span>)*<span class="number">1280</span>)+<span class="string">')'</span></span><br><span class="line">    browser.execute_script(js)</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>下滑之后，源码就会出现，可以把源码下载下来了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data=browser.page_source</span><br><span class="line">fh=open(<span class="string">"./dongman.html"</span>,<span class="string">"w"</span>,encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">fh.write(data)</span><br><span class="line">fh.close()</span><br><span class="line">browser.quit()</span><br></pre></td></tr></table></figure>
-<p>现在可以爬取源码中的图片了</p>
-<p>构造正则如下</p>
-<p><code>pat=&#39;&lt;img src=&quot;(http:..ac.tc.qq.com.store_file_download.buid=.*?name=.*?).jpg&quot;&#39;</code></p>
-<p>开爬</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pat=<span class="string">'&lt;img src="(http:..ac.tc.qq.com.store_file_download.buid=.*?name=.*?).jpg"'</span></span><br><span class="line">allimg=re.compile(pat).findall(data)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(allimg)):</span><br><span class="line">    thisurl=allimg[i]</span><br><span class="line">    thisurl2=thisurl.replace(<span class="string">"amp;"</span>,<span class="string">""</span>)+<span class="string">".jpg"</span></span><br><span class="line">    print(thisurl2)</span><br><span class="line">    localpath=<span class="string">"./"</span>+str(i)+<span class="string">".jpg"</span></span><br><span class="line">    urllib.request.urlretrieve(thisurl2,filename=localpath)</span><br></pre></td></tr></table></figure>
+        <h1 id="linux中的文件夹"><a href="#linux中的文件夹" class="headerlink" title="linux中的文件夹"></a>linux中的文件夹</h1><ul>
+<li>boot 存放用于系统引导时使用的各种文件</li>
+</ul>
+<ul>
+<li>dev 设备</li>
+<li>etc   (etcetera)存放系统配置文件，约定俗成配置文件放在该文件夹下，所有的配置文件都在该文件夹下。</li>
+<li>home 用户目录 root用户有单独的root目录。</li>
+<li>lib 头文件、动态链接库等c语言文件，各种软件是开源的，各种软件依赖不一样，很混乱，系统中搞一个库，大家都用到的库放在里面，软件就不用再带自己的库了。windows库是官方提供只有一套。</li>
+</ul>
+<p>​       在linux下安装软件很麻烦，安装a可能提示缺少b，再安装b，又提示缺少c… java中有maven，linux下有yum，提供一个中央仓库，自动安装相关依赖。</p>
+<ul>
+<li>media 外部的媒体，如光盘文件等，光驱、usb挂载。</li>
+<li>usr (unix shared resources)，Unix共享资源，linux服务器系统，很多人用，可以把大家都用的软件放在该文件夹下。</li>
+<li>sbin (superuser binaries)存放二进制可执行文件，只有root才能访问，系统管理的程序</li>
+<li>bin (binaries)存放二进制可执行文件，普通管理程序</li>
+<li>temp 临时目录</li>
+<li>mnt  (mount)系统管理员安装临时文件系统的安装点</li>
+<li>var  (variable)用于存放运行时需要改变数据的文件</li>
+</ul>
+<h1 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h1><p>子网掩码 属于哪个网段</p>
+<p>IP 192.168.33.2</p>
+<p>掩码 255.255.255.0</p>
+<p>255全是8位二进制1， ip和子网掩码进行与操作，变成192.168.33.0，得到网段。</p>
+<p>网关 网络总出口，路由器ip地址</p>
+<p>dns 域名解析服务器</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fr1fabi7exj20jt0cpq33.jpg" alt=""></p>
+<p>主机名比ip好记，但无法直接ping，肯定不用直接再申请个域名，只要在各服务器上配置下hosts文件，加入主机名与相对应的ip即可。</p>
+<p>如经常用的localhost，就是系统已经存在的hosts文件当中的一个与ip地址127.0.0.1的对应。</p>
+<p>vm有虚拟网卡 vmnet8</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fr1gdjprqpj20x40l80tr.jpg" alt=""></p>
+<h1 id="linux常用命令操作"><a href="#linux常用命令操作" class="headerlink" title="linux常用命令操作"></a>linux常用命令操作</h1><p>1、日常操作命令  </p>
+<p>**查看当前所在的工作目录
+pwd</p>
+<p>**查看当前系统的时间 
+date</p>
+<p>**查看有谁在线（哪些人登陆到了服务器）
+who  查看当前在线
+last 查看最近的登陆历史记录</p>
+<p>2、文件系统操作
+**
+ls /    查看根目录下的子节点（文件夹和文件）信息
+ls -al  -a是显示隐藏文件   -l是以更详细的列表形式显示</p>
+<p>**切换目录
+cd  /home</p>
+<p>**创建文件夹
+mkdir aaa     这是相对路径的写法 
+mkdir -p aaa/bbb/ccc
+mkdir  /data    这是绝对路径的写法 </p>
+<p>**删除文件夹
+rmdir   可以删除空目录
+rm -r aaa   可以把aaa整个文件夹及其中的所有子节点全部删除，但是会有提示
+rm -rf aaa   强制删除aaa，没有提示</p>
+<p>**修改文件夹名称
+mv aaa angelababy</p>
+<p>**创建文件
+touch  somefile.1   创建一个空文件</p>
+<p>echo “i miss you”  在命令行输出该句</p>
+<p>echo “i miss you” &gt; somefile.2  利用重定向“&gt;”的功能，将一条指令的输出结果写入到一个文件中，会覆盖原文件内容</p>
+<p>echo “huang” &gt;&gt; somefile.2     将一条指令的输出结果追加到一个文件中，不会覆盖原文件内容</p>
+<p>用vi文本编辑器来编辑生成文件
+<strong>**</strong>最基本用法
+vi  somefile.4
+1、首先会进入“一般模式”，此模式只接受各种快捷键，不能编辑文件内容
+2、按i键，就会从一般模式进入编辑模式，此模式下，敲入的都是文件内容
+3、编辑完成之后，按Esc键退出编辑模式，回到一般模式；
+4、再按：，进入“底行命令模式”，输入wq命令，回车即可</p>
+<p><strong>**</strong>一些常用快捷键
+一些有用的快捷键（在一般模式下使用）：
+a  在光标后一位开始插入
+A   在该行的最后插入
+I   在该行的最前面插入
+gg   直接跳到文件的首行
+G    直接跳到文件的末行
+dd   删除行，如果  5dd   ，则一次性删除光标后的5行
+yy  复制当前行,  复制多行，则  3yy，则复制当前行附近的3行
+p   粘贴
+v  进入字符选择模式，选择完成后，按y复制，按p粘贴
+ctrl+v  进入块选择模式，选择完成后，按y复制，按p粘贴
+shift+v  进入行选择模式，选择完成后，按y复制，按p粘贴</p>
+<p>查找并替换（在底行命令模式中输入）
+%s/sad/88888888888888     效果：查找文件中所有sad，替换为88888888888888
+/you       效果：查找文件中出现的you，并定位到第一个找到的地方，按n可以定位到下一个匹配位置（按N定位到上一个）</p>
+<p>3、文件权限的操作</p>
+<p><em>**</em>linux文件权限的描述格式解读
+drwxr-xr-x      （也可以用二进制表示  111 101 101  –&gt;  755）</p>
+<p>d：标识节点类型（d：文件夹   -：文件  l:链接）
+r：可读   w：可写    x：可执行 
+第一组rwx：  表示这个文件的拥有者对它的权限：可读可写可执行
+第二组r-x：  表示这个文件的所属组对它的权限：可读，不可写，可执行
+第三组r-x：  表示这个文件的其他用户（相对于上面两类用户）对它的权限：可读，不可写，可执行</p>
+<p><em>**</em>修改文件权限
+chmod g-rw haha.dat    表示将haha.dat对所属组的rw权限取消
+chmod o-rw haha.dat     表示将haha.dat对其他人的rw权限取消
+chmod u+x haha.dat      表示将haha.dat对所属用户的权限增加x</p>
+<p>也可以用数字的方式来修改权限
+chmod 664 haha.dat<br>就会修改成   rw-rw-r–</p>
+<p>如果要将一个文件夹的所有内容权限统一修改，则可以-R参数
+chmod -R 770 aaa/
+chown angela:angela aaa/    &lt;只有root能执行&gt;</p>
+<p>目录没有执行权限的时候普通用户不能进入
+文件只有读写权限的时候普通用户是可以删除的(删除文件不是修改它,是操作父及目录),只要父级目录有执行和修改的权限</p>
+<p>4、基本的用户管理</p>
+<p><strong>*</strong>添加用户
+useradd  angela
+要修改密码才能登陆 
+passwd angela  按提示输入密码即可</p>
+<p>**为用户配置sudo权限
+用root编辑 vi /etc/sudoers
+在文件的如下位置，为hadoop添加一行即可
+root    ALL=(ALL)       ALL<br>hadoop  ALL=(ALL)       ALL</p>
+<p>然后，hadoop用户就可以用sudo来执行系统级别的指令
+[hadoop@shizhan ~]$ sudo useradd huangxiaoming</p>
+<p>5、系统管理操作
+<strong>*</strong>查看主机名
+hostname
+<em>**</em>修改主机名(重启后无效)
+hostname hadoop</p>
+<p><strong>*</strong>修改主机名(重启后永久生效)
+vi /ect/sysconfig/network
+<em>**</em>修改IP(重启后无效)
+ifconfig eth0 192.168.12.22</p>
+<p><em>**</em>修改IP(重启后永久生效)
+vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>mount <em>**</em>  挂载外部存储设备到文件系统中
+mkdir   /mnt/cdrom      创建一个目录，用来挂载
+mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom/     将设备/dev/cdrom挂载到 挂载点 ：  /mnt/cdrom中</p>
+<p><strong>*</strong>umount
+umount /mnt/cdrom</p>
+<p><strong>*</strong>统计文件或文件夹的大小
+du -sh  /mnt/cdrom/Packages
+df -h    查看磁盘的空间
+<strong><strong>关机
+halt
+</strong></strong>重启
+reboot</p>
+<p><strong>**</strong>配置主机之间的免密ssh登陆</p>
+<p>ssh协议</p>
+<p>远程登录的安全外壳协议</p>
+<p>有两种身份验证机制：</p>
+<p>1.用户名+密码验证</p>
+<p>2.密钥验证</p>
+<p>ssh 192.168.88.137 登陆该ip主机 需要输入密码</p>
+<p>exit退出</p>
+<p>scp 远程复制 hell.c 本机文件 <a href="mailto:root@192.168.88.137" target="_blank" rel="noopener">root@192.168.88.137</a> 远程主机名和用户名 ：后面跟要复制到的远程主机目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@mini1 ~]# scp hell.c root@192.168.88.137:/home</span><br><span class="line">hell.c                                        100%   58    58.4KB/s   00:00</span><br></pre></td></tr></table></figure>
+<p>免密码登陆，就用密钥</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fr1ketd5pnj20vm0ft3z2.jpg" alt=""></p>
+<p>假如 A  要登陆  B
+在A上操作：
+首先生成密钥对
+ssh-keygen   (提示时，一直按回车即可)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zea3hsm44dztx9vqa11Z ~]# ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/root/.ssh/id_rsa): </span><br><span class="line">/root/.ssh/id_rsa already exists.</span><br><span class="line">Overwrite (y/n)? y</span><br><span class="line">Enter passphrase (empty for no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved in /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /root/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">5f:14:1c:2f:9b:6c:05:2e:31:d4:17:a4:19:d0:18:d3 root@iZ2zea3hsm44dztx9vqa11Z</span><br><span class="line">The key's randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|         .BO=oo. |</span><br><span class="line">|          .=EB.  |</span><br><span class="line">|          . *.o  |</span><br><span class="line">|           + =   |</span><br><span class="line">|        S   *    |</span><br><span class="line">|         . o     |</span><br><span class="line">|          .      |</span><br><span class="line">|                 |</span><br><span class="line">|                 |</span><br><span class="line">+-----------------+</span><br><span class="line">[root@iZ2zea3hsm44dztx9vqa11Z ~]#</span><br></pre></td></tr></table></figure>
+<p>再将A自己的公钥拷贝并追加到B的授权列表文件authorized_keys中
+ssh-copy-id   B</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zea3hsm44dztx9vqa11Z ~]# ssh-copy-id 58.87.97.204</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</span><br><span class="line">root@58.87.97.204's password: </span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   "ssh '58.87.97.204'"</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br></pre></td></tr></table></figure>
+<p>然后就可以免密登陆了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zea3hsm44dztx9vqa11Z ~]# ssh 58.87.97.204</span><br><span class="line">Last failed login: Sun May  6 13:54:38 CST 2018 from 59.45.175.29 on ssh:notty</span><br><span class="line">There were 178 failed login attempts since the last successful login.</span><br><span class="line">Last login: Sun May  6 13:48:51 2018 from 47.93.36.67</span><br><span class="line">[root@VM_0_14_centos ~]#</span><br></pre></td></tr></table></figure>
+<p>同理，配置B登陆A时一样的步骤再走一遍，在B上生成密钥，拷贝个A。</p>
+<p>而在登陆阿里云主机时遇到以下问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/root/.ssh/id_rsa): </span><br><span class="line">Enter passphrase (empty for no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved in /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /root/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">27:7a:b8:fb:97:04:6f:06:7a:3a:20:3c:52:40:a8:21 root@VM_0_14_centos</span><br><span class="line">The key&apos;s randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|o.               |</span><br><span class="line">|E                |</span><br><span class="line">|oo               |</span><br><span class="line">|. .     o        |</span><br><span class="line">| o     .S+.      |</span><br><span class="line">|. + . .o.o=      |</span><br><span class="line">| . o .oo.+ .     |</span><br><span class="line">|      oo  o      |</span><br><span class="line">|      o+..       |</span><br><span class="line">+-----------------+</span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# ssh-copy-id 47.93.36.67</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</span><br><span class="line">Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</span><br></pre></td></tr></table></figure>
+<p>需要配置阿里云上的文件：</p>
+<p>vi /etc/ssh/sshd_config  </p>
+<p>下面这项为yes</p>
+<p>PasswordAuthentication yes</p>
+<p>PermitRootLogin也设为yes</p>
+<p>设置文件和目录权限：</p>
+<p>root的.ssh下</p>
+<p>设置authorized_keys权限
+$ chmod 600 authorized_keys </p>
+<p>root下</p>
+<p>设置.ssh目录权限
+$ chmod 700 -R .ssh</p>
+<p>如果其他用户，要在其他用户文件夹下设置</p>
+<p>重启sshd服务</p>
+<p>systemctl restart sshd.service</p>
+<h6 id="ECS服务器ssh登录提示“Permission-denied-please-try-again”"><a href="#ECS服务器ssh登录提示“Permission-denied-please-try-again”" class="headerlink" title="ECS服务器ssh登录提示“Permission denied, please try again”"></a>ECS服务器ssh登录提示“Permission denied, please try again”</h6><p>​               <strong>不用怀疑，一般情况下，就是你密码输入错误了。</strong></p>
+<ul>
+<li><strong>解决：</strong></li>
+</ul>
+<p>​               <strong>找到正确的密码输入。</strong></p>
+<p>当然，也有可能是下面的情况：</p>
+<p>在Windows中使用ssh客户端连接，提示“ssh服务器拒绝了密码，请再试一次”，或者在linux中通过ssh连接，提示“Permission denied, please try again”时，可尝试使用以下方式修复：</p>
+<p>1、在ssh提示上述信息时，可以在管理控制台通过Web VNC连接管理终端连接服务器进行测试，如果使用root和密码可以登录，说明帐号与密码是正确的。</p>
+<p>2、检查/etc/ssh/sshd_config中的PermitRootLogin，该参数指定是否允许root用户通过ssh远程连接服务器。PermitRootLogin设置yes时表示允许root通过ssh连接服务器，为no时为不允许。</p>
+<p><img src="http://img01.taobaocdn.com/tfscom/TB1cCUEHXXXXXcKXFXXXXXXXXXX.jpg" alt="QQ糿20150212142405.jpg"></p>
+<p>一般ssh密码错误，同时Web VNC可以登录的问题，此参数的设置引起问题的可能性比较大。</p>
+<p>具体调整：</p>
+<p>(1) 使用命令vi  /etc/ssh/sshd_config；</p>
+<p>注意:vi后面有空格，再加上后面的文件名</p>
+<p>(2) 按”/“键后进入搜索模式，输入PermitRootLogin后回车(注意是有大写的)，可以查找到该参数；</p>
+<p>(3) 按”a”或”i”键可以进入编辑，将其修改为yes，即为允许root通过ssh进行连接；</p>
+<p>(4) 按”Esc”键可以退出编辑，最后输入” :wq！”(包含冒号)，回车进行保存退出。(如果不保存，可以使用” :q！”回车) </p>
+<p>(5) 然后重启sshd服务生效即可，重启命令可以使用:service sshd restart 。</p>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/03/1/" title= python数据可视化 >
-                    <div class="nextTitle">python数据可视化</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/04/28/scrapy/" title= scrapy初步 >
-                    <div class="prevTitle">scrapy初步</div>
+                <a href= "/2018/05/05/R语言再基础/" title= R语言再基础 >
+                    <div class="prevTitle">R语言再基础</div>
                 </a>
             
         </li>
@@ -504,7 +667,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PhantomJS和腾讯漫画爬虫"><span class="toc-number">1.</span> <span class="toc-text">PhantomJS和腾讯漫画爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#腾讯动漫爬取"><span class="toc-number">1.1.</span> <span class="toc-text">腾讯动漫爬取</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux中的文件夹"><span class="toc-number">1.</span> <span class="toc-text">linux中的文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络配置"><span class="toc-number">2.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux常用命令操作"><span class="toc-number">3.</span> <span class="toc-text">linux常用命令操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ECS服务器ssh登录提示“Permission-denied-please-try-again”"><span class="toc-number">3.0.0.0.0.1.</span> <span class="toc-text">ECS服务器ssh登录提示“Permission denied, please try again”</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
