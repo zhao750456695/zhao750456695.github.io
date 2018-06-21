@@ -10,7 +10,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <meta name="description" content="">
-    <title>python中的*args、**kwargs · FinGeek</title>
+    <title>docker基础 · FinGeek</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -191,7 +191,7 @@
                 <a href="/" >FinGeek</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">python中的*args、**kwargs</a>
+                <a href="#" class="post-name">docker基础</a>
             </div>
     </div>
     
@@ -223,7 +223,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            python中的*args、**kwargs
+            docker基础
             <!-- 404 -->
             
         </h1>
@@ -241,13 +241,13 @@ height:50vh;
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "docker">docker</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/05/20</span>
+                <span class="post-intro-time">2018/06/21</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -353,37 +353,43 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>在python中，函数参数的工作方式很简单，当编写func(a, b, c, d=some, e=value)时，位置和关键字参数其实分别是被打包成元组和字典的。</p>
-<p>函数其实接受的是一个元组args和一个字典kwargs，并在内部完成如下转换：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a, b, c = args</span><br><span class="line"></span><br><span class="line">d = kwargs.get(&apos;d&apos;: d_default_value)</span><br><span class="line"></span><br><span class="line">e = kwargs.get(&apos;e&apos;: e_default_value)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>dict.get(key, default=None)
-key – 字典中要查找的键。
-default – 如果指定键的值不存在时，返回该默认值值。</p>
-<p>Python 字典(Dictionary) get() 函数返回指定键的值，如果值不在字典中返回默认值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;#!/usr/bin/python</span><br><span class="line">&gt;</span><br><span class="line">&gt;dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 27&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Age&apos;)</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Sex&apos;, &quot;Never&quot;)</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;Value : 27</span><br><span class="line">&gt;Value : Never</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>这一切都是在幕后悄悄发生的。当然，它还会执行一些错误检查，还允许你将位置参数当成关键字参数那样进行指定(即使它们在函数定义中并不是关键字参数)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def say_hello_then_call_f(f, *args, **kwargs):</span><br><span class="line"></span><br><span class="line">    print(&apos;args is&apos;, args)</span><br><span class="line"></span><br><span class="line">    print(&apos;kwargs is&apos;, kwargs)</span><br><span class="line"></span><br><span class="line">    print(&apos;Hello!Now I am going to call %s&apos; % f)</span><br><span class="line"></span><br><span class="line">    return f(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">def g(x, y, z=1):</span><br><span class="line"></span><br><span class="line">    return (x+y) / z</span><br><span class="line"></span><br><span class="line">say_hello_then_call_f(g, 1, 2, z=5.)</span><br></pre></td></tr></table></figure>
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">args is (1, 2)</span><br><span class="line">kwargs is &#123;&apos;z&apos;: 5.0&#125;</span><br><span class="line">Hello!Now I am going to call &lt;function g at 0x7f00404e0510&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Out[2]: 0.6</span><br></pre></td></tr></table></figure>
+        <p>在centos7下安装docker</p>
+<p><code>yum -y install docker</code></p>
+<p>启动和停止docker服务</p>
+<p><code>systemctl start docker</code></p>
+<p><code>systemctl stop docker</code></p>
+<p>搜索镜像，如搜索与python相关的镜像</p>
+<p><code>docker search python</code></p>
+<p>想把镜像下载下来</p>
+<p><code>docker pull  镜像名字</code></p>
+<p>查看本地的镜像</p>
+<p><code>docker images</code></p>
+<p>创建容器 tid 创建并运行一个容器，但不进入 依据选定的镜像创建</p>
+<p><code>docker run -tid 镜像id（前四位即可）</code></p>
+<p>查看容器</p>
+<p><code>docker ps -a 所有的容器</code></p>
+<p>进入容器</p>
+<p><code>docker attach 容器id</code></p>
+<p>不停止退出</p>
+<p><code>ctrl+p+q+回车</code></p>
+<p>给容器起一个名字 根据某个名称的镜像创建某个名称的容器</p>
+<p><code>docker run -tid --name 容器名 镜像名</code></p>
+<p>启动停止的容器</p>
+<p><code>docker start 容器id</code></p>
+<p>封装镜像</p>
+<p><code>docker commit 容器id 镜像名字:版本号</code></p>
+
     </article>
     <!-- 前后页  -->
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/23/python中的-classmethod和-staticmethod/" title= python中的@property、@classmethod和@staticmethod >
-                    <div class="nextTitle">python中的@property、@classmethod和@staticmethod</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/15/特征工程/" title= 特征工程 >
-                    <div class="prevTitle">特征工程</div>
+                <a href= "/2018/05/24/python中常见的内置函数/" title= python中常见的内置函数 >
+                    <div class="prevTitle">python中常见的内置函数</div>
                 </a>
             
         </li>
