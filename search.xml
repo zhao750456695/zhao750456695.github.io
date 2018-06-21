@@ -3,10 +3,25 @@
   
     
     <entry>
+      <title>centos下python3.6安装</title>
+      <link href="/2018/06/21/centos%E4%B8%8Bpython3-6%E5%AE%89%E8%A3%85/"/>
+      <url>/2018/06/21/centos%E4%B8%8Bpython3-6%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<p><strong>安装python3.6可能使用的依赖</strong></p><p># yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel</p><p><strong>下载python3.6编译安装</strong></p><p>到python官网下载<a href="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org</a></p><p>下载最新版源码，使用make altinstall，如果使用make install，在系统中将会有两个不同版本的Python在/usr/bin/目录中。这将会导致很多问题，而且不好处理。</p><p># wget<a href="https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz</a></p><p># tar -xzvf Python-3.6.0.tgz -C  /tmp</p><p># cd  /tmp/Python-3.6.0/</p><p>把Python3.6安装到 /usr/local 目录</p><p># ./configure –prefix=<strong>/usr/local</strong></p><p># make</p><p># make altinstall</p><p>解决问题：</p><p>zipimport.ZipImportError: can’t decompress data; zlib not available</p><p>yum -y install zlib*</p><p>用pip安装　提示找不到ssl模块</p><p>在./configure过程中，如果没有加上–with-ssl参数时，默认安装的软件涉及到ssl的功能不可用，刚好pip3过程需要ssl模块，而由于没有指定，所以该功能不可用。</p><p>解决办法是重新对python3.6进行编译安装，用一下过程来实现编译安装:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd Python-3.6.2</span><br><span class="line">./configure --with-ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>pip3.6 install virtualenv</p><p>进入想创建虚拟环境的目录</p><p>virtualenv ai ai是我们给虚拟环境起的名字</p><p>进入ai</p><p>进入ai的bin</p><p>source ./activate 进入虚拟环境</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>docker基础</title>
       <link href="/2018/06/21/docker%E5%9F%BA%E7%A1%80/"/>
       <url>/2018/06/21/docker%E5%9F%BA%E7%A1%80/</url>
-      <content type="html"><![CDATA[<p>在centos7下安装docker</p><p><code>yum -y install docker</code></p><p>启动和停止docker服务</p><p><code>systemctl start docker</code></p><p><code>systemctl stop docker</code></p><p>搜索镜像，如搜索与python相关的镜像</p><p><code>docker search python</code></p><p>想把镜像下载下来</p><p><code>docker pull  镜像名字</code></p><p>查看本地的镜像</p><p><code>docker images</code></p><p>创建容器 tid 创建并运行一个容器，但不进入 依据选定的镜像创建</p><p><code>docker run -tid 镜像id（前四位即可）</code></p><p>查看容器</p><p><code>docker ps -a 所有的容器</code></p><p>进入容器</p><p><code>docker attach 容器id</code></p><p>不停止退出</p><p><code>ctrl+p+q+回车</code></p><p>给容器起一个名字 根据某个名称的镜像创建某个名称的容器</p><p><code>docker run -tid --name 容器名 镜像名</code></p><p>启动停止的容器</p><p><code>docker start 容器id</code></p><p>封装镜像</p><p><code>docker commit 容器id 镜像名字:版本号</code></p>]]></content>
+      <content type="html"><![CDATA[<p>在centos7下安装docker</p><p><code>yum -y install docker</code></p><p>启动和停止docker服务</p><p><code>systemctl start docker</code></p><p><code>systemctl stop docker</code></p><p>搜索镜像，如搜索与python相关的镜像</p><p><code>docker search python</code></p><p>想把镜像下载下来</p><p><code>docker pull  镜像名字</code></p><p>查看本地的镜像</p><p><code>docker images</code></p><p>创建容器 tid 创建并运行一个容器，但不进入 依据选定的镜像创建</p><p><code>docker run -tid 镜像id（前四位即可）</code></p><p>查看容器</p><p><code>docker ps -a 所有的容器</code></p><p>进入容器</p><p><code>docker attach 容器id</code></p><p>不停止退出</p><p><code>ctrl+p+q</code></p><p>给容器起一个名字 根据某个名称的镜像创建某个名称的容器</p><p><code>docker run -tid --name 容器名 镜像名</code></p><p>启动停止的容器</p><p><code>docker start 容器id</code></p><p>封装镜像</p><p><code>docker commit 容器id 镜像名字:版本号</code></p><p>从容器里面拷文件到宿主机</p><p>在宿主机里面执行以下命令<code>docker cp 容器名：要拷贝的文件在容器里面的路径       要拷贝到宿主机的相应路径</code></p><p>从宿主机拷文件到容器里面</p><p>在宿主机里面执行如下命令<code>docker cp 要拷贝的文件路径 容器名：要拷贝到容器里面对应的路径</code></p><p>无关随记</p><p>make是gcc的编译器，VPS买来必定要安装</p><p>安装：</p><p><code>yum -y install gcc automake autoconf libtool make</code></p><p>安装g++:</p><p><code>yum install gcc gcc-c++</code></p>]]></content>
       
       
         <tags>
