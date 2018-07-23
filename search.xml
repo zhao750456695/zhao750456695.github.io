@@ -6,7 +6,7 @@
       <title>传统机器学习算法巅峰之作：SVM</title>
       <link href="/post/bc66df1b.html"/>
       <url>/post/bc66df1b.html</url>
-      <content type="html"><![CDATA[<h1 id="SVM建模"><a href="#SVM建模" class="headerlink" title="SVM建模"></a>SVM建模</h1><p>线性分类器和最优线性分类器</p><p>样本空间中，我们想找到切分超平面来区分样本$w^Tx+b=0$,w是法向量，b是偏移。</p><p>$f(x)=sign(w^T+b)$</p><p>$||X||_2=\sqrt{\sum^n\limits_{i=1}|X_i|^2}=X^T X$</p>]]></content>
+      <content type="html"><![CDATA[<h1 id="SVM建模"><a href="#SVM建模" class="headerlink" title="SVM建模"></a>SVM建模</h1><p>线性分类器和最优线性分类器</p><p>样本空间中，我们想找到切分超平面来区分样本$w^Tx+b=0$,w是法向量，b是偏移。</p><p>$f(x)=sign(w^T+b)$</p><p>$||X||_2=\sqrt{\sum^n\limits_{i=1}|X_i|^2}=X^T X$</p><p>点到平面的距离</p><p>超平面$H=\{ w^Tx+b=0 \}$</p>]]></content>
       
       
         <tags>
