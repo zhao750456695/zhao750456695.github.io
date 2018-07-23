@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <meta name="description" content="">
+    <title>R语言part1 · FinGeek</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180317 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180317 media="(max-width: 980px)"/>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >FinGeek</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">R语言part1</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>FinGeek</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            R语言part1
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "R语言 数据分析">R语言 数据分析</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/04/12</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="R语言"><a href="#R语言" class="headerlink" title="R语言"></a>R语言</h1><p>R是S语言的一种实现。</p>
+<p>工具：Rstudio</p>
+<p>安装 install.packages(‘ggplot2’)</p>
+<p>加载包 library(ggplot2)</p>
+<p>更新包 update.packages()</p>
+<p>help() 查看帮助信息 也可以用？号</p>
+<p>setwd(“E://Rworkdirectory”) 设置工作目录</p>
+<h1 id="向量和矩阵"><a href="#向量和矩阵" class="headerlink" title="向量和矩阵"></a>向量和矩阵</h1><p>c() 创建向量</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; v = c(<span class="number">1</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">&gt; v</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span> <span class="number">4</span> <span class="number">4</span> <span class="number">3</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">&gt; y = c(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>)</span><br><span class="line">&gt; y</span><br><span class="line">[<span class="number">1</span>] <span class="string">"a"</span> <span class="string">"b"</span> <span class="string">"c"</span></span><br><span class="line"></span><br><span class="line">a = c(<span class="number">1</span>:<span class="number">10</span>) <span class="comment"># 包括10</span></span><br><span class="line">&gt; a</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>length() 向量的长度</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; length(y)</span><br><span class="line">[<span class="number">1</span>] <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>mode(v)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; mode(v)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line"></span><br><span class="line">&gt; x = c(<span class="number">1</span>, <span class="string">'a'</span>, <span class="number">3</span>)</span><br><span class="line">&gt; mode(x)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"character"</span></span><br></pre></td></tr></table></figure>
+<p>rbind() 按行合成矩阵</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; rbind(v, y)</span><br><span class="line">  [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>] [,<span class="number">5</span>]</span><br><span class="line">v <span class="string">"1"</span>  <span class="string">"4"</span>  <span class="string">"4"</span>  <span class="string">"3"</span>  <span class="string">"2"</span> </span><br><span class="line">y <span class="string">"a"</span>  <span class="string">"b"</span>  <span class="string">"c"</span>  <span class="string">"a"</span>  <span class="string">"b"</span> </span><br><span class="line">Warning message:</span><br><span class="line">In rbind(v, y) :</span><br><span class="line">  number of columns of result is not a multiple of vector length (arg <span class="number">2</span>)</span><br><span class="line">&gt; rbind(x, y)</span><br><span class="line">  [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>]</span><br><span class="line">x <span class="string">"1"</span>  <span class="string">"a"</span>  <span class="string">"3"</span> </span><br><span class="line">y <span class="string">"a"</span>  <span class="string">"b"</span>  <span class="string">"c"</span></span><br></pre></td></tr></table></figure>
+<p>cbind() 按列合成矩阵</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; cbind(x, y)</span><br><span class="line">     x   y  </span><br><span class="line">[1,] &quot;1&quot; &quot;a&quot;</span><br><span class="line">[2,] &quot;a&quot; &quot;b&quot;</span><br><span class="line">[3,] &quot;3&quot; &quot;c&quot;</span><br><span class="line">&gt; cbind(v, y)</span><br><span class="line">     v   y  </span><br><span class="line">[1,] &quot;1&quot; &quot;a&quot;</span><br><span class="line">[2,] &quot;4&quot; &quot;b&quot;</span><br><span class="line">[3,] &quot;4&quot; &quot;c&quot;</span><br><span class="line">[4,] &quot;3&quot; &quot;a&quot;</span><br><span class="line">[5,] &quot;2&quot; &quot;b&quot;</span><br><span class="line">Warning message:</span><br><span class="line">In cbind(v, y) :</span><br><span class="line">  number of rows of result is not a multiple of vector length (arg 2)</span><br></pre></td></tr></table></figure>
+<h2 id="求平均值、和、连乘、最值、方差、标准差"><a href="#求平均值、和、连乘、最值、方差、标准差" class="headerlink" title="求平均值、和、连乘、最值、方差、标准差"></a>求平均值、和、连乘、最值、方差、标准差</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; x = c(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">&gt; mean(x)</span><br><span class="line">[<span class="number">1</span>] <span class="number">5.5</span></span><br><span class="line">&gt; sum(x)</span><br><span class="line">[<span class="number">1</span>] <span class="number">11</span></span><br><span class="line">&gt; max(x)</span><br><span class="line">[<span class="number">1</span>] <span class="number">10</span></span><br><span class="line">&gt; min(x)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span></span><br><span class="line">&gt; var(x) <span class="comment"># 方差</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">40.5</span></span><br><span class="line">&gt; sd(x) <span class="comment"># 标准差</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">6.363961</span></span><br><span class="line">&gt; prod(x) <span class="comment"># 连乘</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h2 id="产生向量"><a href="#产生向量" class="headerlink" title="产生向量"></a>产生向量</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">1</span>:<span class="number">10</span></span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="number">1</span>:<span class="number">10</span>-<span class="number">1</span></span><br><span class="line"> [<span class="number">1</span>] <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="number">1</span>:<span class="number">10</span>*<span class="number">2</span></span><br><span class="line"> [<span class="number">1</span>]  <span class="number">2</span>  <span class="number">4</span>  <span class="number">6</span>  <span class="number">8</span> <span class="number">10</span> <span class="number">12</span> <span class="number">14</span> <span class="number">16</span> <span class="number">18</span> <span class="number">20</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="number">2</span>:<span class="number">10</span>*<span class="number">2</span>+<span class="number">1</span></span><br><span class="line">[<span class="number">1</span>]  <span class="number">5</span>  <span class="number">7</span>  <span class="number">9</span> <span class="number">11</span> <span class="number">13</span> <span class="number">15</span> <span class="number">17</span> <span class="number">19</span> <span class="number">21</span></span><br><span class="line"></span><br><span class="line">&gt; a=<span class="number">2</span>:<span class="number">10</span>*<span class="number">2</span>+<span class="number">1</span></span><br><span class="line">&gt; a[<span class="number">5</span>]</span><br><span class="line">[<span class="number">1</span>] <span class="number">13</span></span><br><span class="line"></span><br><span class="line">&gt; a[-<span class="number">5</span>] <span class="comment"># 除第5个元素之外的元素</span></span><br><span class="line">[<span class="number">1</span>]  <span class="number">5</span>  <span class="number">7</span>  <span class="number">9</span> <span class="number">11</span> <span class="number">15</span> <span class="number">17</span> <span class="number">19</span> <span class="number">21</span></span><br><span class="line"></span><br><span class="line">&gt; a[-(<span class="number">1</span>:<span class="number">5</span>)] <span class="comment"># 除1:5之外的元素</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">15</span> <span class="number">17</span> <span class="number">19</span> <span class="number">21</span></span><br><span class="line"></span><br><span class="line">&gt; a[<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line">[<span class="number">1</span>]  <span class="number">5</span>  <span class="number">7</span>  <span class="number">9</span> <span class="number">11</span> <span class="number">13</span></span><br><span class="line"></span><br><span class="line">&gt; a[c(<span class="number">2</span>,<span class="number">4</span>,<span class="number">7</span>)] <span class="comment"># 向量的元素是下标 必须有c 直接写2,4,7会出错</span></span><br><span class="line">[<span class="number">1</span>]  <span class="number">7</span> <span class="number">11</span> <span class="number">17</span></span><br><span class="line">&gt; a[(<span class="number">2</span>, <span class="number">4</span>, <span class="number">7</span>)]</span><br><span class="line">Error: unexpected <span class="string">','</span> <span class="keyword">in</span> <span class="string">"a[(2,"</span></span><br><span class="line"></span><br><span class="line">&gt; a[a&lt;<span class="number">6</span>] <span class="comment"># 条件取值</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; a[a&gt;<span class="number">8</span>&amp;a&lt;<span class="number">19</span>]</span><br><span class="line">[<span class="number">1</span>]  <span class="number">9</span> <span class="number">11</span> <span class="number">13</span> <span class="number">15</span> <span class="number">17</span></span><br><span class="line"></span><br><span class="line">&gt; a[a[<span class="number">3</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">21</span></span><br></pre></td></tr></table></figure>
+<h2 id="产生向量-1"><a href="#产生向量-1" class="headerlink" title="产生向量"></a>产生向量</h2><p>seq()函数 类似python中的range</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; seq(<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">[<span class="number">1</span>]  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; seq(<span class="number">5</span>,<span class="number">10</span>,by=<span class="number">2</span>) <span class="comment"># 公差为2</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span> <span class="number">7</span> <span class="number">9</span></span><br><span class="line"></span><br><span class="line">&gt; seq(<span class="number">5</span>,<span class="number">10</span>,length=<span class="number">3</span>) <span class="comment"># 第一项是5，最后一项是10，总长度为3,自动指定公差</span></span><br><span class="line">[<span class="number">1</span>]  <span class="number">5.0</span>  <span class="number">7.5</span> <span class="number">10.0</span></span><br></pre></td></tr></table></figure>
+<p>产生字母序列letters 产生26个字母顺序的向量</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; letters[<span class="number">1</span>:<span class="number">30</span>]</span><br><span class="line"> [<span class="number">1</span>] <span class="string">"a"</span> <span class="string">"b"</span> <span class="string">"c"</span> <span class="string">"d"</span> <span class="string">"e"</span> <span class="string">"f"</span> <span class="string">"g"</span> <span class="string">"h"</span> <span class="string">"i"</span> <span class="string">"j"</span></span><br><span class="line">[<span class="number">11</span>] <span class="string">"k"</span> <span class="string">"l"</span> <span class="string">"m"</span> <span class="string">"n"</span> <span class="string">"o"</span> <span class="string">"p"</span> <span class="string">"q"</span> <span class="string">"r"</span> <span class="string">"s"</span> <span class="string">"t"</span></span><br><span class="line">[<span class="number">21</span>] <span class="string">"u"</span> <span class="string">"v"</span> <span class="string">"w"</span> <span class="string">"x"</span> <span class="string">"y"</span> <span class="string">"z"</span> <span class="literal">NA</span>  <span class="literal">NA</span>  <span class="literal">NA</span>  <span class="literal">NA</span></span><br></pre></td></tr></table></figure>
+<p>which函数 找向量中的元素的下标 R的下标从1开始</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; a=c(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>)</span><br><span class="line">&gt; which.max(a)</span><br><span class="line">[<span class="number">1</span>] <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; which.min(a)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span></span><br><span class="line"></span><br><span class="line">&gt; a[which.max(a)] <span class="comment"># 取到最大元素</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; which(a==<span class="number">2</span>)</span><br><span class="line">[<span class="number">1</span>]  <span class="number">1</span> <span class="number">11</span></span><br><span class="line"></span><br><span class="line">&gt; which(a&gt;<span class="number">5</span>)</span><br><span class="line">[<span class="number">1</span>]  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span> <span class="number">10</span> <span class="number">13</span></span><br><span class="line"></span><br><span class="line">&gt; a[which(a&gt;<span class="number">5</span>)]</span><br><span class="line">[<span class="number">1</span>]  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span>  <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>rev()函数 颠倒向量 python中的reversed</p>
+<p>sort()函数 对向量进行排序</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; a=<span class="number">1</span>:<span class="number">10</span></span><br><span class="line">&gt; a</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; rev(a)</span><br><span class="line"> [<span class="number">1</span>] <span class="number">10</span>  <span class="number">9</span>  <span class="number">8</span>  <span class="number">7</span>  <span class="number">6</span>  <span class="number">5</span>  <span class="number">4</span>  <span class="number">3</span>  <span class="number">2</span>  <span class="number">1</span></span><br><span class="line"></span><br><span class="line">&gt; sort(a)</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br><span class="line"></span><br><span class="line">&gt; rev(sort(a))</span><br><span class="line"> [<span class="number">1</span>] <span class="number">10</span>  <span class="number">9</span>  <span class="number">8</span>  <span class="number">7</span>  <span class="number">6</span>  <span class="number">5</span>  <span class="number">4</span>  <span class="number">3</span>  <span class="number">2</span>  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="生成矩阵"><a href="#生成矩阵" class="headerlink" title="生成矩阵"></a>生成矩阵</h2><p>方法1：将向量定义成数组<br>     向量只有定义了维数向量(dim属性)后才能被看作是数组.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; z=<span class="number">1</span>:<span class="number">12</span>;</span><br><span class="line">&gt; dim(z)=c(<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">&gt; z;</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">4</span>    <span class="number">7</span>   <span class="number">10</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">5</span>    <span class="number">8</span>   <span class="number">11</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">6</span>    <span class="number">9</span>   <span class="number">12</span></span><br></pre></td></tr></table></figure>
+<p>注意：生成矩阵是按列排列的</p>
+<p>方法2：用array ( )函数构造多维数组<br>      用法为：array(data=NA,dim=length(data),dimnames=NULL)<br>      参数描述：data：是一个向量数据。<br>                         dim：是数组各维的长度，缺省时为原向量的长度。<br>                         dimname：是数组维的名字，缺省时为空。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; x=array(<span class="number">1</span>:<span class="number">20</span>,dim=c(<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line">&gt; x</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>] [,<span class="number">5</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">5</span>    <span class="number">9</span>   <span class="number">13</span>   <span class="number">17</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">6</span>   <span class="number">10</span>   <span class="number">14</span>   <span class="number">18</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">7</span>   <span class="number">11</span>   <span class="number">15</span>   <span class="number">19</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">4</span>    <span class="number">8</span>   <span class="number">12</span>   <span class="number">16</span>   <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>方法3：matrix()函数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; a1=c(<span class="number">1</span>:<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">&gt; matrix(a1, nrow = <span class="number">3</span>, ncol = <span class="number">4</span>)</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">4</span>    <span class="number">7</span>   <span class="number">10</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">5</span>    <span class="number">8</span>   <span class="number">11</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">6</span>    <span class="number">9</span>   <span class="number">12</span></span><br><span class="line"></span><br><span class="line">&gt; matrix(a1, nrow = <span class="number">4</span>, ncol = <span class="number">3</span>)</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">5</span>    <span class="number">9</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">6</span>   <span class="number">10</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">7</span>   <span class="number">11</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">4</span>    <span class="number">8</span>   <span class="number">12</span></span><br><span class="line"></span><br><span class="line">&gt; matrix(a1, nrow = <span class="number">4</span>, ncol = <span class="number">3</span>, byrow = <span class="literal">T</span>) <span class="comment"># 将向量的元素按行生成矩阵 默认是按列的</span></span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">4</span>    <span class="number">5</span>    <span class="number">6</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">7</span>    <span class="number">8</span>    <span class="number">9</span></span><br><span class="line">[<span class="number">4</span>,]   <span class="number">10</span>   <span class="number">11</span>   <span class="number">12</span></span><br></pre></td></tr></table></figure>
+<h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><p>t() 转置</p>
+<p>矩阵加减 两个矩阵必须有相等的维数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&gt; a=matrix(<span class="number">1</span>:<span class="number">12</span>, nrow = <span class="number">3</span>, ncol = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">4</span>    <span class="number">7</span>   <span class="number">10</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">5</span>    <span class="number">8</span>   <span class="number">11</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">6</span>    <span class="number">9</span>   <span class="number">12</span></span><br><span class="line"></span><br><span class="line">&gt; t(a)</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">4</span>    <span class="number">5</span>    <span class="number">6</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">7</span>    <span class="number">8</span>    <span class="number">9</span></span><br><span class="line">[<span class="number">4</span>,]   <span class="number">10</span>   <span class="number">11</span>   <span class="number">12</span></span><br><span class="line"></span><br><span class="line">&gt; a = b = matrix(<span class="number">1</span>:<span class="number">12</span>, nrow = <span class="number">3</span>, ncol = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; a+b</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">2</span>    <span class="number">8</span>   <span class="number">14</span>   <span class="number">20</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">4</span>   <span class="number">10</span>   <span class="number">16</span>   <span class="number">22</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">6</span>   <span class="number">12</span>   <span class="number">18</span>   <span class="number">24</span></span><br><span class="line"></span><br><span class="line">&gt; a-b</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>diag() </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = matrix(<span class="number">1</span>:<span class="number">16</span>, nrow = <span class="number">4</span>, ncol = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">5</span>    <span class="number">9</span>   <span class="number">13</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">6</span>   <span class="number">10</span>   <span class="number">14</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">3</span>    <span class="number">7</span>   <span class="number">11</span>   <span class="number">15</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">4</span>    <span class="number">8</span>   <span class="number">12</span>   <span class="number">16</span></span><br><span class="line"></span><br><span class="line">&gt; diag(a) <span class="comment"># 返回a的对角线 参数为矩阵</span></span><br><span class="line">[<span class="number">1</span>]  <span class="number">1</span>  <span class="number">6</span> <span class="number">11</span> <span class="number">16</span></span><br><span class="line"></span><br><span class="line">&gt; diag(diag(a)) <span class="comment"># 生成以向量为对角线，其他元素为0的矩阵 对角阵 参数为向量</span></span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">0</span>    <span class="number">6</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">0</span>    <span class="number">0</span>   <span class="number">11</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span>   <span class="number">16</span></span><br><span class="line"></span><br><span class="line">&gt; diag(<span class="number">4</span>) <span class="comment"># 生成对角线为1的矩阵 生成4阶的单位矩阵 参数为数字</span></span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">0</span>    <span class="number">1</span>    <span class="number">0</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">1</span>    <span class="number">0</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span>    <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>矩阵相乘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = matrix(1:12, nrow = 3, ncol = 4)</span><br><span class="line"></span><br><span class="line">&gt; b = matrix(1:12, nrow = 4, ncol = 3)</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line">     [,1] [,2] [,3] [,4]</span><br><span class="line">[1,]    1    4    7   10</span><br><span class="line">[2,]    2    5    8   11</span><br><span class="line">[3,]    3    6    9   12</span><br><span class="line"></span><br><span class="line">&gt; b</span><br><span class="line">     [,1] [,2] [,3]</span><br><span class="line">[1,]    1    5    9</span><br><span class="line">[2,]    2    6   10</span><br><span class="line">[3,]    3    7   11</span><br><span class="line">[4,]    4    8   12</span><br><span class="line"></span><br><span class="line">&gt; a%*%b # %*%</span><br><span class="line">     [,1] [,2] [,3]</span><br><span class="line">[1,]   70  158  246</span><br><span class="line">[2,]   80  184  288</span><br><span class="line">[3,]   90  210  330</span><br></pre></td></tr></table></figure>
+<p>矩阵求逆</p>
+<p>函数rnorm # 生成元素服从正态分布随机向量</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; rnorm(<span class="number">5</span>)</span><br><span class="line">[<span class="number">1</span>]  <span class="number">1.8601560</span> -<span class="number">1.7178636</span> -<span class="number">2.4462399</span>  <span class="number">2.5793574</span>  <span class="number">0.7827795</span></span><br></pre></td></tr></table></figure>
+<p>solve 求逆</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; a=matrix(rnorm(<span class="number">16</span>), <span class="number">4</span>, <span class="number">4</span>) <span class="comment"># 产生16个服从正态分布的随机数作为4*4矩阵的元素</span></span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line">            [,<span class="number">1</span>]       [,<span class="number">2</span>]       [,<span class="number">3</span>]       [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,] -<span class="number">0.16531328</span>  <span class="number">0.9072305</span>  <span class="number">1.3297686</span>  <span class="number">0.1271754</span></span><br><span class="line">[<span class="number">2</span>,] -<span class="number">0.24630802</span> -<span class="number">1.2505458</span> -<span class="number">0.1610357</span> -<span class="number">0.5416087</span></span><br><span class="line">[<span class="number">3</span>,]  <span class="number">0.05559855</span> -<span class="number">0.5120084</span> -<span class="number">1.1443766</span> -<span class="number">0.1697620</span></span><br><span class="line">[<span class="number">4</span>,]  <span class="number">0.44153601</span>  <span class="number">0.4104748</span>  <span class="number">1.2128257</span>  <span class="number">0.7307340</span></span><br><span class="line"></span><br><span class="line">&gt; solve(a) <span class="comment"># 求逆</span></span><br><span class="line">           [,<span class="number">1</span>]       [,<span class="number">2</span>]       [,<span class="number">3</span>]       [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]  <span class="number">83.190766</span>  <span class="number">18.867893</span>  <span class="number">124.02640</span>  <span class="number">28.319692</span></span><br><span class="line">[<span class="number">2</span>,]  <span class="number">13.810035</span>   <span class="number">2.364525</span>   <span class="number">19.93229</span>   <span class="number">3.979692</span></span><br><span class="line">[<span class="number">3</span>,]   <span class="number">8.584077</span>   <span class="number">2.317661</span>   <span class="number">11.95562</span>   <span class="number">3.001353</span></span><br><span class="line">[<span class="number">4</span>,] -<span class="number">72.271687</span> -<span class="number">16.575594</span> -<span class="number">105.98098</span> -<span class="number">22.960262</span></span><br></pre></td></tr></table></figure>
+<p>solve还可以用来解线性方程组</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = matrix(rnorm(<span class="number">16</span>), <span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line">            [,<span class="number">1</span>]       [,<span class="number">2</span>]        [,<span class="number">3</span>]       [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]  <span class="number">0.89482889</span>  <span class="number">1.8837770</span>  <span class="number">1.26222754</span> -<span class="number">0.1907849</span></span><br><span class="line">[<span class="number">2</span>,] -<span class="number">1.97078241</span> -<span class="number">1.1719388</span>  <span class="number">0.77151849</span>  <span class="number">0.4038480</span></span><br><span class="line">[<span class="number">3</span>,] -<span class="number">0.02239332</span>  <span class="number">1.4707221</span>  <span class="number">0.93798354</span>  <span class="number">0.2047112</span></span><br><span class="line">[<span class="number">4</span>,]  <span class="number">0.25772996</span> -<span class="number">0.1725366</span> -<span class="number">0.02908542</span> -<span class="number">0.2212694</span></span><br><span class="line"></span><br><span class="line">&gt; b = c(<span class="number">1</span>:<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">&gt; b</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line">&gt; solve(a, b)</span><br><span class="line">[<span class="number">1</span>] -<span class="number">46.89120</span>  <span class="number">29.48648</span> -<span class="number">23.95866</span> -<span class="number">92.53838</span></span><br></pre></td></tr></table></figure>
+<p>矩阵的特征值与特征向量</p>
+<p>eigen()</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt; a = diag(<span class="number">4</span>)+<span class="number">1</span></span><br><span class="line">&gt; a</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">2</span>    <span class="number">1</span>    <span class="number">1</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">1</span>    <span class="number">2</span>    <span class="number">1</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">1</span>    <span class="number">1</span>    <span class="number">2</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">1</span>    <span class="number">1</span>    <span class="number">1</span>    <span class="number">2</span></span><br><span class="line">&gt; a.e=eigen(a, symmetric = <span class="literal">T</span>)</span><br><span class="line">&gt; a.e</span><br><span class="line">eigen() decomposition</span><br><span class="line">$values</span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">$vectors</span><br><span class="line">     [,<span class="number">1</span>]       [,<span class="number">2</span>]       [,<span class="number">3</span>]       [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,] -<span class="number">0.5</span>  <span class="number">0.8660254</span>  <span class="number">0.0000000</span>  <span class="number">0.0000000</span></span><br><span class="line">[<span class="number">2</span>,] -<span class="number">0.5</span> -<span class="number">0.2886751</span> -<span class="number">0.5773503</span> -<span class="number">0.5773503</span></span><br><span class="line">[<span class="number">3</span>,] -<span class="number">0.5</span> -<span class="number">0.2886751</span> -<span class="number">0.2113249</span>  <span class="number">0.7886751</span></span><br><span class="line">[<span class="number">4</span>,] -<span class="number">0.5</span> -<span class="number">0.2886751</span>  <span class="number">0.7886751</span> -<span class="number">0.2113249</span></span><br><span class="line"></span><br><span class="line">&gt; a.e$vectors%*%diag(a.e$values)%*%t(a.e$vectors)</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>] [,<span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">2</span>    <span class="number">1</span>    <span class="number">1</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">1</span>    <span class="number">2</span>    <span class="number">1</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">3</span>,]    <span class="number">1</span>    <span class="number">1</span>    <span class="number">2</span>    <span class="number">1</span></span><br><span class="line">[<span class="number">4</span>,]    <span class="number">1</span>    <span class="number">1</span>    <span class="number">1</span>    <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p>数组可以看出加上了维度的向量</p>
+<p>矩阵是二维数组，但数组还有三维、四维等等更高维度</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt; x=c(<span class="number">1</span>:<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">&gt; x</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line">&gt; is.vector(x)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line"></span><br><span class="line">&gt; is.array(x)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">FALSE</span></span><br><span class="line"></span><br><span class="line">&gt; dim(x)&lt;-c(<span class="number">2</span>, <span class="number">3</span>) <span class="comment"># &lt;-是赋值，和=一样</span></span><br><span class="line"></span><br><span class="line">&gt; x</span><br><span class="line">     [,<span class="number">1</span>] [,<span class="number">2</span>] [,<span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span>,]    <span class="number">1</span>    <span class="number">3</span>    <span class="number">5</span></span><br><span class="line">[<span class="number">2</span>,]    <span class="number">2</span>    <span class="number">4</span>    <span class="number">6</span></span><br><span class="line"></span><br><span class="line">&gt; is.array(x)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line"></span><br><span class="line">&gt; is.matrix(x)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据框"><a href="#数据框" class="headerlink" title="数据框"></a>数据框</h1><p>矩阵形式相同，是二维表单，但列可以是不同数据类型，矩阵和数组的列只能数值的</p>
+<p>每列是一个变量，每行是一个观测值 类似pandas中的DataFrame</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># x y 向量的长度必须相等</span></span><br><span class="line">&gt; x=c(<span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">&gt; y=c(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'g'</span>, <span class="string">'h'</span>)</span><br><span class="line"></span><br><span class="line">&gt; z=data.frame(x, y)</span><br><span class="line"></span><br><span class="line">&gt; z</span><br><span class="line">    x y</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span> a</span><br><span class="line"><span class="number">2</span>   <span class="number">2</span> b</span><br><span class="line"><span class="number">3</span>   <span class="number">3</span> c</span><br><span class="line"><span class="number">4</span>   <span class="number">4</span> c</span><br><span class="line"><span class="number">5</span>   <span class="number">5</span> d</span><br><span class="line"><span class="number">6</span>   <span class="number">6</span> c</span><br><span class="line"><span class="number">7</span>   <span class="number">7</span> e</span><br><span class="line"><span class="number">8</span>   <span class="number">8</span> f</span><br><span class="line"><span class="number">9</span>   <span class="number">9</span> g</span><br><span class="line"><span class="number">10</span> <span class="number">10</span> h</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 替换列头</span></span><br><span class="line">&gt; (m=data.frame(<span class="string">'id'</span>=x, <span class="string">'代号'</span>=y))</span><br><span class="line"></span><br><span class="line">   id 代号</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span>    a</span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>    b</span><br><span class="line"><span class="number">3</span>   <span class="number">3</span>    c</span><br><span class="line"><span class="number">4</span>   <span class="number">4</span>    c</span><br><span class="line"><span class="number">5</span>   <span class="number">5</span>    d</span><br><span class="line"><span class="number">6</span>   <span class="number">6</span>    c</span><br><span class="line"><span class="number">7</span>   <span class="number">7</span>    e</span><br><span class="line"><span class="number">8</span>   <span class="number">8</span>    f</span><br><span class="line"><span class="number">9</span>   <span class="number">9</span>    g</span><br><span class="line"><span class="number">10</span> <span class="number">10</span>    h</span><br></pre></td></tr></table></figure>
+<p>画散点图</p>
+<p>plot()</p>
+<h1 id="读数据"><a href="#读数据" class="headerlink" title="读数据"></a>读数据</h1><h2 id="文本文件"><a href="#文本文件" class="headerlink" title="文本文件"></a>文本文件</h2><p>先设置工作目录，把文本文件放于该目录下，读文件时可以省去路径，若不放在工作目录中，则要写全完整的路径</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; (x=read.table(<span class="string">'rabc.txt'</span>))</span><br><span class="line">   V1 V2</span><br><span class="line"><span class="number">1</span> <span class="number">175</span> <span class="number">67</span></span><br><span class="line"><span class="number">2</span> <span class="number">183</span> <span class="number">75</span></span><br><span class="line"><span class="number">3</span> <span class="number">165</span> <span class="number">56</span></span><br><span class="line"><span class="number">4</span> <span class="number">145</span> <span class="number">45</span></span><br><span class="line"><span class="number">5</span> <span class="number">178</span> <span class="number">67</span></span><br><span class="line"><span class="number">6</span> <span class="number">187</span> <span class="number">98</span></span><br><span class="line"><span class="number">7</span> <span class="number">156</span> <span class="number">43</span></span><br><span class="line"><span class="number">8</span> <span class="number">176</span> <span class="number">58</span></span><br><span class="line"><span class="number">9</span> <span class="number">173</span> <span class="number">68</span></span><br></pre></td></tr></table></figure>
+<h2 id="读剪切板"><a href="#读剪切板" class="headerlink" title="读剪切板"></a>读剪切板</h2><p>文本或excel的数据均可通过剪切板操作</p>
+<p>复制一下，然后运行下列语句，导入剪切板的数据：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; y&lt;-read.table(<span class="string">'clipboard'</span>, header=<span class="literal">F</span>)</span><br><span class="line">&gt; y</span><br><span class="line">   V1 V2 V3</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span>  <span class="number">1</span>  a</span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>  <span class="number">2</span>  b</span><br><span class="line"><span class="number">3</span>   <span class="number">3</span>  <span class="number">3</span>  c</span><br><span class="line"><span class="number">4</span>   <span class="number">4</span>  <span class="number">4</span>  c</span><br><span class="line"><span class="number">5</span>   <span class="number">5</span>  <span class="number">5</span>  d</span><br><span class="line"><span class="number">6</span>   <span class="number">6</span>  <span class="number">6</span>  c</span><br><span class="line"><span class="number">7</span>   <span class="number">7</span>  <span class="number">7</span>  e</span><br><span class="line"><span class="number">8</span>   <span class="number">8</span>  <span class="number">8</span>  f</span><br><span class="line"><span class="number">9</span>   <span class="number">9</span>  <span class="number">9</span>  g</span><br><span class="line"><span class="number">10</span> <span class="number">10</span> <span class="number">10</span>  h</span><br></pre></td></tr></table></figure>
+<h2 id="读excel文件"><a href="#读excel文件" class="headerlink" title="读excel文件"></a>读excel文件</h2><p>方法1：先把excel另存为空格分隔的prn文本格式再读</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; W&lt;-read.table(<span class="string">'ex.prn'</span>, header = <span class="literal">T</span>)</span><br><span class="line"></span><br><span class="line">&gt; W</span><br><span class="line">  商品 价格</span><br><span class="line"><span class="number">1</span>    A    <span class="number">1</span></span><br><span class="line"><span class="number">2</span>    b    <span class="number">3</span></span><br><span class="line"><span class="number">3</span>    C    <span class="number">5</span></span><br><span class="line"><span class="number">4</span>    D    <span class="number">8</span></span><br><span class="line"><span class="number">5</span>    E   <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>或另存为csv格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; w=read.csv(&apos;ex.csv&apos;, header = T)</span><br><span class="line">&gt; W</span><br><span class="line">  商品 价格</span><br><span class="line">1    A    1</span><br><span class="line">2    b    3</span><br><span class="line">3    C    5</span><br><span class="line">4    D    8</span><br><span class="line">5    E   10</span><br></pre></td></tr></table></figure>
+<p>方法2：安装RODBC包，再通过ODBC读</p>
+<blockquote>
+<ul>
+<li><p>ODBC，中文意思是【开放数据库连接】，其英文全称是【Open Database Connectivity】，是开放服务结构中有关数据库的一个组成部分，它提供了一组对数据库访问的标准API（应用程序编程接口）。</p>
+<p>举个例子，城市（数据库）和小镇（数据分析软件）之间，有一条高速路，这条路就可以视为ODBC，并且资源（数据）通过这条路在城市和小镇间传输。</p>
+</li>
+<li><p>RODBC包，顾名思义，就是为R语言服务的，操作ODBC的包。关于其所有的内容可以访问页面，<a href="https://cran.r-project.org/web/packages/RODBC/，在其中的RODBC.pdf文件内有详细介绍。" target="_blank" rel="noopener">https://cran.r-project.org/web/packages/RODBC/，在其中的RODBC.pdf文件内有详细介绍。</a></p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt; Z&lt;-odbcConnectExcel(&apos;ex.xls&apos;)</span><br><span class="line">Error in odbcConnectExcel(&quot;ex.xls&quot;) : </span><br><span class="line">  odbcConnectExcel is only usable with 32-bit Windows</span><br><span class="line"></span><br><span class="line">&gt; z&lt;-odbcConnectExcel2007(&apos;ex.xlsx&apos;)</span><br><span class="line">&gt; z</span><br><span class="line">RODBC Connection 2</span><br><span class="line">Details:</span><br><span class="line">  case=nochange</span><br><span class="line">  DBQ=E:\Rworkdirectory\ex.xlsx</span><br><span class="line">  DefaultDir=E:\Rworkdirectory</span><br><span class="line">  Driver=&#123;Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)&#125;</span><br><span class="line">  DriverId=1046</span><br><span class="line">  MaxBufferSize=2048</span><br><span class="line">  PageTimeout=5</span><br><span class="line">  </span><br><span class="line">&gt; (w&lt;-sqlFetch(z, &apos;Sheet1&apos;))</span><br><span class="line">  商品 价格</span><br><span class="line">1    A    1</span><br><span class="line">2    b    3</span><br><span class="line">3    C    5</span><br><span class="line">4    D    8</span><br><span class="line">5    E   10</span><br></pre></td></tr></table></figure>
+<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><p>for语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">59</span>)&#123;a[i]=i*<span class="number">2</span>+<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line"> [<span class="number">1</span>]   <span class="number">5</span>   <span class="number">7</span>   <span class="number">9</span>  <span class="number">11</span>  <span class="number">13</span>  <span class="number">15</span>  <span class="number">17</span>  <span class="number">19</span>  <span class="number">21</span>  <span class="number">23</span>  <span class="number">25</span>  <span class="number">27</span>  <span class="number">29</span>  <span class="number">31</span>  <span class="number">33</span>  <span class="number">35</span>  <span class="number">37</span>  <span class="number">39</span>  <span class="number">41</span>  <span class="number">43</span></span><br><span class="line">[<span class="number">21</span>]  <span class="number">45</span>  <span class="number">47</span>  <span class="number">49</span>  <span class="number">51</span>  <span class="number">53</span>  <span class="number">55</span>  <span class="number">57</span>  <span class="number">59</span>  <span class="number">61</span>  <span class="number">63</span>  <span class="number">65</span>  <span class="number">67</span>  <span class="number">69</span>  <span class="number">71</span>  <span class="number">73</span>  <span class="number">75</span>  <span class="number">77</span>  <span class="number">79</span>  <span class="number">81</span>  <span class="number">83</span></span><br><span class="line">[<span class="number">41</span>]  <span class="number">85</span>  <span class="number">87</span>  <span class="number">89</span>  <span class="number">91</span>  <span class="number">93</span>  <span class="number">95</span>  <span class="number">97</span>  <span class="number">99</span> <span class="number">101</span> <span class="number">103</span> <span class="number">105</span> <span class="number">107</span> <span class="number">109</span> <span class="number">111</span> <span class="number">113</span> <span class="number">115</span> <span class="number">117</span> <span class="number">119</span> <span class="number">121</span></span><br></pre></td></tr></table></figure>
+<p>while语句</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; a[<span class="number">1</span>]=<span class="number">5</span></span><br><span class="line"></span><br><span class="line">&gt; i=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="keyword">while</span>(a[i]&lt;<span class="number">121</span>)&#123;i=i+<span class="number">1</span>;a[i]=a[i-<span class="number">1</span>]+<span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">&gt; a</span><br><span class="line"> [<span class="number">1</span>]   <span class="number">5</span>   <span class="number">7</span>   <span class="number">9</span>  <span class="number">11</span>  <span class="number">13</span>  <span class="number">15</span>  <span class="number">17</span>  <span class="number">19</span>  <span class="number">21</span>  <span class="number">23</span>  <span class="number">25</span>  <span class="number">27</span>  <span class="number">29</span>  <span class="number">31</span>  <span class="number">33</span>  <span class="number">35</span>  <span class="number">37</span>  <span class="number">39</span>  <span class="number">41</span>  <span class="number">43</span></span><br><span class="line">[<span class="number">21</span>]  <span class="number">45</span>  <span class="number">47</span>  <span class="number">49</span>  <span class="number">51</span>  <span class="number">53</span>  <span class="number">55</span>  <span class="number">57</span>  <span class="number">59</span>  <span class="number">61</span>  <span class="number">63</span>  <span class="number">65</span>  <span class="number">67</span>  <span class="number">69</span>  <span class="number">71</span>  <span class="number">73</span>  <span class="number">75</span>  <span class="number">77</span>  <span class="number">79</span>  <span class="number">81</span>  <span class="number">83</span></span><br><span class="line">[<span class="number">41</span>]  <span class="number">85</span>  <span class="number">87</span>  <span class="number">89</span>  <span class="number">91</span>  <span class="number">93</span>  <span class="number">95</span>  <span class="number">97</span>  <span class="number">99</span> <span class="number">101</span> <span class="number">103</span> <span class="number">105</span> <span class="number">107</span> <span class="number">109</span> <span class="number">111</span> <span class="number">113</span> <span class="number">115</span> <span class="number">117</span> <span class="number">119</span> <span class="number">121</span></span><br></pre></td></tr></table></figure>
+<h1 id="R脚本"><a href="#R脚本" class="headerlink" title="R脚本"></a>R脚本</h1><p>source()函数</p>
+<p>运行r脚本，在监控台输入<code>source(&#39;脚本路径&#39;)</code></p>
+<p>print()函数</p>
+<p>脚本中用print函数显示结果</p>
+<h2 id="分布函数"><a href="#分布函数" class="headerlink" title="分布函数"></a>分布函数</h2><p>正态分布函数rnorm()</p>
+<p>泊松分布函数rpois()</p>
+<p>指数分布函数rexp()</p>
+<p>Gamma分布函数rgamma()</p>
+<p>均匀分布函数runif()</p>
+<p>二项分布函数rbinom()</p>
+<p>几何分布函数rgeom()</p>
+<p>round() 四舍五入</p>
+<h2 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h2><p>x是数据框</p>
+<p>write.table(x, file=’d:\\mark.txt’, col.names=F, row.names=F, sep=’ ‘)</p>
+<p>对列求平均值</p>
+<p>colMeans(x)[c(‘x1’, ‘x2’)] 对数据框x的名为x1、x2的列求平均值</p>
+<p>apply(x, 2, mean) 对数据框在列的方向上求平均值 1是在行的方向上</p>
+<p>apply(x[c(‘x1’, ‘x2’)], 1, sum) 对x数据框的x1、x2在行的方向上求和</p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/深度学习/tensorflow2/" title= tensorflow part2 >
+                    <div class="nextTitle">tensorflow part2</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/python/requests/" title= requests >
+                    <div class="prevTitle">requests</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#R语言"><span class="toc-number">1.</span> <span class="toc-text">R语言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#向量和矩阵"><span class="toc-number">2.</span> <span class="toc-text">向量和矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#求平均值、和、连乘、最值、方差、标准差"><span class="toc-number">2.1.</span> <span class="toc-text">求平均值、和、连乘、最值、方差、标准差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#产生向量"><span class="toc-number">2.2.</span> <span class="toc-text">产生向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#产生向量-1"><span class="toc-number">2.3.</span> <span class="toc-text">产生向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">生成矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵运算"><span class="toc-number">2.5.</span> <span class="toc-text">矩阵运算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组"><span class="toc-number">3.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据框"><span class="toc-number">4.</span> <span class="toc-text">数据框</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读数据"><span class="toc-number">5.</span> <span class="toc-text">读数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文本文件"><span class="toc-number">5.1.</span> <span class="toc-text">文本文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读剪切板"><span class="toc-number">5.2.</span> <span class="toc-text">读剪切板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读excel文件"><span class="toc-number">5.3.</span> <span class="toc-text">读excel文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环语句"><span class="toc-number">6.</span> <span class="toc-text">循环语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#R脚本"><span class="toc-number">7.</span> <span class="toc-text">R脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#分布函数"><span class="toc-number">7.1.</span> <span class="toc-text">分布函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写入文件"><span class="toc-number">7.2.</span> <span class="toc-text">写入文件</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 32 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/seaborn常用图形/" >seaborn常用图形</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/uncategorized/lj/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/uncategorized/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/linux安装xgboost/" >linux安装xgboost、</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/docker基础/" >docker基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/centos下python3-6安装/" >centos下python3.6安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/uncategorized/python中常见的内置函数/" >python中常见的内置函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span><a class="archive-post-title" href= "/uncategorized/python中的-classmethod和-staticmethod/" >python中的@property、@classmethod和@staticmethod</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/uncategorized/python中的-args、-kwargs/" >python中的*args、**kwargs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/uncategorized/特征工程/" >特征工程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span><a class="archive-post-title" href= "/uncategorized/pandas的API/" >pandas的API</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/uncategorized/zookeeper/" >zookeeper</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的crontab命令/" >linux中的crontab</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的sort、cut、wc命令/" >linux中的sort、cut、wc命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/shell编程基础/" >shell编程基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/linux一些基本软件的安装/" >linux一些基本软件的安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/大数据1：虚拟机配置及基本的linux命令/" >大数据1：虚拟机配置及基本的linux命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/uncategorized/R语言再基础/" >R语言再基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/java/用Eclipse创建第一个java程序/" >用Eclipse创建第一个java程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/1/" >python数据可视化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/matplotlib常用图形/" >matplotlib常用图形</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/numpy/" >numpy</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/scrapy/" >scrapy初步</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/python/groupby/" >pandas数据聚合和分组运算</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/python/pandas读写和存储/" >pandas读写和存储</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/python/pandas1/" >pandas part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part2/" >R语言part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/深度学习/tensorflow2/" >tensorflow part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part1/" >R语言part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/python/requests/" >requests</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/python/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="R"><span class="iconfont-archer">&#xe606;</span>R</span>
+    
+        <span class="sidebar-tag-name" data-tags="R语言 数据分析"><span class="iconfont-archer">&#xe606;</span>R语言 数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="R语言"><span class="iconfont-archer">&#xe60a;</span>R语言</span>
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
+    
+        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'JieZhao'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->    
+    
+    </body>
+</html>
+
+

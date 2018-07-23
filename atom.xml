@@ -18,8 +18,8 @@
   
   <entry>
     <title>svm前奏：凸优化对偶理论</title>
-    <link href="http://yoursite.com/2018/07/23/svm%E5%89%8D%E5%A5%8F%EF%BC%9A%E5%87%B8%E4%BC%98%E5%8C%96%E5%AF%B9%E5%81%B6%E7%90%86%E8%AE%BA/"/>
-    <id>http://yoursite.com/2018/07/23/svm前奏：凸优化对偶理论/</id>
+    <link href="http://yoursite.com/uncategorized/svm%E5%89%8D%E5%A5%8F%EF%BC%9A%E5%87%B8%E4%BC%98%E5%8C%96%E5%AF%B9%E5%81%B6%E7%90%86%E8%AE%BA/"/>
+    <id>http://yoursite.com/uncategorized/svm前奏：凸优化对偶理论/</id>
     <published>2018-07-23T02:28:21.000Z</published>
     <updated>2018-07-23T03:16:24.265Z</updated>
     
@@ -41,8 +41,8 @@
   
   <entry>
     <title>linux安装xgboost、</title>
-    <link href="http://yoursite.com/2018/06/21/linux%E5%AE%89%E8%A3%85xgboost/"/>
-    <id>http://yoursite.com/2018/06/21/linux安装xgboost/</id>
+    <link href="http://yoursite.com/uncategorized/linux%E5%AE%89%E8%A3%85xgboost/"/>
+    <id>http://yoursite.com/uncategorized/linux安装xgboost/</id>
     <published>2018-06-21T12:00:48.000Z</published>
     <updated>2018-06-21T12:06:38.005Z</updated>
     
@@ -68,8 +68,8 @@
   
   <entry>
     <title>centos下python3.6安装</title>
-    <link href="http://yoursite.com/2018/06/21/centos%E4%B8%8Bpython3-6%E5%AE%89%E8%A3%85/"/>
-    <id>http://yoursite.com/2018/06/21/centos下python3-6安装/</id>
+    <link href="http://yoursite.com/uncategorized/centos%E4%B8%8Bpython3-6%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/uncategorized/centos下python3-6安装/</id>
     <published>2018-06-21T09:47:12.000Z</published>
     <updated>2018-06-21T09:59:06.872Z</updated>
     
@@ -92,8 +92,8 @@
   
   <entry>
     <title>docker基础</title>
-    <link href="http://yoursite.com/2018/06/21/docker%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2018/06/21/docker基础/</id>
+    <link href="http://yoursite.com/uncategorized/docker%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/uncategorized/docker基础/</id>
     <published>2018-06-21T09:07:32.000Z</published>
     <updated>2018-06-22T16:00:31.397Z</updated>
     
@@ -119,8 +119,8 @@
   
   <entry>
     <title>python中常见的内置函数</title>
-    <link href="http://yoursite.com/2018/05/24/python%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/2018/05/24/python中常见的内置函数/</id>
+    <link href="http://yoursite.com/uncategorized/python%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/uncategorized/python中常见的内置函数/</id>
     <published>2018-05-24T02:28:11.000Z</published>
     <updated>2018-05-24T02:29:03.277Z</updated>
     
@@ -142,8 +142,8 @@
   
   <entry>
     <title>python中的@property、@classmethod和@staticmethod</title>
-    <link href="http://yoursite.com/2018/05/23/python%E4%B8%AD%E7%9A%84-classmethod%E5%92%8C-staticmethod/"/>
-    <id>http://yoursite.com/2018/05/23/python中的-classmethod和-staticmethod/</id>
+    <link href="http://yoursite.com/uncategorized/python%E4%B8%AD%E7%9A%84-classmethod%E5%92%8C-staticmethod/"/>
+    <id>http://yoursite.com/uncategorized/python中的-classmethod和-staticmethod/</id>
     <published>2018-05-23T03:57:09.000Z</published>
     <updated>2018-06-21T09:11:54.471Z</updated>
     
@@ -165,8 +165,8 @@
   
   <entry>
     <title>python中的*args、**kwargs</title>
-    <link href="http://yoursite.com/2018/05/20/python%E4%B8%AD%E7%9A%84-args%E3%80%81-kwargs/"/>
-    <id>http://yoursite.com/2018/05/20/python中的-args、-kwargs/</id>
+    <link href="http://yoursite.com/uncategorized/python%E4%B8%AD%E7%9A%84-args%E3%80%81-kwargs/"/>
+    <id>http://yoursite.com/uncategorized/python中的-args、-kwargs/</id>
     <published>2018-05-20T05:05:38.000Z</published>
     <updated>2018-05-20T05:34:42.891Z</updated>
     
@@ -190,8 +190,8 @@
   
   <entry>
     <title>特征工程</title>
-    <link href="http://yoursite.com/2018/05/15/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/"/>
-    <id>http://yoursite.com/2018/05/15/特征工程/</id>
+    <link href="http://yoursite.com/uncategorized/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/"/>
+    <id>http://yoursite.com/uncategorized/特征工程/</id>
     <published>2018-05-15T12:45:08.000Z</published>
     <updated>2018-05-15T12:46:51.546Z</updated>
     
@@ -213,8 +213,8 @@
   
   <entry>
     <title>pandas的API</title>
-    <link href="http://yoursite.com/2018/05/10/pandas%E7%9A%84API/"/>
-    <id>http://yoursite.com/2018/05/10/pandas的API/</id>
+    <link href="http://yoursite.com/uncategorized/pandas%E7%9A%84API/"/>
+    <id>http://yoursite.com/uncategorized/pandas的API/</id>
     <published>2018-05-10T10:55:10.000Z</published>
     <updated>2018-05-10T10:55:10.985Z</updated>
     
@@ -227,8 +227,8 @@
   
   <entry>
     <title>zookeeper</title>
-    <link href="http://yoursite.com/2018/05/08/zookeeper/"/>
-    <id>http://yoursite.com/2018/05/08/zookeeper/</id>
+    <link href="http://yoursite.com/uncategorized/zookeeper/"/>
+    <id>http://yoursite.com/uncategorized/zookeeper/</id>
     <published>2018-05-08T12:06:18.000Z</published>
     <updated>2018-05-16T16:58:22.378Z</updated>
     
@@ -252,8 +252,8 @@
   
   <entry>
     <title>linux中的crontab</title>
-    <link href="http://yoursite.com/2018/05/07/linux%E4%B8%AD%E7%9A%84crontab%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/05/07/linux中的crontab命令/</id>
+    <link href="http://yoursite.com/uncategorized/linux%E4%B8%AD%E7%9A%84crontab%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/uncategorized/linux中的crontab命令/</id>
     <published>2018-05-07T12:16:26.000Z</published>
     <updated>2018-05-07T12:20:25.043Z</updated>
     
@@ -275,8 +275,8 @@
   
   <entry>
     <title>linux中的sort、cut、wc命令</title>
-    <link href="http://yoursite.com/2018/05/07/linux%E4%B8%AD%E7%9A%84sort%E3%80%81cut%E3%80%81wc%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/05/07/linux中的sort、cut、wc命令/</id>
+    <link href="http://yoursite.com/uncategorized/linux%E4%B8%AD%E7%9A%84sort%E3%80%81cut%E3%80%81wc%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/uncategorized/linux中的sort、cut、wc命令/</id>
     <published>2018-05-07T10:41:43.000Z</published>
     <updated>2018-05-07T12:21:29.747Z</updated>
     
@@ -300,8 +300,8 @@
   
   <entry>
     <title>shell编程基础</title>
-    <link href="http://yoursite.com/2018/05/06/shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2018/05/06/shell编程基础/</id>
+    <link href="http://yoursite.com/uncategorized/shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/uncategorized/shell编程基础/</id>
     <published>2018-05-06T10:34:02.000Z</published>
     <updated>2018-05-06T16:35:12.524Z</updated>
     
@@ -324,8 +324,8 @@
   
   <entry>
     <title>linux一些基本软件的安装</title>
-    <link href="http://yoursite.com/2018/05/06/linux%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85/"/>
-    <id>http://yoursite.com/2018/05/06/linux一些基本软件的安装/</id>
+    <link href="http://yoursite.com/uncategorized/linux%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/uncategorized/linux一些基本软件的安装/</id>
     <published>2018-05-06T07:41:25.000Z</published>
     <updated>2018-05-06T07:41:25.309Z</updated>
     
@@ -338,8 +338,8 @@
   
   <entry>
     <title>大数据1：虚拟机配置及基本的linux命令</title>
-    <link href="http://yoursite.com/2018/05/06/%E5%A4%A7%E6%95%B0%E6%8D%AE1%EF%BC%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%9F%BA%E6%9C%AC%E7%9A%84linux%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/05/06/大数据1：虚拟机配置及基本的linux命令/</id>
+    <link href="http://yoursite.com/uncategorized/%E5%A4%A7%E6%95%B0%E6%8D%AE1%EF%BC%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%9F%BA%E6%9C%AC%E7%9A%84linux%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/uncategorized/大数据1：虚拟机配置及基本的linux命令/</id>
     <published>2018-05-06T01:55:47.000Z</published>
     <updated>2018-05-06T07:41:39.571Z</updated>
     
@@ -363,8 +363,8 @@
   
   <entry>
     <title>R语言再基础</title>
-    <link href="http://yoursite.com/2018/05/05/R%E8%AF%AD%E8%A8%80%E5%86%8D%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2018/05/05/R语言再基础/</id>
+    <link href="http://yoursite.com/uncategorized/R%E8%AF%AD%E8%A8%80%E5%86%8D%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/uncategorized/R语言再基础/</id>
     <published>2018-05-05T07:59:49.000Z</published>
     <updated>2018-05-05T15:42:55.292Z</updated>
     
@@ -388,8 +388,8 @@
   
   <entry>
     <title>用Eclipse创建第一个java程序</title>
-    <link href="http://yoursite.com/2018/05/05/%E7%94%A8Eclipse%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAjava%E7%A8%8B%E5%BA%8F/"/>
-    <id>http://yoursite.com/2018/05/05/用Eclipse创建第一个java程序/</id>
+    <link href="http://yoursite.com/java/%E7%94%A8Eclipse%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAjava%E7%A8%8B%E5%BA%8F/"/>
+    <id>http://yoursite.com/java/用Eclipse创建第一个java程序/</id>
     <published>2018-05-05T05:57:32.000Z</published>
     <updated>2018-05-05T06:30:48.928Z</updated>
     
@@ -417,8 +417,8 @@
   
   <entry>
     <title>seaborn常用图形</title>
-    <link href="http://yoursite.com/2018/05/03/seaborn%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/"/>
-    <id>http://yoursite.com/2018/05/03/seaborn常用图形/</id>
+    <link href="http://yoursite.com/uncategorized/seaborn%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/"/>
+    <id>http://yoursite.com/uncategorized/seaborn常用图形/</id>
     <published>2018-05-03T02:36:20.000Z</published>
     <updated>2018-05-03T10:50:48.418Z</updated>
     
@@ -440,8 +440,8 @@
   
   <entry>
     <title>matplotlib常用图形</title>
-    <link href="http://yoursite.com/2018/05/03/matplotlib%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/"/>
-    <id>http://yoursite.com/2018/05/03/matplotlib常用图形/</id>
+    <link href="http://yoursite.com/uncategorized/matplotlib%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%BD%A2/"/>
+    <id>http://yoursite.com/uncategorized/matplotlib常用图形/</id>
     <published>2018-05-03T02:36:06.000Z</published>
     <updated>2018-05-03T05:19:48.768Z</updated>
     
@@ -464,8 +464,8 @@
   
   <entry>
     <title>python数据可视化</title>
-    <link href="http://yoursite.com/2018/05/03/1/"/>
-    <id>http://yoursite.com/2018/05/03/1/</id>
+    <link href="http://yoursite.com/uncategorized/1/"/>
+    <id>http://yoursite.com/uncategorized/1/</id>
     <published>2018-05-03T02:17:20.000Z</published>
     <updated>2018-05-03T05:22:35.937Z</updated>
     

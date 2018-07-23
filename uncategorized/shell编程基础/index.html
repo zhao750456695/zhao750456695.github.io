@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <meta name="description" content="">
+    <title>shell编程基础 · FinGeek</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180317 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180317 media="(max-width: 980px)"/>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >FinGeek</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">shell编程基础</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>FinGeek</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            shell编程基础
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "大数据 linux">大数据 linux</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/05/06</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h1><ul>
+<li>Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell</li>
+<li>Shell也是一门编程语言&lt;解释型的编程语言&gt;，即shell脚本</li>
+<li>一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的</li>
+</ul>
+<h1 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h1><ul>
+<li>第一种：输入脚本的绝对路径或相对路径</li>
+</ul>
+<p>首先要赋予+x权限</p>
+<p>  /root/helloWorld.sh</p>
+<p>  ./helloWorld.sh</p>
+<p>或者，不用赋予+x权限，而用解释器解释执行</p>
+<p>sh  helloworld.sh</p>
+<ul>
+<li><p>第二种：bash或sh +脚本</p>
+<p>sh /root/helloWorld.sh</p>
+<p>sh helloWorld.sh</p>
+</li>
+<li><p>第三种：在脚本的路径前再加”.”</p>
+<p>. /root/helloWorld.sh</p>
+<p>. ./helloWorld.sh</p>
+</li>
+<li><p>区别：第一种和第二种会新开一个bash，不同bash中的变量无法共享</p>
+</li>
+</ul>
+<h1 id="Shell中的变量"><a href="#Shell中的变量" class="headerlink" title="Shell中的变量"></a>Shell中的变量</h1><ul>
+<li>LinuxShell中的变量分为“系统变量”和“用户自定义变量”，可以通过set命令查看那系统变量</li>
+<li>系统变量：$HOME、$PWD、$SHELL、$USER等等</li>
+</ul>
+<ul>
+<li>显示当前shell中所有变量  :   set</li>
+</ul>
+<h1 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h1><ul>
+<li>变量＝值 （例如STR=abc）</li>
+<li>等号两侧不能有空格</li>
+<li>变量名称一般习惯为大写</li>
+<li>双引号和单引号有区别，双引号仅将空格、\脱意，单引号会将所有特殊字符脱意</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# x=hello world</span><br><span class="line">-bash: world: command not found</span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello world&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# y=bb</span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello $bb&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello</span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello $y&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello bb</span><br><span class="line">[root@VM_0_14_centos ~]# x=&apos;hello $y&apos;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello $y</span><br></pre></td></tr></table></figure>
+<ul>
+<li>A=9 unsetA 撤销变量 A</li>
+</ul>
+<ul>
+<li>readonly B=2 声明静态的变量B=2 ，不能 unset</li>
+<li>export变量名可把变量提升为全局环境变量，可供其他shell程序使用</li>
+</ul>
+<h1 id="将命令的返回值赋给变量"><a href="#将命令的返回值赋给变量" class="headerlink" title="将命令的返回值赋给变量"></a>将命令的返回值赋给变量</h1><ul>
+<li>A=`ls -la` 反引号，运行里面的命令，并把结果返回给变量A</li>
+<li>A=$(ls -la) 等价于反引号</li>
+</ul>
+<h1 id="Shell中的特殊变量"><a href="#Shell中的特殊变量" class="headerlink" title="Shell中的特殊变量"></a>Shell中的特殊变量</h1><ul>
+<li>$? 表示上一个命令退出的状态</li>
+<li>$$ 表示当前进程编号</li>
+<li>$0 表示当前脚本名称</li>
+<li>$n 表示n位置的输入参数（n代表数字，n&gt;=1）</li>
+<li>$#   表示参数的个数，常用于循环</li>
+<li>$*和$@ 都表示参数列表 </li>
+</ul>
+<p><strong>$*与$@区别</strong></p>
+<ul>
+<li>$* 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号””包含时，都以$1  $2  …$n 的形式输出所有参数</li>
+<li>当它们被双引号” “包含时，”$*”会将所有的参数作为一个整体，以”$1$2 … $n”的形式输出所有参数；”$@”会将各个参数分开，以”$1””$2” … “$n” 的形式输出所有参数</li>
+</ul>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
+<li>格式 :expr m + n或$((m+n)) <strong>注意expr运算符间要有空格</strong></li>
+<li>例如计算（2 ＋3 ）×4 的值</li>
+</ul>
+<p>1 .分步计算<br>  S=`expr 2 + 3`<br>  expr $S \* 4 </p>
+<p>2.一步完成计算</p>
+<p>  expr `expr 2 + 3 ` * 4</p>
+<p>  echo `expr \\`expr 2 + 3\\` \* 4`   # 各种转义太麻烦了</p>
+<p>  或</p>
+<p>  $(((2+3)*4))</p>
+<h1 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h1><ul>
+<li><p>第一种：</p>
+<p>for N in 1 2 3</p>
+<p>do</p>
+<p>  echo $N</p>
+<p>done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in 1 2 3</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo $N</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<p>for N in 1 2 3; do echo $N; done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in 1 2 3; do echo $N; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<p>for N in {1..3}; do echo $N; done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in &#123;1..3&#125;; do echo $N; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>•第二种：</p>
+<p>for((i = 0;i&lt;= 5; i++))</p>
+<p>do</p>
+<p>  echo “welcome $i times”</p>
+<p>done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for((i = 0;i&lt;= 5; i++))</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo &quot;welcome $i times&quot;</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">welcome 0 times</span><br><span class="line">welcome 1 times</span><br><span class="line">welcome 2 times</span><br><span class="line">welcome 3 times</span><br><span class="line">welcome 4 times</span><br><span class="line">welcome 5 times</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<p>for((i = 0;i&lt;= 5; i++));do echo “welcome $i times”; done</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for((i = 0;i&lt;= 5; i++));do echo &quot;welcome $i times&quot;; done</span><br><span class="line">welcome 0 times</span><br><span class="line">welcome 1 times</span><br><span class="line">welcome 2 times</span><br><span class="line">welcome 3 times</span><br><span class="line">welcome 4 times</span><br><span class="line">welcome 5 times</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+<h1 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h1><ul>
+<li>第一种</li>
+</ul>
+<p>while expression</p>
+<p>do</p>
+<p>command</p>
+<p>…</p>
+<p>done</p>
+<ul>
+<li><p>第二种</p>
+<p>i=1</p>
+<p>while((i&lt;=3))</p>
+<p>do</p>
+<p>  echo $i</p>
+<p>  let i++</p>
+<p>done</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# while((i&lt;=3))</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo $i</span><br><span class="line">&gt; </span><br><span class="line">&gt;   let i++</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<h1 id="case语句"><a href="#case语句" class="headerlink" title="case语句"></a>case语句</h1><ul>
+<li>格式</li>
+</ul>
+<p>case $1 in</p>
+<p>start)</p>
+<p>  echo “starting”</p>
+<p>  ;;</p>
+<p>stop)</p>
+<p>  echo “stoping”</p>
+<p>  ;;</p>
+<p>*)</p>
+<p>  echo “Usage: {start|stop} “</p>
+<p>esac</p>
+<p>$1 脚本后紧跟第一个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# vim case.sh</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">	echo &quot;starting&quot;</span><br><span class="line">	;;</span><br><span class="line">stop)</span><br><span class="line">	echo &quot;stoping&quot;</span><br><span class="line">	;;</span><br><span class="line">*)</span><br><span class="line">	echo &quot;Usage: &#123;start|stop&#125; “</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# chmod 777 case.sh</span><br><span class="line">[root@VM_0_14_centos ~]# ./case.sh start  </span><br><span class="line">starting</span><br></pre></td></tr></table></figure>
+<h1 id="read命令"><a href="#read命令" class="headerlink" title="read命令"></a>read命令</h1><ul>
+<li><p>read-p(提示语句)-n(字符个数) -t(等待时间) </p>
+<p>  read -p “please input your name:” NAME</p>
+</li>
+</ul>
+<p>从终端交互式的获取输入参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]#  read -p &quot;please input your name:&quot; n</span><br><span class="line">please input your name:123</span><br><span class="line">[root@VM_0_14_centos ~]# echo $n</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<h1 id="if判断"><a href="#if判断" class="headerlink" title="if判断"></a>if判断</h1><ul>
+<li>语法</li>
+</ul>
+<p>if condition<br>then<br>    statements<br>[elif condition<br>    then statements. ..]<br>[else<br>    statements ]<br>fi</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">read -p &quot;please input your name:&quot; NAME</span><br><span class="line">#printf &apos;%s\n&apos; $NAME</span><br><span class="line">if [ $NAME = root ]</span><br><span class="line">        then</span><br><span class="line">                echo &quot;hello $&#123;NAME&#125;,  welcome !&quot;</span><br><span class="line">        elif [ $NAME = itcast ]</span><br><span class="line">                then</span><br><span class="line">                        echo &quot;hello $&#123;NAME&#125;,  welcome !&quot;</span><br><span class="line">        else</span><br><span class="line">                echo &quot;SB, get out here !&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>将上面的脚本（hello.sh）运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# ./hello.sh        </span><br><span class="line">please input your name:root</span><br><span class="line">hello root,  welcome !</span><br></pre></td></tr></table></figure>
+<h1 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h1><ul>
+<li>[ condition ] (注意condition前后要有空格)</li>
+</ul>
+<p>#非空返回true，可使用$?验证（0为true，&gt;1为false）</p>
+<p>[ itcast ] 任意有内容的字符串，返回值是0 因此是true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# [ itcast ]</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>#空返回false</p>
+<p>[  ]</p>
+<ul>
+<li><p>[condition ] &amp;&amp; echo OK</p>
+<p>  条件满足，执行echo OK</p>
+<p>​</p>
+</li>
+</ul>
+<p>[ condition ] &amp;&amp; echo OK || echo notok</p>
+<p>条件满足，执行echo OK，不满足执行echo notok</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# [ condition ] &amp;&amp; echo OK || echo notok</span><br><span class="line">OK</span><br><span class="line">[root@VM_0_14_centos ~]# [ ] &amp;&amp; echo OK || echo notok</span><br><span class="line">notok</span><br></pre></td></tr></table></figure>
+<p><strong>常用判断条件</strong></p>
+<p>= 字符串比较</p>
+<p>-lt 小于</p>
+<p>-le 小于等于</p>
+<p>-eq 等于</p>
+<p>-gt 大于</p>
+<p>-ge 大于等于</p>
+<p>-ne 不等于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# [ 3 -lt 2 ]</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?    </span><br><span class="line">1</span><br><span class="line">[root@VM_0_14_centos ~]# [ 3 -gt 3 ]</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">1</span><br><span class="line">[root@VM_0_14_centos ~]# [ 3 -ge 3 ] </span><br><span class="line">[root@VM_0_14_centos ~]# echo $?    </span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>-r 有读的权限</p>
+<p>-w 有写的权限</p>
+<p>-x 有执行的权限</p>
+<p>-f 文件存在并且是一个常规的文件</p>
+<p>-s 文件存在且不为空</p>
+<p>-d 文件存在并是一个目录</p>
+<p>-b文件存在并且是一个块设备</p>
+<p>-L 文件存在并且是一个链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# ls</span><br><span class="line">anaconda-ks.cfg  apps  case.sh  hello.sh  h.py  ma6174</span><br><span class="line">[root@VM_0_14_centos ~]# [ -f case.sh ]</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">0</span><br><span class="line">[root@VM_0_14_centos ~]# [ -w cash.sh ]     ## 没有cash.sh 所以也就没有写的权限</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">1</span><br><span class="line">[root@VM_0_14_centos ~]# [ -w case.sh ] </span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h1 id="Shell自定义函数"><a href="#Shell自定义函数" class="headerlink" title="Shell自定义函数"></a>Shell自定义函数</h1><ul>
+<li><p>语法</p>
+<p>[ function ] funname [()]</p>
+</li>
+</ul>
+<p>{</p>
+<p>   action;</p>
+<p>   [return int;]</p>
+<p>}</p>
+<p>functionstart()  / function start / start()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">      1 #!/bin/bash</span><br><span class="line">      2 fSum 3 2; # fSum还没有定义，因此会报错</span><br><span class="line">      3 function fSum()</span><br><span class="line">      4 &#123;</span><br><span class="line">      5  echo $1,$2</span><br><span class="line">      6  return $(($1+$2));</span><br><span class="line">      7 &#125;</span><br><span class="line">      8 total=$?;</span><br><span class="line">      9 echo &quot;第一次调用后的返回结果：&quot;$total</span><br><span class="line">     10 fSum 5 7;</span><br><span class="line">     11 total=$?;          # total获得了函数返回值即return的值12</span><br><span class="line">     12 echo $total,$?;</span><br><span class="line">     </span><br><span class="line">[root@VM_0_14_centos ~]# ./hello.sh </span><br><span class="line">./hello.sh: line 2: fSum: command not found</span><br><span class="line">第一次调用后的返回结果：0</span><br><span class="line">5,7</span><br><span class="line">12,0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意</li>
+</ul>
+<p>1.必须在调用函数地方之前，先声明函数，shell脚本是逐行运行。不会像其它语言一样先预编译</p>
+<p>2.函数返回值，只能通过$? 系统变量获得，可以显示加：return返回，如果不加，将以最后一条命令运行结果，作为返回值。return后跟数值n(0-255)</p>
+<h1 id="脚本调试"><a href="#脚本调试" class="headerlink" title="脚本调试"></a>脚本调试</h1><ul>
+<li>sh -vx helloWorld.sh</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# sh -vx ./hello.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line">fSum 3 2;</span><br><span class="line">+ fSum 3 2</span><br><span class="line">./hello.sh: line 2: fSum: command not found</span><br><span class="line">function fSum()</span><br><span class="line">&#123;</span><br><span class="line"> echo $1,$2</span><br><span class="line"> return $(($1+$2));</span><br><span class="line">&#125;</span><br><span class="line">total=$?;</span><br><span class="line">+ total=0</span><br><span class="line">echo &quot;第一次调用后的返回结果：&quot;$total</span><br><span class="line">+ echo $&apos;\347\254\254\344\270\200\346\254\241\350\260\203\347\224\250\345\220\216\347\232\204\350\277\224\345\233\236\347\273\223\346\236\234\357\274\2320&apos;</span><br><span class="line">第一次调用后的返回结果：0</span><br><span class="line">fSum 5 7;</span><br><span class="line">+ fSum 5 7</span><br><span class="line">+ echo 5,7</span><br><span class="line">5,7</span><br><span class="line">+ return 12</span><br><span class="line">total=$?;</span><br><span class="line">+ total=12</span><br><span class="line">echo $total,$?;</span><br><span class="line">+ echo 12,0</span><br><span class="line">12,0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者在脚本中增加set -x</li>
+</ul>
+<h1 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h1><ul>
+<li>sed全称是：Stream EDitor即流编辑器，是一个很好的文本处理工具，本身是一个管道命令，处理时，把当前处理的行存储在临时缓冲区中，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行。它是以行为单位进行处理，可以将数据行进行替换、删除、新增、选取等特定工作。</li>
+</ul>
+<p><strong>sed选项</strong></p>
+<ul>
+<li>-n ：使用安静(silent)模式。在一般 sed 的用法中，所有来自 STDIN 的数据一般都会被列出到终端上。但如果加上 -n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。</li>
+<li>-e ：直接在命令列模式上进行 sed 的动作编辑；</li>
+<li>-i ：直接修改读取的文件内容，而不是输出到终端。</li>
+</ul>
+<p>sed function</p>
+<ul>
+<li>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)</li>
+<li>d ：删除，因为是删除啊，所以 d 后面通常不接任何内容</li>
+<li>i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)</li>
+<li>p ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed-n 一起运行</li>
+<li>s ：取代，可以直接进行取代的工作！通常这个 s 的动作可以搭配正规表示法！例如1,20s/old/new/g</li>
+</ul>
+<h1 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h1><ul>
+<li>AWK是一种优良的文本处理工具。其名称得自于它的创始人 Alfred</li>
+</ul>
+<p>Aho 、Peter<br>Weinberger 和 Brian<br>Kernighan 姓氏的首个字母，AWK 提供了极其强大的功能：可以进行样式装入、流控制、数学运算符、进程控制语句甚至于内置的变量和函数。它具备了一个完整的语言所应具有的几乎所有精美特性。实际上<br>AWK 的确拥有自己的语言：AWK 程序设计语言，<br>三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<p><strong>awk命令格式</strong></p>
+<p>awk<br>‘pattern1 {action1} pattern2 {action2} …’ filename</p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/uncategorized/linux中的sort、cut、wc命令/" title= linux中的sort、cut、wc命令 >
+                    <div class="nextTitle">linux中的sort、cut、wc命令</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/uncategorized/linux一些基本软件的安装/" title= linux一些基本软件的安装 >
+                    <div class="prevTitle">linux一些基本软件的安装</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是shell"><span class="toc-number">1.</span> <span class="toc-text">什么是shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell脚本的执行方式"><span class="toc-number">2.</span> <span class="toc-text">Shell脚本的执行方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell中的变量"><span class="toc-number">3.</span> <span class="toc-text">Shell中的变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义变量"><span class="toc-number">4.</span> <span class="toc-text">定义变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#将命令的返回值赋给变量"><span class="toc-number">5.</span> <span class="toc-text">将命令的返回值赋给变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell中的特殊变量"><span class="toc-number">6.</span> <span class="toc-text">Shell中的特殊变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运算符"><span class="toc-number">7.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#for循环"><span class="toc-number">8.</span> <span class="toc-text">for循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#while循环"><span class="toc-number">9.</span> <span class="toc-text">while循环</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#case语句"><span class="toc-number">10.</span> <span class="toc-text">case语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#read命令"><span class="toc-number">11.</span> <span class="toc-text">read命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#if判断"><span class="toc-number">12.</span> <span class="toc-text">if判断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断语句"><span class="toc-number">13.</span> <span class="toc-text">判断语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell自定义函数"><span class="toc-number">14.</span> <span class="toc-text">Shell自定义函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#脚本调试"><span class="toc-number">15.</span> <span class="toc-text">脚本调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sed命令"><span class="toc-number">16.</span> <span class="toc-text">sed命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk命令"><span class="toc-number">17.</span> <span class="toc-text">awk命令</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 32 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/seaborn常用图形/" >seaborn常用图形</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/uncategorized/lj/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/uncategorized/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/linux安装xgboost/" >linux安装xgboost、</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/docker基础/" >docker基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/centos下python3-6安装/" >centos下python3.6安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/uncategorized/python中常见的内置函数/" >python中常见的内置函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/23</span><a class="archive-post-title" href= "/uncategorized/python中的-classmethod和-staticmethod/" >python中的@property、@classmethod和@staticmethod</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/uncategorized/python中的-args、-kwargs/" >python中的*args、**kwargs</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/uncategorized/特征工程/" >特征工程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span><a class="archive-post-title" href= "/uncategorized/pandas的API/" >pandas的API</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/uncategorized/zookeeper/" >zookeeper</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的crontab命令/" >linux中的crontab</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的sort、cut、wc命令/" >linux中的sort、cut、wc命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/shell编程基础/" >shell编程基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/linux一些基本软件的安装/" >linux一些基本软件的安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/大数据1：虚拟机配置及基本的linux命令/" >大数据1：虚拟机配置及基本的linux命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/uncategorized/R语言再基础/" >R语言再基础</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/java/用Eclipse创建第一个java程序/" >用Eclipse创建第一个java程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/1/" >python数据可视化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/matplotlib常用图形/" >matplotlib常用图形</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/numpy/" >numpy</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/scrapy/" >scrapy初步</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/python/groupby/" >pandas数据聚合和分组运算</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/python/pandas读写和存储/" >pandas读写和存储</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/python/pandas1/" >pandas part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part2/" >R语言part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/深度学习/tensorflow2/" >tensorflow part2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part1/" >R语言part1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/python/requests/" >requests</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/python/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="R"><span class="iconfont-archer">&#xe606;</span>R</span>
+    
+        <span class="sidebar-tag-name" data-tags="R语言 数据分析"><span class="iconfont-archer">&#xe606;</span>R语言 数据分析</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="R语言"><span class="iconfont-archer">&#xe60a;</span>R语言</span>
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
+    
+        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'JieZhao'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->    
+    
+    </body>
+</html>
+
+
