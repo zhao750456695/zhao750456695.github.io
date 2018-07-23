@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某种任">
+<meta name="description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux中的crontab">
 <meta property="og:url" content="http://yoursite.com/post/b00607be.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某种任">
+<meta property="og:description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr31js0swtj20en0bsq4h.jpg">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux中的crontab">
-<meta name="twitter:description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某种任">
+<meta name="twitter:description" content="at 命令是针对仅运行一次的任务，循环运行的例行性计划任务，linux系统则是由 cron (crond) 这个系统服务来控制的。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。另外, 由于使用者自己也可以设置计划任务，所以， Linux 系统也提供了使用者控制计划任务的命令 :crontab 命令。 一、crond简介 crond是linux下用来周期性的执行某">
 <meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr31js0swtj20en0bsq4h.jpg">
 
 
@@ -355,9 +355,9 @@
 <p>/var/spool/cron/</p>
 <p>说明：</p>
 <p>所有用户crontab文件存放的目录,以用户名命名</p>
-<p><strong>crontab****文件的含义：</strong></p>
+<p><strong>crontab文件的含义：</strong></p>
 <p>用户所建立的crontab文件中，每一行都代表一项任务，每行的每个字段代表一项设置，它的格式共分为六个字段，前五段是时间设定段，第六段是要执行的命令段，格式如下：</p>
-<p>minute   hour   day   month   week   command</p>
+<p>minute hour day month week command</p>
 <p>其中：</p>
 <p>minute： 表示分钟，可以是从0到59之间的任何整数。</p>
 <p>hour：表示小时，可以是从0到23之间的任何整数。</p>
@@ -365,7 +365,9 @@
 <p>month：表示月份，可以是从1到12之间的任何整数。</p>
 <p>week：表示星期几，可以是从0到7之间的任何整数，这里的0或7代表星期日。</p>
 <p>command：要执行的命令，可以是系统命令，也可以是自己编写的脚本文件。</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr31js0swtj20en0bsq4h.jpg" alt="img"></p>
+<div class="figure">
+<img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr31js0swtj20en0bsq4h.jpg" alt="img"><p class="caption">img</p>
+</div>
 <p><strong>在以上各个字段中，还可以使用以下特殊字符：</strong></p>
 <p>星号（*）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。</p>
 <p>逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9”</p>
@@ -388,83 +390,75 @@
 <p>加入开机自动启动：</p>
 <p>chkconfig –level 35 crond on</p>
 <p><strong>三、crontab命令详解</strong></p>
-<p><strong>1</strong>**．**<strong>命令格式：</strong></p>
+<p><strong>1．命令格式：</strong></p>
 <p>crontab [-u user] file</p>
 <p>crontab [-u user] [ -e | -l | -r ]</p>
-<p><strong>2</strong>**．**<strong>命令功能：</strong></p>
+<p><strong>2．命令功能：</strong></p>
 <p>通过crontab 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常设合周期性的日志分析或数据备份等工作。</p>
-<p><strong>3</strong>**．**<strong>命令参数：</strong></p>
+<p><strong>3．命令参数：</strong></p>
 <p>-u user：用来设定某个用户的crontab服务，例如，“-u ixdba”表示设定ixdba用户的crontab服务，此参数一般有root用户来运行。</p>
 <p>file：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab。如果在命令行中没有指定这个文件，crontab命令将接受标准输入（键盘）上键入的命令，并将它们载入crontab。</p>
 <p>-e：编辑某个用户的crontab文件内容。如果不指定用户，则表示编辑当前用户的crontab文件。</p>
 <p>-l：显示某个用户的crontab文件内容，如果不指定用户，则表示显示当前用户的crontab文件内容。</p>
 <p>-r：从/var/spool/cron目录中删除某个用户的crontab文件，如果不指定用户，则默认删除当前用户的crontab文件。</p>
 <p>-i：在删除用户的crontab文件时给确认提示。</p>
-<p><strong>4</strong>**．**<strong>常用方法：</strong></p>
+<p><strong>4．常用方法：</strong></p>
 <p><strong>1).</strong> <strong>创建一个新的crontab文件</strong></p>
 <p>在考虑向cron进程提交一个crontab文件之前，首先要做的一件事情就是设置环境变量EDITOR。cron进程根据它来确定使用哪个编辑器编辑crontab文件。9 9 %的UNIX和LINUX用户都使用vi，如果你也是这样，那么你就编辑$ HOME目录下的. profile文件，在其中加入这样一行：</p>
 <p>EDITOR=vi; export EDITOR</p>
 <p>然后保存并退出。不妨创建一个名为<user> cron的文件，其中<user>是用户名，例如， davecron。在该文件中加入如下的内容。</user></user></p>
-<p>​     # (put your own initials here)echo the date to the console every</p>
-<p>​     # 15minutes between 6pm and 6am</p>
-<p>​     0,15,30,45 18-06 * * * /bin/echo ‘date’ &gt; /dev/console</p>
-<p>​    保存并退出。确信前面5个域用空格分隔。</p>
+<p>​ # (put your own initials here)echo the date to the console every</p>
+<p>​ # 15minutes between 6pm and 6am</p>
+<p>​ 0,15,30,45 18-06 * * * /bin/echo 'date' &gt; /dev/console</p>
+<p>​ 保存并退出。确信前面5个域用空格分隔。</p>
 <p>在上面的例子中，系统将每隔1 5分钟向控制台输出一次当前时间。如果系统崩溃或挂起，从最后所显示的时间就可以一眼看出系统是什么时间停止工作的。在有些系统中，用tty1来表示控制台，可以根据实际情况对上面的例子进行相应的修改。为了提交你刚刚创建的crontab文件，可以把这个新创建的文件作为cron命令的参数：</p>
-<p>​    $ crontab davecron</p>
+<p>​ $ crontab davecron</p>
 <p>现在该文件已经提交给cron进程，它将每隔1 5分钟运行一次。</p>
 <p>同时，新创建文件的一个副本已经被放在/var/spool/cron目录中，文件名就是用户名(即dave)。</p>
 <p><strong>2).</strong> <strong>列出crontab文件</strong></p>
 <p>为了列出crontab文件，可以用：</p>
-<p>​    $ crontab -l</p>
-<p>​    0,15,30,45,18-06 * * * /bin/echo <code>date</code> &gt; dev/tty1</p>
+<p>​ $ crontab -l</p>
+<p>​ 0,15,30,45,18-06 * * * /bin/echo <code>date</code> &gt; dev/tty1</p>
 <p>你将会看到和上面类似的内容。可以使用这种方法在$ H O M E目录中对crontab文件做一备份：</p>
-<p>​    $ crontab -l &gt; $HOME/mycron</p>
-<p>​    这样，一旦不小心误删了crontab文件，可以用上一节所讲述的方法迅速恢复。</p>
+<p>​ $ crontab -l &gt; $HOME/mycron</p>
+<p>​ 这样，一旦不小心误删了crontab文件，可以用上一节所讲述的方法迅速恢复。</p>
 <p><strong>3).</strong> <strong>编辑crontab文件</strong></p>
 <p>如果希望添加、删除或编辑crontab文件中的条目，而E D I TO R环境变量又设置为v i，那么就可以用v i来编辑crontab文件，相应的命令为：</p>
-<p>​    $ crontab -e</p>
+<p>​ $ crontab -e</p>
 <p>可以像使用v i编辑其他任何文件那样修改crontab文件并退出。如果修改了某些条目或添加了新的条目，那么在保存该文件时， c r o n会对其进行必要的完整性检查。如果其中的某个域出现了超出允许范围的值，它会提示你。</p>
 <p>我们在编辑crontab文件时，没准会加入新的条目。例如，加入下面的一条：</p>
-<p>​    # DT:delete core files,at 3.30am on 1,7,14,21,26,26 days of each month</p>
-<p>​    30 3 1,7,14,21,26 * * /bin/find -name &quot;core’ -exec rm {} ;</p>
+<p>​ # DT:delete core files,at 3.30am on 1,7,14,21,26,26 days of each month</p>
+<p>​ 30 3 1,7,14,21,26 * * /bin/find -name &quot;core' -exec rm {} ;</p>
 <p>现在保存并退出。最好在crontab文件的每一个条目之上加入一条注释，这样就可以知道它的功能、运行时间，更为重要的是，知道这是哪位用户的作业。</p>
 <p>现在让我们使用前面讲过的crontab -l命令列出它的全部信息：</p>
 <p>$ crontab -l</p>
-<h1 id="crondave-installed-on-tue-may-4-130743-1999"><a class="markdownIt-Anchor" href="#crondave-installed-on-tue-may-4-130743-1999"></a> (crondave installed on Tue May 4 13:07:43 1999)</h1>
-<h1 id="dtech-the-date-to-the-console-every-30-minites"><a class="markdownIt-Anchor" href="#dtech-the-date-to-the-console-every-30-minites"></a> DT:ech the date to the console every 30 minites</h1>
+<p># (crondave installed on Tue May 4 13:07:43 1999)</p>
+<p># DT:ech the date to the console every 30 minites</p>
 <p>0,15,30,45 18-06 * * * /bin/echo <code>date</code> &gt; /dev/tty1</p>
-<h1 id="dtdelete-core-filesat-330am-on-1714212626-days-of-each-month"><a class="markdownIt-Anchor" href="#dtdelete-core-filesat-330am-on-1714212626-days-of-each-month"></a> DT:delete core files,at 3.30am on 1,7,14,21,26,26 days of each month</h1>
-<p>30 3 1,7,14,21,26 * * /bin/find -name &quot;core’ -exec rm {} ;</p>
+<p># DT:delete core files,at 3.30am on 1,7,14,21,26,26 days of each month</p>
+<p>30 3 1,7,14,21,26 * * /bin/find -name &quot;core' -exec rm {} ;</p>
 <p><strong>4).</strong> <strong>删除crontab文件</strong></p>
 <p>要删除crontab文件，可以用：</p>
 <p>$ crontab -r</p>
 <p><strong>5).</strong> <strong>恢复丢失的crontab文件</strong></p>
 <p>如果不小心误删了crontab文件，假设你在自己的$ H O M E目录下还有一个备份，那么可以将其拷贝到/var/spool/cron/<username>，其中<username>是用户名。如果由于权限问题无法完成拷贝，可以用：</username></username></p>
-<p>​    $ crontab <filename></filename></p>
-<p>​    其中，<filename>是你在$ H O M E目录中副本的文件名。</filename></p>
+<p>​ $ crontab <filename></filename></p>
+<p>​ 其中，<filename>是你在$ H O M E目录中副本的文件名。</filename></p>
 <p>我建议你在自己的$ H O M E目录中保存一个该文件的副本。我就有过类似的经历，有数次误删了crontab文件（因为r键紧挨在e键的右边）。这就是为什么有些系统文档建议不要直接编辑crontab文件，而是编辑该文件的一个副本，然后重新提交新的文件。</p>
 <p>有些crontab的变体有些怪异，所以在使用crontab命令时要格外小心。如果遗漏了任何选项，crontab可能会打开一个空文件，或者看起来像是个空文件。这时敲delete键退出，不要按<ctrl-d>，否则你将丢失crontab文件。</ctrl-d></p>
-<p><strong>5</strong>**．**<strong>使用实例</strong></p>
+<p><strong>5．使用实例</strong></p>
 <p><strong>实例1：每1分钟执行一次command</strong></p>
 <p><strong>命令：</strong></p>
 <ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
 <li>command</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 <p><strong>实例2：每小时的第3和第15分钟执行</strong></p>
 <p><strong>命令：</strong></p>
@@ -474,7 +468,7 @@
 <p>3,15 8-11 * * * command</p>
 <p><strong>实例4：每隔两天的上午8点到11点的第3和第15分钟执行</strong></p>
 <p><strong>命令：</strong></p>
-<p>3,15 8-11 */2 * * command</p>
+<p>3,15 8-11 <em>/2 </em> * command</p>
 <p><strong>实例5：每个星期一的上午8点到11点的第3和第15分钟执行</strong></p>
 <p><strong>命令：</strong></p>
 <p>3,15 8-11 * * 1 command</p>
@@ -496,7 +490,7 @@
 <p><strong>实例11：每一小时重启smb</strong></p>
 <p><strong>命令：</strong></p>
 <ul>
-<li>*/1 * * * /etc/init.d/smb restart</li>
+<li><em>/1 </em> * * /etc/init.d/smb restart</li>
 </ul>
 <p><strong>实例12：晚上11点到早上7点之间，每隔一小时重启smb</strong></p>
 <p><strong>命令：</strong></p>
@@ -511,7 +505,7 @@
 <p>0 4 1 jan * /etc/init.d/smb restart</p>
 <p><strong>实例15：每小时执行/etc/cron.hourly目录内的脚本</strong></p>
 <p><strong>命令：</strong></p>
-<p>01   *   *   *   *     root run-parts /etc/cron.hourly</p>
+<p>01 * * * * root run-parts /etc/cron.hourly</p>
 <p><strong>说明：</strong></p>
 <p>run-parts这个参数了，如果去掉这个参数的话，后面就可以写要运行的某个脚本名，而不是目录名了</p>
 <p><strong>四、使用注意事项</strong></p>
@@ -531,7 +525,7 @@
 <p><strong>2.</strong> <strong>注意清理系统用户的邮件日志</strong></p>
 <p>每条任务调度执行完毕，系统都会将任务输出信息通过电子邮件的形式发送给当前系统用户，这样日积月累，日志信息会非常大，可能会影响系统的正常运行，因此，将每条任务进行重定向处理非常重要。</p>
 <p>例如，可以在crontab文件中设置如下形式，忽略日志输出：</p>
-<p>0 */3 * * * /usr/local/apache2/apachectl restart &gt;/dev/null 2&gt;&amp;1</p>
+<p>0 <em>/3 </em> * * /usr/local/apache2/apachectl restart &gt;/dev/null 2&gt;&amp;1</p>
 <p>“/dev/null 2&gt;&amp;1”表示先将标准输出重定向到/dev/null，然后将标准错误重定向到标准输出，由于标准输出已经重定向到了/dev/null，因此标准错误也会重定向到/dev/null，这样日志输出问题就解决了。</p>
 <p><strong>3.</strong> <strong>系统级任务调度与用户级任务调度</strong></p>
 <p>系统级任务调度主要完成系统的一些维护操作，用户级任务调度主要完成用户自定义的一些任务，可以将用户级任务调度放到系统级任务调度来完成（不建议这么做），但是反过来却不行，root用户的任务调度操作可以通过“crontab –uroot –e”来设置，也可以将调度任务直接写入/etc/crontab文件，需要注意的是，如果要定义一个定时重启系统的任务，就必须将任务放到/etc/crontab文件，即使在root用户下创建一个定时重启系统的任务也是无效的。</p>
@@ -642,17 +636,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -719,22 +704,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#crondave-installed-on-tue-may-4-130743-1999"><span class="nav-number">1.</span> <span class="nav-text"> (crondave installed on Tue May 4 13:07:43 1999)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dtech-the-date-to-the-console-every-30-minites"><span class="nav-number">2.</span> <span class="nav-text"> DT:ech the date to the console every 30 minites</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dtdelete-core-filesat-330am-on-1714212626-days-of-each-month"><span class="nav-number">3.</span> <span class="nav-text"> DT:delete core files,at 3.30am on 1,7,14,21,26,26 days of each month</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
