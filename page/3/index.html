@@ -251,6 +251,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/e123bc90.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/e123bc90.html" itemprop="url">matplotlib常用图形</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-03T10:36:06+08:00">
+                2018-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="常用设置"><a class="markdownIt-Anchor" href="#常用设置"></a> 常用设置</h1>
+<ul>
+<li>获得当前图表对象 fig = matplotlib.pyplot.gcf() # gcf = get current figure</li>
+<li>常用图表对象设置 fig.set_size_inches(10,10), matplotlib.pyplot.figure(figsize=(14,7))</li>
+<li>保存当前图表对象 matplotlib.pyplot.savefig(“figure1.png”)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 设置一些全局的资源参数，可以进行个性化修改</span><br><span class="line">import matplotlib</span><br><span class="line"># 设置图片尺寸 14&quot; x 7&quot;</span><br><span class="line"># rc: resource configuration</span><br><span class="line">matplotlib.rc(&apos;figure&apos;, figsize = (14, 7))</span><br><span class="line"># 设置字体 14</span><br><span class="line">matplotlib.rc(&apos;font&apos;, size = 14)</span><br><span class="line"># 不显示网格</span><br><span class="line">matplotlib.rc(&apos;axes&apos;, grid = False)</span><br><span class="line"># 设置背景颜色是白色</span><br><span class="line">matplotlib.rc(&apos;axes&apos;, facecolor = &apos;white&apos;)</span><br></pre></td></tr></table></figure>
+<p><strong>颜色/线条/标记</strong></p>
+<ul>
+<li>pyplot.plot(x, color=‘g’)</li>
+<li>pyplot.plot(x, linestyle=’–’)</li>
+<li>pyplot.plot(x, marker=’+’)</li>
+<li>pyplot.plot(x, ‘ro-’)</li>
+</ul>
+<p><strong>标题</strong></p>
+<ul>
+<li>pyplot.title(“xxxx”)</li>
+</ul>
+<p><strong>坐标轴标签</strong></p>
+<ul>
+<li>pyplot.xlabel(“xxxx”)</li>
+<li>pyplot.ylabel(“xxxx”)</li>
+</ul>
+<p><strong>图注</strong></p>
+<ul>
+<li>pyplot.legend(loc=“best”)配合pyplot.plot(label=“xxxx”)</li>
+</ul>
+<p><strong>网格</strong></p>
+<ul>
+<li>pyplot.grid(color=“xxx”, linestyle=&quot;-&quot;, alpha=0.5)</li>
+</ul>
+<h1 id="关联分析"><a class="markdownIt-Anchor" href="#关联分析"></a> 关联分析</h1>
+<h2 id="散点图"><a class="markdownIt-Anchor" href="#散点图"></a> 散点图</h2>
+<p>分析变量关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scatterplot</span><span class="params">(x_data, y_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 创建一个绘图对象</span></span><br><span class="line">    fig, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 不显示顶部和右侧的坐标线</span></span><br><span class="line">    ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">    ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">    <span class="comment"># 设置数据、点的大小、点的颜色和透明度</span></span><br><span class="line">    ax.scatter(x_data, y_data, s = <span class="number">20</span>, color = <span class="string">'#539caf'</span>, alpha = <span class="number">0.2</span>) <span class="comment"># 配色查询：http://tool.oschina.net/commons?type=3</span></span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 绘制散点图</span></span><br><span class="line">scatterplot(x_data = daily_data[<span class="string">'temp'</span>]</span><br><span class="line">            , y_data = daily_data[<span class="string">'cnt'</span>]</span><br><span class="line">            , x_label = <span class="string">'Normalized temperature (C)'</span></span><br><span class="line">            , y_label = <span class="string">'Check outs'</span></span><br><span class="line">            , title = <span class="string">'Number of Check Outs vs Temperature'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy0r93wz7j20mi0blabo.jpg" alt=""></p>
+<h2 id="曲线图"><a class="markdownIt-Anchor" href="#曲线图"></a> 曲线图</h2>
+<p>拟合变量关系</p>
+<h3 id="一般曲线图"><a class="markdownIt-Anchor" href="#一般曲线图"></a> 一般曲线图</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineplot</span><span class="params">(x_data, y_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 创建绘图对象</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 绘制拟合曲线，lw=linewidth，alpha=transparancy</span></span><br><span class="line">    ax.plot(x_data, y_data, lw = <span class="number">2</span>, color = <span class="string">'#539caf'</span>, alpha = <span class="number">0.5</span>)</span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">lineplot(x_data = daily_data[<span class="string">'temp'</span>]</span><br><span class="line">         , y_data = fitted_values</span><br><span class="line">         , x_label = <span class="string">'Normalized temperature (C)'</span></span><br><span class="line">         , y_label = <span class="string">'Check outs'</span></span><br><span class="line">         , title = <span class="string">'Line of Best Fit for Number of Check Outs vs Temperature'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy0ts1nj6j20nu0bh3z5.jpg" alt=""></p>
+<h3 id="带置信区间的曲线图"><a class="markdownIt-Anchor" href="#带置信区间的曲线图"></a> 带置信区间的曲线图</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineplotCI</span><span class="params">(x_data, y_data, sorted_x, low_CI, upper_CI, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 创建绘图对象</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 绘制预测曲线</span></span><br><span class="line">    ax.plot(x_data, y_data, lw = <span class="number">1</span>, color = <span class="string">'#539caf'</span>, alpha = <span class="number">1</span>, label = <span class="string">'Fit'</span>)</span><br><span class="line">    <span class="comment"># 绘制置信区间，顺序填充</span></span><br><span class="line">    ax.fill_between(sorted_x, low_CI, upper_CI, color = <span class="string">'#539caf'</span>, alpha = <span class="number">0.4</span>, label = <span class="string">'95% CI'</span>)</span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    <span class="comment"># 显示图例，配合label参数，loc=“best”自适应方式</span></span><br><span class="line">    ax.legend(loc = <span class="string">'best'</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Call the function to create plot</span></span><br><span class="line">lineplotCI(x_data = daily_data[<span class="string">'temp'</span>]</span><br><span class="line">           , y_data = fitted_values</span><br><span class="line">           , sorted_x = CI_df[<span class="string">'x_data'</span>]</span><br><span class="line">           , low_CI = CI_df[<span class="string">'low_CI'</span>]</span><br><span class="line">           , upper_CI = CI_df[<span class="string">'upper_CI'</span>]</span><br><span class="line">           , x_label = <span class="string">'Normalized temperature (C)'</span></span><br><span class="line">           , y_label = <span class="string">'Check outs'</span></span><br><span class="line">           , title = <span class="string">'Line of Best Fit for Number of Check Outs vs Temperature'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy0wjkhvhj20my0bkjsc.jpg" alt=""></p>
+<h3 id="双坐标曲线"><a class="markdownIt-Anchor" href="#双坐标曲线"></a> 双坐标曲线</h3>
+<ul>
+<li>曲线拟合不满足置信阈值时，考虑增加独立变量</li>
+<li>分析不同尺度多变量的关系</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineplot2y</span><span class="params">(x_data, x_label, y1_data, y1_color, y1_label, y2_data, y2_color, y2_label, title)</span>:</span></span><br><span class="line">    _, ax1 = plt.subplots()</span><br><span class="line">    ax1.plot(x_data, y1_data, color = y1_color)</span><br><span class="line">    <span class="comment"># 添加标题和坐标说明</span></span><br><span class="line">    ax1.set_ylabel(y1_label, color = y1_color)</span><br><span class="line">    ax1.set_xlabel(x_label)</span><br><span class="line">    ax1.set_title(title)</span><br><span class="line">    ax2 = ax1.twinx() <span class="comment"># 两个绘图对象共享横坐标轴</span></span><br><span class="line">    ax2.plot(x_data, y2_data, color = y2_color)</span><br><span class="line">    ax2.set_ylabel(y2_label, color = y2_color)</span><br><span class="line">    <span class="comment"># 右侧坐标轴可见</span></span><br><span class="line">    ax2.spines[<span class="string">'right'</span>].set_visible(<span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">lineplot2y(x_data = daily_data[<span class="string">'dteday'</span>]</span><br><span class="line">           , x_label = <span class="string">'Day'</span></span><br><span class="line">           , y1_data = daily_data[<span class="string">'cnt'</span>]</span><br><span class="line">           , y1_color = <span class="string">'#539caf'</span></span><br><span class="line">           , y1_label = <span class="string">'Check outs'</span></span><br><span class="line">           , y2_data = daily_data[<span class="string">'windspeed'</span>]</span><br><span class="line">           , y2_color = <span class="string">'#7663b0'</span></span><br><span class="line">           , y2_label = <span class="string">'Normalized windspeed'</span></span><br><span class="line">           , title = <span class="string">'Check Outs and Windspeed Over Time'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy0ypi8azj20nt0avjwh.jpg" alt=""></p>
+<h1 id="分布分析"><a class="markdownIt-Anchor" href="#分布分析"></a> 分布分析</h1>
+<h2 id="灰度图"><a class="markdownIt-Anchor" href="#灰度图"></a> 灰度图</h2>
+<p>粗略区间计数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制灰度图的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">histogram</span><span class="params">(data, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    res = ax.hist(data, color = <span class="string">'#539caf'</span>, bins=<span class="number">50</span>, edgecolor=<span class="string">'k'</span>) <span class="comment"># 设置bin的数量</span></span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图函数调用</span></span><br><span class="line">res = histogram(data = daily_data[<span class="string">'registered'</span>]</span><br><span class="line">           , x_label = <span class="string">'Check outs'</span></span><br><span class="line">           , y_label = <span class="string">'Frequency'</span></span><br><span class="line">           , title = <span class="string">'Distribution of Registered Check Outs'</span>)</span><br><span class="line">res[<span class="number">0</span>] <span class="comment"># value of bins</span></span><br><span class="line">res[<span class="number">1</span>] <span class="comment"># boundary of bins</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy12d5w72j20mg0c0dgc.jpg" alt=""></p>
+<h2 id="堆叠直方图"><a class="markdownIt-Anchor" href="#堆叠直方图"></a> 堆叠直方图</h2>
+<p>比较两个分布</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制堆叠的直方图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">overlaid_histogram</span><span class="params">(data1, data1_name, data1_color, data2, data2_name, data2_color, x_label, y_label, title)</span>:</span></span><br><span class="line">    <span class="comment"># 归一化数据区间，对齐两个直方图的bins</span></span><br><span class="line">    max_nbins = <span class="number">20</span></span><br><span class="line">    data_range = [min(min(data1), min(data2)), max(max(data1), max(data2))]</span><br><span class="line">    binwidth = (data_range[<span class="number">1</span>] - data_range[<span class="number">0</span>]) / max_nbins</span><br><span class="line">    bins = np.arange(data_range[<span class="number">0</span>], data_range[<span class="number">1</span>] + binwidth, binwidth) <span class="comment"># 生成直方图bins区间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create the plot</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    ax.hist(data1, bins = bins, color = data1_color, alpha = <span class="number">1</span>, label = data1_name, edgecolor=<span class="string">'k'</span>)</span><br><span class="line">    ax.hist(data2, bins = bins, color = data2_color, alpha = <span class="number">0.75</span>, label = data2_name, edgecolor=<span class="string">'k'</span>)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'best'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call the function to create plot</span></span><br><span class="line">overlaid_histogram(data1 = daily_data[<span class="string">'registered'</span>]</span><br><span class="line">                   , data1_name = <span class="string">'Registered'</span></span><br><span class="line">                   , data1_color = <span class="string">'#539caf'</span></span><br><span class="line">                   , data2 = daily_data[<span class="string">'casual'</span>]</span><br><span class="line">                   , data2_name = <span class="string">'Casual'</span></span><br><span class="line">                   , data2_color = <span class="string">'#7663b0'</span></span><br><span class="line">                   , x_label = <span class="string">'Check outs'</span></span><br><span class="line">                   , y_label = <span class="string">'Frequency'</span></span><br><span class="line">                   , title = <span class="string">'Distribution of Check Outs By Type'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy23p0kepj20nc0bk74t.jpg" alt=""></p>
+<h2 id="密度图"><a class="markdownIt-Anchor" href="#密度图"></a> 密度图</h2>
+<ul>
+<li>精细刻画概率分布</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 计算概率密度</span><br><span class="line">from scipy.stats import gaussian_kde</span><br><span class="line">data = daily_data[&apos;registered&apos;]</span><br><span class="line">density_est = gaussian_kde(data) # kernal density estimate: https://en.wikipedia.org/wiki/Kernel_density_estimation</span><br><span class="line"># 控制平滑程度，数值越大，越平滑哈</span><br><span class="line">density_est.covariance_factor = lambda : 0.5</span><br><span class="line">density_est._compute_covariance()</span><br><span class="line">x_data = np.arange(min(data), max(data), 200)</span><br><span class="line"></span><br><span class="line"># 绘制密度估计曲线</span><br><span class="line">def densityplot(x_data, density_est, x_label, y_label, title):</span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    ax.plot(x_data, density_est(x_data), color = &apos;#539caf&apos;, lw = 4)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"># 调用绘图函数</span><br><span class="line">densityplot(x_data = x_data</span><br><span class="line">            , density_est = density_est</span><br><span class="line">            , x_label = &apos;Check outs&apos;</span><br><span class="line">            , y_label = &apos;Frequency&apos;</span><br><span class="line">            , title = &apos;Distribution of Registered Check Outs&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy25jhljzj20mr0b50tl.jpg" alt=""></p>
+<h1 id="组间分析"><a class="markdownIt-Anchor" href="#组间分析"></a> 组间分析</h1>
+<ul>
+<li>组间定量比较</li>
+<li>分组粒度</li>
+<li>组间聚类</li>
+</ul>
+<h2 id="柱状图"><a class="markdownIt-Anchor" href="#柱状图"></a> 柱状图</h2>
+<ul>
+<li>
+<p>一级类间均值方差比较</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分天分析统计特征</span></span><br><span class="line">mean_total_co_day = daily_data[[<span class="string">'weekday'</span>, <span class="string">'cnt'</span>]].groupby(<span class="string">'weekday'</span>).agg([np.mean, np.std])</span><br><span class="line">mean_total_co_day.columns = mean_total_co_day.columns.droplevel()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义绘制柱状图的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">barplot</span><span class="params">(x_data, y_data, error_data, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 柱状图</span></span><br><span class="line">    ax.bar(x_data, y_data, color = <span class="string">'#539caf'</span>, align = <span class="string">'center'</span>)</span><br><span class="line">    <span class="comment"># 绘制方差</span></span><br><span class="line">    <span class="comment"># ls='none'去掉bar之间的连线</span></span><br><span class="line">    ax.errorbar(x_data, y_data, yerr = error_data, color = <span class="string">'#297083'</span>, ls = <span class="string">'none'</span>, lw = <span class="number">5</span>) <span class="comment"># ls = line style</span></span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图函数调用</span></span><br><span class="line">barplot(x_data = mean_total_co_day.index.values</span><br><span class="line">        , y_data = mean_total_co_day[<span class="string">'mean'</span>]</span><br><span class="line">        , error_data = mean_total_co_day[<span class="string">'std'</span>]</span><br><span class="line">        , x_label = <span class="string">'Day of week'</span></span><br><span class="line">        , y_label = <span class="string">'Check outs'</span></span><br><span class="line">        , title = <span class="string">'Total Check Outs By Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy2dkhtaij20m80bk0t8.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="堆积柱状图"><a class="markdownIt-Anchor" href="#堆积柱状图"></a> 堆积柱状图</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分天统计注册和偶然使用的情况</span></span><br><span class="line">mean_by_reg_co_day = daily_data[[<span class="string">'weekday'</span>, <span class="string">'registered'</span>, <span class="string">'casual'</span>]].groupby(<span class="string">'weekday'</span>).mean()</span><br><span class="line"><span class="comment"># 分天统计注册和偶然使用的占比</span></span><br><span class="line">mean_by_reg_co_day[<span class="string">'total'</span>] = mean_by_reg_co_day[<span class="string">'registered'</span>] + mean_by_reg_co_day[<span class="string">'casual'</span>]</span><br><span class="line">mean_by_reg_co_day[<span class="string">'reg_prop'</span>] = mean_by_reg_co_day[<span class="string">'registered'</span>] / mean_by_reg_co_day[<span class="string">'total'</span>]</span><br><span class="line">mean_by_reg_co_day[<span class="string">'casual_prop'</span>] = mean_by_reg_co_day[<span class="string">'casual'</span>] / mean_by_reg_co_day[<span class="string">'total'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制堆积柱状图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stackedbarplot</span><span class="params">(x_data, y_data_list, y_data_names, colors, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 循环绘制堆积柱状图</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(y_data_list)):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            ax.bar(x_data, y_data_list[i], color = colors[i], align = <span class="string">'center'</span>, label = y_data_names[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 采用堆积的方式，除了第一个分类，后面的分类都从前一个分类的柱状图接着画</span></span><br><span class="line">            <span class="comment"># 用归一化保证最终累积结果为1</span></span><br><span class="line">            ax.bar(x_data, y_data_list[i], color = colors[i], bottom = y_data_list[i - <span class="number">1</span>], align = <span class="string">'center'</span>, label = y_data_names[i])</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'upper left'</span>) <span class="comment"># 设定图例位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">stackedbarplot(x_data = mean_by_reg_co_day.index.values</span><br><span class="line">               , y_data_list = [mean_by_reg_co_day[<span class="string">'reg_prop'</span>], mean_by_reg_co_day[<span class="string">'casual_prop'</span>]]</span><br><span class="line">               , y_data_names = [<span class="string">'Registered'</span>, <span class="string">'Casual'</span>]</span><br><span class="line">               , colors = [<span class="string">'#539caf'</span>, <span class="string">'#7663b0'</span>]</span><br><span class="line">               , x_label = <span class="string">'Day of week'</span></span><br><span class="line">               , y_label = <span class="string">'Proportion of check outs'</span></span><br><span class="line">               , title = <span class="string">'Check Outs By Registration Status and Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy2fupl5kj20mi0bvjs1.jpg" alt=""></p>
+<h2 id="分组柱状图"><a class="markdownIt-Anchor" href="#分组柱状图"></a> 分组柱状图</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 绘制分组柱状图的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupedbarplot</span><span class="params">(x_data, y_data_list, y_data_names, colors, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line">    <span class="comment"># 设置每一组柱状图的宽度</span></span><br><span class="line">    total_width = <span class="number">0.8</span></span><br><span class="line">    <span class="comment"># 设置每一个柱状图的宽度</span></span><br><span class="line">    ind_width = total_width / len(y_data_list)</span><br><span class="line">    <span class="comment"># 计算每一个柱状图的中心偏移</span></span><br><span class="line">    alteration = np.arange(-total_width/<span class="number">2</span>+ind_width/<span class="number">2</span>, total_width/<span class="number">2</span>+ind_width/<span class="number">2</span>, ind_width)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分别绘制每一个柱状图</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(y_data_list)):</span><br><span class="line">        <span class="comment"># 横向散开绘制</span></span><br><span class="line">        ax.bar(x_data + alteration[i], y_data_list[i], color = colors[i], label = y_data_names[i], width = ind_width)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line">    ax.legend(loc = <span class="string">'upper right'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">groupedbarplot(x_data = mean_by_reg_co_day.index.values</span><br><span class="line">               , y_data_list = [mean_by_reg_co_day[<span class="string">'registered'</span>], mean_by_reg_co_day[<span class="string">'casual'</span>]]</span><br><span class="line">               , y_data_names = [<span class="string">'Registered'</span>, <span class="string">'Casual'</span>]</span><br><span class="line">               , colors = [<span class="string">'#539caf'</span>, <span class="string">'#7663b0'</span>]</span><br><span class="line">               , x_label = <span class="string">'Day of week'</span></span><br><span class="line">               , y_label = <span class="string">'Check outs'</span></span><br><span class="line">               , title = <span class="string">'Check Outs By Registration Status and Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy2hb37m7j20mc0bp0tc.jpg" alt=""></p>
+<h2 id="箱式图"><a class="markdownIt-Anchor" href="#箱式图"></a> 箱式图</h2>
+<ul>
+<li>多级类间数据分布比较</li>
+<li>柱状图 + 堆叠灰度图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只需要指定分类的依据，就能自动绘制箱式图</span></span><br><span class="line">days = np.unique(daily_data[<span class="string">'weekday'</span>])</span><br><span class="line">bp_data = []</span><br><span class="line"><span class="keyword">for</span> day <span class="keyword">in</span> days:</span><br><span class="line">    bp_data.append(daily_data[daily_data[<span class="string">'weekday'</span>] == day][<span class="string">'registered'</span>].values)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义绘图函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">boxplot</span><span class="params">(x_data, y_data, base_color, median_color, x_label, y_label, title)</span>:</span></span><br><span class="line">    _, ax = plt.subplots()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置样式</span></span><br><span class="line">    ax.boxplot(y_data</span><br><span class="line">               <span class="comment"># 箱子是否颜色填充</span></span><br><span class="line">               , patch_artist = <span class="keyword">True</span></span><br><span class="line">               <span class="comment"># 中位数线颜色</span></span><br><span class="line">               , medianprops = &#123;<span class="string">'color'</span>: base_color&#125;</span><br><span class="line">               <span class="comment"># 箱子颜色设置，color：边框颜色，facecolor：填充颜色</span></span><br><span class="line">               , boxprops = &#123;<span class="string">'color'</span>: base_color, <span class="string">'facecolor'</span>: median_color&#125;</span><br><span class="line">               <span class="comment"># 猫须颜色whisker</span></span><br><span class="line">               , whiskerprops = &#123;<span class="string">'color'</span>: median_color&#125;</span><br><span class="line">               <span class="comment"># 猫须界限颜色whisker cap</span></span><br><span class="line">               , capprops = &#123;<span class="string">'color'</span>: base_color&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 箱图与x_data保持一致</span></span><br><span class="line">    ax.set_xticklabels(x_data)</span><br><span class="line">    ax.set_ylabel(y_label)</span><br><span class="line">    ax.set_xlabel(x_label)</span><br><span class="line">    ax.set_title(title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用绘图函数</span></span><br><span class="line">boxplot(x_data = days</span><br><span class="line">        , y_data = bp_data</span><br><span class="line">        , base_color = <span class="string">'b'</span></span><br><span class="line">        , median_color = <span class="string">'r'</span></span><br><span class="line">        , x_label = <span class="string">'Day of week'</span></span><br><span class="line">        , y_label = <span class="string">'Check outs'</span></span><br><span class="line">        , title = <span class="string">'Total Check Outs By Day of Week (0 = Sunday)'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy2jfzh9vj20qi0csjrw.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/4d591cd8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -43872,310 +44086,6 @@ Name: d, dtype: float64
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/c51ae3ed.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JieZhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FinGeek">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/c51ae3ed.html" itemprop="url">tensorflow part2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T13:19:27+08:00">
-                2018-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="tensorflow"><a class="markdownIt-Anchor" href="#tensorflow"></a> Tensorflow</h1>
-<h2 id="31-张量-计算图-会话"><a class="markdownIt-Anchor" href="#31-张量-计算图-会话"></a> 3.1 张量、计算图、会话</h2>
-<p>基于Tensorflow的NN：用张量表示数据，用计算图搭建神经网络，用会话执行计算图，优化线上的权重(参数)，得到模型。</p>
-<p>**张量（tensor）：**多维数组（列表）</p>
-<p>**阶：**张量的维数</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">维数</th>
-<th style="text-align:center">阶</th>
-<th style="text-align:center">名字</th>
-<th style="text-align:center">例子</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0-D</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">标量 scalar</td>
-<td style="text-align:center">s=1 2 3</td>
-</tr>
-<tr>
-<td style="text-align:center">1-D</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">向量 vector</td>
-<td style="text-align:center">v=[1,2,3]</td>
-</tr>
-<tr>
-<td style="text-align:center">2-D</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">矩阵 matrix</td>
-<td style="text-align:center">m[[1,2,3],[4,5,6],[7,8,9]] 二维数组</td>
-</tr>
-<tr>
-<td style="text-align:center">n-D</td>
-<td style="text-align:center">n</td>
-<td style="text-align:center">张量 tensor</td>
-<td style="text-align:center">t=[[[…      n个    方括号有几个就是几阶的</td>
-</tr>
-</tbody>
-</table>
-<p>张量可以表示0阶到n阶数组(列表)</p>
-<h2 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h2>
-<p>tf.float32</p>
-<p>tf.int32</p>
-<p>加法运算</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">a = tf.constant([1.0, 2.0]) # 定义张量a constant常数</span><br><span class="line">b = tf.constant([3.0, 4.0]) # 定义张量b </span><br><span class="line">result = a+b</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tensor(&quot;add:0&quot;, shape=(2,), dtype=float32)</span><br><span class="line">#result是一个名为&apos;add:0&apos;的张量，add是节点名，0表示第0个输出。shape是维度，因为这里是一维数组，只有一个元素2，表示一维数组长度为2，dtype是数据类型。</span><br></pre></td></tr></table></figure>
-<h2 id="计算图"><a class="markdownIt-Anchor" href="#计算图"></a> 计算图</h2>
-<p>**计算图（Graph）😗*搭建神经网络的计算过程，只搭建，不运算。</p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq9kmhllikj20dd0d7441.jpg" alt=""></p>
-<p>上面是神经元的基本模型，其实就是数学里的乘加运算</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>]])</span><br><span class="line">w = tf.constant([[<span class="number">3.0</span>], [<span class="number">4.0</span>]])</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Tensor(<span class="string">"MatMul:0"</span>, shape=(<span class="number">1</span>, <span class="number">1</span>), dtype=float32)</span><br><span class="line"><span class="comment"># shape中有两个元素，是两维的，一行一列</span></span><br><span class="line"><span class="comment"># 只搭建了一个图</span></span><br></pre></td></tr></table></figure>
-<p>想执行图就必须用到会话了</p>
-<p>**会话（Session）：**执行计算图中的节点运算。</p>
-<p>用with</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	print(sess.run(y))</span><br><span class="line"><span class="comment"># Session首字母大写</span></span><br><span class="line"><span class="comment"># sess.run()运行</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>]])</span><br><span class="line">w = tf.constant([[<span class="number">3.0</span>], [<span class="number">4.0</span>]])</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line">print(y)</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(y))</span><br></pre></td></tr></table></figure>
-<p>结果是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[ 11.]]</span><br></pre></td></tr></table></figure>
-<p>ubuntu下运行出现一些警告信息</p>
-<p>可以把它们去掉</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
-<p>把tensorflow的提示登记降低，加入下面这句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TF_CPP_MIN_LOG_LEVEL=2</span><br></pre></td></tr></table></figure>
-<p>然后，让配置文件生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
-<h2 id="32-前向传播"><a class="markdownIt-Anchor" href="#32-前向传播"></a> 3.2 前向传播</h2>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9laniw1ej20wk0ewqhs.jpg" alt=""></p>
-<p>初值随机生成，用<code>tf.Variable()</code>意为生成随机数，V要大写，生成方式写在括号里</p>
-<p>上图中随机种子如果去掉每次生成的随机数将不一致</p>
-<p>标准差、均值、随机种子可以不写</p>
-<p>除了<code>tf.random_normal()</code>，还有很多随机数生成方式，如<code>tf.truncated_normal()</code>如果生成出的随机数超过平均值两个标准差将重新生成，<code>tf.random_uniform()</code>等</p>
-<p>除了随机数，还可以生成常量</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">方式</th>
-<th style="text-align:center">描述</th>
-<th style="text-align:center">举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">tf.ones</td>
-<td style="text-align:center">全1数组</td>
-<td style="text-align:center">tf.ones([3,2],int32)生成[[1,1],[1,1][1,1]]</td>
-</tr>
-<tr>
-<td style="text-align:center">tf.fill</td>
-<td style="text-align:center">全定值数组</td>
-<td style="text-align:center">tf.fill([3,2],6)生成[[6,6],[6,6],[6,6]]</td>
-</tr>
-<tr>
-<td style="text-align:center">tf.constant</td>
-<td style="text-align:center">直接给值</td>
-<td style="text-align:center">tf.constant([3,2,1])生成[3,2,1]</td>
-</tr>
-<tr>
-<td style="text-align:center">tf.zeros</td>
-<td style="text-align:center">全0数组</td>
-<td style="text-align:center">tf.zeros([3,2],int32)生成[[0,0],[0,0][0,0]]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>神经网络的实现过程：</strong></p>
-<p>1、准备数据集，提取特征，作为输入喂给神经网络（Netural Network,NN）</p>
-<p>2、搭建NN结构，从输入到输出（先搭建计算图，再用会话执行）</p>
-<p>（NN前向传播算法----------&gt;计算输出）</p>
-<p>3、大量特征数据喂给NN，迭代优化NN参数</p>
-<p>（NN反向传播算法----------&gt;优化参数训练模型）</p>
-<p>4、使用训练好的模型预测和分类</p>
-<p>因此，神经网络的使用过程可以分两步：1-3的循环迭代是第一步，即训练，4是第二步，是使用过程。</p>
-<blockquote>
-<p>一旦参数优化完成就可以固定这些参数实现特定应用，很多现实应用中会使用成熟的现有网络结构，喂入新的数据，训练相应模型，判断是否能对喂入的、从未见过的新数据做出正确的响应。再适当更改网络结构、反复迭代，让机器自动训练参数，找出最优结构和参数，固定专有网络。</p>
-</blockquote>
-<h2 id="前向传播"><a class="markdownIt-Anchor" href="#前向传播"></a> 前向传播</h2>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9mjlalf3j20vs0kytqn.jpg" alt=""></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq9mrcas6tj20wm0mzts9.jpg" alt=""></p>
-<p>第一层的w前面有两个两个节点，后面有三个节点，因此是个两行三列的矩阵</p>
-<p>a是第一个计算层，一般说神经网络共有几层、当前是第几层都是指的计算层，输入不是计算层，因此a是第一层网络</p>
-<p>第二层的参数w前面是是3个节点、后面是1个节点，因此是三行一列的矩阵</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq9n2sa1gzj20tc0lph5o.jpg" alt=""></p>
-<p>tf.placeholder()中shape第一个元素表示几组数据，第二个元素表示每组数据有几个特征</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两层简单的神经网络(全连接)</span></span><br><span class="line">x = tf.constant([[<span class="number">0.7</span>, <span class="number">0.5</span>]])</span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 =  tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer() <span class="comment"># 初始化</span></span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3.py is :\n'</span>, sess.run(y))</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y <span class="keyword">in</span> tf3.py <span class="keyword">is</span> :</span><br><span class="line"> [[ <span class="number">3.0904665</span>]]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 两层简单的神经网络</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入和参数</span></span><br><span class="line"><span class="comment"># 用placeholder实现输入定义 （see.run中喂一组数据）</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用会话计算结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3_4.py is:\n'</span>, sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.5</span>]]&#125;))</span><br></pre></td></tr></table></figure>
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y in tf3_4.py is:</span><br><span class="line"> [[ 3.0904665]]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义输入和参数</span></span><br><span class="line"><span class="comment"># 用placeholder实现输入定义 （see.run中喂多组数据）</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>)) <span class="comment"># 不知道喂多少组，第一个元素是None</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用会话计算结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3_4.py is:\n'</span>, sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.5</span>], [<span class="number">0.2</span>, <span class="number">0.3</span>], [<span class="number">0.3</span> , <span class="number">0.4</span>], [<span class="number">0.4</span>, <span class="number">0.5</span>]]&#125;))</span><br><span class="line">    print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">    print(<span class="string">'w2:\n'</span>, sess.run(w2))</span><br></pre></td></tr></table></figure>
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">y in tf3_4.py is:</span><br><span class="line"> [[ 3.0904665 ]</span><br><span class="line"> [ 1.2236414 ]</span><br><span class="line"> [ 1.72707319]</span><br><span class="line"> [ 2.23050475]]</span><br><span class="line">w1:</span><br><span class="line"> [[-0.81131822  1.48459876  0.06532937]</span><br><span class="line"> [-2.4427042   0.0992484   0.59122431]]</span><br><span class="line">w2:</span><br><span class="line"> [[-0.81131822]</span><br><span class="line"> [ 1.48459876]</span><br><span class="line"> [ 0.06532937]]</span><br></pre></td></tr></table></figure>
-<h2 id="33-反向传播"><a class="markdownIt-Anchor" href="#33-反向传播"></a> 3.3 反向传播</h2>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9owelqbjj20vd0ktx1f.jpg" alt=""></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BATCH_SIZE = <span class="number">8</span> <span class="comment"># 一次喂入神经网络多少组数据，太大会被噎到</span></span><br><span class="line">seed = <span class="number">23455</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于seed产生随机数</span></span><br><span class="line">rng = np.random.RandomState(seed)</span><br><span class="line"><span class="comment"># 随机数返回32行2列的矩阵 表示32组 体积和重量 作为输入数据集</span></span><br><span class="line">X = rng.rand(<span class="number">32</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 从x这个32行2列的矩阵中 取出一行 判断如果和小于1 给Y赋值1 如果和不小于1给Y赋值0</span></span><br><span class="line"><span class="comment"># 作为输入数据集的标签 （正确答案）</span></span><br><span class="line">Y = [[int(x0 + x1 &lt;<span class="number">1</span>)] <span class="keyword">for</span> (x0, x1) <span class="keyword">in</span> X] <span class="comment"># 实现标注功能，x0+x1&lt;1的是true然后转为整数是1，也就是说合格的是1，不合格的是0</span></span><br><span class="line">print(<span class="string">'X:\n'</span>, X)</span><br><span class="line">print(<span class="string">'Y:\n'</span>, Y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1定义神经网络的输入、参数和输出，定义前向传播过程</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>)) <span class="comment"># 输入的特征</span></span><br><span class="line">y_ = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">1</span>)) <span class="comment"># 合格是1，不合格是0的标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数要匹配输入和输出 输入是2个数，输出是1个数 因此w1两行对应x，w2是1列对应y_,隐藏层用3个神经元</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播的矩阵描述</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2定义损失函数及反向传播方法</span></span><br><span class="line">loss = tf.reduce_mean(tf.square(y-y_))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.001</span>).minimize(loss)</span><br><span class="line"><span class="comment"># 其他两种优化方法</span></span><br><span class="line"><span class="comment"># train_step = tf.train.MomentumOptimizer(0.001, 0.9).minimize(loss)</span></span><br><span class="line"><span class="comment"># train_step = tf.train.AdamOptimizer(0.001).minimize(loss)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3生成对话，训练STEPS轮</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    <span class="comment"># 输出目前（未经训练）的参数取值</span></span><br><span class="line">    print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">    print(<span class="string">'w2:\n'</span>, sess.run(w2))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练模型</span></span><br><span class="line">    STEPS = <span class="number">3000</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line">        start = (i*BATCH_SIZE) % <span class="number">32</span></span><br><span class="line">        end = start + BATCH_SIZE</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;x: X[start:end], y_: Y[start:end]&#125;)</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">            total_loss = sess.run(loss, feed_dict=&#123;x: X, y_: Y&#125;)</span><br><span class="line">            print(<span class="string">'After %d training step(s), loss on all data is %g'</span> %(i, total_loss))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 输出训练后的参数取值</span></span><br><span class="line">        print(<span class="string">'\n'</span>)</span><br><span class="line">        print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">        print(<span class="string">'w2:\m'</span>, sess.run(w2))</span><br></pre></td></tr></table></figure>
-<p><strong>搭建神经网络的八股：准备、前传、后传、迭代</strong></p>
-<p>0准备  import</p>
-<p>​            常量定义</p>
-<p>​            生成数据集</p>
-<p>1前向传播： 定义输入、参数和输出</p>
-<p>​              x=</p>
-<p>​              y_=</p>
-<p>​              w1=</p>
-<p>​               w2=</p>
-<p>​                a=</p>
-<p>​                 y=</p>
-<p>2反向传播：定义损失函数、反向传播方法</p>
-<p>​                loss=</p>
-<p>​                train_step=</p>
-<p>3生成对话，训练STEPS轮</p>
-<p>with tf.Session() as sess</p>
-<p>​	init_opt = tf.global_variables_initializer()</p>
-<p>​	sess_run(init_op)</p>
-<p>​	STEP = 	3000</p>
-<p>​	for i in range(STEPS):</p>
-<p>​		start =</p>
-<p>​		end =</p>
-<p>​		sess.run(train_step, feed_dict:)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	<div>
-	
-	</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -44226,7 +44136,7 @@ Name: d, dtype: float64
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

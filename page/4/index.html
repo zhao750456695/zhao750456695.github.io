@@ -251,6 +251,310 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/c51ae3ed.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/c51ae3ed.html" itemprop="url">tensorflow part2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T13:19:27+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="tensorflow"><a class="markdownIt-Anchor" href="#tensorflow"></a> Tensorflow</h1>
+<h2 id="31-张量-计算图-会话"><a class="markdownIt-Anchor" href="#31-张量-计算图-会话"></a> 3.1 张量、计算图、会话</h2>
+<p>基于Tensorflow的NN：用张量表示数据，用计算图搭建神经网络，用会话执行计算图，优化线上的权重(参数)，得到模型。</p>
+<p>**张量（tensor）：**多维数组（列表）</p>
+<p>**阶：**张量的维数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">维数</th>
+<th style="text-align:center">阶</th>
+<th style="text-align:center">名字</th>
+<th style="text-align:center">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0-D</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">标量 scalar</td>
+<td style="text-align:center">s=1 2 3</td>
+</tr>
+<tr>
+<td style="text-align:center">1-D</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">向量 vector</td>
+<td style="text-align:center">v=[1,2,3]</td>
+</tr>
+<tr>
+<td style="text-align:center">2-D</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">矩阵 matrix</td>
+<td style="text-align:center">m[[1,2,3],[4,5,6],[7,8,9]] 二维数组</td>
+</tr>
+<tr>
+<td style="text-align:center">n-D</td>
+<td style="text-align:center">n</td>
+<td style="text-align:center">张量 tensor</td>
+<td style="text-align:center">t=[[[…      n个    方括号有几个就是几阶的</td>
+</tr>
+</tbody>
+</table>
+<p>张量可以表示0阶到n阶数组(列表)</p>
+<h2 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h2>
+<p>tf.float32</p>
+<p>tf.int32</p>
+<p>加法运算</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">a = tf.constant([1.0, 2.0]) # 定义张量a constant常数</span><br><span class="line">b = tf.constant([3.0, 4.0]) # 定义张量b </span><br><span class="line">result = a+b</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tensor(&quot;add:0&quot;, shape=(2,), dtype=float32)</span><br><span class="line">#result是一个名为&apos;add:0&apos;的张量，add是节点名，0表示第0个输出。shape是维度，因为这里是一维数组，只有一个元素2，表示一维数组长度为2，dtype是数据类型。</span><br></pre></td></tr></table></figure>
+<h2 id="计算图"><a class="markdownIt-Anchor" href="#计算图"></a> 计算图</h2>
+<p>**计算图（Graph）😗*搭建神经网络的计算过程，只搭建，不运算。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq9kmhllikj20dd0d7441.jpg" alt=""></p>
+<p>上面是神经元的基本模型，其实就是数学里的乘加运算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>]])</span><br><span class="line">w = tf.constant([[<span class="number">3.0</span>], [<span class="number">4.0</span>]])</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Tensor(<span class="string">"MatMul:0"</span>, shape=(<span class="number">1</span>, <span class="number">1</span>), dtype=float32)</span><br><span class="line"><span class="comment"># shape中有两个元素，是两维的，一行一列</span></span><br><span class="line"><span class="comment"># 只搭建了一个图</span></span><br></pre></td></tr></table></figure>
+<p>想执行图就必须用到会话了</p>
+<p>**会话（Session）：**执行计算图中的节点运算。</p>
+<p>用with</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	print(sess.run(y))</span><br><span class="line"><span class="comment"># Session首字母大写</span></span><br><span class="line"><span class="comment"># sess.run()运行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>]])</span><br><span class="line">w = tf.constant([[<span class="number">3.0</span>], [<span class="number">4.0</span>]])</span><br><span class="line">y = tf.matmul(x, w)</span><br><span class="line">print(y)</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    print(sess.run(y))</span><br></pre></td></tr></table></figure>
+<p>结果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[ 11.]]</span><br></pre></td></tr></table></figure>
+<p>ubuntu下运行出现一些警告信息</p>
+<p>可以把它们去掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>把tensorflow的提示登记降低，加入下面这句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TF_CPP_MIN_LOG_LEVEL=2</span><br></pre></td></tr></table></figure>
+<p>然后，让配置文件生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h2 id="32-前向传播"><a class="markdownIt-Anchor" href="#32-前向传播"></a> 3.2 前向传播</h2>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9laniw1ej20wk0ewqhs.jpg" alt=""></p>
+<p>初值随机生成，用<code>tf.Variable()</code>意为生成随机数，V要大写，生成方式写在括号里</p>
+<p>上图中随机种子如果去掉每次生成的随机数将不一致</p>
+<p>标准差、均值、随机种子可以不写</p>
+<p>除了<code>tf.random_normal()</code>，还有很多随机数生成方式，如<code>tf.truncated_normal()</code>如果生成出的随机数超过平均值两个标准差将重新生成，<code>tf.random_uniform()</code>等</p>
+<p>除了随机数，还可以生成常量</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方式</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">tf.ones</td>
+<td style="text-align:center">全1数组</td>
+<td style="text-align:center">tf.ones([3,2],int32)生成[[1,1],[1,1][1,1]]</td>
+</tr>
+<tr>
+<td style="text-align:center">tf.fill</td>
+<td style="text-align:center">全定值数组</td>
+<td style="text-align:center">tf.fill([3,2],6)生成[[6,6],[6,6],[6,6]]</td>
+</tr>
+<tr>
+<td style="text-align:center">tf.constant</td>
+<td style="text-align:center">直接给值</td>
+<td style="text-align:center">tf.constant([3,2,1])生成[3,2,1]</td>
+</tr>
+<tr>
+<td style="text-align:center">tf.zeros</td>
+<td style="text-align:center">全0数组</td>
+<td style="text-align:center">tf.zeros([3,2],int32)生成[[0,0],[0,0][0,0]]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>神经网络的实现过程：</strong></p>
+<p>1、准备数据集，提取特征，作为输入喂给神经网络（Netural Network,NN）</p>
+<p>2、搭建NN结构，从输入到输出（先搭建计算图，再用会话执行）</p>
+<p>（NN前向传播算法----------&gt;计算输出）</p>
+<p>3、大量特征数据喂给NN，迭代优化NN参数</p>
+<p>（NN反向传播算法----------&gt;优化参数训练模型）</p>
+<p>4、使用训练好的模型预测和分类</p>
+<p>因此，神经网络的使用过程可以分两步：1-3的循环迭代是第一步，即训练，4是第二步，是使用过程。</p>
+<blockquote>
+<p>一旦参数优化完成就可以固定这些参数实现特定应用，很多现实应用中会使用成熟的现有网络结构，喂入新的数据，训练相应模型，判断是否能对喂入的、从未见过的新数据做出正确的响应。再适当更改网络结构、反复迭代，让机器自动训练参数，找出最优结构和参数，固定专有网络。</p>
+</blockquote>
+<h2 id="前向传播"><a class="markdownIt-Anchor" href="#前向传播"></a> 前向传播</h2>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9mjlalf3j20vs0kytqn.jpg" alt=""></p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq9mrcas6tj20wm0mzts9.jpg" alt=""></p>
+<p>第一层的w前面有两个两个节点，后面有三个节点，因此是个两行三列的矩阵</p>
+<p>a是第一个计算层，一般说神经网络共有几层、当前是第几层都是指的计算层，输入不是计算层，因此a是第一层网络</p>
+<p>第二层的参数w前面是是3个节点、后面是1个节点，因此是三行一列的矩阵</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq9n2sa1gzj20tc0lph5o.jpg" alt=""></p>
+<p>tf.placeholder()中shape第一个元素表示几组数据，第二个元素表示每组数据有几个特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两层简单的神经网络(全连接)</span></span><br><span class="line">x = tf.constant([[<span class="number">0.7</span>, <span class="number">0.5</span>]])</span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 =  tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer() <span class="comment"># 初始化</span></span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3.py is :\n'</span>, sess.run(y))</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y <span class="keyword">in</span> tf3.py <span class="keyword">is</span> :</span><br><span class="line"> [[ <span class="number">3.0904665</span>]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 两层简单的神经网络</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入和参数</span></span><br><span class="line"><span class="comment"># 用placeholder实现输入定义 （see.run中喂一组数据）</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用会话计算结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3_4.py is:\n'</span>, sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.5</span>]]&#125;))</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y in tf3_4.py is:</span><br><span class="line"> [[ 3.0904665]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义输入和参数</span></span><br><span class="line"><span class="comment"># 用placeholder实现输入定义 （see.run中喂多组数据）</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>)) <span class="comment"># 不知道喂多少组，第一个元素是None</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义前向传播过程</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用会话计算结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">'y in tf3_4.py is:\n'</span>, sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.5</span>], [<span class="number">0.2</span>, <span class="number">0.3</span>], [<span class="number">0.3</span> , <span class="number">0.4</span>], [<span class="number">0.4</span>, <span class="number">0.5</span>]]&#125;))</span><br><span class="line">    print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">    print(<span class="string">'w2:\n'</span>, sess.run(w2))</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">y in tf3_4.py is:</span><br><span class="line"> [[ 3.0904665 ]</span><br><span class="line"> [ 1.2236414 ]</span><br><span class="line"> [ 1.72707319]</span><br><span class="line"> [ 2.23050475]]</span><br><span class="line">w1:</span><br><span class="line"> [[-0.81131822  1.48459876  0.06532937]</span><br><span class="line"> [-2.4427042   0.0992484   0.59122431]]</span><br><span class="line">w2:</span><br><span class="line"> [[-0.81131822]</span><br><span class="line"> [ 1.48459876]</span><br><span class="line"> [ 0.06532937]]</span><br></pre></td></tr></table></figure>
+<h2 id="33-反向传播"><a class="markdownIt-Anchor" href="#33-反向传播"></a> 3.3 反向传播</h2>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq9owelqbjj20vd0ktx1f.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BATCH_SIZE = <span class="number">8</span> <span class="comment"># 一次喂入神经网络多少组数据，太大会被噎到</span></span><br><span class="line">seed = <span class="number">23455</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于seed产生随机数</span></span><br><span class="line">rng = np.random.RandomState(seed)</span><br><span class="line"><span class="comment"># 随机数返回32行2列的矩阵 表示32组 体积和重量 作为输入数据集</span></span><br><span class="line">X = rng.rand(<span class="number">32</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 从x这个32行2列的矩阵中 取出一行 判断如果和小于1 给Y赋值1 如果和不小于1给Y赋值0</span></span><br><span class="line"><span class="comment"># 作为输入数据集的标签 （正确答案）</span></span><br><span class="line">Y = [[int(x0 + x1 &lt;<span class="number">1</span>)] <span class="keyword">for</span> (x0, x1) <span class="keyword">in</span> X] <span class="comment"># 实现标注功能，x0+x1&lt;1的是true然后转为整数是1，也就是说合格的是1，不合格的是0</span></span><br><span class="line">print(<span class="string">'X:\n'</span>, X)</span><br><span class="line">print(<span class="string">'Y:\n'</span>, Y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1定义神经网络的输入、参数和输出，定义前向传播过程</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">2</span>)) <span class="comment"># 输入的特征</span></span><br><span class="line">y_ = tf.placeholder(tf.float32, shape=(<span class="keyword">None</span>, <span class="number">1</span>)) <span class="comment"># 合格是1，不合格是0的标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数要匹配输入和输出 输入是2个数，输出是1个数 因此w1两行对应x，w2是1列对应y_,隐藏层用3个神经元</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播的矩阵描述</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2定义损失函数及反向传播方法</span></span><br><span class="line">loss = tf.reduce_mean(tf.square(y-y_))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.001</span>).minimize(loss)</span><br><span class="line"><span class="comment"># 其他两种优化方法</span></span><br><span class="line"><span class="comment"># train_step = tf.train.MomentumOptimizer(0.001, 0.9).minimize(loss)</span></span><br><span class="line"><span class="comment"># train_step = tf.train.AdamOptimizer(0.001).minimize(loss)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3生成对话，训练STEPS轮</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    init_op = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    <span class="comment"># 输出目前（未经训练）的参数取值</span></span><br><span class="line">    print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">    print(<span class="string">'w2:\n'</span>, sess.run(w2))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 训练模型</span></span><br><span class="line">    STEPS = <span class="number">3000</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(STEPS):</span><br><span class="line">        start = (i*BATCH_SIZE) % <span class="number">32</span></span><br><span class="line">        end = start + BATCH_SIZE</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;x: X[start:end], y_: Y[start:end]&#125;)</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">            total_loss = sess.run(loss, feed_dict=&#123;x: X, y_: Y&#125;)</span><br><span class="line">            print(<span class="string">'After %d training step(s), loss on all data is %g'</span> %(i, total_loss))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 输出训练后的参数取值</span></span><br><span class="line">        print(<span class="string">'\n'</span>)</span><br><span class="line">        print(<span class="string">'w1:\n'</span>, sess.run(w1))</span><br><span class="line">        print(<span class="string">'w2:\m'</span>, sess.run(w2))</span><br></pre></td></tr></table></figure>
+<p><strong>搭建神经网络的八股：准备、前传、后传、迭代</strong></p>
+<p>0准备  import</p>
+<p>​            常量定义</p>
+<p>​            生成数据集</p>
+<p>1前向传播： 定义输入、参数和输出</p>
+<p>​              x=</p>
+<p>​              y_=</p>
+<p>​              w1=</p>
+<p>​               w2=</p>
+<p>​                a=</p>
+<p>​                 y=</p>
+<p>2反向传播：定义损失函数、反向传播方法</p>
+<p>​                loss=</p>
+<p>​                train_step=</p>
+<p>3生成对话，训练STEPS轮</p>
+<p>with tf.Session() as sess</p>
+<p>​	init_opt = tf.global_variables_initializer()</p>
+<p>​	sess_run(init_op)</p>
+<p>​	STEP = 	3000</p>
+<p>​	for i in range(STEPS):</p>
+<p>​		start =</p>
+<p>​		end =</p>
+<p>​		sess.run(train_step, feed_dict:)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/76aab3a3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1262,7 +1566,7 @@ matching string: 12
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
