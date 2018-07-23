@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="PhantomJS和腾讯漫画爬虫相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefrom">
+<meta name="description" content="PhantomJS和腾讯漫画爬虫 相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefr">
 <meta name="keywords" content="python爬虫">
 <meta property="og:type" content="article">
 <meta property="og:title" content="腾讯漫画">
 <meta property="og:url" content="http://yoursite.com/post/467c8455.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="PhantomJS和腾讯漫画爬虫相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefrom">
+<meta property="og:description" content="PhantomJS和腾讯漫画爬虫 相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefr">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯漫画">
-<meta name="twitter:description" content="PhantomJS和腾讯漫画爬虫相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefrom">
+<meta name="twitter:description" content="PhantomJS和腾讯漫画爬虫 相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。 实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理 去官网http://phantomjs.org/下载 设置一下环境变量 安装selenium模块 123456789101112131415161718import timefr">
 
 
 
@@ -322,13 +322,15 @@
       
 
       
-        <h1 id="PhantomJS和腾讯漫画爬虫"><a href="#PhantomJS和腾讯漫画爬虫" class="headerlink" title="PhantomJS和腾讯漫画爬虫"></a>PhantomJS和腾讯漫画爬虫</h1><p>相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。</p>
+        <h1 id="phantomjs和腾讯漫画爬虫"><a class="markdownIt-Anchor" href="#phantomjs和腾讯漫画爬虫"></a> PhantomJS和腾讯漫画爬虫</h1>
+<p>相当于一个无界面的浏览器，效率不算高，但是当一些反爬措施无法破解时，可以使用PhantomJs。</p>
 <p>实际中可以难点部分交给PhantomJs处理，其他部分有urllib或scrapy处理</p>
 <p>去官网<code>http://phantomjs.org/</code>下载</p>
 <p>设置一下环境变量</p>
 <p>安装selenium模块</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">from selenium import webdriver</span><br><span class="line"></span><br><span class="line">browser=webdriver.PhantomJS() # phantomjs的接口 生成一个对象</span><br><span class="line">browser.get(&apos;http://www.baidu.com&apos;) # get访问</span><br><span class="line">a=browser.get_screenshot_as_file(&apos;./test.jpg&apos;) # 截屏</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;kw&quot;]&apos;).clear() # 通过xpath找到输入框 清除一下</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;kw&quot;]&apos;).send_keys(&apos;爬虫&apos;) # send_keys 输入数据</span><br><span class="line"># browser.find_element_by_xpath(&apos;//*[@id=&quot;su&quot;]&apos;).click() # 找到搜索点击按钮</span><br><span class="line"># time.sleep(5)</span><br><span class="line"># a=browser.get_screenshot_as_file(&apos;./test.jpg&apos;)</span><br><span class="line">data=browser.page_source # 找到网页源码</span><br><span class="line">browser.quit()</span><br><span class="line">print(len(data))</span><br><span class="line">import re</span><br><span class="line">title=re.compile(&apos;&lt;title&gt;(.*?)&lt;/title&gt;&apos;).findall(data)</span><br><span class="line">print(title)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
-<h2 id="腾讯动漫爬取"><a href="#腾讯动漫爬取" class="headerlink" title="腾讯动漫爬取"></a>腾讯动漫爬取</h2><p>图片地址随机生成没有规律，无法通过以前的办法爬下来漫画</p>
+<h2 id="腾讯动漫爬取"><a class="markdownIt-Anchor" href="#腾讯动漫爬取"></a> 腾讯动漫爬取</h2>
+<p>图片地址随机生成没有规律，无法通过以前的办法爬下来漫画</p>
 <p>导入头</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.desired_capabilities <span class="keyword">import</span> DesiredCapabilities</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br></pre></td></tr></table></figure>
 <p>上面第三个是伪装浏览器要用到的</p>
@@ -344,7 +346,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data=browser.page_source</span><br><span class="line">fh=open(<span class="string">"./dongman.html"</span>,<span class="string">"w"</span>,encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">fh.write(data)</span><br><span class="line">fh.close()</span><br><span class="line">browser.quit()</span><br></pre></td></tr></table></figure>
 <p>现在可以爬取源码中的图片了</p>
 <p>构造正则如下</p>
-<p><code>pat=&#39;&lt;img src=&quot;(http:..ac.tc.qq.com.store_file_download.buid=.*?name=.*?).jpg&quot;&#39;</code></p>
+<p><code>pat='&lt;img src=&quot;(http:..ac.tc.qq.com.store_file_download.buid=.*?name=.*?).jpg&quot;'</code></p>
 <p>开爬</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pat=<span class="string">'&lt;img src="(http:..ac.tc.qq.com.store_file_download.buid=.*?name=.*?).jpg"'</span></span><br><span class="line">allimg=re.compile(pat).findall(data)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(allimg)):</span><br><span class="line">    thisurl=allimg[i]</span><br><span class="line">    thisurl2=thisurl.replace(<span class="string">"amp;"</span>,<span class="string">""</span>)+<span class="string">".jpg"</span></span><br><span class="line">    print(thisurl2)</span><br><span class="line">    localpath=<span class="string">"./"</span>+str(i)+<span class="string">".jpg"</span></span><br><span class="line">    urllib.request.urlretrieve(thisurl2,filename=localpath)</span><br></pre></td></tr></table></figure>
 
@@ -536,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PhantomJS和腾讯漫画爬虫"><span class="nav-number">1.</span> <span class="nav-text">PhantomJS和腾讯漫画爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#腾讯动漫爬取"><span class="nav-number">1.1.</span> <span class="nav-text">腾讯动漫爬取</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#phantomjs和腾讯漫画爬虫"><span class="nav-number">1.</span> <span class="nav-text"> PhantomJS和腾讯漫画爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#腾讯动漫爬取"><span class="nav-number">1.1.</span> <span class="nav-text"> 腾讯动漫爬取</span></a></li></ol></li></ol></div>
             
 
           </div>
