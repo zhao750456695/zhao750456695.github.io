@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make i">
+<meta name="description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make insta">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos下python3.6安装">
 <meta property="og:url" content="http://yoursite.com/post/2980a69f.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make i">
+<meta property="og:description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make insta">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos下python3.6安装">
-<meta name="twitter:description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make i">
+<meta name="twitter:description" content="安装python3.6可能使用的依赖 # yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel 下载python3.6编译安装 到python官网下载https://www.python.org 下载最新版源码，使用make altinstall，如果使用make insta">
 
 
 
@@ -328,20 +328,19 @@
 <p>到python官网下载<a href="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org</a></p>
 <p>下载最新版源码，使用make altinstall，如果使用make install，在系统中将会有两个不同版本的Python在/usr/bin/目录中。这将会导致很多问题，而且不好处理。</p>
 <p># wgethttps://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz</p>
-<p># tar -xzvf Python-3.6.0.tgz -C /tmp</p>
-<p># cd /tmp/Python-3.6.0/</p>
+<p># tar -xzvf Python-3.6.0.tgz -C  /tmp</p>
+<p># cd  /tmp/Python-3.6.0/</p>
 <p>把Python3.6安装到 /usr/local 目录</p>
 <p># ./configure --prefix=<strong>/usr/local</strong></p>
 <p># make</p>
 <p># make altinstall</p>
 <p>解决问题：</p>
-<p>zipimport.ZipImportError: can't decompress data; zlib not available</p>
+<p>zipimport.ZipImportError: can’t decompress data; zlib not available</p>
 <p>yum -y install zlib*</p>
 <p>用pip安装　提示找不到ssl模块</p>
 <p>在./configure过程中，如果没有加上–with-ssl参数时，默认安装的软件涉及到ssl的功能不可用，刚好pip3过程需要ssl模块，而由于没有指定，所以该功能不可用。</p>
 <p>解决办法是重新对python3.6进行编译安装，用一下过程来实现编译安装:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd Python-3.6.2</span><br><span class="line">./configure --with-ssl</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
 <p>pip3.6 install virtualenv</p>
 <p>进入想创建虚拟环境的目录</p>
 <p>virtualenv ai ai是我们给虚拟环境起的名字</p>
