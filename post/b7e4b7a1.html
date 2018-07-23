@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="FinGeek">
 <meta property="og:description" content="基础知识回顾一般优化问题无约束优化问题:$\mathbb{R}^b \mapsto \mathbb{R}$  minf(x)   \qquad x \in\mathbb{R}局部最优解常规解法 直接法 ​        梯度等于0，求得驻点，必要时Hessian矩阵再进一步推断 迭代法 ​        梯度下降法 ​        牛顿法 ​        拟牛顿法 一般约束优化问题 ​">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T03:20:46.128Z">
+<meta property="og:updated_time" content="2018-07-23T05:04:52.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="svm前奏：凸优化对偶理论">
 <meta name="twitter:description" content="基础知识回顾一般优化问题无约束优化问题:$\mathbb{R}^b \mapsto \mathbb{R}$  minf(x)   \qquad x \in\mathbb{R}局部最优解常规解法 直接法 ​        梯度等于0，求得驻点，必要时Hessian矩阵再进一步推断 迭代法 ​        梯度下降法 ​        牛顿法 ​        拟牛顿法 一般约束优化问题 ​">
@@ -339,6 +339,7 @@ minf(x)   \qquad x \in\mathbb{R}</script><p>局部最优解常规解法</p>
 &subject \quad to\quad f_i(x)\leqslant0 \quad for \quad i=1,i=2,...,m\\
 &\qquad\qquad\qquad h_i(x)=0\quad for \quad i=1,2,...,p
 \end{align*}</script><p>可行域：满足f(x)定义域和约束条件的x的集合，$f_i(x)=0$表明不等式约束被激活。</p>
+<a id="more"></a>
 <h2 id="凸集和凸函数"><a href="#凸集和凸函数" class="headerlink" title="凸集和凸函数"></a>凸集和凸函数</h2><h3 id="凸集"><a href="#凸集" class="headerlink" title="凸集"></a>凸集</h3><p>如果一个集合$C \in \mathbb{R}^n$是仿射函的，则$C$中两点间的直线也在$C$中，如$x=\theta x_1+(1-\theta )x_2\in C\quad,\theta \in \mathbb{R} $, 即$AX=b$的解.</p>
 <p>一个集合$C\in \mathbb{R}$是凸的，则对于任意的$x,y\in C$,有$\theta x+(1+x) \theta \in C \quad 0\le \theta \le 1$.</p>
 <p>仿射一定是凸集，而反过来则不一定。即连接两点的直线在集合内，连接两点的线段必定在集合内。</p>
