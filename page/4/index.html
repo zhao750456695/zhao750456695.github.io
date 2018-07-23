@@ -1,1317 +1,1218 @@
 <!DOCTYPE html>
-<html>
-    <!-- title -->
 
 
 
+  
 
 
+<html class="theme-next mist use-motion" lang="">
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
-    <meta name="description" content="">
-    <title>FinGeek</title>
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="FinGeek" type="application/atom+xml" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="FinGeek">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="FinGeek">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FinGeek">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
+  };
+</script>
 
-    body {
-        margin: 0;
-    }
 
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
 
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
+  <link rel="canonical" href="http://yoursite.com/page/4/"/>
 
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s 1;
-    }
 
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
 
-</style>
 
-    <link rel="preload" href= /css/style.css?v=20180317 as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180317 media="(max-width: 980px)"/>
-        
-    <link rel="icon" href= /assets/favicon.ico>
-    <script>
-        (function (w) {
-            "use strict";
-            // rel=preload support test
-            if (!w.loadCSS) {
-                w.loadCSS = function () { };
-            }
-            // define on the loadCSS obj
-            var rp = loadCSS.relpreload = {};
-            // rel=preload feature support test
-            // runs once and returns a function for compat purposes
-            rp.support = (function () {
-                var ret;
-                try {
-                    ret = w.document.createElement("link").relList.supports("preload");
-                } catch (e) {
-                    ret = false;
-                }
-                return function () {
-                    return ret;
-                };
-            })();
 
-            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-            // then change that media back to its intended value on load
-            rp.bindMediaToggle = function (link) {
-                // remember existing media attr for ultimate state, or default to 'all'
-                var finalMedia = link.media || "all";
+  <title>FinGeek</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
 
-                function enableStylesheet() {
-                    link.media = finalMedia;
-                }
 
-                // bind load handlers to enable media
-                if (link.addEventListener) {
-                    link.addEventListener("load", enableStylesheet);
-                } else if (link.attachEvent) {
-                    link.attachEvent("onload", enableStylesheet);
-                }
 
-                // Set rel and non-applicable media type to start an async request
-                // note: timeout allows this to happen async to let rendering continue in IE
-                setTimeout(function () {
-                    link.rel = "stylesheet";
-                    link.media = "only x";
-                });
-                // also enable media after 3 seconds,
-                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-                setTimeout(enableStylesheet, 3000);
-            };
 
-            // loop through link elements in DOM
-            rp.poly = function () {
-                // double check this to prevent external calls from running
-                if (rp.support()) {
-                    return;
-                }
-                var links = w.document.getElementsByTagName("link");
-                for (var i = 0; i < links.length; i++) {
-                    var link = links[i];
-                    // qualify links to those with rel=preload and as=style attrs
-                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
-                        // prevent rerunning on link
-                        link.setAttribute("data-loadcss", true);
-                        // bind listeners to toggle media back
-                        rp.bindMediaToggle(link);
-                    }
-                }
-            };
 
-            // if unsupported, run the polyfill
-            if (!rp.support()) {
-                // run once at least
-                rp.poly();
 
-                // rerun poly on an interval until onload
-                var run = w.setInterval(rp.poly, 500);
-                if (w.addEventListener) {
-                    w.addEventListener("load", function () {
-                        rp.poly();
-                        w.clearInterval(run);
-                    });
-                } else if (w.attachEvent) {
-                    w.attachEvent("onload", function () {
-                        rp.poly();
-                        w.clearInterval(run);
-                    });
-                }
-            }
-            // commonjs
-            if (typeof exports !== "undefined") {
-                exports.loadCSS = loadCSS;
-            }
-            else {
-                w.loadCSS = loadCSS;
-            }
-        }(typeof global !== "undefined" ? global : this));
-    </script>
-    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
-    <script src="/scripts/main.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-    
+
+
 </head>
 
-    
-        <body class="home-body">
-    
-    
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header index-header">
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
-    
-    <a class="home-link" href=/>FinGeek</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro" style=
-
-
-
-
-
-
-
-
-height:50vh;
-
->
-    
-    <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
-            
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            FinGeek
-            <!-- 文章页  -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
-    </div>
-</div>
-        <script>
-  // load webfont-loader async, and add callback function
-  function async(u, c) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
   
-  // get user agent
-  var browser = {
-    versions: function () {
-      var u = window.navigator.userAgent;
-      return {
-        userAgent: u,
-        trident: u.indexOf('Trident') > -1, //IE内核
-        presto: u.indexOf('Presto') > -1, //opera内核
-        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-        iPad: u.indexOf('iPad') > -1, //是否为iPad
-        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-      };
-    }()
-  }
-  console.log("userAgent:" + browser.versions.userAgent);
+  
+    
+  
 
-  // callback
-  function fontLoaded() {
-    console.log('font loaded');
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
-        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
-      if (postIntroTags) {
-        postIntroTags.classList.add('post-fade-in');
-      }
-      if (postIntroMeat) {
-        postIntroMeat.classList.add('post-fade-in');
-      }
-    }
-  }
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
 
-  // UC不支持跨域，所以直接显示
-  function asyncCb(){
-    if (browser.versions.uc) {
-      console.log("UCBrowser");
-      fontLoaded();
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular']
-        },
-        loading: function () {  //所有字体开始加载
-          // console.log('loading');
-        },
-        active: function () {  //所有字体已渲染
-          fontLoaded();
-        },
-        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout');
-          fontLoaded();
-        },
-        timeout: 5000 // Set the timeout to two seconds
-      });
-    }
-  }
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
-</script>        
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/python/requests/" >
-                
-                    <span>requests</span>
-            </a>
-            <div class="abstract-content">
-                python下面的Requests比urllib更方便，下面是学习笔记。
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/04/07</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "爬虫">爬虫</a>
-    
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FinGeek</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/python/爬虫/" >
-                
-                    <span>&#39;爬虫系列2:python中的正则表达式&#39;</span>
-            </a>
-            <div class="abstract-content">
-                一些python中正则表达式的知识^-^。
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/29</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "正则表达式">正则表达式</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
-    
-</main>
-            <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" src= /avatar/Misaka.jpg >
-    <div class="profile-name">JieZhao</div>
-    
-    <div class="profile-signature">
-        witness me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/assets/example_qr.png" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
-            
-        
-    
 
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href= //www.baidu.com target="_black">friendA</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href= //www.google.com target="_black">friendB</a>
-                    </span>
-                
-            
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href = "/about" >ABOUT ME</a>
-        </div>
-    
-</div>
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:750456695@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/zhao750456695" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/assets/example_qr.png" />
-                </span>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
-            
-        
-    
+<nav class="site-nav">
+  
 
-    </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
-    
-    <div class="busuanzi-container">
-        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
-        </span>
-    </div>
-    
-</footer>
-    </div>
-    <!-- toc -->
-    
-    <div class="back-top iconfont-archer">&#xe639;</div>
-    <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
     </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-panel-archives">
-    <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 32 </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/uncategorized/python中的-args、-kwargs/" >python中的*args、**kwargs</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/uncategorized/lj/" >[Untitled Post]</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/uncategorized/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/linux安装xgboost/" >linux安装xgboost、</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/centos下python3-6安装/" >centos下python3.6安装</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/uncategorized/docker基础/" >docker基础</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/uncategorized/python中常见的内置函数/" >python中常见的内置函数</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/23</span><a class="archive-post-title" href= "/uncategorized/python中的-classmethod和-staticmethod/" >python中的@property、@classmethod和@staticmethod</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/uncategorized/特征工程/" >特征工程</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/10</span><a class="archive-post-title" href= "/uncategorized/pandas的API/" >pandas的API</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/uncategorized/zookeeper/" >zookeeper</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的crontab命令/" >linux中的crontab</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/07</span><a class="archive-post-title" href= "/uncategorized/linux中的sort、cut、wc命令/" >linux中的sort、cut、wc命令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/shell编程基础/" >shell编程基础</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/linux一些基本软件的安装/" >linux一些基本软件的安装</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/06</span><a class="archive-post-title" href= "/uncategorized/大数据1：虚拟机配置及基本的linux命令/" >大数据1：虚拟机配置及基本的linux命令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/uncategorized/R语言再基础/" >R语言再基础</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/05</span><a class="archive-post-title" href= "/java/用Eclipse创建第一个java程序/" >用Eclipse创建第一个java程序</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/matplotlib常用图形/" >matplotlib常用图形</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/1/" >python数据可视化</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/uncategorized/seaborn常用图形/" >seaborn常用图形</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/腾讯漫画/" >腾讯漫画</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/numpy/" >numpy</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/uncategorized/scrapy/" >scrapy初步</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/python/groupby/" >pandas数据聚合和分组运算</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/python/pandas读写和存储/" >pandas读写和存储</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/13</span><a class="archive-post-title" href= "/python/pandas1/" >pandas part1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part2/" >R语言part2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/深度学习/tensorflow2/" >tensorflow part2</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/12</span><a class="archive-post-title" href= "/R语言/R语言part1/" >R语言part1</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/python/requests/" >requests</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/python/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
-        </li>
-    
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/7b85d651.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/7b85d651.html" itemprop="url">requests</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-07T12:03:50+08:00">
+                2018-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Requests库"><a href="#Requests库" class="headerlink" title="Requests库"></a>Requests库</h1><p>urllib的代理设置和post等都比较繁琐，我们可以使用更方便的requests库。</p>
+<p>Requests库是用Python语言编写，基于urllib，采用Apache2 Licensed开源协议的HTTP库。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response=requests.get(<span class="string">'https://www.baidu.com'</span>) <span class="comment"># get请求</span></span><br><span class="line">print(type(response)) <span class="comment"># &lt;class 'requests.models.Response'&gt;</span></span><br><span class="line">print(response.status_code) <span class="comment"># 200</span></span><br><span class="line">print(type(response.text)) <span class="comment"># &lt;class 'str'&gt;</span></span><br><span class="line">print(response.text) <span class="comment"># 和urllib下urlopen的read方法得到的结果一样</span></span><br><span class="line">print(response.cookies) <span class="comment"># &lt;RequestsCookieJar[&lt;Cookie BDORZ=27315 for .baidu.com/&gt;]&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="各种请求方式"><a href="#各种请求方式" class="headerlink" title="各种请求方式"></a>各种请求方式</h2><p>get请求</p>
+<p>带参数的，在url中加入参数，最前面是？，用&amp;分隔</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://httpbin.org/get?name=germ&amp;age=22'</span>)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;</span><br><span class="line">    &quot;age&quot;: &quot;22&quot;, </span><br><span class="line">    &quot;name&quot;: &quot;germ&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept&quot;: &quot;*/*&quot;, </span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, </span><br><span class="line">    &quot;Connection&quot;: &quot;close&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;origin&quot;: &quot;115.27.202.98&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/get?name=germ&amp;age=22&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种直接在url中构造参数的方式太麻烦了，requests提供了字典的方式添加参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://httpbin.org/get'</span>, params=data)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>结果同上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://httpbin.org/get'</span>)</span><br><span class="line">print(type(response.text))</span><br><span class="line">print(json.loads(response.text))</span><br><span class="line">print(response.json())</span><br><span class="line">print(type(response.json()))</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &apos;str&apos;&gt;</span><br><span class="line">&#123;&apos;args&apos;: &#123;&#125;, &apos;headers&apos;: &#123;&apos;Accept&apos;: &apos;*/*&apos;, &apos;Accept-Encoding&apos;: &apos;gzip, deflate&apos;, &apos;Connection&apos;: &apos;close&apos;, &apos;Host&apos;: &apos;httpbin.org&apos;, &apos;User-Agent&apos;: &apos;python-requests/2.18.4&apos;&#125;, &apos;origin&apos;: &apos;115.27.202.98&apos;, &apos;url&apos;: &apos;http://httpbin.org/get&apos;&#125;</span><br><span class="line">&#123;&apos;args&apos;: &#123;&#125;, &apos;headers&apos;: &#123;&apos;Accept&apos;: &apos;*/*&apos;, &apos;Accept-Encoding&apos;: &apos;gzip, deflate&apos;, &apos;Connection&apos;: &apos;close&apos;, &apos;Host&apos;: &apos;httpbin.org&apos;, &apos;User-Agent&apos;: &apos;python-requests/2.18.4&apos;&#125;, &apos;origin&apos;: &apos;115.27.202.98&apos;, &apos;url&apos;: &apos;http://httpbin.org/get&apos;&#125;</span><br><span class="line">&lt;class &apos;dict&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>response.json()和json.loads(response.text)的结果完全一样，转码成json</p>
+<p>获取二进制数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'https://github.com/favicon.ico'</span>)</span><br><span class="line">print(type(response.text), type(response.content))</span><br><span class="line">print(response.text)</span><br><span class="line">print(response.content)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &apos;str&apos;&gt; &lt;class &apos;bytes&apos;&gt;</span><br><span class="line">:�������O                                L������                                      ������                                        ������!                                ������4                                @���8���          </span><br><span class="line">��������333                                                ���t�������+R������t                                                                `������R����������                                                                    �������������\                                                                        G������������                                                                          ������������                                                                                ������������                                                                                ���������������                                                                            ������������%                                                                           ������������v                                                                        a������G������                                                                ������G+++������]                                                                I������+++    ������3                                                                ������         �����5            +*���                ���&amp;            !�����             �����f    @@@b����������l+++    R�����                $$$��������������������������$$$                     ������������������������                             .����������������������.                                     ��������������������                                             $$$������������������$$$                                                         ��������������                                                                         +++G��������G+++                                                                                                                                                                                                           </span><br><span class="line">b&apos;\x00\x00\x01\x00\x02\x00\x10\x10\x00\x00\x01\x00 \x00(\x05\x00\x00&amp;\x00\x00\x00  \x00\x00\x01\x00 \x00(\x14\x00\x00N\x05\x00\x00(\x00\x00\x00\x10\x00\x00\x00 \x00\x00\x00\x01\x00 \x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x11\x13v\x13\x13\x13\xc5\x0e\x0e\x0e\x12\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x0f\x0f\x11\x11\x11\x14\xb1\x13\x13\x13i\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14\x14\x14\x96\x13\x13\x14\xfc\x13\x13\x14\xed\x00\x00\x00\x19\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x18\x15\x15\x17\xff\x15\x15\x17\xff\x11\x11\x13\x85\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x11\x12\xc1\x13\x13\x14\xee\x11\x11\x11\x1e\x10\x10\x10\x10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x13\x13\x14\xf5\x15\x15\x17\xff\x15\x15\x17\xff\x11\x11\x14\xaf\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14\x14\x14\x99\x15\x15\x17\xff\x06\x06\x11,\x0e\x0e\x0e\\\x0f\x0f\x0f\xc1\x0f\x0f\x0f&quot;\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x0f\x0f4\x10\x10\x10\xff\x15\x15\x17\xff\x15\x15\x17\xff\x15\x15\x17\xff\x14\x14\x14\x8f\x00\x00\x00\x00\x10\x10\x100\x0f\r\x0f\xff\x00\x00\x00\xf9\x01\x01\x01\xed\x02\x02\x02\xff\x02\x02\x02\xf6\x0e\x0e\x0e8\x00\x00\x00\x00\x00\x00\x00\x00\x08\x08\x08@\x02\x02\x02\xeb\x15\x15\x17\xff\x15\x15\x17\xff\x15\x15\x17\xff\x15\x15\x17\xff\x11\x11\x11-\x14\x14\x15\x9c\x14\x14\x15\xff\x01\x01\x01\xfc\x0f\x0f\x11\xfb\r\r\x11;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\r\x12:\x13\x13\x14\xe7\x15\x15\x17\xff\x15\x15\x17\xff\x12\x12\x12\x9a\x13\x13\x13\xd9\x15\x15\x17\xff\x15\x15\x17\xff\x13\x13\x13O\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11\x11\x11L\x15\x15\x17\xff\x15\x15\x17\xff\x13\x13\x13\xda\x13\x13\x14\xf6\x15\x15\x17\xff\x14\x14\x14\xf0\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x13\x13\x14\xf1\x15\x15\x17\xff\x13\x13\x14\xf6\x13\x13\x14\xf7\x15\x15\x17\xff\x14\x14\x14\xe1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0&apos;</span><br></pre></td></tr></table></figure>
+<p>如何把二进制数据保存呢？写入文件即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'./favicon.ico'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(response.content)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<p>当前路径下会出现这个图片</p>
+<p>添加headers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>:  <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</span><br><span class="line">&#125;</span><br><span class="line">response=requests.get(<span class="string">'https://www.zhihu.com/explore'</span>, headers=headers)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>post请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data=&#123;</span><br><span class="line">    &apos;name&apos;: &apos;germ&apos;,</span><br><span class="line">    &apos;age&apos;: 22</span><br><span class="line">&#125;</span><br><span class="line">response=requests.post(&apos;http://httpbin.org/post&apos;, data=data)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>get中是params=data，post中是data=data，也可以在后面加头：</p>
+<p><code>response=requests.post(&#39;http://httpbin.org/post&#39;, data=data, headers=headers)</code></p>
+<p>结果是，观察form</p>
+<script type="math/tex; mode=display">
+<Empty \space Math \space Block></script><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;&#125;, </span><br><span class="line">  &quot;data&quot;: &quot;&quot;, </span><br><span class="line">  &quot;files&quot;: &#123;&#125;, </span><br><span class="line">  &quot;form&quot;: &#123;</span><br><span class="line">    &quot;age&quot;: &quot;22&quot;, </span><br><span class="line">    &quot;name&quot;: &quot;germ&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept&quot;: &quot;*/*&quot;, </span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, </span><br><span class="line">    &quot;Connection&quot;: &quot;close&quot;, </span><br><span class="line">    &quot;Content-Length&quot;: &quot;16&quot;, </span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;json&quot;: null, </span><br><span class="line">  &quot;origin&quot;: &quot;115.27.202.98&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/post&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><p>response属性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://www.jianshu.com'</span>)</span><br><span class="line">print(type(response.status_code), response.status_code)</span><br><span class="line">print(type(response.headers), response.headers)</span><br><span class="line">print(type(response.cookies), response.cookies)</span><br><span class="line">print(type(response.url), response.url)</span><br><span class="line">print(type(response.history), response.history)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &apos;int&apos;&gt; 200</span><br><span class="line">&lt;class &apos;requests.structures.CaseInsensitiveDict&apos;&gt; &#123;&apos;Date&apos;: &apos;Fri, 06 Apr 2018 04:50:47 GMT&apos;, &apos;Server&apos;: &apos;Tengine&apos;, &apos;Content-Type&apos;: &apos;text/html; charset=utf-8&apos;, &apos;Transfer-Encoding&apos;: &apos;chunked&apos;, &apos;X-Frame-Options&apos;: &apos;DENY&apos;, &apos;X-XSS-Protection&apos;: &apos;1; mode=block&apos;, &apos;X-Content-Type-Options&apos;: &apos;nosniff&apos;, &apos;ETag&apos;: &apos;W/&quot;5df6bac5f1f7868fcc27c33dbfd34210&quot;&apos;, &apos;Cache-Control&apos;: &apos;max-age=0, private, must-revalidate&apos;, &apos;Set-Cookie&apos;: &apos;locale=zh-CN; path=/&apos;, &apos;X-Request-Id&apos;: &apos;7d2341c7-6639-41eb-a438-71aafb5768d4&apos;, &apos;X-Runtime&apos;: &apos;0.006953&apos;, &apos;Strict-Transport-Security&apos;: &apos;max-age=31536000; includeSubDomains; preload&apos;, &apos;Content-Encoding&apos;: &apos;gzip&apos;, &apos;X-Via&apos;: &apos;1.1 yunchengwangtong83:7 (Cdn Cache Server V2.0), 1.1 PShbwhjyw5dx20:1 (Cdn Cache Server V2.0)&apos;, &apos;Connection&apos;: &apos;keep-alive&apos;&#125;</span><br><span class="line">&lt;class &apos;requests.cookies.RequestsCookieJar&apos;&gt; &lt;RequestsCookieJar[&lt;Cookie locale=zh-CN for www.jianshu.com/&gt;]&gt;</span><br><span class="line">&lt;class &apos;str&apos;&gt; https://www.jianshu.com/</span><br><span class="line">&lt;class &apos;list&apos;&gt; [&lt;Response [301]&gt;]</span><br></pre></td></tr></table></figure>
+<p>状态码判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://jianshu.com'</span>)</span><br><span class="line">exit() <span class="keyword">if</span> <span class="keyword">not</span> response.status_code == requests.codes.ok <span class="keyword">else</span> print(<span class="string">'Request Successfully'</span>)</span><br></pre></td></tr></table></figure>
+<p>codes.ok 这里的状态码对应的是200，可以用状态码的名字方便记忆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">100: (&apos;continue&apos;,),</span><br><span class="line">101: (&apos;switching_protocols&apos;,),</span><br><span class="line">102: (&apos;processing&apos;,),</span><br><span class="line">103: (&apos;checkpoint&apos;,),</span><br><span class="line">122: (&apos;uri_too_long&apos;, &apos;request_uri_too_long&apos;),</span><br><span class="line">200: (&apos;ok&apos;, &apos;okay&apos;, &apos;all_ok&apos;, &apos;all_okay&apos;, &apos;all_good&apos;, &apos;\\o/&apos;, &apos;✓&apos;),</span><br><span class="line">201: (&apos;created&apos;,),</span><br><span class="line">202: (&apos;accepted&apos;,),</span><br><span class="line">203: (&apos;non_authoritative_info&apos;, &apos;non_authoritative_information&apos;),</span><br><span class="line">204: (&apos;no_content&apos;,),</span><br><span class="line">205: (&apos;reset_content&apos;, &apos;reset&apos;),</span><br><span class="line">206: (&apos;partial_content&apos;, &apos;partial&apos;),</span><br><span class="line">207: (&apos;multi_status&apos;, &apos;multiple_status&apos;, &apos;multi_stati&apos;, &apos;multiple_stati&apos;),</span><br><span class="line">208: (&apos;already_reported&apos;,),</span><br><span class="line">226: (&apos;im_used&apos;,),</span><br><span class="line"></span><br><span class="line"># Redirection.</span><br><span class="line">300: (&apos;multiple_choices&apos;,),</span><br><span class="line">301: (&apos;moved_permanently&apos;, &apos;moved&apos;, &apos;\\o-&apos;),</span><br><span class="line">302: (&apos;found&apos;,),</span><br><span class="line">303: (&apos;see_other&apos;, &apos;other&apos;),</span><br><span class="line">304: (&apos;not_modified&apos;,),</span><br><span class="line">305: (&apos;use_proxy&apos;,),</span><br><span class="line">306: (&apos;switch_proxy&apos;,),</span><br><span class="line">307: (&apos;temporary_redirect&apos;, &apos;temporary_moved&apos;, &apos;temporary&apos;),</span><br><span class="line">308: (&apos;permanent_redirect&apos;,</span><br><span class="line">      &apos;resume_incomplete&apos;, &apos;resume&apos;,), # These 2 to be removed in 3.0</span><br><span class="line"></span><br><span class="line"># Client Error.</span><br><span class="line">400: (&apos;bad_request&apos;, &apos;bad&apos;),</span><br><span class="line">401: (&apos;unauthorized&apos;,),</span><br><span class="line">402: (&apos;payment_required&apos;, &apos;payment&apos;),</span><br><span class="line">403: (&apos;forbidden&apos;,),</span><br><span class="line">404: (&apos;not_found&apos;, &apos;-o-&apos;),</span><br><span class="line">405: (&apos;method_not_allowed&apos;, &apos;not_allowed&apos;),</span><br><span class="line">406: (&apos;not_acceptable&apos;,),</span><br><span class="line">407: (&apos;proxy_authentication_required&apos;, &apos;proxy_auth&apos;, &apos;proxy_authentication&apos;),</span><br><span class="line">408: (&apos;request_timeout&apos;, &apos;timeout&apos;),</span><br><span class="line">409: (&apos;conflict&apos;,),</span><br><span class="line">410: (&apos;gone&apos;,),</span><br><span class="line">411: (&apos;length_required&apos;,),</span><br><span class="line">412: (&apos;precondition_failed&apos;, &apos;precondition&apos;),</span><br><span class="line">413: (&apos;request_entity_too_large&apos;,),</span><br><span class="line">414: (&apos;request_uri_too_large&apos;,),</span><br><span class="line">415: (&apos;unsupported_media_type&apos;, &apos;unsupported_media&apos;, &apos;media_type&apos;),</span><br><span class="line">416: (&apos;requested_range_not_satisfiable&apos;, &apos;requested_range&apos;, &apos;range_not_satisfiable&apos;),</span><br><span class="line">417: (&apos;expectation_failed&apos;,),</span><br><span class="line">418: (&apos;im_a_teapot&apos;, &apos;teapot&apos;, &apos;i_am_a_teapot&apos;),</span><br><span class="line">421: (&apos;misdirected_request&apos;,),</span><br><span class="line">422: (&apos;unprocessable_entity&apos;, &apos;unprocessable&apos;),</span><br><span class="line">423: (&apos;locked&apos;,),</span><br><span class="line">424: (&apos;failed_dependency&apos;, &apos;dependency&apos;),</span><br><span class="line">425: (&apos;unordered_collection&apos;, &apos;unordered&apos;),</span><br><span class="line">426: (&apos;upgrade_required&apos;, &apos;upgrade&apos;),</span><br><span class="line">428: (&apos;precondition_required&apos;, &apos;precondition&apos;),</span><br><span class="line">429: (&apos;too_many_requests&apos;, &apos;too_many&apos;),</span><br><span class="line">431: (&apos;header_fields_too_large&apos;, &apos;fields_too_large&apos;),</span><br><span class="line">444: (&apos;no_response&apos;, &apos;none&apos;),</span><br><span class="line">449: (&apos;retry_with&apos;, &apos;retry&apos;),</span><br><span class="line">450: (&apos;blocked_by_windows_parental_controls&apos;, &apos;parental_controls&apos;),</span><br><span class="line">451: (&apos;unavailable_for_legal_reasons&apos;, &apos;legal_reasons&apos;),</span><br><span class="line">499: (&apos;client_closed_request&apos;,),</span><br><span class="line"></span><br><span class="line"># Server Error.</span><br><span class="line">500: (&apos;internal_server_error&apos;, &apos;server_error&apos;, &apos;/o\\&apos;, &apos;✗&apos;),</span><br><span class="line">501: (&apos;not_implemented&apos;,),</span><br><span class="line">502: (&apos;bad_gateway&apos;,),</span><br><span class="line">503: (&apos;service_unavailable&apos;, &apos;unavailable&apos;),</span><br><span class="line">504: (&apos;gateway_timeout&apos;,),</span><br><span class="line">505: (&apos;http_version_not_supported&apos;, &apos;http_version&apos;),</span><br><span class="line">506: (&apos;variant_also_negotiates&apos;,),</span><br><span class="line">507: (&apos;insufficient_storage&apos;,),</span><br><span class="line">509: (&apos;bandwidth_limit_exceeded&apos;, &apos;bandwidth&apos;),</span><br><span class="line">510: (&apos;not_extended&apos;,),</span><br><span class="line">511: (&apos;network_authentication_required&apos;, &apos;network_auth&apos;, &apos;network_authentication&apos;),</span><br></pre></td></tr></table></figure>
+<h2 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h2><p>上传文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">files=&#123;</span><br><span class="line">    <span class="string">'files'</span>: open(<span class="string">'./favicon.ico'</span>, <span class="string">'rb'</span>)</span><br><span class="line">&#125;</span><br><span class="line">response=requests.post(<span class="string">'http://httpbin.org/post'</span>, files=files)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;&#125;, </span><br><span class="line">  &quot;data&quot;: &quot;&quot;, </span><br><span class="line">  &quot;files&quot;: &#123;</span><br><span class="line">    &quot;files&quot;: &quot;data:application/octet-stream;base64,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AAAAAAAAKysrBhYWGUcWFhiVFRUYvxUVGNkWFhfzFhYX8xUVGNkVFRi/FhYYlRYWGUcrKysGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;form&quot;: &#123;&#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept&quot;: &quot;*/*&quot;, </span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, </span><br><span class="line">    &quot;Connection&quot;: &quot;close&quot;, </span><br><span class="line">    &quot;Content-Length&quot;: &quot;6666&quot;, </span><br><span class="line">    &quot;Content-Type&quot;: &quot;multipart/form-data; boundary=25ec39a6a3e5489797021213ab1ad8aa&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;json&quot;: null, </span><br><span class="line">  &quot;origin&quot;: &quot;115.27.202.98&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/post&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取cookie</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(response.cookies)</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> response.cookies.items():</span><br><span class="line">    print(key+<span class="string">'='</span>+value)</span><br></pre></td></tr></table></figure>
+<p>会话维持</p>
+<p>模拟登录时用到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">requests.get(<span class="string">'http://httpbin.org/cookies/set/number/123456789'</span>)</span><br><span class="line">response=requests.get(<span class="string">'http://httpbin.org/cookies'</span>)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>结果是空的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;cookies&quot;: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为两次get请求时独立的，可以想成在一个浏览器设置cookies，在另一个浏览器获取cookies，两个浏览器独立的。</p>
+<p>要维持会话，requests提供了Session对象，就像在同一个浏览器中set、get 这cookies对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=requests.Session()</span><br><span class="line">s.get(&apos;http://httpbin.org/cookies/set/number/123456789&apos;)</span><br><span class="line">response=s.get(&apos;http://httpbin.org/cookies&apos;)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;cookies&quot;: &#123;</span><br><span class="line">    &quot;number&quot;: &quot;123456789&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>证书验证</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'https://www.12306.cn'</span>)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> raise SSLError(e, request=request)</span><br><span class="line">requests.exceptions.SSLError: HTTPSConnectionPool(host=&apos;www.12306.cn&apos;, port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(&quot;bad handshake: Error([(&apos;SSL routines&apos;, &apos;ssl3_get_server_certificate&apos;, &apos;certificate verify failed&apos;)],)&quot;,),))</span><br></pre></td></tr></table></figure>
+<p>避免以上错误，关闭证书验证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response=requests.get(<span class="string">'https://www.12306.cn'</span>, verify=<span class="keyword">False</span>)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</span><br><span class="line">  InsecureRequestWarning)</span><br><span class="line">200</span><br></pre></td></tr></table></figure>
+<p>下面可以消除警告：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests.packages <span class="keyword">import</span> urllib3</span><br><span class="line">urllib3.disable_warnings()</span><br><span class="line">response=requests.get(<span class="string">'https://www.12306.cn'</span>, verify=<span class="keyword">False</span>)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>代理设置</p>
+<p>http、https代理</p>
+<p>构造字典数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxies=&#123;</span><br><span class="line">    <span class="string">'http'</span>: <span class="string">'http://127.0.0.1:9743'</span>,</span><br><span class="line">    <span class="string">'https'</span>: <span class="string">'https://127.0.0.1:9743'</span></span><br><span class="line">&#125;</span><br><span class="line">response=requests.get(<span class="string">'https://www.taobao.com'</span>, proxies=proxies)</span><br></pre></td></tr></table></figure>
+<p>socket代理</p>
+<p><code>pip install requests[socks]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">proxies = &#123;</span><br><span class="line">    <span class="string">'http'</span>: <span class="string">'socks5://127.0.0.1:9742'</span>,</span><br><span class="line">    <span class="string">'https'</span>: <span class="string">'socks5://127.0.0.1:9742'</span></span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(<span class="string">"https://www.taobao.com"</span>, proxies=proxies)</span><br><span class="line">print(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>超时设置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> ReadTimeout</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 设置必须在500ms内收到响应，不然或抛出ReadTimeout异常</span></span><br><span class="line">    response = requests.get(<span class="string">"http://httpbin.org/get"</span>, timeout=<span class="number">0.5</span>)</span><br><span class="line">    print(response.status_code)</span><br><span class="line"><span class="keyword">except</span> ReadTimeout:</span><br><span class="line">    print(<span class="string">'Timeout'</span>)</span><br></pre></td></tr></table></figure>
+<p>认证设置</p>
+<p>有些网站会调出对话框，要求输入用户名、密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.auth <span class="keyword">import</span> HTTPBasicAuth</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">'http://120.27.34.24:9001'</span>, auth=HTTPBasicAuth(<span class="string">'user'</span>, <span class="string">'123'</span>))</span><br><span class="line"><span class="comment"># r = requests.get('http://120.27.34.24:9001', auth=('user', '123'))</span></span><br><span class="line">print(r.status_code)</span><br></pre></td></tr></table></figure>
+<p>异常处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> ReadTimeout, ConnectionError, RequestException</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    response = requests.get(<span class="string">"http://httpbin.org/get"</span>, timeout = <span class="number">0.5</span>)</span><br><span class="line">    print(response.status_code)</span><br><span class="line"><span class="keyword">except</span> ReadTimeout:</span><br><span class="line">    print(<span class="string">'Timeout'</span>)</span><br><span class="line"><span class="keyword">except</span> ConnectionError:</span><br><span class="line">    print(<span class="string">'Connection error'</span>)</span><br><span class="line"><span class="keyword">except</span> RequestException:</span><br><span class="line">    print(<span class="string">'Error'</span>)</span><br></pre></td></tr></table></figure>
+<p>r = requests.get(“<a href="http://www.baidu.com/" target="_blank" rel="noopener">http://www.baidu.com</a>“)<br><strong>r.text返回的是Unicode型的数据。 </strong><br><strong>使用r.content返回的是bytes型的数据。 </strong><br><strong>也就是说，如果你想取文本，可以通过r.text。 </strong><br><strong>如果想取图片，文件，则可以通过r.content。</strong></p>
+<h1 id="获取一个网页的内容"><a href="#获取一个网页的内容" class="headerlink" title="获取一个网页的内容"></a>获取一个网页的内容</h1><p>方法1：使用r.content，得到的是bytes型，再转为str</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url=<span class="string">'http://music.baidu.com'</span></span><br><span class="line">r = requests.get(url)</span><br><span class="line">html=r.content</span><br><span class="line">html_doc=str(html,<span class="string">'utf-8'</span>) <span class="comment">#html_doc=html.decode("utf-8","ignore")</span></span><br><span class="line">print(html_doc)</span><br></pre></td></tr></table></figure>
+<p>方法2：使用r.text<br>Requests 会自动解码来自服务器的内容。大多数 unicode 字符集都能被无缝地解码。请求发出后，Requests 会基于 HTTP 头部对响应的编码作出有根据的推测。当你访问 r.text 之时，Requests 会使用其推测的文本编码。你可以找出 Requests 使用了什么编码，并且能够使用 r.encoding 属性来改变它.<br>但是Requests库的自身编码为: r.encoding = ‘ISO-8859-1’<br>可以 r.encoding 修改编码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url=<span class="string">'http://music.baidu.com'</span></span><br><span class="line">r=requests.get(url)</span><br><span class="line">r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+<h1 id="获取一个网页的内容后存储到本地"><a href="#获取一个网页的内容后存储到本地" class="headerlink" title="获取一个网页的内容后存储到本地"></a>获取一个网页的内容后存储到本地</h1><p>方法1：r.content为bytes型，则open时需要open(filename,”wb”)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r=requests.get(<span class="string">"music.baidu.com"</span>)</span><br><span class="line">html=r.content</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test5.html'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+<p>方法2：r.content为bytes型，转为str后存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">html=r.content</span><br><span class="line">html_doc=str(html,<span class="string">'utf-8'</span>) <span class="comment">#html_doc=html.decode("utf-8","ignore")</span></span><br><span class="line"><span class="comment"># print(html_doc)</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test5.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html_doc)</span><br></pre></td></tr></table></figure>
+<p>方法3：r.text为str，可以直接存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">r=requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">r.encoding=<span class="string">'utf-8'</span></span><br><span class="line">html=r.text</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test6.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+<h1 id="Requests-lxml"><a href="#Requests-lxml" class="headerlink" title="Requests+lxml"></a>Requests+lxml</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf8-*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">url=<span class="string">"http://music.baidu.com"</span></span><br><span class="line">r=requests.get(url)</span><br><span class="line">r.encoding=<span class="string">"utf-8"</span></span><br><span class="line">html=r.text</span><br><span class="line"><span class="comment"># print(html)</span></span><br><span class="line">selector = etree.HTML(html)</span><br><span class="line">title=selector.xpath(<span class="string">'//title/text()'</span>)</span><br><span class="line"><span class="keyword">print</span> (title[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h1 id="终极解决方法"><a href="#终极解决方法" class="headerlink" title="终极解决方法"></a>终极解决方法</h1><p>以上的方法虽然不会出现乱码，但是保存下来的网页，图片不显示，只显示文本。而且打开速度慢，找到了一篇博客，提出了一个终极方法，非常棒。</p>
+<p>来自博客<br><a href="http://blog.chinaunix.net/uid-13869856-id-5747417.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-13869856-id-5747417.html</a>的解决方案：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf8-*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">req = requests.get(<span class="string">"http://news.sina.com.cn/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> req.encoding == <span class="string">'ISO-8859-1'</span>:</span><br><span class="line">    encodings = requests.utils.get_encodings_from_content(req.text)</span><br><span class="line">    <span class="keyword">if</span> encodings:</span><br><span class="line">        encoding = encodings[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        encoding = req.apparent_encoding</span><br><span class="line"></span><br><span class="line">    <span class="comment"># encode_content = req.content.decode(encoding, 'replace').encode('utf-8', 'replace')</span></span><br><span class="line">    <span class="keyword">global</span> encode_content</span><br><span class="line">    encode_content = req.content.decode(encoding, <span class="string">'replace'</span>) <span class="comment">#如果设置为replace，则会用?取代非法字符；</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(encode_content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test.html'</span>,<span class="string">'w'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(encode_content)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/911f288d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/911f288d.html" itemprop="url">'爬虫系列2:python中的正则表达式'</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-29T20:35:47+08:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>目录</p>
+<p><a href="#jump">re中的常用函数</a><br><br><a href="#jump1">正则表达式的组成</a><br><br><a href="#jump2">模式修正符</a><br></p>
+<p>&emsp;&emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文本时要匹配的一个或多个字符串。</p>
+<p>&emsp;&emsp;这里我们主要说下python中的正则表达式.python为我们提供了名为re的模块，这样我们就可以在python下使用着正则表达式的功能了。</p>
+<p>&emsp;&emsp;既然是模块当然为我们提供了一系列方法，而在使用正则表达式方法时要关注三点。首先是要匹配的正则表达式即模式字符串，也就是我们要找什么，我们把要找的东西根据规定好的规则写出来，称为pattern；其次就是，我们要在哪里找，我们在目标字符串里找，即string；最后，还有一个标志位flag，即正则表达式修饰符,也叫模式修正符，它规定了我们怎么找，比如要不要忽略大小写、要不要匹配换行符（默认不匹配）。</p>
+<h1 id="2-1-re中的常用函数"><a href="#2-1-re中的常用函数" class="headerlink" title="2.1 re中的常用函数"></a><span id="jump">2.1 re中的常用函数</span></h1><p>&emsp;&emsp;我们一个个说，先说说re模块中的函数。</p>
+<h4 id="2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><a href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0" class="headerlink" title="2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)"></a>2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</h4><p>compile函数用于编译正则表达式，生成一个Pattern对象，Pattern对象有一系列的方法，常用的有：</p>
+<ul>
+<li>match(string[, pos[, endpos]])方法</li>
+<li>search(string[, pos[, endpos]])方法</li>
+<li>findall(string[, pos[, endpos]])方法</li>
+<li>finditer(string[, pos[, endpos]])方法</li>
+<li>split(string[, maxsplit])方法</li>
+<li>sub(repl, string[, count])方法</li>
+</ul>
+<p>match(string[, pos[, endpos]])<br>如果没有指定pos和endpos，默认为0和len(string)，即match函数将会从头部(左侧第一个字符)开始进行匹配，若匹配成功将返回<font face="黑体" color="red">Match对象</font>，没有匹配成功，则返回None。<br>search(string[, pos[, endpos]])<br>与match的差别是可以从任何地方开始，只要待匹配的字符串中有可匹配对象，就会匹配成功，返回<font face="黑体" color="red">Match对象</font>。也是只匹配一次。</p>
+<p>上面的方法只匹配一次，如果我们想把字符串中所有匹配的情况都找出来该怎么办办呢？我们可以使用findall(string,[, pos[, endpos]]),findall会找到所有能够匹配的结果，结果是以<font face="黑体" color="red">列表</font>形式返回的所有子串。</p>
+<hr>
+<p><em>小括号和group</em><br>search和match中的pattern中有括号会形成group，多个括号就有多个group<br>只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>searchObj.group() :  Cats are smarter than dogs
+searchObj.group(1) :  Cats
+searchObj.group(2) :  smarter
+searchObj.group(1, 2) :  (&#39;Cats&#39;, &#39;smarter&#39;)
+searchObj.groups() :  (&#39;Cats&#39;, &#39;smarter&#39;)
+</code></pre><p>如果没有小括号，可以用group()显示全部，但里面不能有数字，因为没有分组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import re</span><br><span class="line">&gt;&gt;&gt; pattern = re.compile(r<span class="string">'\d+'</span>)                    <span class="comment"># 用于匹配至少一个数字</span></span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># 查找头部，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 2, 10) <span class="comment"># 从'e'的位置开始匹配，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 3, 10) <span class="comment"># 从'1'的位置开始匹配，正好匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m                                         <span class="comment"># 返回一个 Match 对象</span></span><br><span class="line">&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</span><br><span class="line">&gt;&gt;&gt; m.group(0)   <span class="comment"># 可省略 0</span></span><br><span class="line"><span class="string">'12'</span></span><br><span class="line">&gt;&gt;&gt; m.start(0)   <span class="comment"># 可省略 0</span></span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; m.end(0)     <span class="comment"># 可省略 0</span></span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; m.span(0)    <span class="comment"># 可省略 0</span></span><br><span class="line">(3, 5)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；[group1]即1.</li>
+<li>start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；</li>
+<li>end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；</li>
+<li>span([group]) 方法返回 (start(group), end(group))。</li>
+</ul>
+<p>findall中的pattern用小括号，会只返回小括号中的匹配的东西，形成元组列表</p>
+<pre><code>import re
+a = &quot;123abc456899opopo&quot;
+pat = &#39;12(.*?)4(.*?)po&#39;
+res = re.compile(pat).findall(a)
+print(res)
+</code></pre><p>结果是：</p>
+<pre><code>[(&#39;3abc&#39;, &#39;56899o&#39;)]
+</code></pre><h2 id="——"><a href="#——" class="headerlink" title="——-"></a>——-</h2><p>finditer(string[, pos[, endpos]])和findall()功能一样，也是搜索所有匹配情况，区别是finditer返回一个顺序访问每一个匹配结果的迭代器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line">result_iter1 = pattern.finditer(<span class="string">'hello 123456 789'</span>)</span><br><span class="line">result_iter2 = pattern.finditer(<span class="string">'one1two2three3four4'</span>, 0, 10)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter1))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter2))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result1...'</span>)</span><br><span class="line"><span class="keyword">for</span> m1 <span class="keyword">in</span> result_iter1:   <span class="comment"># m1 是 Match 对象</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m1.group(), m1.span()))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result2...'</span>)</span><br><span class="line"><span class="keyword">for</span> m2 <span class="keyword">in</span> result_iter2:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m2.group(), m2.span()))</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<pre><code>&lt;class &#39;callable_iterator&#39;&gt;
+&lt;class &#39;callable_iterator&#39;&gt;
+result1...
+matching string: 123456, position: (6, 12)
+matching string: 789, position: (13, 16)
+result2...
+matching string: 1, position: (3, 4)
+matching string: 2, position: (7, 8)
+</code></pre><p>split(string[, maxsplit])<br>split(string[, maxsplit])<br>split函数根据能够匹配的子串来分割字符串，结果以列表形式返回。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'a'</span>)</span><br><span class="line">res = p.split(<span class="string">'abcadeacd'</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>[&#39;&#39;, &#39;bc&#39;, &#39;de&#39;, &#39;cd&#39;]
+</code></pre><p>‘a’被去除，’a’左右两侧的子串被装进列表中返回。</p>
+<p>sub(repl, string[, count])<br>sub方法的功能是替换，返回<font face="黑体" color="red">替换后的字符串</font>。</p>
+<p>其中，repl 可以是字符串也可以是一个函数：</p>
+<ul>
+<li>如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；</li>
+<li>如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。</li>
+</ul>
+<p>count 用于指定最多替换次数，<strong>不指定时全部替换</strong>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'hello world'</span>, s) ) <span class="comment"># 使用 'hello world' 替换 'hello 123' 和 'hello 456'</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'\2 \1'</span>, s))  <span class="comment"># 引用分组</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s)) <span class="comment"># sub会把匹配到的match对象传给func 替换之前肯定要先匹配</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s, 1))  <span class="comment"># 最多替换一次</span></span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>hello world, hello world
+123 hello, 456 hello
+hi 123, hi 456
+hi 123, hello 456
+</code></pre><p>对比：<br>re.sub(pattern, repl, string, count=0, flags=0)三个必选参数：pattern, repl, string<br>pattern：</p>
+<p>若在patter中有\\number写法，则是要匹配其中分组，如下写法<br>      inputStr = “hello crifan, nihao crifan”;<br>      replacedStr = re.sub(r”o (\w+), nihao \1”, “crifanli”, inputStr);<br>      print(replacedStr)<br>结果是：</p>
+<pre><code>hellcrifanli
+</code></pre><p>和repl中\\number不一样， 见下面<br>s = ‘2017-01-22’<br>s = re.sub(‘(\d{4})-(\d{2})-(\d{2})’, r’\2-\3-\1’, s)<br>print s  # 01-22-2017</p>
+<p>第二个参数：repl<br>repl，就是replacement，被替换，的字符串的意思。</p>
+<p>repl可以是字符串，也可以是函数。</p>
+<ul>
+<li>repl是字符串</li>
+</ul>
+<p>如果repl是字符串的话，其中的任何反斜杠转义字符，都会被处理的。</p>
+<p>即：</p>
+<p>\n：会被处理为对应的换行符；<br>\r：会被处理为回车符；<br>其他不能识别的转移字符，则只是被识别为普通的字符：<br>比如\j，会被处理为j这个字母本身；<br>反斜杠加g以及中括号内一个名字，即：\g，对应着命了名的组，named group<br>接着上面的举例：</p>
+<p>想要把对应的：</p>
+<pre><code>hello crifan, nihao crifan
+</code></pre><p>中的crifan提取出来，只剩：crifan</p>
+<p>就可以写成：</p>
+<pre><code>inputStr = &quot;hello crifan, nihao crifan&quot;;
+replacedStr = re.sub(r&quot;hello (\w+), nihao \1&quot;, &quot;\g&lt;1&gt;&quot;, inputStr);
+print &quot;replacedStr=&quot;,replacedStr; #crifan
+</code></pre><ul>
+<li>repl是函数</li>
+<li><p>repl是函数<br>-</p>
+<pre><code>hello 123 world 456
+</code></pre><p>想要把其中的数字部分，都加上111，变成：</p>
+<pre><code>hello 234 world 567
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      <span class="comment">#!/usr/bin/python</span></span><br><span class="line">      <span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">      import re;</span><br><span class="line"></span><br><span class="line">      def pythonReSubDemo():</span><br><span class="line">          <span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">              demo Pyton re.sub</span></span><br><span class="line"><span class="string">          "</span><span class="string">""</span></span><br><span class="line">          inputStr = <span class="string">"hello 123 world 456"</span>;</span><br><span class="line"></span><br><span class="line">          def _add111(matched):</span><br><span class="line">              intStr = matched.group(<span class="string">"number"</span>); <span class="comment">#123</span></span><br><span class="line">              intValue = int(intStr);</span><br><span class="line">              addedValue = intValue + 111; <span class="comment">#234</span></span><br><span class="line">              addedValueStr = str(addedValue);</span><br><span class="line">              <span class="built_in">return</span> addedValueStr;</span><br><span class="line"></span><br><span class="line">          replacedStr = re.sub(<span class="string">"(?P&lt;number&gt;\d+)"</span>, _add111, inputStr);</span><br><span class="line">          <span class="built_in">print</span> <span class="string">"replacedStr="</span>,replacedStr; <span class="comment">#hello 234 world 567</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">###############################################################################</span></span><br><span class="line">      <span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">          pythonReSubDemo();</span><br><span class="line"></span><br><span class="line">subn(repl, string[, count])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>它返回一个元组：</p>
+<pre><code>(sub(repl, string[, count]), 替换次数)
+</code></pre><p>元组有两个元素，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。</p>
+<p>看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'hello world'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'\2 \1'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s, 1)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果是：</p>
+<pre><code>(&#39;hello world, hello world&#39;, 2)
+(&#39;123 hello, 456 hello&#39;, 2)
+(&#39;hi 123, hi 456&#39;, 2)
+(&#39;hi 123, hello 456&#39;, 1)
+</code></pre><h4 id="2-1-2-match-函数"><a href="#2-1-2-match-函数" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><h4 id="2-1-2-match-函数-1"><a href="#2-1-2-match-函数-1" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><pre><code>re.match(pattern, string[, flags]):
+</code></pre><p>其中，pattern 是正则表达式的字符串形式，比如 \d+, [a-z]+。</p>
+<p>而 Pattern 对象的 match 方法使用形式是：</p>
+<pre><code>match(string[, pos[, endpos]])
+</code></pre><p>可以看到，match 函数不能指定字符串的区间，它只能搜索头部，看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">m1 = re.match(r<span class="string">'\d+'</span>, <span class="string">'One12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m1:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>,m1.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m1 is:'</span>,m1</span><br><span class="line"></span><br><span class="line">m2 = re.match(r<span class="string">'\d+'</span>, <span class="string">'12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m2:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>, m2.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m2 is:'</span>,m2</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>m1 is: None
+matching string: 12
+</code></pre><h4 id="2-1-3-search-函数"><a href="#2-1-3-search-函数" class="headerlink" title="2.1.3 search 函数"></a>2.1.3 search 函数</h4><pre><code>re.search(pattern, string[, flags])
+</code></pre><p>也是不能指定区间</p>
+<h4 id="2-1-4-findall-函数"><a href="#2-1-4-findall-函数" class="headerlink" title="2.1.4 findall 函数"></a>2.1.4 findall 函数</h4><p>用哪种方式</p>
+<p>从上文可以看到，使用 re 模块有两种方式：</p>
+<p>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；<br>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；<br>下面，我们用一个例子展示这两种方法。</p>
+<p>先看第 1 种用法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="comment"># 将正则表达式先编译成 Pattern 对象</span></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.match(<span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.search(<span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.findall(<span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>再看第2种：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="built_in">print</span> re.match(r<span class="string">'\d+'</span>, <span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> re.search(r<span class="string">'\d+'</span>, <span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(r<span class="string">'\d+'</span>, <span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。</p>
+<p>因此，我们推荐使用第 1 种用法。</p>
+<h1 id="2-2-pattern"><a href="#2-2-pattern" class="headerlink" title="2.2 pattern "></a><span id="jump1">2.2 pattern </span></h1><p>pattern由原子和元字符组成的。</p>
+<h4 id="2-2-1-原子"><a href="#2-2-1-原子" class="headerlink" title="2.2.1 原子"></a>2.2.1 原子</h4><p>原子是正则表达式中最基本的组成单元，每个正则表达式中至少包含一个原子。常见的原子类型有：</p>
+<ul>
+<li>普通字符</li>
+<li>非打印字符 即pattern中可以包含换行符和制表符</li>
+<li>通用字符</li>
+<li>原子表</li>
+</ul>
+<p>常用通用字符</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">通用字符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">\w</td><td align="center">匹配字母、数字、下划线</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">\W</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">除</font>字母、数字、下划线外任意字符</td>
+</tr>
+<td align="center">\d</td><td align="center">匹配十进制数字，等价于[0-9]</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\D</td><td align="center" bgcolor="gray">匹配任意<font face="黑体" color="red">非</font>十进制数字</td>
+</tr>
+<td align="center">\s</td><td align="center">匹配空白字符</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\S</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">非</font>空白字符</td>
+</tr>
+</table>
+
+
+<p>原子表<br>用中括号把多个原子括起来组成一个表，各原子地位平等。</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">举例</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">[Pp]ython</td><td align="center">匹配 "Python" 或 "python"</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">[0-9]</td><td align="center" bgcolor="gray">匹配匹配任何数字。类似于 [0123456789]</td>
+</tr>
+<td align="center">[a-z]</td><td align="center">匹配任何小写字母</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">[A-Z]</td><td align="center" bgcolor="gray">匹配任何大写字母</td>
+</tr>
+<td align="center">[a-zA-Z0-9]</td><td align="center">匹配任何字母及数字</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">[^0-9]</td><td align="center" bgcolor="gray">匹配除了数字外的字符</td>
+</tr>
+</table>
+
+<h4 id="2-2-2-元字符"><a href="#2-2-2-元字符" class="headerlink" title="2.2.2 元字符"></a>2.2.2 元字符</h4><p>正则表达式中有一些特殊含义的字符。</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">元字符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center"><font size="6">.</font></td><td align="center">匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">^</td><td align="center" bgcolor="gray">在原子表中是非，不在原子表中表示匹配开始位置</td>
+</tr>
+<td align="center">$</td><td align="center">匹配结束位置</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">*</td><td align="center" bgcolor="gray">0次、1次或多次重复前面的原子</td>
+</tr>
+<td align="center">？</td><td align="center">0次或1次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">+</td><td align="center" bgcolor="gray">1次或多次</td>
+</tr>
+
+<td align="center">{n}</td><td align="center">恰好n次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">{n,}</td><td align="center" bgcolor="gray">至少n次</td>
+</tr>
+<td align="center">{n,m}</td><td align="center">至少n次，至多m次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">|</td><td align="center" bgcolor="gray">或</td>
+</tr>
+<td align="center">()</td><td align="center">匹配括号内的表达式，一些情况下也表示组</td>
+
+
+</table>
+
+<p>贪婪模式和懒惰模式：默认是贪婪模式，即尽可能的多匹配，我们可以用？变为懒惰模式。</p>
+<h1 id="2-3-模式修正符"><a href="#2-3-模式修正符" class="headerlink" title="2.3 模式修正符"></a><span id="jump2">2.3 模式修正符</span></h1><p>模式修正符</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">模式修正符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">I</td><td align="center">匹配时忽略大小写</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">M</td><td align="center" bgcolor="gray">多行匹配</td>
+</tr>
+<td align="center">L</td><td align="center">本地化识别</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">U</td><td align="center" bgcolor="gray">unicode</td>
+</tr>
+<td align="center">S</td><td align="center">让<font size="6">.</font>匹配包括多行</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\S</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">非</font>空白字符</td>
+</tr>
+</table>
+
+<p><br><br><br><br><br><br><br><br><br></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><p>后续：</p>
+<h2 id="3-xpath表达式"><a href="#3-xpath表达式" class="headerlink" title="3 xpath表达式"></a>3 xpath表达式</h2><h2 id="4-json数据处理"><a href="#4-json数据处理" class="headerlink" title="4 json数据处理"></a>4 json数据处理</h2><h2 id="5-urllib初体验"><a href="#5-urllib初体验" class="headerlink" title="5 urllib初体验"></a>5 urllib初体验</h2><h2 id="6-http基本知识"><a href="#6-http基本知识" class="headerlink" title="6 http基本知识"></a>6 http基本知识</h2><h2 id="7-基本的反爬措施"><a href="#7-基本的反爬措施" class="headerlink" title="7 基本的反爬措施"></a>7 基本的反爬措施</h2><h2 id="8-模拟登陆"><a href="#8-模拟登陆" class="headerlink" title="8 模拟登陆"></a>8 模拟登陆</h2><h2 id="9-scrapy框架"><a href="#9-scrapy框架" class="headerlink" title="9 scrapy框架"></a>9 scrapy框架</h2><h2 id="10-分布式爬虫"><a href="#10-分布式爬虫" class="headerlink" title="10 分布式爬虫"></a>10 分布式爬虫</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
+
+  <aside id="sidebar" class="sidebar">
     
-        <span class="sidebar-tag-name" data-tags="R语言 数据分析"><span class="iconfont-archer">&#xe606;</span>R语言 数据分析</span>
-    
-        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
-        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
-    
-        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
-    
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
-    
-        <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
-    
-        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
-    
-        <span class="sidebar-tag-name" data-tags="R"><span class="iconfont-archer">&#xe606;</span>R</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
-    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JieZhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
     </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: true
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tags-list"></div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JieZhao</span>
+
+  
 </div>
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
     
-        <span class="sidebar-category-name" data-categories="R语言"><span class="iconfont-archer">&#xe60a;</span>R语言</span>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
-        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+
     
-        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
-    
-        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-    </div>
-</div> 
-    <script>
-    var siteMeta = {
-        root: '/',
-        author: 'JieZhao'
-    }
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-    <!-- busuanzi  -->
-    
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-    <!-- CNZZ  -->
-    
-    </div>
-    <!-- async load share.js --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-    
-    </body>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
 </html>
-
-
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

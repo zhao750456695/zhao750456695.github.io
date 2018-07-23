@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="正则表达式," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="FinGeek" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="目录 re中的常用函数正则表达式的组成模式修正符 &amp;emsp;&amp;emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文">
+<meta name="keywords" content="正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;爬虫系列2:python中的正则表达式&#39;">
+<meta property="og:url" content="http://yoursite.com/post/911f288d.html">
+<meta property="og:site_name" content="FinGeek">
+<meta property="og:description" content="目录 re中的常用函数正则表达式的组成模式修正符 &amp;emsp;&amp;emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-13T01:41:29.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&#39;爬虫系列2:python中的正则表达式&#39;">
+<meta name="twitter:description" content="目录 re中的常用函数正则表达式的组成模式修正符 &amp;emsp;&amp;emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/post/911f288d.html"/>
+
+
+
+
+
+  <title>'爬虫系列2:python中的正则表达式' | FinGeek</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FinGeek</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/911f288d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">'爬虫系列2:python中的正则表达式'</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-29T20:35:47+08:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>目录</p>
+<p><a href="#jump">re中的常用函数</a><br><br><a href="#jump1">正则表达式的组成</a><br><br><a href="#jump2">模式修正符</a><br></p>
+<p>&emsp;&emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文本时要匹配的一个或多个字符串。</p>
+<p>&emsp;&emsp;这里我们主要说下python中的正则表达式.python为我们提供了名为re的模块，这样我们就可以在python下使用着正则表达式的功能了。</p>
+<p>&emsp;&emsp;既然是模块当然为我们提供了一系列方法，而在使用正则表达式方法时要关注三点。首先是要匹配的正则表达式即模式字符串，也就是我们要找什么，我们把要找的东西根据规定好的规则写出来，称为pattern；其次就是，我们要在哪里找，我们在目标字符串里找，即string；最后，还有一个标志位flag，即正则表达式修饰符,也叫模式修正符，它规定了我们怎么找，比如要不要忽略大小写、要不要匹配换行符（默认不匹配）。</p>
+<h1 id="2-1-re中的常用函数"><a href="#2-1-re中的常用函数" class="headerlink" title="2.1 re中的常用函数"></a><span id="jump">2.1 re中的常用函数</span></h1><p>&emsp;&emsp;我们一个个说，先说说re模块中的函数。</p>
+<h4 id="2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><a href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0" class="headerlink" title="2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)"></a>2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</h4><p>compile函数用于编译正则表达式，生成一个Pattern对象，Pattern对象有一系列的方法，常用的有：</p>
+<ul>
+<li>match(string[, pos[, endpos]])方法</li>
+<li>search(string[, pos[, endpos]])方法</li>
+<li>findall(string[, pos[, endpos]])方法</li>
+<li>finditer(string[, pos[, endpos]])方法</li>
+<li>split(string[, maxsplit])方法</li>
+<li>sub(repl, string[, count])方法</li>
+</ul>
+<p>match(string[, pos[, endpos]])<br>如果没有指定pos和endpos，默认为0和len(string)，即match函数将会从头部(左侧第一个字符)开始进行匹配，若匹配成功将返回<font face="黑体" color="red">Match对象</font>，没有匹配成功，则返回None。<br>search(string[, pos[, endpos]])<br>与match的差别是可以从任何地方开始，只要待匹配的字符串中有可匹配对象，就会匹配成功，返回<font face="黑体" color="red">Match对象</font>。也是只匹配一次。</p>
+<p>上面的方法只匹配一次，如果我们想把字符串中所有匹配的情况都找出来该怎么办办呢？我们可以使用findall(string,[, pos[, endpos]]),findall会找到所有能够匹配的结果，结果是以<font face="黑体" color="red">列表</font>形式返回的所有子串。</p>
+<hr>
+<p><em>小括号和group</em><br>search和match中的pattern中有括号会形成group，多个括号就有多个group<br>只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>searchObj.group() :  Cats are smarter than dogs
+searchObj.group(1) :  Cats
+searchObj.group(2) :  smarter
+searchObj.group(1, 2) :  (&#39;Cats&#39;, &#39;smarter&#39;)
+searchObj.groups() :  (&#39;Cats&#39;, &#39;smarter&#39;)
+</code></pre><p>如果没有小括号，可以用group()显示全部，但里面不能有数字，因为没有分组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import re</span><br><span class="line">&gt;&gt;&gt; pattern = re.compile(r<span class="string">'\d+'</span>)                    <span class="comment"># 用于匹配至少一个数字</span></span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># 查找头部，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 2, 10) <span class="comment"># 从'e'的位置开始匹配，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 3, 10) <span class="comment"># 从'1'的位置开始匹配，正好匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m                                         <span class="comment"># 返回一个 Match 对象</span></span><br><span class="line">&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</span><br><span class="line">&gt;&gt;&gt; m.group(0)   <span class="comment"># 可省略 0</span></span><br><span class="line"><span class="string">'12'</span></span><br><span class="line">&gt;&gt;&gt; m.start(0)   <span class="comment"># 可省略 0</span></span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; m.end(0)     <span class="comment"># 可省略 0</span></span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; m.span(0)    <span class="comment"># 可省略 0</span></span><br><span class="line">(3, 5)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；[group1]即1.</li>
+<li>start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；</li>
+<li>end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；</li>
+<li>span([group]) 方法返回 (start(group), end(group))。</li>
+</ul>
+<p>findall中的pattern用小括号，会只返回小括号中的匹配的东西，形成元组列表</p>
+<pre><code>import re
+a = &quot;123abc456899opopo&quot;
+pat = &#39;12(.*?)4(.*?)po&#39;
+res = re.compile(pat).findall(a)
+print(res)
+</code></pre><p>结果是：</p>
+<pre><code>[(&#39;3abc&#39;, &#39;56899o&#39;)]
+</code></pre><h2 id="——"><a href="#——" class="headerlink" title="——-"></a>——-</h2><p>finditer(string[, pos[, endpos]])和findall()功能一样，也是搜索所有匹配情况，区别是finditer返回一个顺序访问每一个匹配结果的迭代器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line">result_iter1 = pattern.finditer(<span class="string">'hello 123456 789'</span>)</span><br><span class="line">result_iter2 = pattern.finditer(<span class="string">'one1two2three3four4'</span>, 0, 10)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter1))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter2))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result1...'</span>)</span><br><span class="line"><span class="keyword">for</span> m1 <span class="keyword">in</span> result_iter1:   <span class="comment"># m1 是 Match 对象</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m1.group(), m1.span()))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result2...'</span>)</span><br><span class="line"><span class="keyword">for</span> m2 <span class="keyword">in</span> result_iter2:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m2.group(), m2.span()))</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<pre><code>&lt;class &#39;callable_iterator&#39;&gt;
+&lt;class &#39;callable_iterator&#39;&gt;
+result1...
+matching string: 123456, position: (6, 12)
+matching string: 789, position: (13, 16)
+result2...
+matching string: 1, position: (3, 4)
+matching string: 2, position: (7, 8)
+</code></pre><p>split(string[, maxsplit])<br>split(string[, maxsplit])<br>split函数根据能够匹配的子串来分割字符串，结果以列表形式返回。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'a'</span>)</span><br><span class="line">res = p.split(<span class="string">'abcadeacd'</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>[&#39;&#39;, &#39;bc&#39;, &#39;de&#39;, &#39;cd&#39;]
+</code></pre><p>‘a’被去除，’a’左右两侧的子串被装进列表中返回。</p>
+<p>sub(repl, string[, count])<br>sub方法的功能是替换，返回<font face="黑体" color="red">替换后的字符串</font>。</p>
+<p>其中，repl 可以是字符串也可以是一个函数：</p>
+<ul>
+<li>如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；</li>
+<li>如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。</li>
+</ul>
+<p>count 用于指定最多替换次数，<strong>不指定时全部替换</strong>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'hello world'</span>, s) ) <span class="comment"># 使用 'hello world' 替换 'hello 123' 和 'hello 456'</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'\2 \1'</span>, s))  <span class="comment"># 引用分组</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s)) <span class="comment"># sub会把匹配到的match对象传给func 替换之前肯定要先匹配</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s, 1))  <span class="comment"># 最多替换一次</span></span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>hello world, hello world
+123 hello, 456 hello
+hi 123, hi 456
+hi 123, hello 456
+</code></pre><p>对比：<br>re.sub(pattern, repl, string, count=0, flags=0)三个必选参数：pattern, repl, string<br>pattern：</p>
+<p>若在patter中有\\number写法，则是要匹配其中分组，如下写法<br>      inputStr = “hello crifan, nihao crifan”;<br>      replacedStr = re.sub(r”o (\w+), nihao \1”, “crifanli”, inputStr);<br>      print(replacedStr)<br>结果是：</p>
+<pre><code>hellcrifanli
+</code></pre><p>和repl中\\number不一样， 见下面<br>s = ‘2017-01-22’<br>s = re.sub(‘(\d{4})-(\d{2})-(\d{2})’, r’\2-\3-\1’, s)<br>print s  # 01-22-2017</p>
+<p>第二个参数：repl<br>repl，就是replacement，被替换，的字符串的意思。</p>
+<p>repl可以是字符串，也可以是函数。</p>
+<ul>
+<li>repl是字符串</li>
+</ul>
+<p>如果repl是字符串的话，其中的任何反斜杠转义字符，都会被处理的。</p>
+<p>即：</p>
+<p>\n：会被处理为对应的换行符；<br>\r：会被处理为回车符；<br>其他不能识别的转移字符，则只是被识别为普通的字符：<br>比如\j，会被处理为j这个字母本身；<br>反斜杠加g以及中括号内一个名字，即：\g，对应着命了名的组，named group<br>接着上面的举例：</p>
+<p>想要把对应的：</p>
+<pre><code>hello crifan, nihao crifan
+</code></pre><p>中的crifan提取出来，只剩：crifan</p>
+<p>就可以写成：</p>
+<pre><code>inputStr = &quot;hello crifan, nihao crifan&quot;;
+replacedStr = re.sub(r&quot;hello (\w+), nihao \1&quot;, &quot;\g&lt;1&gt;&quot;, inputStr);
+print &quot;replacedStr=&quot;,replacedStr; #crifan
+</code></pre><ul>
+<li>repl是函数</li>
+<li><p>repl是函数<br>-</p>
+<pre><code>hello 123 world 456
+</code></pre><p>想要把其中的数字部分，都加上111，变成：</p>
+<pre><code>hello 234 world 567
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      <span class="comment">#!/usr/bin/python</span></span><br><span class="line">      <span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">      import re;</span><br><span class="line"></span><br><span class="line">      def pythonReSubDemo():</span><br><span class="line">          <span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">              demo Pyton re.sub</span></span><br><span class="line"><span class="string">          "</span><span class="string">""</span></span><br><span class="line">          inputStr = <span class="string">"hello 123 world 456"</span>;</span><br><span class="line"></span><br><span class="line">          def _add111(matched):</span><br><span class="line">              intStr = matched.group(<span class="string">"number"</span>); <span class="comment">#123</span></span><br><span class="line">              intValue = int(intStr);</span><br><span class="line">              addedValue = intValue + 111; <span class="comment">#234</span></span><br><span class="line">              addedValueStr = str(addedValue);</span><br><span class="line">              <span class="built_in">return</span> addedValueStr;</span><br><span class="line"></span><br><span class="line">          replacedStr = re.sub(<span class="string">"(?P&lt;number&gt;\d+)"</span>, _add111, inputStr);</span><br><span class="line">          <span class="built_in">print</span> <span class="string">"replacedStr="</span>,replacedStr; <span class="comment">#hello 234 world 567</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">###############################################################################</span></span><br><span class="line">      <span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">          pythonReSubDemo();</span><br><span class="line"></span><br><span class="line">subn(repl, string[, count])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>它返回一个元组：</p>
+<pre><code>(sub(repl, string[, count]), 替换次数)
+</code></pre><p>元组有两个元素，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。</p>
+<p>看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'hello world'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'\2 \1'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s, 1)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果是：</p>
+<pre><code>(&#39;hello world, hello world&#39;, 2)
+(&#39;123 hello, 456 hello&#39;, 2)
+(&#39;hi 123, hi 456&#39;, 2)
+(&#39;hi 123, hello 456&#39;, 1)
+</code></pre><h4 id="2-1-2-match-函数"><a href="#2-1-2-match-函数" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><h4 id="2-1-2-match-函数-1"><a href="#2-1-2-match-函数-1" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><pre><code>re.match(pattern, string[, flags]):
+</code></pre><p>其中，pattern 是正则表达式的字符串形式，比如 \d+, [a-z]+。</p>
+<p>而 Pattern 对象的 match 方法使用形式是：</p>
+<pre><code>match(string[, pos[, endpos]])
+</code></pre><p>可以看到，match 函数不能指定字符串的区间，它只能搜索头部，看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">m1 = re.match(r<span class="string">'\d+'</span>, <span class="string">'One12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m1:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>,m1.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m1 is:'</span>,m1</span><br><span class="line"></span><br><span class="line">m2 = re.match(r<span class="string">'\d+'</span>, <span class="string">'12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m2:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>, m2.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m2 is:'</span>,m2</span><br></pre></td></tr></table></figure></p>
+<p>结果是：</p>
+<pre><code>m1 is: None
+matching string: 12
+</code></pre><h4 id="2-1-3-search-函数"><a href="#2-1-3-search-函数" class="headerlink" title="2.1.3 search 函数"></a>2.1.3 search 函数</h4><pre><code>re.search(pattern, string[, flags])
+</code></pre><p>也是不能指定区间</p>
+<h4 id="2-1-4-findall-函数"><a href="#2-1-4-findall-函数" class="headerlink" title="2.1.4 findall 函数"></a>2.1.4 findall 函数</h4><p>用哪种方式</p>
+<p>从上文可以看到，使用 re 模块有两种方式：</p>
+<p>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；<br>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；<br>下面，我们用一个例子展示这两种方法。</p>
+<p>先看第 1 种用法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="comment"># 将正则表达式先编译成 Pattern 对象</span></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.match(<span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.search(<span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.findall(<span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>再看第2种：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="built_in">print</span> re.match(r<span class="string">'\d+'</span>, <span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> re.search(r<span class="string">'\d+'</span>, <span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(r<span class="string">'\d+'</span>, <span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。</p>
+<p>因此，我们推荐使用第 1 种用法。</p>
+<h1 id="2-2-pattern"><a href="#2-2-pattern" class="headerlink" title="2.2 pattern "></a><span id="jump1">2.2 pattern </span></h1><p>pattern由原子和元字符组成的。</p>
+<h4 id="2-2-1-原子"><a href="#2-2-1-原子" class="headerlink" title="2.2.1 原子"></a>2.2.1 原子</h4><p>原子是正则表达式中最基本的组成单元，每个正则表达式中至少包含一个原子。常见的原子类型有：</p>
+<ul>
+<li>普通字符</li>
+<li>非打印字符 即pattern中可以包含换行符和制表符</li>
+<li>通用字符</li>
+<li>原子表</li>
+</ul>
+<p>常用通用字符</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">通用字符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">\w</td><td align="center">匹配字母、数字、下划线</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">\W</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">除</font>字母、数字、下划线外任意字符</td>
+</tr>
+<td align="center">\d</td><td align="center">匹配十进制数字，等价于[0-9]</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\D</td><td align="center" bgcolor="gray">匹配任意<font face="黑体" color="red">非</font>十进制数字</td>
+</tr>
+<td align="center">\s</td><td align="center">匹配空白字符</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\S</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">非</font>空白字符</td>
+</tr>
+</table>
+
+
+<p>原子表<br>用中括号把多个原子括起来组成一个表，各原子地位平等。</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">举例</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">[Pp]ython</td><td align="center">匹配 "Python" 或 "python"</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">[0-9]</td><td align="center" bgcolor="gray">匹配匹配任何数字。类似于 [0123456789]</td>
+</tr>
+<td align="center">[a-z]</td><td align="center">匹配任何小写字母</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">[A-Z]</td><td align="center" bgcolor="gray">匹配任何大写字母</td>
+</tr>
+<td align="center">[a-zA-Z0-9]</td><td align="center">匹配任何字母及数字</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">[^0-9]</td><td align="center" bgcolor="gray">匹配除了数字外的字符</td>
+</tr>
+</table>
+
+<h4 id="2-2-2-元字符"><a href="#2-2-2-元字符" class="headerlink" title="2.2.2 元字符"></a>2.2.2 元字符</h4><p>正则表达式中有一些特殊含义的字符。</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">元字符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center"><font size="6">.</font></td><td align="center">匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">^</td><td align="center" bgcolor="gray">在原子表中是非，不在原子表中表示匹配开始位置</td>
+</tr>
+<td align="center">$</td><td align="center">匹配结束位置</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">*</td><td align="center" bgcolor="gray">0次、1次或多次重复前面的原子</td>
+</tr>
+<td align="center">？</td><td align="center">0次或1次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">+</td><td align="center" bgcolor="gray">1次或多次</td>
+</tr>
+
+<td align="center">{n}</td><td align="center">恰好n次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">{n,}</td><td align="center" bgcolor="gray">至少n次</td>
+</tr>
+<td align="center">{n,m}</td><td align="center">至少n次，至多m次</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">|</td><td align="center" bgcolor="gray">或</td>
+</tr>
+<td align="center">()</td><td align="center">匹配括号内的表达式，一些情况下也表示组</td>
+
+
+</table>
+
+<p>贪婪模式和懒惰模式：默认是贪婪模式，即尽可能的多匹配，我们可以用？变为懒惰模式。</p>
+<h1 id="2-3-模式修正符"><a href="#2-3-模式修正符" class="headerlink" title="2.3 模式修正符"></a><span id="jump2">2.3 模式修正符</span></h1><p>模式修正符</p>
+<table>
+  <th width="40%," bgcolor="black"><font face="黑体" color="white">模式修正符</font></th>
+  <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
+<tr>
+<td align="center">I</td><td align="center">匹配时忽略大小写</td>
+</tr>
+<tr>
+<td align="center" bgcolor="gray">M</td><td align="center" bgcolor="gray">多行匹配</td>
+</tr>
+<td align="center">L</td><td align="center">本地化识别</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">U</td><td align="center" bgcolor="gray">unicode</td>
+</tr>
+<td align="center">S</td><td align="center">让<font size="6">.</font>匹配包括多行</td>
+
+
+<tr>
+<td align="center" bgcolor="gray">\S</td><td align="center" bgcolor="gray">匹配<font face="黑体" color="red">非</font>空白字符</td>
+</tr>
+</table>
+
+<p><br><br><br><br><br><br><br><br><br></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><p>后续：</p>
+<h2 id="3-xpath表达式"><a href="#3-xpath表达式" class="headerlink" title="3 xpath表达式"></a>3 xpath表达式</h2><h2 id="4-json数据处理"><a href="#4-json数据处理" class="headerlink" title="4 json数据处理"></a>4 json数据处理</h2><h2 id="5-urllib初体验"><a href="#5-urllib初体验" class="headerlink" title="5 urllib初体验"></a>5 urllib初体验</h2><h2 id="6-http基本知识"><a href="#6-http基本知识" class="headerlink" title="6 http基本知识"></a>6 http基本知识</h2><h2 id="7-基本的反爬措施"><a href="#7-基本的反爬措施" class="headerlink" title="7 基本的反爬措施"></a>7 基本的反爬措施</h2><h2 id="8-模拟登陆"><a href="#8-模拟登陆" class="headerlink" title="8 模拟登陆"></a>8 模拟登陆</h2><h2 id="9-scrapy框架"><a href="#9-scrapy框架" class="headerlink" title="9 scrapy框架"></a>9 scrapy框架</h2><h2 id="10-分布式爬虫"><a href="#10-分布式爬虫" class="headerlink" title="10 分布式爬虫"></a>10 分布式爬虫</h2>
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+
+</div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/7b85d651.html" rel="prev" title="requests">
+                requests <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JieZhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-re中的常用函数"><span class="nav-number">1.</span> <span class="nav-text">2.1 re中的常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#——"><span class="nav-number">1.1.</span> <span class="nav-text">——-</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-match-函数"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">2.1.2 match 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-match-函数-1"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.1.2 match 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-search-函数"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">2.1.3 search 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-findall-函数"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">2.1.4 findall 函数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-pattern"><span class="nav-number">2.</span> <span class="nav-text">2.2 pattern </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-原子"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">2.2.1 原子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-元字符"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2.2.2 元字符</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-模式修正符"><span class="nav-number">3.</span> <span class="nav-text">2.3 模式修正符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-xpath表达式"><span class="nav-number">3.2.</span> <span class="nav-text">3 xpath表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-json数据处理"><span class="nav-number">3.3.</span> <span class="nav-text">4 json数据处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-urllib初体验"><span class="nav-number">3.4.</span> <span class="nav-text">5 urllib初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-http基本知识"><span class="nav-number">3.5.</span> <span class="nav-text">6 http基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-基本的反爬措施"><span class="nav-number">3.6.</span> <span class="nav-text">7 基本的反爬措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-模拟登陆"><span class="nav-number">3.7.</span> <span class="nav-text">8 模拟登陆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-scrapy框架"><span class="nav-number">3.8.</span> <span class="nav-text">9 scrapy框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-分布式爬虫"><span class="nav-number">3.9.</span> <span class="nav-text">10 分布式爬虫</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JieZhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>

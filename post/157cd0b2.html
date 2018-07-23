@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python爬虫," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="FinGeek" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="认识scrapy框架过去我们写的爬虫只能成为爬虫文件，现在我们要学习的scrapy框架会形成一个完整的爬虫项目。scrapy是python的一个通用型爬虫框架，可以胜任任何爬虫工作，可以提高我们的开发效率，并且适合做一些中大型的爬虫项目。urllib适合写爬虫文件，scrapy更适合做爬虫项目。 安装好scrapy之后，在命令行输入scrapy -h，会得到可以使用的命令：      指令 作用">
+<meta name="keywords" content="python爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy初步">
+<meta property="og:url" content="http://yoursite.com/post/157cd0b2.html">
+<meta property="og:site_name" content="FinGeek">
+<meta property="og:description" content="认识scrapy框架过去我们写的爬虫只能成为爬虫文件，现在我们要学习的scrapy框架会形成一个完整的爬虫项目。scrapy是python的一个通用型爬虫框架，可以胜任任何爬虫工作，可以提高我们的开发效率，并且适合做一些中大型的爬虫项目。urllib适合写爬虫文件，scrapy更适合做爬虫项目。 安装好scrapy之后，在命令行输入scrapy -h，会得到可以使用的命令：      指令 作用">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpykd4tgtzj20gy09emx8.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpykq8s2k8j20i0046jra.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fpykw308j0j20mr096js1.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpylwznfubj20hs0dbmxn.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fpymp88wcdj20hg0ad0su.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fpz7ip9ryyj213e0lgtj7.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpz94zj1drj20fn031dfn.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fpzb5nj833j20rh06vabx.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpzcxgo4c7j216t04at9b.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0luwwoezj216d0h177d.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq0ovzn3ubj20ti0hswgj.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0p3h6qpjj20lk0bn74o.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0p7wanq7j20qr0aigm9.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0paqq1rlj20u0062q3f.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq0pemtbmzj20rj045wep.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0phijxzsj20l602rmx3.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0pnl5rvtj20mm081mxg.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0pw0aud0j20n40degm7.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0pw3o750j20pp05nglp.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0prlbm1ej20hm04q0sp.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0qxua16wj20s60480sp.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0r1gp3c0j20gx04iq2t.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpzl6ejyrxj216e0n7guo.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpzltuxnznj21880fmaeh.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq1ivi2vbfj212e0lfwtb.jpg">
+<meta property="og:image" content="c:/Users/my/Desktop/图片/book.jd.com.png">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq1kbqgp9oj21700fq195.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1iyws5gfj212h0kjh2g.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1jpx6ny3j212r0l1t9z.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1j0alx8bj214h0l64a6.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rt8ox64j209l01q742.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1kwj32yxj20q40j9gmh.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1jpx6ny3j212r0l1t9z.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rzj7lo4j208701tjr7.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rzbueysj209w03cq2t.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1snnhehij20lj08m3yn.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1sr0baopj20to06hq3n.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1tccl21bj217n083t9y.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq1toguvh1j211j04ojro.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1tx1dsc3j20y70dkgm6.jpg">
+<meta property="og:updated_time" content="2018-04-28T13:31:17.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scrapy初步">
+<meta name="twitter:description" content="认识scrapy框架过去我们写的爬虫只能成为爬虫文件，现在我们要学习的scrapy框架会形成一个完整的爬虫项目。scrapy是python的一个通用型爬虫框架，可以胜任任何爬虫工作，可以提高我们的开发效率，并且适合做一些中大型的爬虫项目。urllib适合写爬虫文件，scrapy更适合做爬虫项目。 安装好scrapy之后，在命令行输入scrapy -h，会得到可以使用的命令：      指令 作用">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpykd4tgtzj20gy09emx8.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/post/157cd0b2.html"/>
+
+
+
+
+
+  <title>scrapy初步 | FinGeek</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FinGeek</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/157cd0b2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">scrapy初步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-28T21:30:10+08:00">
+                2018-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="认识scrapy框架"><a href="#认识scrapy框架" class="headerlink" title="认识scrapy框架"></a>认识scrapy框架</h1><p>过去我们写的爬虫只能成为爬虫文件，现在我们要学习的scrapy框架会形成一个完整的爬虫项目。scrapy是python的一个通用型爬虫框架，可以胜任任何爬虫工作，可以提高我们的开发效率，并且适合做一些中大型的爬虫项目。urllib适合写爬虫文件，scrapy更适合做爬虫项目。</p>
+<p>安装好scrapy之后，在命令行输入scrapy -h，会得到可以使用的命令：</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpykd4tgtzj20gy09emx8.jpg" alt="scrapy命令"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bench</td>
+<td>即可在项目里面执行，也可在项目外面执行，一般应在项目里运行</td>
+</tr>
+<tr>
+<td>fetch</td>
+<td>直接获取网页</td>
+</tr>
+<tr>
+<td>genspier</td>
+<td>创建爬虫文件，而不是爬虫项目</td>
+</tr>
+<tr>
+<td>runspider</td>
+<td>运行爬虫文件</td>
+</tr>
+<tr>
+<td>settings</td>
+<td>获取setings的值</td>
+</tr>
+<tr>
+<td>shell</td>
+<td>进入交互式页面</td>
+</tr>
+<tr>
+<td>startproject</td>
+<td>创建一个项目</td>
+</tr>
+<tr>
+<td>version</td>
+<td>版本</td>
+</tr>
+<tr>
+<td>view</td>
+<td>爬取并在浏览器中打开</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面我们在e盘myscrapy文件夹下创建一个名为test的爬虫项目：</p>
+<p><code>scrapy startproject hello</code></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpykq8s2k8j20i0046jra.jpg" alt="startproject"></p>
+<p>我们的myscrapy多出一个hello文件夹，这个文件夹中就是我们的爬虫项目，我们的爬虫项目就叫hello。</p>
+<p>进入hello项目文件夹</p>
+<p>我们看到还有一个hello文件夹，以及一个scrapy.cfg文件，这个hello文件夹我们称为爬虫项目里面的核心目录，scrapy.cfg主要是用来进行整个爬虫项目的配置的。</p>
+<p>我们再次进入hello文件夹</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fpykw308j0j20mr096js1.jpg" alt="文件夹格式"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件/目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_pycache_</td>
+<td>缓存相关的文件，不用管</td>
+</tr>
+<tr>
+<td>spider文件夹</td>
+<td>放置我们项目的爬虫文件</td>
+</tr>
+<tr>
+<td>_init_.py</td>
+<td>初始化文件</td>
+</tr>
+<tr>
+<td>items.py</td>
+<td>存放我们要爬取的具体目标</td>
+</tr>
+<tr>
+<td>middlewates.py</td>
+<td>中间件文件</td>
+</tr>
+<tr>
+<td>pipelines.py</td>
+<td>主要是爬后处理的文件，如是写进文件中还是数据库中</td>
+</tr>
+<tr>
+<td>settings.py</td>
+<td>一个总体设置的文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpylwznfubj20hs0dbmxn.jpg" alt="scrapy流程图"></p>
+<p>从调度程序Scheduler开始看，调度程序从scrapy引擎接受请求并排序列入队列从而形成了任务队列，然后把请求发给Downloader，Downloader就会从因特网上下载信息，这些信息是Responses，传给Spider，Spider会根据我们编写的代码进行数据处理、筛选、提取等操作，会获得新的请求网址，再次通过引擎传给任务队列，最终会得到了我们定义的目标Items，然后把Items传给Pipeline进行后续的处理。</p>
+<p>我们创建了爬虫项目，在爬虫项目下我们可以使用一些创建项目前不能使用的指令。这些新的指令被称为项目指令，而那些创建项目之前就能使用的指令被称为全局指令。</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fpymp88wcdj20hg0ad0su.jpg" alt="新指令"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>check</td>
+<td>检查爬虫协议</td>
+</tr>
+<tr>
+<td>crawl</td>
+<td>运行爬虫文件</td>
+</tr>
+<tr>
+<td>edit</td>
+<td>编辑spider，主要在linux中用</td>
+</tr>
+<tr>
+<td>list</td>
+<td>列出当前爬虫项目下可用的爬虫文件</td>
+</tr>
+<tr>
+<td>parse</td>
+<td>解析url并打印结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面详细说一下：</p>
+<p><code>scrapy fetch http://www.baidu.com</code></p>
+<p>获取网页，命令行中会显示我们抓取的网页，记得把settings里的rebots关掉， <code>ROBOTSTXT_OBEY = False</code>。</p>
+<p><code>scrapy runspider</code>  不依托scrapy爬虫项目直接运行爬虫文件，即有的时候不想创建爬虫项目，直接做一个爬虫文件，做了一个爬虫文件后一般 不可直接执行,下面是一个简单的scrapy爬虫文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> Spider</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line"></span><br><span class="line">	name = <span class="string">'First'</span></span><br><span class="line"></span><br><span class="line">	allowed_domains=[<span class="string">'baidu.com'</span>]</span><br><span class="line"></span><br><span class="line">	start_urls=[<span class="string">'http://www.baidu.com'</span>]</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>此时，我们可以用runspider+爬虫文件名来运行这个爬虫文件。</p>
+<p>进入爬虫项目后</p>
+<p><code>scrapy settings  --get BOT_NAME</code> 获取了settings.py里的BOT_NAME的值。</p>
+<p><code>scrapy shell http://www.baidu.com</code> 交互式爬取 exit()退出</p>
+<p><code>scrapy view http://news.163.com</code> 会把163新闻首页爬取下来存到本地，并用浏览器打开，如下图所示</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fpz7ip9ryyj213e0lgtj7.jpg" alt="首页"></p>
+<p><code>scrapy bench</code>  测试硬件性能</p>
+<p><code>scrapy genspider -l</code>   查看爬虫模板</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpz94zj1drj20fn031dfn.jpg" alt="模板"></p>
+<p>我们一般用basic模板即可</p>
+<p>crawl 自动爬虫，做类似搜索引擎的爬虫</p>
+<p>csvfeed 爬取csv格式数据</p>
+<p>xmlfeed 爬取xml格式数据</p>
+<p>scrapy genspider -t 模板 爬虫文件名 域名</p>
+<p><code>scrapy genspider -t basic dangdang dangdang.com</code> 创建一个名为dangdang的爬虫文件，用的是basic模板，指定域名dangdang.com。</p>
+<p><code>scrapy check dangdang</code> 检查dangdang这个爬虫文件是否合规，以合同的方式进行测试</p>
+<hr>
+<p>Spider Contracts</p>
+<hr>
+<p><code>spider crawl dangdang</code>  运行爬虫项目下的爬虫文件，和前面的runspider是不一样的，那里是独立的爬虫文件。如果不想显示日志信息可以加上 —nolog ，即<code>spider crawl dangdang --nolog</code>。</p>
+<p><code>spider list</code> 查看当前项目下有哪些可用的爬虫文件</p>
+<p><code>scrapy parse --spider=dangdang http:www.baidu.com</code>  指定项目中的爬虫文件爬取网页</p>
+<h1 id="当当网爬取实战"><a href="#当当网爬取实战" class="headerlink" title="当当网爬取实战"></a>当当网爬取实战</h1><p>目标：获取商品名 商品链接 商品评论数</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fpzb5nj833j20rh06vabx.jpg" alt="当当网"></p>
+<p>url 是<code>http://search.dangdang.com/?key=python&amp;act=input&amp;show=big#J_tab</code></p>
+<p><code>scrapy startproject dangdang</code></p>
+<p>创建名为dangdang的爬虫项目</p>
+<p><code>cd dangdnag</code></p>
+<p>进入项目目录</p>
+<p><code>scrapy genspider -t basic dd dangdang.com</code></p>
+<p>创建名为dd的爬虫文件，爬虫文件名不能和爬虫项目名重名</p>
+<p>首先，编写items.py，确定我们的目标，创建三个容器来盛放我们的目标：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    title = scrapy.Field()</span><br><span class="line">    link = scrapy.Field()</span><br><span class="line">    comment = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p>然后，进入dd.py</p>
+<p>导入我们的目标</p>
+<p><code>from dangdang.items import DangdangItem</code></p>
+<p>容器实例化</p>
+<p>item=DangdangItem()</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpzcxgo4c7j216t04at9b.jpg" alt="html"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">title</span>=<span class="string">" Python编程 从入门到实践"</span>  <span class="attr">ddclick</span>=<span class="string">"act=normalResult_picture&amp;pos=24003310_0_1_q"</span> <span class="attr">class</span>=<span class="string">"pic"</span> <span class="attr">name</span>=<span class="string">"itemlist-picture"</span>  <span class="attr">dd_name</span>=<span class="string">"单品图片"</span> <span class="attr">href</span>=<span class="string">"http://product.dangdang.com/24003310.html"</span>  <span class="attr">target</span>=<span class="string">"_blank"</span> &gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://img3m0.ddimg.cn/67/4/24003310-1_b_5.jpg'</span> <span class="attr">alt</span>=<span class="string">' Python编程 从入门到实践'</span> /&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"price"</span> &gt;</span> <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"price_n"</span>&gt;</span>&amp;yen;69.80<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">"color: #878787;text-decoration:none;"</span>&gt;</span>定价：<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"price_r"</span>&gt;</span>&amp;yen;89.00<span class="tag">&lt;/<span class="name">span</span>&gt;</span>(<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"price_s"</span>&gt;</span>7.85折<span class="tag">&lt;/<span class="name">span</span>&gt;</span>)<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"name"</span> <span class="attr">name</span>=<span class="string">"title"</span> &gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">title</span>=<span class="string">" Python编程 从入门到实践"</span> <span class="attr">href</span>=<span class="string">"http://product.dangdang.com/24003310.html"</span> <span class="attr">ddclick</span>=<span class="string">"act=normalResult_title&amp;pos=24003310_0_1_q"</span> <span class="attr">name</span>=<span class="string">"itemlist-title"</span> <span class="attr">dd_name</span>=<span class="string">"单品标题"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> &gt;</span> <span class="tag">&lt;<span class="name">font</span> <span class="attr">class</span>=<span class="string">"skcolor_ljg"</span>&gt;</span>Python<span class="tag">&lt;/<span class="name">font</span>&gt;</span>编程 从入门到实践<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"search_hot_word"</span> &gt;</span>Python3.5编程入门图书 机器学习 数据处理 网络爬虫热门编程语言 从基本概念到完整项目开发 帮助零基础读者迅速掌握Python编程 附赠源代码文件<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"star"</span> &gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"level"</span> &gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"width: 90%;"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://product.dangdang.com/24003310.html?point=comment_point"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">name</span>=<span class="string">"itemlist-review"</span> <span class="attr">dd_name</span>=<span class="string">"单品评论"</span> <span class="attr">ddclick</span>=<span class="string">"act=click_review_count&amp;pos=24003310_0_1_q"</span>&gt;</span>5307条评论<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"empty_div"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"new_lable"</span> <span class="attr">y</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"tag_box"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"shop_button"</span>&gt;</span><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"bottom_p"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span>  <span class="attr">class</span>=<span class="string">'search_btn_cart '</span> <span class="attr">name</span>=<span class="string">'Buy'</span> <span class="attr">dd_name</span>=<span class="string">'加入购物车'</span> <span class="attr">href</span>=<span class="string">'javascript:AddToShoppingCart(24003310)'</span> <span class="attr">ddclick</span>=<span class="string">'act=normalResult_addToCart&amp;pos=24003310_0_1_q'</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">'icon'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>加入购物车<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">'search_btn_collect'</span> <span class="attr">name</span>=<span class="string">'collect'</span> <span class="attr">dd_name</span>=<span class="string">'加入收藏'</span> <span class="attr">id</span>=<span class="string">"lcase24003310"</span> <span class="attr">href</span>=<span class="string">"javascript:void(0);"</span> <span class="attr">name</span>=<span class="string">"Sc"</span> <span class="attr">ddclick</span>=<span class="string">'act=normalResult_favor&amp;pos=24003310_0_1_q'</span>&gt;</span>收藏<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>浏览器中，搜索商品名，有三个地方有我们要找的商品名，选哪个地方呢？我们试一下第一个a标签中的name=”itemlist-picture”，搜索了一下发现有60个，正好是商品页的商品数，再对应一下，每个商品都有该属性，于是可以用该属性值来提取商品名，xpath表达式是：</p>
+<p><code>//a[@name=&quot;itemlist-picture&quot;]/@title</code></p>
+<p>同理取商品链接的xpath表达式是：</p>
+<p><code>//a[@name=&quot;itemlist-title&quot;]/@href</code></p>
+<p>取商品评论数的xpath表达式是：</p>
+<p><code>//a[@name=&quot;itemlist-review&quot;]/text()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> dangdang.items <span class="keyword">import</span> DangdangItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DdSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'dd'</span></span><br><span class="line">    allowed_domains = [<span class="string">'dangdang.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://search.dangdang.com/?key=python&amp;act=input&amp;show=big#J_tab'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        item=DangdangItem()</span><br><span class="line">        item[<span class="string">'title'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-picture"]/@title'</span>).extract()</span><br><span class="line">        item[<span class="string">'link'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-title"]/@href'</span>).extract()</span><br><span class="line">        item[<span class="string">'comment'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-review"]/text()'</span>).extract()</span><br><span class="line">        print(item[<span class="string">'link'</span>])</span><br></pre></td></tr></table></figure>
+<p>我们用print打印验证一下</p>
+<p>运行爬虫文件</p>
+<p><code>scrapy crawl dd</code></p>
+<p>不显示输出日志的话用</p>
+<p><code>scrapy crawl dd --nolog</code></p>
+<p>命令行中会显示我们爬取的名称、链接和评论数</p>
+<p>最后，我们要进行处理了，把这些内容写进数据库中。</p>
+<p>把上面的<code>print(item[&#39;link&#39;])</code>改成<code>yield item</code>即可把我们获取的item传到pipelines中，下面我们到pipelines.py中进行处理。</p>
+<p>我们要去settings.py里开启pipelines,即去掉注释，下面是去掉注释后的代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure item pipelines</span></span><br><span class="line"><span class="comment"># See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">'dangdang.pipelines.DangdangPipeline'</span>: <span class="number">300</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在pipelines.py中输入以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(item[<span class="string">'title'</span>])):</span><br><span class="line">            title=item[<span class="string">'title'</span>][i]</span><br><span class="line">            link=item[<span class="string">'link'</span>][i]</span><br><span class="line">            comment=item[<span class="string">'comment'</span>][i]</span><br><span class="line">            print(title+link+comment)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>重新运行爬虫文件，开打印效果。</p>
+<p>成功后我们下面写入数据库中：</p>
+<p>依次在mysql命令行中输入以下代码建立数据库和数据表：</p>
+<p><code>create database dd;</code></p>
+<p><code>use dd;</code></p>
+<p><code>create table goods(id int(32) auto_increment primary key,title varchar(100),link varchar(100) unique,comment varchar(100))ENGINE=InnoDB DEFAULT CHARSET=utf8;</code></p>
+<p>或者</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`goods`</span>(</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT,</span><br><span class="line"><span class="string">`title`</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`link`</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">UNIQUE</span>,</span><br><span class="line"><span class="string">`comment`</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> ( <span class="string">`id`</span> )</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+<p>然后，把title、link、comment写入数据库:</p>
+<p>有两种写法:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        conn = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, user=<span class="string">'root'</span>, passwd=<span class="string">'root'</span>, db=<span class="string">'dd'</span>, charset=<span class="string">'utf8'</span>, use_unicode=<span class="keyword">True</span>)</span><br><span class="line">        cursor = conn.cursor()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(item[<span class="string">'title'</span>])):</span><br><span class="line">            title=item[<span class="string">'title'</span>][i]</span><br><span class="line">            link=item[<span class="string">'link'</span>][i]</span><br><span class="line">            comment=item[<span class="string">'comment'</span>][i]</span><br><span class="line">            sql = <span class="string">'insert into goods(title,link,comment) values("'</span>+title+<span class="string">'","'</span>+link+<span class="string">'","'</span>+comment+<span class="string">'")'</span> <span class="comment"># values是字符串的话必须用引号引起来</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">            	conn.query(sql)</span><br><span class="line">            	conn.commit() <span class="comment"># 不能漏掉</span></span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> err：</span><br><span class="line">            	print(err)</span><br><span class="line">        conn.close()</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        conn = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, user=<span class="string">'root'</span>, passwd=<span class="string">'root'</span>, db=<span class="string">'dd'</span>, charset=<span class="string">'utf8'</span>, use_unicode=<span class="keyword">True</span>)</span><br><span class="line">        cursor = conn.cursor()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(item[<span class="string">'title'</span>])):</span><br><span class="line">            title=item[<span class="string">'title'</span>][i]</span><br><span class="line">            link=item[<span class="string">'link'</span>][i]</span><br><span class="line">            comment=item[<span class="string">'comment'</span>][i]</span><br><span class="line">            sql = <span class="string">'insert into goods(title,link,comment) values("%s", "%s", "%s")'</span></span><br><span class="line">            data = (str(title), str(link), str(comment))</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">            	cursor.execute(sql %data)</span><br><span class="line">            	conn.commit()</span><br><span class="line">             <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">             	print(err)</span><br><span class="line">        conn.close()</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>上面我们是抓取了一页，如果想抓取多页怎么办，我们点击下面的页码，发现url的规律，构造url如下：</p>
+<p><code>url = &#39;http://search.dangdang.com/?key=python&amp;act=input&amp;show=big&amp;page_index=&#39;+str(i)</code></p>
+<p>而抓取多页的方式和抓取一页的方式是一样的，我们只需要再调用我们的parse方法即可，此时要用到Request方法，导入包<code>from scrapy.http import Request</code>。</p>
+<p>用Request抓取url</p>
+<p>最终代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> dangdang.items <span class="keyword">import</span> DangdangItem</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DdSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'dd'</span></span><br><span class="line">    allowed_domains = [<span class="string">'dangdang.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://search.dangdang.com/?key=python&amp;act=input&amp;show=big#J_tab'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        item=DangdangItem()</span><br><span class="line">        item[<span class="string">'title'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-picture"]/@title'</span>).extract()</span><br><span class="line">        item[<span class="string">'link'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-title"]/@href'</span>).extract()</span><br><span class="line">        item[<span class="string">'comment'</span>]=response.xpath(<span class="string">'//a[@name="itemlist-review"]/text()'</span>).extract()</span><br><span class="line">        <span class="keyword">yield</span> item</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">8</span>):</span><br><span class="line">            url = <span class="string">'http://search.dangdang.com/?key=python&amp;act=input&amp;show=big&amp;page_index='</span>+str(i)</span><br><span class="line">            <span class="keyword">yield</span> Request(url, callback=self.parse)</span><br></pre></td></tr></table></figure>
+<h1 id="scrapy模拟登录"><a href="#scrapy模拟登录" class="headerlink" title="scrapy模拟登录"></a>scrapy模拟登录</h1><p>思路：等网站登录进行抓包分析，分析出form表单中有哪些数据，找到真实的post地址，构造数据，把信息post到真实的地址，实现登录并保存cookie。</p>
+<h3 id="豆瓣网"><a href="#豆瓣网" class="headerlink" title="豆瓣网"></a>豆瓣网</h3><p>登陆页url<code>https://accounts.douban.com/login</code></p>
+<p>在setting.py内启动<code>DOWNLOAD_DELAY=3</code> 以及<em>User-Agent</em>代理：<code>USER_AGENT = &#39;Douban (+http://www.douban.com)&#39;</code></p>
+<p>我们先爬一下这个页面，爬豆瓣的时要进行浏览器伪装，设置headers，因此不用start_urls,而是重载start_requests方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D1Spider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'d1'</span></span><br><span class="line">    allowed_domains = [<span class="string">'douban.com'</span>]</span><br><span class="line">    <span class="comment">#start_urls = ['http://douban.com/']</span></span><br><span class="line">    header = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 首先爬一次登录页，然后进入回调函数parse()</span></span><br><span class="line">        <span class="keyword">return</span> [Request(<span class="string">'https://accounts.douban.com/login'</span>, meta=&#123;<span class="string">'cookiejar'</span>: <span class="number">1</span>&#125;, callback=self.parse,headers=self.header)]</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0luwwoezj216d0h177d.jpg" alt="豆瓣"></p>
+<p>浏览器中F12,然后在登录页面输错账号密码，观察post的form格式，上面红框就是我们要找的内容。</p>
+<p>构造post信息</p>
+<p>有时登陆需要验证码，有时不需要</p>
+<p>需要的时候，html页面中会有</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"captcha_image"</span> <span class="attr">src</span>=<span class="string">"[https://www.douban.com/misc/captcha?id=2F79w3zHWIEQjiVe03ZbnfzO:en&amp;size=s](https://www.douban.com/misc/captcha?id=2F79w3zHWIEQjiVe03ZbnfzO:en&amp;size=s)"</span> <span class="attr">alt</span>=<span class="string">"captcha"</span> <span class="attr">class</span>=<span class="string">"captcha_image"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因此，如果能用xpath取到这个img标签就说明有验证码，否则，就没有验证码。</p>
+<p>有验证码和没有验证码我们要构造的post信息是不一样的</p>
+<p>有验证码时，构造的post必须含有’captcha-solution’这一项：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">               <span class="string">'redir'</span>: <span class="string">'https://www.douban.com/'</span>,</span><br><span class="line">               <span class="string">'form_email'</span>: <span class="string">'zhao750456695@163.com'</span>,</span><br><span class="line">               <span class="string">'form_password'</span>: <span class="string">'zhaojie123'</span></span><br><span class="line">               <span class="string">'captcha-solution'</span>: ,</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+<p>关键问题是验证码识别</p>
+<h2 id="验证码识别"><a href="#验证码识别" class="headerlink" title="验证码识别"></a>验证码识别</h2><p>1.半自动处理</p>
+<p>半自动处理是将验证码图片储存到本地，手工打开验证码图片进行识别并输入验证码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">       <span class="comment"># 判断是否有验证码</span></span><br><span class="line">       captcha=response.xpath(<span class="string">'//img[@id="captcha_image"]/@src'</span>).extract()</span><br><span class="line">       <span class="comment"># 设置要传递的post信息，此时没有验证码字段</span></span><br><span class="line">       print(response.xpath(<span class="string">'/html/head/title/text()'</span>).extract())</span><br><span class="line">       <span class="keyword">if</span>(len(captcha)&gt;<span class="number">0</span>):</span><br><span class="line">           print(<span class="string">'此时有验证码'</span>)</span><br><span class="line">           localpath=<span class="string">'./captcha.png'</span></span><br><span class="line">           urllib.request.urlretrieve(captcha[<span class="number">0</span>],filename=localpath)</span><br><span class="line">           captcha_value=input(<span class="string">'请输入验证码'</span>)</span><br><span class="line">           data = &#123;</span><br><span class="line">               <span class="string">'redir'</span>: <span class="string">'https://www.douban.com/'</span>,</span><br><span class="line">               <span class="string">'form_email'</span>: <span class="string">'xxxxxxx,</span></span><br><span class="line"><span class="string">               '</span>form_password<span class="string">': '</span>xxxxxx<span class="string">',</span></span><br><span class="line"><span class="string">               '</span>captcha-solution<span class="string">': captcha_value</span></span><br><span class="line"><span class="string">           &#125;</span></span><br></pre></td></tr></table></figure>
+<p>2.接口处理</p>
+<p>下面我们以云打码平台为例<code>http://www.yundama.com/</code></p>
+<p>注册一个开发者用户和一个普通用户</p>
+<p>登录开发者用户</p>
+<p>点击网站上方菜单栏开发者文档</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq0ovzn3ubj20ti0hswgj.jpg" alt="云打码"></p>
+<p>点击根据开发语言下载DEMO一栏的链接，新页面中点击<em>Python调用示例下载</em>，下载压缩包。</p>
+<p>解压缩到你想要解压缩的地方</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0p3h6qpjj20lk0bn74o.jpg" alt="云打码"></p>
+<p>打开<code>YDMPython3.x.py</code></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0p7wanq7j20qr0aigm9.jpg" alt="path"></p>
+<p>如上图红框，填上API的路径，我们选的是64位的，34位系统选择另一个即可。</p>
+<p>在云打码平台开发者账号下，点击<em>我的软件</em>选择<em>添加新软件</em>，名字随便起，如下所示：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0paqq1rlj20u0062q3f.jpg" alt="秘钥"></p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq0pemtbmzj20rj045wep.jpg" alt="秘钥"></p>
+<p>填完API路径后，继续输入appId和appKey，这两项就是软件代码和通讯秘钥，填上即可。</p>
+<p>在下面所示的位置填上自己的普通账号和密码即可。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq0phijxzsj20l602rmx3.jpg" alt="user"></p>
+<p>在下面的位置填上获取的验证码图片的路径。</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0pnl5rvtj20mm081mxg.jpg" alt="验证码"></p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0pw0aud0j20n40degm7.jpg" alt="img"></p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0pw3o750j20pp05nglp.jpg" alt=""></p>
+<p>根据网站的说明和豆瓣网站的验证码情况，把codetype改为3000</p>
+<p>配置完成，去验证一下看看能不能运行，打开cmd，进入配置文件的目录，运行配置文件：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0prlbm1ej20hm04q0sp.jpg" alt="运行"></p>
+<p>出现这个结果说明配置正确</p>
+<p>有普通识别和一键识别，留一个即可，我留了一键识别，可以把普通识别删掉或注释掉。注释掉所有打印的地方，只留下下面：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq0qxua16wj20s60480sp.jpg" alt=""></p>
+<p>result.value后面加上decode(),把byte转为str。</p>
+<p>于是，在爬虫文件执行上面的cmd命令，可以自动识别验证码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    <span class="comment"># 判断是否有验证码</span></span><br><span class="line">    captcha=response.xpath(<span class="string">'//img[@id="captcha_image"]/@src'</span>).extract()</span><br><span class="line">    <span class="comment"># 设置要传递的post信息，此时没有验证码字段</span></span><br><span class="line">    print(response.xpath(<span class="string">'/html/head/title/text()'</span>).extract())</span><br><span class="line">    <span class="keyword">if</span>(len(captcha)&gt;<span class="number">0</span>):</span><br><span class="line">        print(<span class="string">'此时有验证码'</span>)</span><br><span class="line">        localpath=<span class="string">'./captcha.png'</span></span><br><span class="line">        urllib.request.urlretrieve(captcha[<span class="number">0</span>],filename=localpath)</span><br><span class="line">        <span class="comment">#captcha_value=input('请输入验证码')</span></span><br><span class="line">        cmd=<span class="string">'python E:/Python调用示例/YDMPython3.x.py'</span></span><br><span class="line">        r=os.popen(cmd) <span class="comment"># 执行cmd命令</span></span><br><span class="line">        captcha_value=r.read() <span class="comment"># 读取命令执行结果</span></span><br><span class="line">        print(<span class="string">'验证码识别结果为:'</span>+captcha_value)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'redir'</span>: <span class="string">'https://www.douban.com/'</span>,</span><br><span class="line">            <span class="string">'form_email'</span>: <span class="string">'xxxx'</span>,</span><br><span class="line">            <span class="string">'form_password'</span>: <span class="string">'xxx'</span>,</span><br><span class="line">            <span class="string">'captcha-solution'</span>: captcha_value</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'redir'</span>: <span class="string">'https://www.douban.com/'</span>,</span><br><span class="line">            <span class="string">'form_email'</span>: <span class="string">'xxxx'</span>,</span><br><span class="line">            <span class="string">'form_password'</span>: <span class="string">'xxx'</span></span><br><span class="line">        &#125;</span><br><span class="line">    print(<span class="string">'登录中'</span>)</span><br><span class="line">    <span class="comment"># 通过FormRequest.from_response()进行登录</span></span><br><span class="line">    <span class="keyword">return</span>  [FormRequest.from_response(response,</span><br><span class="line">                                       <span class="comment"># 设置cookie信息</span></span><br><span class="line">                                       meta=&#123;<span class="string">'cookiejar'</span>: response.meta[<span class="string">'cookiejar'</span>]&#125;,</span><br><span class="line">                                       headers=self.header,</span><br><span class="line">                                       formdata=data,</span><br><span class="line">                                       callback=self.next,</span><br><span class="line">                                       )]</span><br></pre></td></tr></table></figure>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq0r1gp3c0j20gx04iq2t.jpg" alt=""></p>
+<p>大功告成</p>
+<p>3.自动识别</p>
+<p>需要运用机器学习的内容，此处略过不讲。</p>
+<h1 id="scrapy百度新闻爬取"><a href="#scrapy百度新闻爬取" class="headerlink" title="scrapy百度新闻爬取"></a>scrapy百度新闻爬取</h1><p>去重，布隆过滤器。</p>
+<p>我们要爬取百度新闻首页的所有新闻标题，内容和链接</p>
+<p>我们先来分析一下，查看源代码，我们发现，网页源代码中只有部分内容，举下面网页来说，北京新闻以上的部分我们都能在html源码中找到，而北京新闻及下面的内容我们找不到，因此能找到的部分我们直接从网页爬取即可，找不到的部分要进行抓包分析。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpzl6ejyrxj216e0n7guo.jpg" alt="baidunews"></p>
+<p>我们使用fiddler，下滑页面，触发网页链接。</p>
+<p>我们首先发现了一个json数据格式的链接，查看其内容，是Unicode编码的形式，我们进行解码，发现确实是新闻内容。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpzltuxnznj21880fmaeh.jpg" alt="baidu"></p>
+<p>但是明显只是我们要找的新闻的一部分，我们继续寻找。</p>
+<p>会找到链接形式的数据也包含新闻</p>
+<p>我们把这些url全都复制下来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">http://news.baidu.com/widget?id=LocalNews&amp;ajax=json&amp;t=1522747393879</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=civilnews&amp;t=1522747396140</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=InternationalNews&amp;t=1522747396161</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=EnterNews&amp;t=1522747396185</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=SportNews&amp;t=1522747396239</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=FinanceNews&amp;t=1522747396346</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=TechNews&amp;t=1522747396382</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=MilitaryNews&amp;t=1522747396426</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=InternetNews&amp;t=1522747396485</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=DiscoveryNews&amp;t=1522747396523</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=LadyNews&amp;t=1522747396581</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=HealthNews&amp;t=1522747396645</span><br><span class="line"></span><br><span class="line">http://news.baidu.com/widget?id=PicWall&amp;t=1522747396778</span><br></pre></td></tr></table></figure>
+<p>我们发现最重要的就是id了，我们只要获取全部的id即可爬取新闻了。</p>
+<p><code>http://news.baidu.com/widget?id=LocalNews&amp;ajax=json&amp;t=1522747393879</code></p>
+<p>上面链接的&amp;t=1522747393879是时间戳，我们并不需要，可以删掉，而且这个链接得到的数据是json形式，下面的链接都不是，差别就在ajax=json，我们把下面链接的id替换上面连接的id，就可以把下面的链接的数据全转为json的形式，因此我们可以统一数据格式了。</p>
+<p>我们继续观察这些数据，发现有些地方有细微差别，摘取一些如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"url"</span>:<span class="string">"http:\/\/news.timedg.com\/2018-04\/03\/20652324.shtml"</span>,<span class="attr">"title"</span>:<span class="string">"\u4ece\u592e\u884c\u5230\u516c\u5b89\u90e8\uff0c\u591a\u90e8\u95e8\u8054\u5408\u6574\u6cbb\u5047\u79bb\u5a5a\u3001\u5047\u7ed3\u5a5a"</span>,<span class="attr">"time"</span>:<span class="string">"09:30"</span>,<span class="attr">"imgUrl"</span>:<span class="string">"http:\/\/t11.baidu.com\/it\/u=1303570930,2885677410&amp;fm=173&amp;app=12&amp;f=JPEG?w=218&amp;h=146&amp;s=5498CC3A05584DC854FDF1DE010050B3"</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"ID":"7057276","TS":"2018-04-03 13:32:25","m_class_id":"-1","m_local_id":"-1","m_url":"http:\/\/news.ifeng.com\/a\/20180403\/57277278_0.shtml?_zbs_baidu_news","m_title":"\u4ea4\u901a\u8fd0\u8f93\u90e8\uff1a\u6e05\u660e\u5047\u671f\u9ad8\u901f\u516c\u8def\u5c0f\u5ba2\u8f66\u514d\u8d39\u901a\u884c","m_site":"","m_editor":"","m_news_time":"0","m_public_time":"13:32","m_text":"","m_image_url":"","m_is_picnews":"0","m_is_vidnews":"0","m_is_manualnews":"1","m_ext_type":"9","m_ext":"&#123;\"type\":\"1\",\"vote\":\"0\"&#125;","m_topic_id":0,"m_relate_count":"1","m_same_count":"1","m_relate_url":"http:\/\/xinwen.eastday.com\/a\/xjump.html?id=180328111930970","m_v_table":"t_class_focus","m_v_class_id":"1","m_v_local_id":"-20480000","m_v_topic_id":"-20480000","m_v_tag":"class_focustop","m_position":"4","m_user":"lvnanjing_sh","m_add_time":"1522216660","m_time_start":"0","m_time_end":"1522905530","url_sign":null,"_ext":&#123;"type":"1","vote":"0"&#125;,"_url_type":1,"m_public_time_seconds":"1522733545"&#125;,&#123;"ID":"7057277","TS":"2018-04-03 13:35:39","m_class_id":"-1","m_local_id":"-1","m_url":"http:\/\/xinwen.eastday.com\/a\/xjump.html?id=180403114015007","m_title":"\u7236\u6bcd\u7838\u94b1\u201c\u517b\u751f\u201d\u6295\u8d44 \u513f\u5b50\u6012\u8f9e\u804c\u5f00\u529e\u9632\u9a97\u516c\u53f8","m_site":"","m_editor":"","m_news_time":"0","m_public_time":"13:35","m_text":"","m_image_url":"","m_is_picnews":"0","m_is_vidnews":"0","m_is_manualnews":"1","m_ext_type":"9","m_ext":"&#123;\"type\":\"1\",\"vote\":\"0\"&#125;","m_topic_id":0,"m_relate_count":"1","m_same_count":"1","m_relate_url":"http:\/\/news.china.com\/domestic\/945\/20180328\/32241107.html","m_v_table":"t_class_focus","m_v_class_id":"1","m_v_local_id":"-20480000","m_v_topic_id":"-20480000","m_v_tag":"class_focustop","m_position":"5","m_user":"lvnanjing_sh","m_add_time":"1522216660","m_time_start":"0","m_time_end":"1522905051","url_sign":null,"_ext":&#123;"type":"1","vote":"0"&#125;,"_url_type":1,"m_public_time_seconds":"1522733739"&#125;,&#123;"ID":"7057278","TS":"2018-04-03</span><br></pre></td></tr></table></figure>
+<p>url链接有些前面是”url”有些是”m_relate_url”有些是”m_url”,我们又发现”m_relate_url”和”m_url”实际上是一样的，因此我们只要提取url和m_url即可。</p>
+<p>分析完毕，开始写代码吧。</p>
+<h1 id="scrapy与urllib整合"><a href="#scrapy与urllib整合" class="headerlink" title="scrapy与urllib整合"></a>scrapy与urllib整合</h1><p>目标:爬取京东书籍的名称、价格、销售方、出版社、评论数、作者、频道</p>
+<p>规定最上面的目录，如文学综合馆，名为馆，馆下一级目录，如小说，名为频道1，再下一级目录，如小说下的<strong>侦探/悬疑/推理</strong>，名为频道2</p>
+<p>首先分析一下页面，打开京东图书网页，左侧的图书分类，大类是<em>文学综合馆</em>、<em>童书馆</em>等等馆，各个馆下面还有子类。</p>
+<p>各个馆</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq1ivi2vbfj212e0lfwtb.jpg" alt=""></p>
+<p>网页源代码</p>
+<p><img src="C:\Users\my\Desktop\图片\book.jd.com.png" alt="源码"></p>
+<p>注意和检查元素看到的不一样:</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fq1kbqgp9oj21700fq195.jpg" alt=""></p>
+<p>这是因为查看网页源码是服务器发回来的原始代码，而在开发者工具看到的是被 Javascript 动态修改过后的源码。</p>
+<p>文学综合馆*下面的子类</p>
+<p>url <code>https://channel.jd.com/p_wenxuezongheguan.html</code></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1iyws5gfj212h0kjh2g.jpg" alt="馆"></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1jpx6ny3j212r0l1t9z.jpg" alt="channel"></p>
+<p>点击第一个<em>侦探悬疑</em>，进入图书列表</p>
+<p>url <code>https://list.jd.com/list.html?cat=1713,3258,3304</code></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1j0alx8bj214h0l64a6.jpg" alt="list"></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rt8ox64j209l01q742.jpg" alt=""></p>
+<p>我们把<em>文学综合馆</em>下面的<em>小说</em>和<em>侦探/悬疑/推理</em>分别定义为频道1和频道2</p>
+<p>大体思路就是在京东图书主页爬取各个馆的链接、名称等信息，进入各个馆，在各个馆的页面爬取各个子类的链接等信息，进入子类爬取图书信息。</p>
+<p>怎么抓各个馆呢，其实馆的数量并不多，省心省力的办法是直接把这些馆打开，把链接复制下来。</p>
+<p>其次就是观察网页源码，发现规律进行爬取，各个馆都藏在下面这段json样式中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navFirst: [&#123;"NAME":"\u7279\u8272\u5206\u7c7b","URL":"\/\/book.jd.com\/withoutHref","ANCHOR":"1","children":[&#123;"NAME":"\u7545\u9500\u699c","URL":"\/\/book.jd.com\/booktop\/1713-0-0-0-10001-1.html"&#125;,&#123;"NAME":" \u70ed\u641c\u699c","URL":"\/\/book.jd.com\/hotsearch.html"&#125;,&#123;"NAME":"\u7279\u4ef7\u597d\u4e66","URL":"https:\/\/sale.jd.com\/act\/PdxOpZVLG4fa3.html"&#125;]&#125;,&#123;"NAME":"\u6587\u5b66\u7efc\u5408\u9986","URL":"\/\/channel.jd.com\/p_wenxuezongheguan.html","ANCHOR":"2","children":[&#123;"NAME":"\u5c0f\u8bf4","URL":"\/\/channel.jd.com\/1713-3258.html"&#125;,&#123;"NAME":" \u6587\u5b66","URL":"\/\/channel.jd.com\/1713-3259.html"&#125;,&#123;"NAME":" \u4f20\u8bb0","URL":"\/\/channel.jd.com\/1713-3261.html"&#125;,&#123;"NAME":" \u9752\u6625","URL":"\/\/list.jd.com\/list.html?cat=1713,3260"&#125;,&#123;"NAME":" \u52a8\u6f2b","URL":"\/\/list.jd.com\/list.html?cat=1713,3272"&#125;,&#123;"NAME":"\u79d1\u5e7b","URL":"\/\/list.jd.com\/list.html?cat=1713,3258,6569&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":" \u60ac\u7591","URL":"\/\/list.jd.com\/list.html?cat=1713,3258,3304&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":" \u6563\u6587","URL":"\/\/list.jd.com\/list.html?cat=1713,3259,3333&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main","YFLAG":"0"&#125;,&#123;"NAME":" \u7eaa\u5b9e","URL":"\/\/list.jd.com\/list.html?cat=1713,3259,3330&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;jl=4_2_0#J_main"&#125;,&#123;"NAME":" \u60ca\u609a","URL":"\/\/list.jd.com\/list.html?cat=1713,3258,3305&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;]&#125;,&#123;"NAME":"\u7ae5\u4e66\u9986","URL":"\/\/book.jd.com\/children.html","ANCHOR":"3","CUSTOM1":"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png","children":[&#123;"NAME":"\uff10-\uff12","URL":"\/\/book.jd.com\/children0-2.html"&#125;,&#123;"NAME":"\uff13-\uff16","URL":"\/\/book.jd.com\/children3-6.html"&#125;,&#123;"NAME":"7-10","URL":"\/\/book.jd.com\/children7-10.html"&#125;,&#123;"NAME":"11-14","URL":"\/\/book.jd.com\/children11-14.html"&#125;,&#123;"NAME":"\u7ed8\u672c  ","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,4761&amp;go=0"&#125;,&#123;"NAME":"\u79d1\u666e\u767e\u79d1 ","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3399"&#125;,&#123;"NAME":"\u513f\u7ae5\u6587\u5b66 ","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3394"&#125;,&#123;"NAME":"\u5e7c\u513f\u542f\u8499","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3395&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":"\u52a8\u6f2b\u5361\u901a","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3391&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":" \u5c11\u513f\u82f1\u8bed","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3401"&#125;,&#123;"NAME":" \u76ca\u667a\u6e38\u620f","URL":"\/\/list.jd.com\/list.html?cat=1713,3263,3398&amp;page=1&amp;sort=sort%5Ftotalsales15%5Fdesc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;]&#125;,&#123;"NAME":"\u6559\u80b2\u9986","URL":"\/\/book.jd.com\/education.html","ANCHOR":"4","CUSTOM1":"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png","children":[&#123;"NAME":"\u4e2d\u5c0f\u6559\u8f85","URL":"\/\/channel.jd.com\/1713-3289.html"&#125;,&#123;"NAME":"\u5916\u8bed\u5b66\u4e60","URL":"\/\/channel.jd.com\/1713-3291.html"&#125;,&#123;"NAME":"\u8003\u8bd5","URL":"\/\/channel.jd.com\/1713-3290.html"&#125;,&#123;"NAME":"\u6559\u6750","URL":"\/\/channel.jd.com\/1713-11047.html"&#125;,&#123;"NAME":"\u5b57\u5178\u8bcd\u5178","URL":"\/\/channel.jd.com\/1713-3294.html"&#125;,&#123;"NAME":"\u8bfe\u5916\u8bfb\u7269","URL":"\/\/list.jd.com\/list.html?cat=1713,3289,3839"&#125;,&#123;"NAME":"\u5b57\u5e16","URL":"\/\/list.jd.com\/list.html?cat=1713,3289,6592"&#125;,&#123;"NAME":"\u4f5c\u6587","URL":"\/\/list.jd.com\/list.html?cat=1713,3289,3837"&#125;,&#123;"NAME":"\u9ad8\u4e2d\u6559\u8f85","URL":"https:\/\/sale.jd.com\/act\/Q3hUClDMENPf.html"&#125;,&#123;"NAME":"\u7559\u5b66\u8003\u8bd5","URL":"https:\/\/sale.jd.com\/act\/pxE6irwM52vK1PTY.html"&#125;,&#123;"NAME":"\u56db\u516d\u7ea7","URL":"https:\/\/sale.jd.com\/act\/g4kFXImhBWu.html"&#125;]&#125;,&#123;"NAME":"\u4eba\u6587\u793e\u79d1\u9986","URL":"\/\/book.jd.com\/library\/socialscience.html","ANCHOR":"5","children":[&#123;"NAME":"\u653f\u6cbb\u519b\u4e8b","URL":"\/\/channel.jd.com\/1713-3276.html"&#125;,&#123;"NAME":"\u4f20\u7edf\u6587\u5316","URL":"\/\/channel.jd.com\/p_guoxueguji.html"&#125;,&#123;"NAME":"\u5386\u53f2","URL":"\/\/channel.jd.com\/1713-3273.html"&#125;,&#123;"NAME":"\u5fc3\u7406","URL":"\/\/channel.jd.com\/1713-3279.html"&#125;,&#123;"NAME":"\u54f2\u5b66\u5b97\u6559","URL":"\/\/channel.jd.com\/p_zhexuezongjiao.html"&#125;,&#123;"NAME":"\u793e\u4f1a\u79d1\u5b66","URL":"\/\/channel.jd.com\/1713-3281.html"&#125;,&#123;"NAME":"\u6587\u5316","URL":"\/\/list.jd.com\/list.html?cat=1713,3280,3664"&#125;,&#123;"NAME":"\u6cd5\u5f8b","URL":"\/\/channel.jd.com\/1713-3277.html"&#125;]&#125;,&#123;"NAME":"\u7ecf\u7ba1\u7efc\u5408\u9986","URL":"\/\/channel.jd.com\/p_Comprehensive.html","ANCHOR":"6","children":[&#123;"NAME":"\u7ba1\u7406","URL":"\/\/channel.jd.com\/1713-3266.html"&#125;,&#123;"NAME":" \u7ecf\u6d4e","URL":"\/\/channel.jd.com\/1713-3264.html"&#125;,&#123;"NAME":" \u6295\u8d44","URL":"\/\/channel.jd.com\/1713-3265.html"&#125;,&#123;"NAME":" \u4f1a\u8ba1","URL":"\/\/list.jd.com\/list.html?cat=1713,3264,3409&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":" \u8425\u9500","URL":"\/\/list.jd.com\/list.html?cat=1713,3266,3444&amp;page=1&amp;sort=sort%5Ftotalsales15%5Fdesc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;]&#125;,&#123;"NAME":"\u52b1\u5fd7\u6210\u529f\u9986","URL":"\/\/channel.jd.com\/1713-3267.html","ANCHOR":"7","children":[&#123;"NAME":"\u5973\u6027\u52b1\u5fd7","URL":"\/\/list.jd.com\/list.html?cat=1713,3267,3463&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":"\u5fc3\u7075\u9e21\u6c64","URL":"\/\/list.jd.com\/list.html?cat=1713,3267,3466&amp;page=1&amp;sort=sort%5Ftotalsales15%5Fdesc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":"\u793e\u4ea4","URL":"\/\/list.jd.com\/list.html?cat=1713,3267,3459&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;,&#123;"NAME":"\u53e3\u624d","URL":"\/\/list.jd.com\/list.html?cat=1713,3267,3470"&#125;]&#125;,&#123;"NAME":"\u751f\u6d3b\u9986","URL":"\/\/book.jd.com\/library\/life.html","ANCHOR":"8","CUSTOM1":"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png","children":[&#123;"NAME":"\u5b55\u4ea7\u80ce\u6559","URL":"\/\/list.jd.com\/list.html?cat=1713,13613&amp;go=0"&#125;,&#123;"NAME":"\u80b2\u513f\u5bb6\u6559","URL":"\/\/channel.jd.com\/1713-3270.html"&#125;,&#123;"NAME":"\u7f8e\u98df","URL":"\/\/list.jd.com\/list.html?cat=1713,9278&amp;go=0"&#125;,&#123;"NAME":"\u5bb6\u5c45","URL":"\/\/list.jd.com\/list.html?cat=1713,9301&amp;go=0"&#125;,&#123;"NAME":"\u5065\u8eab\u4fdd\u5065","URL":"https:\/\/channel.jd.com\/1713-3269.html"&#125;,&#123;"NAME":"\u65c5\u6e38\u5730\u56fe","URL":"\/\/channel.jd.com\/1713-3271.html"&#125;,&#123;"NAME":"\u7f8e\u5986","URL":"https:\/\/list.jd.com\/list.html?cat=1713,9291"&#125;,&#123;"NAME":"\u4f53\u80b2","URL":"https:\/\/list.jd.com\/list.html?cat=1713,3288&amp;jth=i"&#125;,&#123;"NAME":"\u5a31\u4e50\u4f11\u95f2","URL":"https:\/\/list.jd.com\/list.html?cat=1713,9314"&#125;,&#123;"NAME":"\u5a5a\u604b\u4e24\u6027","URL":"\/\/list.jd.com\/list.html?cat=1713,9309&amp;jth=i"&#125;,&#123;"NAME":"\u624b\u5de5DIY","URL":"https:\/\/list.jd.com\/list.html?cat=1713,9314,9315&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"&#125;]&#125;,&#123;"NAME":"\u827a\u672f\u9986","URL":"\/\/channel.jd.com\/1713-3262.html","ANCHOR":"9","children":[&#123;"NAME":"\u7ed8\u753b","URL":"https:\/\/channel.jd.com\/1713-12775.html"&#125;,&#123;"NAME":" \u4e66\u6cd5","URL":"\/\/list.jd.com\/list.html?cat=1713,13627"&#125;,&#123;"NAME":" \u6444\u5f71","URL":"https:\/\/channel.jd.com\/p_sheying.html"&#125;,&#123;"NAME":" \u97f3\u4e50","URL":"\/\/list.jd.com\/list.html?cat=1713,13634"&#125;,&#123;"NAME":" \u8bbe\u8ba1","URL":"\/\/list.jd.com\/list.html?cat=1713,3262,3379"&#125;]&#125;,&#123;"NAME":"\u79d1\u6280\u9986","URL":"\/\/book.jd.com\/library\/science.html","ANCHOR":"10","children":[&#123;"NAME":"\u79d1\u666e","URL":"\/\/book.jd.com\/popscicence.html"&#125;,&#123;"NAME":" \u5de5\u4e1a","URL":"\/\/channel.jd.com\/1713-3282.html"&#125;,&#123;"NAME":" \u5efa\u7b51","URL":"\/\/channel.jd.com\/1713-3284.html"&#125;,&#123;"NAME":" \u533b\u5b66","URL":"\/\/channel.jd.com\/1713-3285.html"&#125;,&#123;"NAME":" \u7535\u5b50","URL":"\/\/list.jd.com\/list.html?cat=1713,9351"&#125;]&#125;,&#123;"NAME":"\u8ba1\u7b97\u673a\u9986","URL":"\/\/channel.jd.com\/1713-3287.html","ANCHOR":"11","children":[&#123;"NAME":"\u7f16\u7a0b\u8bed\u8a00","URL":"\/\/list.jd.com\/list.html?cat=1713,3287,3797"&#125;,&#123;"NAME":"\u529e\u516c\u8f6f\u4ef6","URL":"\/\/list.jd.com\/list.html?cat=1713,3287,3814"&#125;,&#123;"NAME":"\u8ba1\u7b97\u673a\u5b89\u5168","URL":"https:\/\/list.jd.com\/list.html?cat=1713,3287,3801"&#125;,&#123;"NAME":"\u4eba\u5de5\u667a\u80fd","URL":"\/\/list.jd.com\/list.html?cat=1713,3287,3804&amp;go=0"&#125;,&#123;"NAME":"\u64cd\u4f5c\u7cfb\u7edf","URL":"\/\/list.jd.com\/1713-3287-3800.html"&#125;,&#123;"NAME":"\u6570\u636e\u5e93","URL":"\/\/list.jd.com\/list.html?cat=1713,3287,3799"&#125;]&#125;,&#123;"NAME":"\u539f\u7248\u4e66","URL":"\/\/book.jd.com\/withoutHref","ANCHOR":"12","children":[&#123;"NAME":"\u82f1\u6587\u539f\u7248","URL":"\/\/channel.jd.com\/1713-4855.html"&#125;,&#123;"NAME":"\u6e2f\u53f0\u539f\u7248","URL":"\/\/channel.jd.com\/1713-6929.html"&#125;,&#123;"NAME":"\u65e5\u6587\u539f\u7248","URL":"\/\/channel.jd.com\/1713-14669.html"&#125;]&#125;,&#123;"NAME":"\u6570\u5b57\u5185\u5bb9","URL":"\/\/e.jd.com\/ebook.html","ANCHOR":"13"&#125;,&#123;"NAME":"\u6742\u5fd7\/\u671f\u520a","URL":"\/\/channel.jd.com\/1713-4758.html","ANCHOR":"14"&#125;,&#123;"NAME":"\u7279\u8272\u4e66\u5e97","URL":"\/\/book.jd.com\/popbook.html","ANCHOR":"15"&#125;,&#123;"NAME":"\u90ae\u5e01\/\u6587\u5316\u7528\u54c1","URL":"\/\/channel.jd.com\/1713-11745.html","ANCHOR":"16"&#125;,&#123;"NAME":"\u6587\u5a31\/\u5468\u8fb9\/\u6e38\u620f","URL":"\/\/mvd.jd.com\/","ANCHOR":"17"&#125;],</span><br></pre></td></tr></table></figure>
+<p>Unicode转中文后是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="attr">"NAME"</span>:<span class="string">"特色分类"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/withoutHref"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"1"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"畅销榜"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/booktop\/1713-0-0-0-10001-1.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 热搜榜"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/hotsearch.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"特价好书"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/sale.jd.com\/act\/PdxOpZVLG4fa3.html"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"文学综合馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/p_wenxuezongheguan.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"2"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"小说"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3258.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 文学"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3259.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 传记"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3261.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 青春"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3260"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 动漫"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3272"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"科幻"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3258,6569&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 悬疑"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3258,3304&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 散文"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3259,3333&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>,<span class="attr">"YFLAG"</span>:<span class="string">"0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 纪实"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3259,3330&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;jl=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 惊悚"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3258,3305&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"童书馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/children.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"3"</span>,<span class="attr">"CUSTOM1"</span>:<span class="string">"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"０-２"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/children0-2.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"３-６"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/children3-6.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"7-10"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/children7-10.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"11-14"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/children11-14.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"绘本  "</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,4761&amp;go=0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"科普百科 "</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3399"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"儿童文学 "</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3394"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"幼儿启蒙"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3395&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"动漫卡通"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3391&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 少儿英语"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3401"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 益智游戏"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3263,3398&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"教育馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/education.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"4"</span>,<span class="attr">"CUSTOM1"</span>:<span class="string">"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"中小教辅"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3289.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"外语学习"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3291.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"考试"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3290.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"教材"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-11047.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"字典词典"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3294.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"课外读物"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3289,3839"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"字帖"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3289,6592"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"作文"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3289,3837"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"高中教辅"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/sale.jd.com\/act\/Q3hUClDMENPf.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"留学考试"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/sale.jd.com\/act\/pxE6irwM52vK1PTY.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"四六级"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/sale.jd.com\/act\/g4kFXImhBWu.html"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"人文社科馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/library\/socialscience.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"5"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"政治军事"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3276.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"传统文化"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/p_guoxueguji.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"历史"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3273.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"心理"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3279.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"哲学宗教"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/p_zhexuezongjiao.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"社会科学"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3281.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"文化"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3280,3664"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"法律"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3277.html"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"经管综合馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/p_Comprehensive.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"6"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"管理"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3266.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 经济"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3264.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 投资"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3265.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 会计"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3264,3409&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 营销"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3266,3444&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"励志成功馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3267.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"7"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"女性励志"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3267,3463&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"心灵鸡汤"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3267,3466&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"社交"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3267,3459&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"口才"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3267,3470"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"生活馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/library\/life.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"8"</span>,<span class="attr">"CUSTOM1"</span>:<span class="string">"\/\/misc.360buyimg.com\/channel\/bookhome\/1.0.2\/widget\/common\/i\/hot.png"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"孕产胎教"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,13613&amp;go=0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"育儿家教"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3270.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"美食"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,9278&amp;go=0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"家居"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,9301&amp;go=0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"健身保健"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/channel.jd.com\/1713-3269.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"旅游地图"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3271.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"美妆"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/list.jd.com\/list.html?cat=1713,9291"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"体育"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/list.jd.com\/list.html?cat=1713,3288&amp;jth=i"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"娱乐休闲"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/list.jd.com\/list.html?cat=1713,9314"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"婚恋两性"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,9309&amp;jth=i"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"手工DIY"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/list.jd.com\/list.html?cat=1713,9314,9315&amp;page=1&amp;sort=sort_totalsales15_desc&amp;trans=1&amp;JL=4_2_0#J_main"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"艺术馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3262.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"9"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"绘画"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/channel.jd.com\/1713-12775.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 书法"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,13627"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 摄影"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/channel.jd.com\/p_sheying.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 音乐"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,13634"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 设计"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3262,3379"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"科技馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/library\/science.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"10"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"科普"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/popscicence.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 工业"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3282.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 建筑"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3284.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 医学"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3285.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">" 电子"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,9351"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"计算机馆"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-3287.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"11"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"编程语言"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3287,3797"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"办公软件"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3287,3814"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"计算机安全"</span>,<span class="attr">"URL"</span>:<span class="string">"https:\/\/list.jd.com\/list.html?cat=1713,3287,3801"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"人工智能"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3287,3804&amp;go=0"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"操作系统"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/1713-3287-3800.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"数据库"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/list.jd.com\/list.html?cat=1713,3287,3799"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"原版书"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/withoutHref"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"12"</span>,<span class="attr">"children"</span>:[&#123;<span class="attr">"NAME"</span>:<span class="string">"英文原版"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-4855.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"港台原版"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-6929.html"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"日文原版"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-14669.html"</span>&#125;]&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"数字内容"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/e.jd.com\/ebook.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"13"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"杂志\/期刊"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-4758.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"14"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"特色书店"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/book.jd.com\/popbook.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"15"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"邮币\/文化用品"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/channel.jd.com\/1713-11745.html"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"16"</span>&#125;,&#123;<span class="attr">"NAME"</span>:<span class="string">"文娱\/周边\/游戏"</span>,<span class="attr">"URL"</span>:<span class="string">"\/\/mvd.jd.com\/"</span>,<span class="attr">"ANCHOR"</span>:<span class="string">"17"</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>转为json视图：</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1kwj32yxj20q40j9gmh.jpg" alt=""></p>
+<p>查看京东图书首页的源代码</p>
+<p>items.py下定义要爬取的目标：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JingdongItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    channel_num=scrapy.Field()</span><br><span class="line">    <span class="comment"># 频道1</span></span><br><span class="line">    channel1=scrapy.Field()</span><br><span class="line">    <span class="comment"># 频道2</span></span><br><span class="line">    channel2=scrapy.Field()</span><br><span class="line">    <span class="comment"># 图书名</span></span><br><span class="line">    name=scrapy.Field()</span><br><span class="line">    <span class="comment"># 价格</span></span><br><span class="line">    price=scrapy.Field()</span><br><span class="line">    <span class="comment">#  评论数</span></span><br><span class="line">    comment_num=scrapy.Field()</span><br><span class="line">    <span class="comment"># 作者</span></span><br><span class="line">    author=scrapy.Field()</span><br><span class="line">    <span class="comment"># 出版社</span></span><br><span class="line">    pub=scrapy.Field()</span><br><span class="line">    <span class="comment"># 销售方</span></span><br><span class="line">    seller=scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p>打开 创建的爬虫文件</p>
+<p>导入所需要的包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> jingdong.items <span class="keyword">import</span> JingdongItem</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br></pre></td></tr></table></figure>
+<p><code>https://channel.jd.com/p_wenxuezongheguan.html</code></p>
+<p>由于用到urllib，有很多需要自己定义的东西，因此要实现start_requests函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JdSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jd'</span></span><br><span class="line">    allowed_domains = [<span class="string">'jd.com'</span>]</span><br><span class="line">    <span class="comment">#start_urls = ['http://jd.com/']</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        ua=[</span><br><span class="line">                <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</span><br><span class="line">                <span class="string">'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)'</span>,</span><br><span class="line">                <span class="string">'Mozilla/5.0(Macintosh;U;IntelMacOSX10_6_8;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'</span></span><br><span class="line">                <span class="string">'Mozilla/5.0(Windows;U;WindowsNT6.1;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'</span>,</span><br><span class="line">                <span class="string">'Opera/9.80(Macintosh;IntelMacOSX10.6.8;U;en)Presto/2.8.131Version/11.11'</span>,</span><br><span class="line">                <span class="string">'Mozilla/5.0(WindowsNT6.1;rv:2.0.1)Gecko/20100101Firefox/4.0.1'</span></span><br><span class="line">                ]</span><br></pre></td></tr></table></figure>
+<p>打开文学综合馆的页面就可以直接抓取频道2，不需要抓取频道1比如小说再抓侦探悬疑，可以直接抓侦探悬疑。</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1jpx6ny3j212r0l1t9z.jpg" alt="channel"></p>
+<p>观察频道2的url</p>
+<p>href=”//list.jd.com/list.html?cat=1713,3258,3304” </p>
+<p>href=”//list.jd.com/list.html?cat=1713,3260,13623&amp;go=0” </p>
+<p>构造正则表达式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pat2=&apos;href=&quot;..list.jd.com.list.html.cat=([0-9,]*?)[&amp;&quot;]&apos;</span><br></pre></td></tr></table></figure>
+<p>/和？这些特殊的附后一律用..代替</p>
+<p>以上正则可以获取所有的频道2的频道号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">urls = [&apos;https://channel.jd.com/p_wenxuezongheguan.html&apos;]</span><br><span class="line">        catall=[]</span><br><span class="line">        for url in urls:</span><br><span class="line">            req2 = urllib.request.Request(url)</span><br><span class="line">            req2.add_header(&apos;User-Agent&apos;, random.choice(ua))</span><br><span class="line">            pddata=urllib.request.urlopen(req2).read().decode(&apos;gbk&apos;, &apos;ignore&apos;)</span><br><span class="line">            pat2=&apos;href=&quot;..list.jd.com.list.html.cat=([0-9,]*?)[&amp;&quot;]&apos;</span><br><span class="line">            catdata=re.compile(pat2).findall(pddata)</span><br><span class="line">            for j in catdata:</span><br><span class="line">                catall.append(j)</span><br><span class="line">        catall2=set(catall)</span><br></pre></td></tr></table></figure>
+<p>都存放到catall2中去，set有去重的功能</p>
+<p>频道2下就是书籍列表了，如<strong>侦探/悬疑/推理</strong>类的书籍列表</p>
+<p>频道2下可能有很多页的书籍，要去获得页数</p>
+<p>发现网页底下有共x页的字样，可以构造表达式爬取下来，从而得到总页数</p>
+<p>而页数不是独立的，它是与频道2一起存在，只存页数并没有什么用，因此，将其与每个频道2的名字一起存入字典中，字典放在列表中，便于处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获得页数</span></span><br><span class="line">    allpage=[]</span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> catall2:</span><br><span class="line">        thispdnum=m</span><br><span class="line">        url=<span class="string">'https://list.jd.com/list.html?cat='</span>+thispdnum</span><br><span class="line">        req3 = urllib.request.Request(url)</span><br><span class="line">        req3.add_header(<span class="string">'User-Agent'</span>, random.choice(ua))</span><br><span class="line">        listdata = urllib.request.urlopen(req3).read().decode(<span class="string">'gbk'</span>, <span class="string">'ignore'</span>)</span><br><span class="line">        pat3=<span class="string">'&lt;em&gt;共&lt;b&gt;(.*?)&lt;/b&gt;页'</span></span><br><span class="line">        page=re.compile(pat3).findall(listdata)</span><br><span class="line">        <span class="keyword">if</span> len(page)&gt;<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            page=[<span class="number">1</span>]</span><br><span class="line">        allpage.append(&#123;thispdnum:page[<span class="number">0</span>]&#125;)</span><br><span class="line">        <span class="keyword">if</span> x&gt;<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>循环每一个频道2的每一页</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">0</span></span><br><span class="line">      <span class="keyword">for</span> n <span class="keyword">in</span> catall2:</span><br><span class="line">          thispage=allpage[x][n]</span><br><span class="line">          <span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">1</span>, int(thispage)+<span class="number">1</span>):</span><br><span class="line">              thispageurl= <span class="string">'https://list.jd.com/list.html?cat='</span>+str(n)+<span class="string">'&amp;page='</span>+str(p)</span><br><span class="line">              print(thispageurl)</span><br><span class="line">              <span class="keyword">yield</span> Request(thispageurl, callback=self.parse)</span><br><span class="line">          x+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>将这一页传给parse进行具体处理，此处将urllib与scrapy联系了起来</p>
+<p>提取频道1和频道2，通过观察发现可以通过<code>&lt;span class=&quot;curr&quot;&gt;</code>这个标签来提取频道1和频道2.</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rzj7lo4j208701tjr7.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1rzbueysj209w03cq2t.jpg" alt=""></p>
+<p>通过构造xpath表达式来同时提取频道：</p>
+<p><code>pd=response.xpath(&#39;//span[@class=&quot;curr&quot;]/text()&#39;).extract()</code></p>
+<p>这会返回一个包含两个元素的列表，这两元素分别是频道1和频道2的名称</p>
+<p>而有的时候可能频道不存在，因此要处理频道不存或只存在一个的情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> len(pd)==<span class="number">0</span>:</span><br><span class="line">    pd=[<span class="string">'缺省'</span>, <span class="string">'缺省'</span>]</span><br><span class="line"><span class="keyword">if</span> len(pd)==<span class="number">1</span>:</span><br><span class="line">    pda=pd[<span class="number">0</span>]</span><br><span class="line">    pd=[pda, <span class="string">'缺省'</span>]</span><br><span class="line">pd1=pd[<span class="number">0</span>]</span><br><span class="line">pd2=pd[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>继续获取书籍名称，在源码中搜索第一本数<em>解忧杂货店</em>发现下图选中的标签和书籍名称有关</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1snnhehij20lj08m3yn.jpg" alt=""></p>
+<p>这个标签不仅在书籍列表中出现，还在上面的<em>热卖推荐</em>中出现</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1sr0baopj20to06hq3n.jpg" alt=""></p>
+<p>不提取<em>热卖推荐</em>中的，因此略过，从第四个标签开始提取</p>
+<p> 接下来关键环节，提取价格，价格 必须通过抓包分析才能得到</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fq1tccl21bj217n083t9y.jpg" alt=""></p>
+<p>我们发现了疑似价格的json数据，把里面的数字和网页上的价格进行对比，发现确实是价格</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fq1toguvh1j211j04ojro.jpg" alt=""></p>
+<p>把url复制出来进行观察</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://p.3.cn/prices/mgets?callback=jQuery7839616&amp;ext=11000000&amp;pin=jd_60292a13b08e5&amp;type=1&amp;area=1_2800_2850_0&amp;skuIds=J_11452840%2CJ_11984135%2CJ_12018031%2CJ_11479404%2CJ_11322667%2CJ_11577583%2CJ_11920399%2CJ_11846856%2CJ_11720490%2CJ_10415116696%2CJ_12206744%2CJ_12019565%2CJ_12102873%2CJ_12029805%2CJ_11965555%2CJ_12102776%2CJ_12094982%2CJ_12155028%2CJ_12135337%2CJ_11951658%2CJ_12287808%2CJ_11701682%2CJ_12102873%2CJ_11318932%2CJ_11846850%2CJ_12124169%2CJ_11026413%2CJ_12197506%2CJ_11732611%2CJ_11932116&amp;pdbp=0&amp;pdtk=&amp;pdpin=jd_60292a13b08e5&amp;pduid=15100301156331932758360&amp;source=list_pc_front&amp;_=1522912708856</span><br></pre></td></tr></table></figure>
+<p>从url尾部开始试着删除一些东西，观察网页内容的变化</p>
+<p>json数据中的id包含在url中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery7839616([&#123;&quot;op&quot;:&quot;27.30&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11452840&quot;,&quot;p&quot;:&quot;27.30&quot;&#125;,&#123;&quot;op&quot;:&quot;27.30&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11984135&quot;,&quot;p&quot;:&quot;27.30&quot;&#125;,&#123;&quot;op&quot;:&quot;54.70&quot;,&quot;m&quot;:&quot;79.60&quot;,&quot;id&quot;:&quot;J_12018031&quot;,&quot;p&quot;:&quot;54.70&quot;&#125;,&#123;&quot;op&quot;:&quot;24.20&quot;,&quot;m&quot;:&quot;35.00&quot;,&quot;id&quot;:&quot;J_11479404&quot;,&quot;p&quot;:&quot;24.20&quot;&#125;,&#123;&quot;op&quot;:&quot;29.63&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11322667&quot;,&quot;p&quot;:&quot;29.63&quot;&#125;,&#123;&quot;op&quot;:&quot;25.00&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11577583&quot;,&quot;p&quot;:&quot;25.00&quot;&#125;,&#123;&quot;op&quot;:&quot;25.00&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11920399&quot;,&quot;p&quot;:&quot;25.00&quot;&#125;,&#123;&quot;op&quot;:&quot;25.00&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11846856&quot;,&quot;p&quot;:&quot;25.00&quot;&#125;,&#123;&quot;op&quot;:&quot;36.80&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11720490&quot;,&quot;p&quot;:&quot;36.80&quot;&#125;,&#123;&quot;op&quot;:&quot;158.00&quot;,&quot;m&quot;:&quot;158.00&quot;,&quot;id&quot;:&quot;J_10415116696&quot;,&quot;p&quot;:&quot;42.90&quot;&#125;,&#123;&quot;op&quot;:&quot;28.40&quot;,&quot;m&quot;:&quot;45.00&quot;,&quot;id&quot;:&quot;J_12206744&quot;,&quot;p&quot;:&quot;28.40&quot;&#125;,&#123;&quot;op&quot;:&quot;28.70&quot;,&quot;m&quot;:&quot;39.80&quot;,&quot;id&quot;:&quot;J_12019565&quot;,&quot;p&quot;:&quot;28.70&quot;&#125;,&#123;&quot;op&quot;:&quot;162.10&quot;,&quot;m&quot;:&quot;228.40&quot;,&quot;id&quot;:&quot;J_12102873&quot;,&quot;p&quot;:&quot;162.10&quot;&#125;,&#123;&quot;op&quot;:&quot;27.90&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_12029805&quot;,&quot;p&quot;:&quot;27.90&quot;&#125;,&#123;&quot;op&quot;:&quot;26.30&quot;,&quot;m&quot;:&quot;35.00&quot;,&quot;id&quot;:&quot;J_11965555&quot;,&quot;p&quot;:&quot;26.30&quot;&#125;,&#123;&quot;op&quot;:&quot;24.70&quot;,&quot;m&quot;:&quot;35.00&quot;,&quot;id&quot;:&quot;J_12102776&quot;,&quot;p&quot;:&quot;24.70&quot;&#125;,&#123;&quot;op&quot;:&quot;41.90&quot;,&quot;m&quot;:&quot;45.00&quot;,&quot;id&quot;:&quot;J_12094982&quot;,&quot;p&quot;:&quot;41.90&quot;&#125;,&#123;&quot;op&quot;:&quot;29.60&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_12155028&quot;,&quot;p&quot;:&quot;29.60&quot;&#125;,&#123;&quot;op&quot;:&quot;44.70&quot;,&quot;m&quot;:&quot;59.60&quot;,&quot;id&quot;:&quot;J_12135337&quot;,&quot;p&quot;:&quot;44.70&quot;&#125;,&#123;&quot;op&quot;:&quot;28.40&quot;,&quot;m&quot;:&quot;45.00&quot;,&quot;id&quot;:&quot;J_11951658&quot;,&quot;p&quot;:&quot;28.40&quot;&#125;,&#123;&quot;op&quot;:&quot;29.90&quot;,&quot;m&quot;:&quot;42.00&quot;,&quot;id&quot;:&quot;J_12287808&quot;,&quot;p&quot;:&quot;29.90&quot;&#125;,&#123;&quot;op&quot;:&quot;27.40&quot;,&quot;m&quot;:&quot;39.80&quot;,&quot;id&quot;:&quot;J_11701682&quot;,&quot;p&quot;:&quot;27.40&quot;&#125;,&#123;&quot;op&quot;:&quot;21.90&quot;,&quot;m&quot;:&quot;28.00&quot;,&quot;id&quot;:&quot;J_11318932&quot;,&quot;p&quot;:&quot;21.90&quot;&#125;,&#123;&quot;op&quot;:&quot;25.00&quot;,&quot;m&quot;:&quot;39.50&quot;,&quot;id&quot;:&quot;J_11846850&quot;,&quot;p&quot;:&quot;25.00&quot;&#125;,&#123;&quot;op&quot;:&quot;28.50&quot;,&quot;m&quot;:&quot;38.00&quot;,&quot;id&quot;:&quot;J_12124169&quot;,&quot;p&quot;:&quot;28.50&quot;&#125;,&#123;&quot;op&quot;:&quot;177.10&quot;,&quot;m&quot;:&quot;295.20&quot;,&quot;id&quot;:&quot;J_11026413&quot;,&quot;p&quot;:&quot;177.10&quot;&#125;,&#123;&quot;op&quot;:&quot;22.10&quot;,&quot;m&quot;:&quot;35.00&quot;,&quot;id&quot;:&quot;J_12197506&quot;,&quot;p&quot;:&quot;22.10&quot;&#125;,&#123;&quot;op&quot;:&quot;20.20&quot;,&quot;m&quot;:&quot;32.00&quot;,&quot;id&quot;:&quot;J_11732611&quot;,&quot;p&quot;:&quot;20.20&quot;&#125;,&#123;&quot;op&quot;:&quot;112.00&quot;,&quot;m&quot;:&quot;168.00&quot;,&quot;id&quot;:&quot;J_11932116&quot;,&quot;p&quot;:&quot;112.00&quot;&#125;]);</span><br></pre></td></tr></table></figure>
+<p>删掉一个url中的id，下面的价格等信息就少一个，因此，只要把所有id全都放到url中就可以找到所有的价格数据，问题是如何找id</p>
+<p><code>&quot;id&quot;:&quot;J_11984135&quot;</code></p>
+<p>在网页中搜索J_11984135没有任何信息，不要慌张，把J_删除后只留下数字，继续搜索，在网页中发现了要找的东西</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fq1tx1dsc3j20y70dkgm6.jpg" alt=""></p>
+<p>哪个标签更合适呢，继续观察发现</p>
+<p><code>&lt;a data-sku=&quot;11984135&quot; href=&quot;[//cart.jd.com/gate.action?pid=11984135&amp;pcount=1&amp;ptype=1](https://cart.jd.com/gate.action?pid=11984135&amp;pcount=1&amp;ptype=1)&quot;&gt;</code></p>
+<p>这个有data-sku属性的a标签正好与商品一一对应，因此可以使用这个a标签。</p>
+<p>下面构造正则表达式来提取</p>
+<p>由于scrapy的response是树的形式，所以能直接使用xpath，而不能直接使用正则，所以要把树的形式转变为字符串的形式</p>
+<p><code>listdata=response.body.decode(&#39;utf-8&#39;, &#39;ignore&#39;)</code></p>
+<p>构造正则获取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allskupat=&apos;&lt;a data-sku=&quot;(.*?)&quot;&apos;</span><br><span class="line">allsku=re.compile(allskupat).findall(listdata)</span><br></pre></td></tr></table></figure>
+<p>评论数也需要抓包分析</p>
+<p>url如下，这些数字也是id，并用逗号隔开了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://club.jd.com/comment/productCommentSummaries.action?my=pinglun&amp;referenceIds=11452840,11984135,12018031,11479404,11322667,11577583,11920399,11846856,11720490,10415116696,12206744,12019565,12102873,12029805,11965555,12102776,12094982,12155028,12135337,11951658,12287808,11701682,12102873,11318932,11846850,12124169,11026413,12197506,11732611,11932116&amp;callback=jQuery8841347&amp;_=1522912708686</span><br></pre></td></tr></table></figure>
+<p>提取作者和出版社的信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 作者的信息</span></span><br><span class="line">author=response.xpath(<span class="string">'//span[@class="author_type_1"]/a/@title'</span>).extract()</span><br><span class="line"><span class="comment"># 出版社的信息</span></span><br><span class="line">pub=response.xpath(<span class="string">'//span[@class="p-bi-store"]/a/@title'</span>).extract()</span><br></pre></td></tr></table></figure>
+<p>上面可以看成是预处理，大体写出了如何获得我们的目标信息</p>
+<p>下面一本书一本书的来，找到现在所处的这一页所有书籍的各自信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># 处理当前页的数据</span><br><span class="line">		# 以当前页所有的卖家的长度来循环当前页的每一本书</span><br><span class="line">        for n in range(0, len(seller)): </span><br><span class="line">            # 从第四个名字开始，前三个是热卖的书，后面才是书籍列表的书</span><br><span class="line">            name=bookname[n+3]</span><br><span class="line">            # 找到这本书的id</span><br><span class="line">            thissku=allsku[n]</span><br><span class="line">            # 构造价格链接</span><br><span class="line">            priceurl=&apos;https://p.3.cn/prices/mgets?callback=jQuery7839616&amp;type=1&amp;skuIds=J_&apos;+str(thissku)</span><br><span class="line">            pricedata=urllib.request.urlopen(priceurl).read().decode(&apos;utf-8&apos;, &apos;ignore&apos;)   </span><br><span class="line">            # 获得价格</span><br><span class="line">            pricepat=&apos;&quot;p&quot;:&quot;(.*?)&quot;&apos;</span><br><span class="line">            price=re.compile(pricepat).findall(pricedata)[0]</span><br><span class="line">		   # 构造评论链接</span><br><span class="line">            commenturl = &apos;https://club.jd.com/comment/productCommentSummaries.action?my=pinglun&amp;referenceIds=&apos; + str(thissku)+&apos;&amp;callback=jQuery8841347&apos;</span><br><span class="line">            commentdata = urllib.request.urlopen(commenturl).read().decode(&apos;utf-8&apos;, &apos;ignore&apos;)</span><br><span class="line">            commentpat = &apos;&quot;CommentCount&quot;:(.*?),&apos;</span><br><span class="line">            commentnum = re.compile(commentpat).findall(commentdata)[0]</span><br><span class="line">            thisauthor=author[n]</span><br><span class="line">            thispub=pub[n]</span><br><span class="line">            thisseller=seller[n]</span><br><span class="line">            item[&apos;channel1&apos;]=pd1</span><br><span class="line">            item[&apos;channel2&apos;]=pd2</span><br><span class="line">            item[&apos;name&apos;]=bookname</span><br><span class="line">            item[&apos;comment_num&apos;]=commentnum</span><br><span class="line">            item[&apos;author&apos;] = thisauthor</span><br><span class="line">            item[&apos;pub&apos;] = thispub</span><br><span class="line">            item[&apos;seller&apos;] = thisseller</span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure>
+<h1 id="淘宝爬虫"><a href="#淘宝爬虫" class="headerlink" title="淘宝爬虫"></a>淘宝爬虫</h1><p>需求：在淘宝搜索栏输入要搜索的商品，爬取搜到的商品的名称、价格、链接、评论数</p>
+<p>定义目标</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShopItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="comment">#商品名称</span></span><br><span class="line">    name=scrapy.Field()</span><br><span class="line">    <span class="comment">#商品链接</span></span><br><span class="line">    link=scrapy.Field()</span><br><span class="line">    <span class="comment">#商品价格</span></span><br><span class="line">    price=scrapy.Field()</span><br><span class="line">    <span class="comment">#商品评论数</span></span><br><span class="line">    comment=scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p>导入包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> shop.items <span class="keyword">import</span> ShopItem</span><br></pre></td></tr></table></figure>
+<p>设置要查询的关键词key</p>
+<p>url格式</p>
+<p><code>https://s.taobao.com/search?q=坚果&amp;imgfile=&amp;commend=all&amp;ssid=s5-e&amp;search_type=item&amp;sourceId=tb.index&amp;spm=&amp;ie=utf8&amp;initiative_id=tbindexz_20170306</code></p>
+<p>点击下一页观察url变化</p>
+<p>s=后面的数字以44的间隔变化，这就控制着页数，下面只爬10页</p>
+<p>构造url<code>url=&quot;https://s.taobao.com/search?q=&quot;+str(key)+&quot;&amp;search_type=item&amp;s=&quot;+str(44*i)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TbSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">"tb"</span></span><br><span class="line">    allowed_domains = [<span class="string">"taobao.com"</span>]</span><br><span class="line">    start_urls = (</span><br><span class="line">        <span class="string">'https://www.taobao.com/'</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        key=<span class="string">"坚果"</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>):</span><br><span class="line">            url=<span class="string">"https://s.taobao.com/search?q="</span>+str(key)+<span class="string">"&amp;search_type=item&amp;s="</span>+str(<span class="number">44</span>*i)</span><br><span class="line">            <span class="keyword">yield</span> Request(url=url,callback=self.page)</span><br></pre></td></tr></table></figure>
+<p>定义一个page方法，处理传过来的各具体页的数据</p>
+<p>价格得不到，还需要进入具体的商品页面，进入具体的商品，要有具体商品的id</p>
+<p>根据正则获得id</p>
+<p>构造url</p>
+<p>Request获得具体商品页面信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page</span><span class="params">(self,response)</span>:</span></span><br><span class="line">       <span class="comment">#title=response.xpath("/html/head/title").extract()</span></span><br><span class="line">       body=response.body.decode(<span class="string">"utf-8"</span>,<span class="string">"ignore"</span>)</span><br><span class="line">       patid=<span class="string">'"nid":"(.*?)"'</span></span><br><span class="line">       allid=re.compile(patid).findall(body)</span><br><span class="line">       print(allid)</span><br><span class="line">       <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,len(allid)):</span><br><span class="line">           thisid=allid[j]</span><br><span class="line">           url1=<span class="string">"https://item.taobao.com/item.htm?id="</span>+str(thisid)</span><br><span class="line">           <span class="keyword">yield</span> Request(url=url1,callback=self.next)</span><br></pre></td></tr></table></figure>
+<p>把具体商品页面信息传给next进行处理</p>
+<p>评论数需要抓包分析，构造出url</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self,response)</span>:</span></span><br><span class="line">        item=ShopItem()</span><br><span class="line">        item[<span class="string">"title"</span>]=response.xpath(<span class="string">"//h3[@class='tb-main-title']/@data-title"</span>).extract()</span><br><span class="line">        item[<span class="string">"link"</span>]=response.url</span><br><span class="line">        item[<span class="string">"price"</span>]=response.xpath(<span class="string">"//input[@name='current_price']/@value"</span>).extract()</span><br><span class="line">        patid=<span class="string">'id=(.*?)$'</span></span><br><span class="line">        thisid=re.compile(patid).findall(response.url)[<span class="number">0</span>]</span><br><span class="line">        commenturl=<span class="string">"https://rate.taobao.com/detailCount.do?callback=jsonp100&amp;itemId="</span>+str(thisid)</span><br><span class="line">        <span class="comment">#print(commenturl)</span></span><br><span class="line">        ssl._create_default_https_context=ssl._create_unverified_context</span><br><span class="line">        commentdata=urllib.request.urlopen(commenturl).read().decode(<span class="string">"utf-8"</span>,<span class="string">"ignore"</span>)</span><br><span class="line">        pat=<span class="string">'"count":(.*?)&#125;'</span></span><br><span class="line">        item[<span class="string">"comment"</span>]=re.compile(pat).findall(commentdata)</span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<p>pipeline写入数据库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShopPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.conn=pymysql.connect(host=<span class="string">"127.0.0.1"</span>,user=<span class="string">"root"</span>,passwd=<span class="string">"root"</span>,db=<span class="string">"tb"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            title=item[<span class="string">"title"</span>][<span class="number">0</span>]</span><br><span class="line">            link=item[<span class="string">"link"</span>]</span><br><span class="line">            price=item[<span class="string">"price"</span>][<span class="number">0</span>]</span><br><span class="line">            comment=item[<span class="string">"comment"</span>][<span class="number">0</span>]</span><br><span class="line">            sql=<span class="string">"insert into goods(title,link,price,comment) values('"</span>+title+<span class="string">"','"</span>+link+<span class="string">"','"</span>+price+<span class="string">"','"</span>+comment+<span class="string">"')"</span></span><br><span class="line">            self.conn.query(sql)</span><br><span class="line">            self.conn.commit()</span><br><span class="line">            print(title)</span><br><span class="line">            print(link)</span><br><span class="line">            print(price)</span><br><span class="line">            print(comment)</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.conn.close()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	<div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+
+</div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python爬虫/" rel="tag"># python爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/fa288682.html" rel="next" title="numpy">
+                <i class="fa fa-chevron-left"></i> numpy
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/467c8455.html" rel="prev" title="腾讯漫画">
+                腾讯漫画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JieZhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#认识scrapy框架"><span class="nav-number">1.</span> <span class="nav-text">认识scrapy框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当当网爬取实战"><span class="nav-number">2.</span> <span class="nav-text">当当网爬取实战</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scrapy模拟登录"><span class="nav-number">3.</span> <span class="nav-text">scrapy模拟登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#豆瓣网"><span class="nav-number">3.0.1.</span> <span class="nav-text">豆瓣网</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证码识别"><span class="nav-number">3.1.</span> <span class="nav-text">验证码识别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scrapy百度新闻爬取"><span class="nav-number">4.</span> <span class="nav-text">scrapy百度新闻爬取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scrapy与urllib整合"><span class="nav-number">5.</span> <span class="nav-text">scrapy与urllib整合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#淘宝爬虫"><span class="nav-number">6.</span> <span class="nav-text">淘宝爬虫</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JieZhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 --> 
+<script type="text/javascript" src="/js/src/love.js"></script>
