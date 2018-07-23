@@ -362,7 +362,7 @@ height:50vh;
 <li>计算透视表或交叉表</li>
 <li>执行分位数分析以及其他组分析</li>
 </ul>
-<h1 id="1-GroupBy计数"><a href="#1-GroupBy计数" class="headerlink" title="1 GroupBy计数"></a>1 GroupBy计数</h1><h2 id="1-1-概览-split—apply—combine-拆分—操作—合并"><a href="#1-1-概览-split—apply—combine-拆分—操作—合并" class="headerlink" title="1.1 概览 split—apply—combine 拆分—操作—合并"></a>1.1 概览 split—apply—combine 拆分—操作—合并</h2><p>运用groupby</p>
+<h1 id="1-GroupBy计数"><a href="#1-GroupBy计数" class="headerlink" title="1 GroupBy计数"></a>1 GroupBy计数</h1><h2 id="1-1-概览-split—-apply—-combine-拆分—-操作—-合并"><a href="#1-1-概览-split—-apply—-combine-拆分—-操作—-合并" class="headerlink" title="1.1 概览 split—-apply—-combine 拆分—-操作—-合并"></a>1.1 概览 split—-apply—-combine 拆分—-操作—-合并</h2><p>运用groupby</p>
 <ul>
 <li>第一阶段 pandas对象（无论是Series还是DataFrame）中的数据根据所提供的的一个或多个键被拆分为多组。拆分操作在对象的特定轴上执行。如，DataFrame可以在其行（axis=0）或列（axis=1）上进行分组。</li>
 <li>第二阶段 将一个函数应用（apply）到各个分组并产生一个新值。</li>
@@ -453,7 +453,7 @@ height:50vh;
 KeyError                                  Traceback (most recent call last)
 
 &lt;ipython-input-12-eb747cf58d65&gt; in &lt;module&gt;()
-----&gt; 1 df[&apos;data1&apos;].groupby(&apos;key1&apos;)
+----&gt; 1 df[&#39;data1&#39;].groupby(&#39;key1&#39;)
 
 
 D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\generic.py in groupby(self, by, axis, level, as_index, sort, group_keys, squeeze, **kwargs)
@@ -465,7 +465,7 @@ D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\generic.py in groupby(se
 
 
 D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\groupby.py in groupby(obj, by, **kwds)
-   1697         raise TypeError(&apos;invalid type: %s&apos; % type(obj))
+   1697         raise TypeError(&#39;invalid type: %s&#39; % type(obj))
    1698 
 -&gt; 1699     return klass(obj, by, **kwds)
    1700 
@@ -488,15 +488,10 @@ D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\groupby.py in _get_group
    2692             # Add key to exclusions
 
 
-KeyError: &apos;key1&apos;
+KeyError: &#39;key1&#39;
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(<span class="string">'key1'</span>)</span><br><span class="line">grouped</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;pandas.core.groupby.DataFrameGroupBy object at 0x000000000A198A58&gt;
-</code></pre><p>df[‘data1’].groupby(df[‘key1’])<br>
-df[‘data2’].groupby(df[‘key1’])<br>
-是<br>
-df.groupby(‘key1’)[‘data1’]<br>
-df.groupby(‘key1’)[[‘data2’]]<br>
-的语法糖</p>
+</code></pre><p>df[‘data1’].groupby(df[‘key1’])<br><br>df[‘data2’].groupby(df[‘key1’])<br><br>是<br><br>df.groupby(‘key1’)[‘data1’]<br><br>df.groupby(‘key1’)[[‘data2’]]<br><br>的语法糖</p>
 <p>变量grouped是一个GroupBy对象，实际上还没有进行任何计算，只是含有一些关于分组键df[‘key1’]的中间数据而已。该对象已经有了接下来对分组执行运算所需要的一切信息。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped.mean()</span><br></pre></td></tr></table></figure>
 <pre><code>key1
@@ -716,32 +711,32 @@ b
 3 -0.555730  0.769023    b  two
 </code></pre><p>对于多重键的情况，元组的第一个元素将会是由键值组成的元组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (k1, k2), group <span class="keyword">in</span> df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>]):</span><br><span class="line">    print((k1, k2))</span><br><span class="line">    print(group)</span><br></pre></td></tr></table></figure>
-<pre><code>(&apos;a&apos;, &apos;one&apos;)
+<pre><code>(&#39;a&#39;, &#39;one&#39;)
       data1     data2 key1 key2
 0 -0.204708  1.393406    a  one
 4  1.965781  1.246435    a  one
-(&apos;a&apos;, &apos;two&apos;)
+(&#39;a&#39;, &#39;two&#39;)
       data1     data2 key1 key2
 1  0.478943  0.092908    a  two
-(&apos;b&apos;, &apos;one&apos;)
+(&#39;b&#39;, &#39;one&#39;)
       data1     data2 key1 key2
 2 -0.519439  0.281746    b  one
-(&apos;b&apos;, &apos;two&apos;)
+(&#39;b&#39;, &#39;two&#39;)
      data1     data2 key1 key2
 3 -0.55573  0.769023    b  two
 </code></pre><p>可以对这些数据片段做任何操作，下面是将这些数据片段做成一个字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(df.groupby(<span class="string">'key1'</span>))</span><br></pre></td></tr></table></figure>
-<pre><code>[(&apos;a&apos;,       data1     data2 key1 key2
+<pre><code>[(&#39;a&#39;,       data1     data2 key1 key2
   0 -0.204708  1.393406    a  one
   1  0.478943  0.092908    a  two
-  4  1.965781  1.246435    a  one), (&apos;b&apos;,       data1     data2 key1 key2
+  4  1.965781  1.246435    a  one), (&#39;b&#39;,       data1     data2 key1 key2
   2 -0.519439  0.281746    b  one
   3 -0.555730  0.769023    b  two)]
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br></pre></td></tr></table></figure>
-<pre><code>{&apos;a&apos;:       data1     data2 key1 key2
+<pre><code>{&#39;a&#39;:       data1     data2 key1 key2
  0 -0.204708  1.393406    a  one
  1  0.478943  0.092908    a  two
- 4  1.965781  1.246435    a  one, &apos;b&apos;:       data1     data2 key1 key2
+ 4  1.965781  1.246435    a  one, &#39;b&#39;:       data1     data2 key1 key2
  2 -0.519439  0.281746    b  one
  3 -0.555730  0.769023    b  two}
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pieces = dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br><span class="line">pieces[<span class="string">'b'</span>]</span><br></pre></td></tr></table></figure>
@@ -798,27 +793,21 @@ data2    float64
 key1      object
 key2      object
 dtype: object
-</code></pre><p>df.dtypes是键
-<br>取的是列，data1、data2这两列一组，key1、key2这两列另一组</p>
+</code></pre><p>df.dtypes是键<br><br>取的是列，data1、data2这两列一组，key1、key2这两列另一组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(df.dtypes, axis=<span class="number">1</span>)</span><br><span class="line">dict(list(grouped))</span><br></pre></td></tr></table></figure>
-<pre><code>{dtype(&apos;float64&apos;):       data1     data2
+<pre><code>{dtype(&#39;float64&#39;):       data1     data2
  0 -0.204708  1.393406
  1  0.478943  0.092908
  2 -0.519439  0.281746
  3 -0.555730  0.769023
- 4  1.965781  1.246435, dtype(&apos;O&apos;):   key1 key2
+ 4  1.965781  1.246435, dtype(&#39;O&#39;):   key1 key2
  0    a  one
  1    a  two
  2    b  one
  3    b  two
  4    a  one}
 </code></pre><h2 id="1-3-选取一个或一组列"><a href="#1-3-选取一个或一组列" class="headerlink" title="1.3 选取一个或一组列"></a>1.3 选取一个或一组列</h2><p>对于由DataFrame产生的GroupBy对象，如果用一个（单个字符串）或一组（字符串数组）列名对其进行索引，可以实现选取部分列进行聚合的目的。</p>
-<p>df[‘data1’].groupby(df[‘key1’])<br>
-df[‘data2’].groupby(df[‘key1’])<br>
-是<br>
-df.groupby(‘key1’)[‘data1’]<br>
-df.groupby(‘key1’)[[‘data2’]]<br>
-的语法糖</p>
+<p>df[‘data1’].groupby(df[‘key1’])<br><br>df[‘data2’].groupby(df[‘key1’])<br><br>是<br><br>df.groupby(‘key1’)[‘data1’]<br><br>df.groupby(‘key1’)[[‘data2’]]<br><br>的语法糖</p>
 <p>如果传入的是列表或数组（[‘data2’]）， 返回的对象是一个已分组的DataFrame</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</span><br></pre></td></tr></table></figure>
 <div>
@@ -1285,6 +1274,7 @@ dtype: object
 
 <h1 id="2-数据聚合"><a href="#2-数据聚合" class="headerlink" title="2 数据聚合"></a>2 数据聚合</h1><p>聚合是从数组产生标量值的转换过程，如mean、sum、count、min以及sum等。</p>
 <h2 id="2-1-常见的聚合方法"><a href="#2-1-常见的聚合方法" class="headerlink" title="2.1 常见的聚合方法"></a>2.1 常见的聚合方法</h2><p>GroupBy方法</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1327,6 +1317,7 @@ dtype: object
 </tr>
 </tbody>
 </table>
+</div>
 <p>然而，并非只是能使用上面的方法，上面的方法只不过是将一些常见的聚合运算方法进行了优化。一些Series和DataFrame的聚合方法都是可以使用的，如计算中位数的quantile：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -1810,8 +1801,7 @@ Name: tips_pct, dtype: float64
 
 
 
-<p><strong>对不同的列使用不同的聚合函数</strong>
-对于DataFrame，你可以定义一组应用于全部列的函数，或不同的列应用不同的函数。</p>
+<p><strong>对不同的列使用不同的聚合函数</strong><br>对于DataFrame，你可以定义一组应用于全部列的函数，或不同的列应用不同的函数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">functions = [<span class="string">'count'</span>, <span class="string">'mean'</span>, <span class="string">'max'</span>]</span><br><span class="line">result = grouped[<span class="string">'tips_pct'</span>, <span class="string">'total_bill'</span>].agg(functions)</span><br><span class="line">result</span><br></pre></td></tr></table></figure>
 <div>
 <style>
@@ -2196,8 +2186,7 @@ Name: tips_pct, dtype: float64
 
 
 
-<h1 id="3-分组级运算和转换"><a href="#3-分组级运算和转换" class="headerlink" title="3 分组级运算和转换"></a>3 分组级运算和转换</h1><p>聚合只不过是分组运算的其中一种，是数据转换的一个特例，它接受将一维数组简化为标量值的函数。<br>
-transform和apply方法，能够执行更多的其他分组运算。</p>
+<h1 id="3-分组级运算和转换"><a href="#3-分组级运算和转换" class="headerlink" title="3 分组级运算和转换"></a>3 分组级运算和转换</h1><p>聚合只不过是分组运算的其中一种，是数据转换的一个特例，它接受将一维数组简化为标量值的函数。<br><br>transform和apply方法，能够执行更多的其他分组运算。</p>
 <h2 id="3-1-transform"><a href="#3-1-transform" class="headerlink" title="3.1 transform"></a>3.1 transform</h2><p>下面为一个DataFrame添加一个用于存放各索引分组平均值的列。一个办法是：</p>
 <p>先聚合，列名前添加前缀，创建新的DataFrame</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
@@ -2847,13 +2836,12 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
 
 
 
-<p>简单方便又快捷<br>
-transform会保留原来的索引，把得到的标量广播出去，如根据key分组，a得到的data1均值是0.746672，这个均值会给所有key1是a的行。</p>
+<p>简单方便又快捷<br><br>transform会保留原来的索引，把得到的标量广播出去，如根据key分组，a得到的data1均值是0.746672，这个均值会给所有key1是a的行。</p>
 <p>tansform的过程：</p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqjb2ge3sbj20jg09cq49.jpg" alt=""></p>
 <p>apply的过程：</p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqjb29tztbj20jg09r0tp.jpg" alt=""></p>
-<h2 id="3-2-apply：一般性的“拆分—应用—合并”"><a href="#3-2-apply：一般性的“拆分—应用—合并”" class="headerlink" title="3.2 apply：一般性的“拆分—应用—合并”"></a>3.2 apply：一般性的“拆分—应用—合并”</h2><p>和agg一样，transform是有着严格的使用条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值（如np.mean），要命产生一个相同大小的结果数组。</p>
+<h2 id="3-2-apply：一般性的“拆分—-应用—-合并”"><a href="#3-2-apply：一般性的“拆分—-应用—-合并”" class="headerlink" title="3.2 apply：一般性的“拆分—-应用—-合并”"></a>3.2 apply：一般性的“拆分—-应用—-合并”</h2><p>和agg一样，transform是有着严格的使用条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值（如np.mean），要命产生一个相同大小的结果数组。</p>
 <p>最一般化的GroupBy方法还是是apply，apply会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">'https://raw.githubusercontent.com/zhao750456695/dataset/master/tips.csv'</span></span><br><span class="line">tips = pd.read_csv(path)</span><br><span class="line">tips[<span class="string">'tips_pct'</span>] = tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>]</span><br><span class="line">tips.head()</span><br></pre></td></tr></table></figure>
 <div>
@@ -3457,8 +3445,7 @@ max    No          0.291990
        Yes         0.710345
 dtype: float64
 </code></pre><p>在GroupBy中，当你调用诸如describe之类的方法时，实际上只是应用了下面两条代码的快捷方式而已：</p>
-<p>f = lambda x: x.describe()<br>
-grouped.apply(f)</p>
+<p>f = lambda x: x.describe()<br><br>grouped.apply(f)</p>
 <p><strong>禁止分组键</strong></p>
 <p>从上面知，分组键会跟原始对象的索引共同构成结果对象中的层次化索引。将group_keys=False传入groupby即可禁止该效果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.groupby(<span class="string">'smoker'</span>, group_keys=<span class="keyword">False</span>).apply(top)</span><br></pre></td></tr></table></figure>
@@ -4775,7 +4762,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-GroupBy计数"><span class="toc-number">1.</span> <span class="toc-text">1 GroupBy计数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-概览-split—apply—combine-拆分—操作—合并"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 概览 split—apply—combine 拆分—操作—合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-对分组进行迭代"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 对分组进行迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-选取一个或一组列"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 选取一个或一组列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-通过字典或Series进行分组"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 通过字典或Series进行分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-通过函数进行分组"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 通过函数进行分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-根据索引级别分组"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 根据索引级别分组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-数据聚合"><span class="toc-number">2.</span> <span class="toc-text">2 数据聚合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-常见的聚合方法"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 常见的聚合方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-多函数聚合"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 多函数聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-以“无索引”的形式返回聚合数据"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 以“无索引”的形式返回聚合数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-分组级运算和转换"><span class="toc-number">3.</span> <span class="toc-text">3 分组级运算和转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-transform"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-apply：一般性的“拆分—应用—合并”"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 apply：一般性的“拆分—应用—合并”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-分位数和桶分析"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 分位数和桶分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-透视表和交叉表"><span class="toc-number">4.</span> <span class="toc-text">4 透视表和交叉表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-透视表"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 透视表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-交叉表"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 交叉表</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-GroupBy计数"><span class="toc-number">1.</span> <span class="toc-text">1 GroupBy计数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-概览-split—-apply—-combine-拆分—-操作—-合并"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 概览 split—-apply—-combine 拆分—-操作—-合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-对分组进行迭代"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 对分组进行迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-选取一个或一组列"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 选取一个或一组列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-通过字典或Series进行分组"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 通过字典或Series进行分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-通过函数进行分组"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 通过函数进行分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-根据索引级别分组"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 根据索引级别分组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-数据聚合"><span class="toc-number">2.</span> <span class="toc-text">2 数据聚合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-常见的聚合方法"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 常见的聚合方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-多函数聚合"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 多函数聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-以“无索引”的形式返回聚合数据"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 以“无索引”的形式返回聚合数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-分组级运算和转换"><span class="toc-number">3.</span> <span class="toc-text">3 分组级运算和转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-transform"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-apply：一般性的“拆分—-应用—-合并”"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 apply：一般性的“拆分—-应用—-合并”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-分位数和桶分析"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 分位数和桶分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-透视表和交叉表"><span class="toc-number">4.</span> <span class="toc-text">4 透视表和交叉表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-透视表"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 透视表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-交叉表"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 交叉表</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -5246,28 +5233,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 32 </div>
     
     <div class="post-archive">
@@ -5280,7 +5245,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
         </li>
     
     
@@ -5305,6 +5270,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -5388,11 +5358,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
         </li>
     
@@ -5403,12 +5368,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
         </li>
     
     
@@ -5448,11 +5418,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
         </li>
     
@@ -5473,23 +5438,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
     
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
     
@@ -5530,9 +5495,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
     
-        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
-    
         <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

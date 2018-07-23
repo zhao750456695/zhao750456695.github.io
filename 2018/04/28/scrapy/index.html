@@ -356,6 +356,7 @@ height:50vh;
         <h1 id="认识scrapy框架"><a href="#认识scrapy框架" class="headerlink" title="认识scrapy框架"></a>认识scrapy框架</h1><p>过去我们写的爬虫只能成为爬虫文件，现在我们要学习的scrapy框架会形成一个完整的爬虫项目。scrapy是python的一个通用型爬虫框架，可以胜任任何爬虫工作，可以提高我们的开发效率，并且适合做一些中大型的爬虫项目。urllib适合写爬虫文件，scrapy更适合做爬虫项目。</p>
 <p>安装好scrapy之后，在命令行输入scrapy -h，会得到可以使用的命令：</p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpykd4tgtzj20gy09emx8.jpg" alt="scrapy命令"></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -402,6 +403,7 @@ height:50vh;
 </tr>
 </tbody>
 </table>
+</div>
 <p>下面我们在e盘myscrapy文件夹下创建一个名为test的爬虫项目：</p>
 <p><code>scrapy startproject hello</code></p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fpykq8s2k8j20i0046jra.jpg" alt="startproject"></p>
@@ -410,6 +412,7 @@ height:50vh;
 <p>我们看到还有一个hello文件夹，以及一个scrapy.cfg文件，这个hello文件夹我们称为爬虫项目里面的核心目录，scrapy.cfg主要是用来进行整个爬虫项目的配置的。</p>
 <p>我们再次进入hello文件夹</p>
 <p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fpykw308j0j20mr096js1.jpg" alt="文件夹格式"></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -448,10 +451,12 @@ height:50vh;
 </tr>
 </tbody>
 </table>
+</div>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fpylwznfubj20hs0dbmxn.jpg" alt="scrapy流程图"></p>
 <p>从调度程序Scheduler开始看，调度程序从scrapy引擎接受请求并排序列入队列从而形成了任务队列，然后把请求发给Downloader，Downloader就会从因特网上下载信息，这些信息是Responses，传给Spider，Spider会根据我们编写的代码进行数据处理、筛选、提取等操作，会获得新的请求网址，再次通过引擎传给任务队列，最终会得到了我们定义的目标Items，然后把Items传给Pipeline进行后续的处理。</p>
 <p>我们创建了爬虫项目，在爬虫项目下我们可以使用一些创建项目前不能使用的指令。这些新的指令被称为项目指令，而那些创建项目之前就能使用的指令被称为全局指令。</p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fpymp88wcdj20hg0ad0su.jpg" alt="新指令"></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -482,6 +487,7 @@ height:50vh;
 </tr>
 </tbody>
 </table>
+</div>
 <p>下面详细说一下：</p>
 <p><code>scrapy fetch http://www.baidu.com</code></p>
 <p>获取网页，命令行中会显示我们抓取的网页，记得把settings里的rebots关掉， <code>ROBOTSTXT_OBEY = False</code>。</p>
@@ -506,7 +512,7 @@ height:50vh;
 <hr>
 <p>Spider Contracts</p>
 <hr>
-<p><code>spider crawl dangdang</code>  运行爬虫项目下的爬虫文件，和前面的runspider是不一样的，那里是独立的爬虫文件。如果不想显示日志信息可以加上 –nolog ，即<code>spider crawl dangdang --nolog</code>。</p>
+<p><code>spider crawl dangdang</code>  运行爬虫项目下的爬虫文件，和前面的runspider是不一样的，那里是独立的爬虫文件。如果不想显示日志信息可以加上 —nolog ，即<code>spider crawl dangdang --nolog</code>。</p>
 <p><code>spider list</code> 查看当前项目下有哪些可用的爬虫文件</p>
 <p><code>scrapy parse --spider=dangdang http:www.baidu.com</code>  指定项目中的爬虫文件爬取网页</p>
 <h1 id="当当网爬取实战"><a href="#当当网爬取实战" class="headerlink" title="当当网爬取实战"></a>当当网爬取实战</h1><p>目标：获取商品名 商品链接 商品评论数</p>
@@ -1355,28 +1361,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 32 </div>
     
     <div class="post-archive">
@@ -1389,7 +1373,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
         </li>
     
     
@@ -1414,6 +1398,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1497,11 +1486,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
         </li>
     
@@ -1512,12 +1496,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
         </li>
     
     
@@ -1557,11 +1546,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
         </li>
     
@@ -1582,23 +1566,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
     
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
     
@@ -1639,9 +1623,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
     
-        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
-    
         <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

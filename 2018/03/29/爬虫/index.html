@@ -354,9 +354,7 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>目录</p>
-<p><a href="#jump">re中的常用函数</a><br>
-<a href="#jump1">正则表达式的组成</a><br>
-<a href="#jump2">模式修正符</a><br></p>
+<p><a href="#jump">re中的常用函数</a><br><br><a href="#jump1">正则表达式的组成</a><br><br><a href="#jump2">模式修正符</a><br></p>
 <p>&emsp;&emsp;正则表达式(Regular Expression)是对字符串（包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”））操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。正则表达式是一种文本模式，模式描述在搜索文本时要匹配的一个或多个字符串。</p>
 <p>&emsp;&emsp;这里我们主要说下python中的正则表达式.python为我们提供了名为re的模块，这样我们就可以在python下使用着正则表达式的功能了。</p>
 <p>&emsp;&emsp;既然是模块当然为我们提供了一系列方法，而在使用正则表达式方法时要关注三点。首先是要匹配的正则表达式即模式字符串，也就是我们要找什么，我们把要找的东西根据规定好的规则写出来，称为pattern；其次就是，我们要在哪里找，我们在目标字符串里找，即string；最后，还有一个标志位flag，即正则表达式修饰符,也叫模式修正符，它规定了我们怎么找，比如要不要忽略大小写、要不要匹配换行符（默认不匹配）。</p>
@@ -370,22 +368,16 @@ height:50vh;
 <li>split(string[, maxsplit])方法</li>
 <li>sub(repl, string[, count])方法</li>
 </ul>
-<p>match(string[, pos[, endpos]])
-如果没有指定pos和endpos，默认为0和len(string)，即match函数将会从头部(左侧第一个字符)开始进行匹配，若匹配成功将返回<font face="黑体" color="red">Match对象</font>，没有匹配成功，则返回None。
-search(string[, pos[, endpos]])
-与match的差别是可以从任何地方开始，只要待匹配的字符串中有可匹配对象，就会匹配成功，返回<font face="黑体" color="red">Match对象</font>。也是只匹配一次。</p>
+<p>match(string[, pos[, endpos]])<br>如果没有指定pos和endpos，默认为0和len(string)，即match函数将会从头部(左侧第一个字符)开始进行匹配，若匹配成功将返回<font face="黑体" color="red">Match对象</font>，没有匹配成功，则返回None。<br>search(string[, pos[, endpos]])<br>与match的差别是可以从任何地方开始，只要待匹配的字符串中有可匹配对象，就会匹配成功，返回<font face="黑体" color="red">Match对象</font>。也是只匹配一次。</p>
 <p>上面的方法只匹配一次，如果我们想把字符串中所有匹配的情况都找出来该怎么办办呢？我们可以使用findall(string,[, pos[, endpos]]),findall会找到所有能够匹配的结果，结果是以<font face="黑体" color="red">列表</font>形式返回的所有子串。</p>
 <hr>
-<p><em>小括号和group</em>
-search和match中的pattern中有括号会形成group，多个括号就有多个group
-只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p><em>小括号和group</em><br>search和match中的pattern中有括号会形成group，多个括号就有多个group<br>只有match对象有group()和groups()，列表没有，因此只有search和match函数可以用group，findall没有group，小括号的含义也不一样。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">searchObj = re.search(r<span class="string">'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group() : "</span>, searchObj.group()) <span class="comment"># 显示全部</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(1)) <span class="comment"># 显示第一组，对应第一个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(2)) <span class="comment"># 显示第二组，对应第二个括号</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(1, 2)) <span class="comment"># 显示两组，以元组形式返回</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"searchObj.groups() : "</span>, searchObj.groups()) <span class="comment"># 显示所有的组，以元组形式返回，因为只有两组，结果和group(1, 2)相同</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Nothing found!!"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>结果是：</p>
 <pre><code>searchObj.group() :  Cats are smarter than dogs
 searchObj.group(1) :  Cats
 searchObj.group(2) :  smarter
-searchObj.group(1, 2) :  (&apos;Cats&apos;, &apos;smarter&apos;)
-searchObj.groups() :  (&apos;Cats&apos;, &apos;smarter&apos;)
+searchObj.group(1, 2) :  (&#39;Cats&#39;, &#39;smarter&#39;)
+searchObj.groups() :  (&#39;Cats&#39;, &#39;smarter&#39;)
 </code></pre><p>如果没有小括号，可以用group()显示全部，但里面不能有数字，因为没有分组。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import re</span><br><span class="line">&gt;&gt;&gt; pattern = re.compile(r<span class="string">'\d+'</span>)                    <span class="comment"># 用于匹配至少一个数字</span></span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># 查找头部，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 2, 10) <span class="comment"># 从'e'的位置开始匹配，没有匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(<span class="string">'one12twothree34four'</span>, 3, 10) <span class="comment"># 从'1'的位置开始匹配，正好匹配</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span> m                                         <span class="comment"># 返回一个 Match 对象</span></span><br><span class="line">&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</span><br><span class="line">&gt;&gt;&gt; m.group(0)   <span class="comment"># 可省略 0</span></span><br><span class="line"><span class="string">'12'</span></span><br><span class="line">&gt;&gt;&gt; m.start(0)   <span class="comment"># 可省略 0</span></span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; m.end(0)     <span class="comment"># 可省略 0</span></span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; m.span(0)    <span class="comment"># 可省略 0</span></span><br><span class="line">(3, 5)</span><br></pre></td></tr></table></figure>
 <ul>
@@ -397,72 +389,50 @@ searchObj.groups() :  (&apos;Cats&apos;, &apos;smarter&apos;)
 <p>findall中的pattern用小括号，会只返回小括号中的匹配的东西，形成元组列表</p>
 <pre><code>import re
 a = &quot;123abc456899opopo&quot;
-pat = &apos;12(.*?)4(.*?)po&apos;
+pat = &#39;12(.*?)4(.*?)po&#39;
 res = re.compile(pat).findall(a)
 print(res)
 </code></pre><p>结果是：</p>
-<pre><code>[(&apos;3abc&apos;, &apos;56899o&apos;)]
-</code></pre><hr>
-<hr>
-<p>finditer(string[, pos[, endpos]])和findall()功能一样，也是搜索所有匹配情况，区别是finditer返回一个顺序访问每一个匹配结果的迭代器。</p>
+<pre><code>[(&#39;3abc&#39;, &#39;56899o&#39;)]
+</code></pre><h2 id="——"><a href="#——" class="headerlink" title="——-"></a>——-</h2><p>finditer(string[, pos[, endpos]])和findall()功能一样，也是搜索所有匹配情况，区别是finditer返回一个顺序访问每一个匹配结果的迭代器。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line">result_iter1 = pattern.finditer(<span class="string">'hello 123456 789'</span>)</span><br><span class="line">result_iter2 = pattern.finditer(<span class="string">'one1two2three3four4'</span>, 0, 10)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter1))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(result_iter2))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result1...'</span>)</span><br><span class="line"><span class="keyword">for</span> m1 <span class="keyword">in</span> result_iter1:   <span class="comment"># m1 是 Match 对象</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m1.group(), m1.span()))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'result2...'</span>)</span><br><span class="line"><span class="keyword">for</span> m2 <span class="keyword">in</span> result_iter2:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'matching string: &#123;&#125;, position: &#123;&#125;'</span>.format(m2.group(), m2.span()))</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
-<pre><code>&lt;class &apos;callable_iterator&apos;&gt;
-&lt;class &apos;callable_iterator&apos;&gt;
+<pre><code>&lt;class &#39;callable_iterator&#39;&gt;
+&lt;class &#39;callable_iterator&#39;&gt;
 result1...
 matching string: 123456, position: (6, 12)
 matching string: 789, position: (13, 16)
 result2...
 matching string: 1, position: (3, 4)
 matching string: 2, position: (7, 8)
-</code></pre><p>split(string[, maxsplit])
-split(string[, maxsplit])
-split函数根据能够匹配的子串来分割字符串，结果以列表形式返回。
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'a'</span>)</span><br><span class="line">res = p.split(<span class="string">'abcadeacd'</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></p>
+</code></pre><p>split(string[, maxsplit])<br>split(string[, maxsplit])<br>split函数根据能够匹配的子串来分割字符串，结果以列表形式返回。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'a'</span>)</span><br><span class="line">res = p.split(<span class="string">'abcadeacd'</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure></p>
 <p>结果是：</p>
-<pre><code>[&apos;&apos;, &apos;bc&apos;, &apos;de&apos;, &apos;cd&apos;]
+<pre><code>[&#39;&#39;, &#39;bc&#39;, &#39;de&#39;, &#39;cd&#39;]
 </code></pre><p>‘a’被去除，’a’左右两侧的子串被装进列表中返回。</p>
-<p>sub(repl, string[, count])
-sub方法的功能是替换，返回<font face="黑体" color="red">替换后的字符串</font>。</p>
+<p>sub(repl, string[, count])<br>sub方法的功能是替换，返回<font face="黑体" color="red">替换后的字符串</font>。</p>
 <p>其中，repl 可以是字符串也可以是一个函数：</p>
 <ul>
 <li>如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；</li>
 <li>如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。</li>
 </ul>
-<p>count 用于指定最多替换次数，<strong>不指定时全部替换</strong>。
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'hello world'</span>, s) ) <span class="comment"># 使用 'hello world' 替换 'hello 123' 和 'hello 456'</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'\2 \1'</span>, s))  <span class="comment"># 引用分组</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s)) <span class="comment"># sub会把匹配到的match对象传给func 替换之前肯定要先匹配</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s, 1))  <span class="comment"># 最多替换一次</span></span><br></pre></td></tr></table></figure></p>
+<p>count 用于指定最多替换次数，<strong>不指定时全部替换</strong>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'hello world'</span>, s) ) <span class="comment"># 使用 'hello world' 替换 'hello 123' 和 'hello 456'</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(r<span class="string">'\2 \1'</span>, s))  <span class="comment"># 引用分组</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s)) <span class="comment"># sub会把匹配到的match对象传给func 替换之前肯定要先匹配</span></span><br><span class="line"><span class="built_in">print</span>(p.sub(func, s, 1))  <span class="comment"># 最多替换一次</span></span><br></pre></td></tr></table></figure></p>
 <p>结果是：</p>
 <pre><code>hello world, hello world
 123 hello, 456 hello
 hi 123, hi 456
 hi 123, hello 456
-</code></pre><p>对比：
-re.sub(pattern, repl, string, count=0, flags=0)三个必选参数：pattern, repl, string
-pattern：</p>
-<p>若在patter中有\number写法，则是要匹配其中分组，如下写法
-      inputStr = “hello crifan, nihao crifan”;
-      replacedStr = re.sub(r”o (\w+), nihao \1”, “crifanli”, inputStr);
-      print(replacedStr)
-结果是：</p>
+</code></pre><p>对比：<br>re.sub(pattern, repl, string, count=0, flags=0)三个必选参数：pattern, repl, string<br>pattern：</p>
+<p>若在patter中有\\number写法，则是要匹配其中分组，如下写法<br>      inputStr = “hello crifan, nihao crifan”;<br>      replacedStr = re.sub(r”o (\w+), nihao \1”, “crifanli”, inputStr);<br>      print(replacedStr)<br>结果是：</p>
 <pre><code>hellcrifanli
-</code></pre><p>和repl中\number不一样， 见下面
-s = ‘2017-01-22’
-s = re.sub(‘(\d{4})-(\d{2})-(\d{2})’, r’\2-\3-\1’, s)
-print s  # 01-22-2017</p>
-<p>第二个参数：repl
-repl，就是replacement，被替换，的字符串的意思。</p>
+</code></pre><p>和repl中\\number不一样， 见下面<br>s = ‘2017-01-22’<br>s = re.sub(‘(\d{4})-(\d{2})-(\d{2})’, r’\2-\3-\1’, s)<br>print s  # 01-22-2017</p>
+<p>第二个参数：repl<br>repl，就是replacement，被替换，的字符串的意思。</p>
 <p>repl可以是字符串，也可以是函数。</p>
 <ul>
 <li>repl是字符串</li>
 </ul>
 <p>如果repl是字符串的话，其中的任何反斜杠转义字符，都会被处理的。</p>
 <p>即：</p>
-<p>\n：会被处理为对应的换行符；
-\r：会被处理为回车符；
-其他不能识别的转移字符，则只是被识别为普通的字符：
-比如\j，会被处理为j这个字母本身；
-反斜杠加g以及中括号内一个名字，即：\g，对应着命了名的组，named group
-接着上面的举例：</p>
+<p>\n：会被处理为对应的换行符；<br>\r：会被处理为回车符；<br>其他不能识别的转移字符，则只是被识别为普通的字符：<br>比如\j，会被处理为j这个字母本身；<br>反斜杠加g以及中括号内一个名字，即：\g，对应着命了名的组，named group<br>接着上面的举例：</p>
 <p>想要把对应的：</p>
 <pre><code>hello crifan, nihao crifan
 </code></pre><p>中的crifan提取出来，只剩：crifan</p>
@@ -472,8 +442,7 @@ replacedStr = re.sub(r&quot;hello (\w+), nihao \1&quot;, &quot;\g&lt;1&gt;&quot;
 print &quot;replacedStr=&quot;,replacedStr; #crifan
 </code></pre><ul>
 <li>repl是函数</li>
-<li><p>repl是函数
--</p>
+<li><p>repl是函数<br>-</p>
 <pre><code>hello 123 world 456
 </code></pre><p>想要把其中的数字部分，都加上111，变成：</p>
 <pre><code>hello 234 world 567
@@ -483,19 +452,17 @@ print &quot;replacedStr=&quot;,replacedStr; #crifan
 <p>它返回一个元组：</p>
 <pre><code>(sub(repl, string[, count]), 替换次数)
 </code></pre><p>元组有两个元素，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。</p>
-<p>看看例子：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'hello world'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'\2 \1'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s, 1)</span><br></pre></td></tr></table></figure></p>
+<p>看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">p = re.compile(r<span class="string">'(\w+) (\w+)'</span>)</span><br><span class="line">s = <span class="string">'hello 123, hello 456'</span></span><br><span class="line">def func(m):</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'hi'</span> + <span class="string">' '</span> + m.group(2)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'hello world'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(r<span class="string">'\2 \1'</span>, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s)</span><br><span class="line"><span class="built_in">print</span> p.subn(func, s, 1)</span><br></pre></td></tr></table></figure></p>
 <p>执行结果是：</p>
-<pre><code>(&apos;hello world, hello world&apos;, 2)
-(&apos;123 hello, 456 hello&apos;, 2)
-(&apos;hi 123, hi 456&apos;, 2)
-(&apos;hi 123, hello 456&apos;, 1)
+<pre><code>(&#39;hello world, hello world&#39;, 2)
+(&#39;123 hello, 456 hello&#39;, 2)
+(&#39;hi 123, hi 456&#39;, 2)
+(&#39;hi 123, hello 456&#39;, 1)
 </code></pre><h4 id="2-1-2-match-函数"><a href="#2-1-2-match-函数" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><h4 id="2-1-2-match-函数-1"><a href="#2-1-2-match-函数-1" class="headerlink" title="2.1.2 match 函数"></a>2.1.2 match 函数</h4><pre><code>re.match(pattern, string[, flags]):
 </code></pre><p>其中，pattern 是正则表达式的字符串形式，比如 \d+, [a-z]+。</p>
 <p>而 Pattern 对象的 match 方法使用形式是：</p>
 <pre><code>match(string[, pos[, endpos]])
-</code></pre><p>可以看到，match 函数不能指定字符串的区间，它只能搜索头部，看看例子：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">m1 = re.match(r<span class="string">'\d+'</span>, <span class="string">'One12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m1:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>,m1.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m1 is:'</span>,m1</span><br><span class="line"></span><br><span class="line">m2 = re.match(r<span class="string">'\d+'</span>, <span class="string">'12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m2:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>, m2.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m2 is:'</span>,m2</span><br></pre></td></tr></table></figure></p>
+</code></pre><p>可以看到，match 函数不能指定字符串的区间，它只能搜索头部，看看例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">m1 = re.match(r<span class="string">'\d+'</span>, <span class="string">'One12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m1:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>,m1.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m1 is:'</span>,m1</span><br><span class="line"></span><br><span class="line">m2 = re.match(r<span class="string">'\d+'</span>, <span class="string">'12twothree34four'</span>)</span><br><span class="line"><span class="keyword">if</span> m2:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'matching string:'</span>, m2.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">'m2 is:'</span>,m2</span><br></pre></td></tr></table></figure></p>
 <p>结果是：</p>
 <pre><code>m1 is: None
 matching string: 12
@@ -503,13 +470,9 @@ matching string: 12
 </code></pre><p>也是不能指定区间</p>
 <h4 id="2-1-4-findall-函数"><a href="#2-1-4-findall-函数" class="headerlink" title="2.1.4 findall 函数"></a>2.1.4 findall 函数</h4><p>用哪种方式</p>
 <p>从上文可以看到，使用 re 模块有两种方式：</p>
-<p>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；
-直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；
-下面，我们用一个例子展示这两种方法。</p>
-<p>先看第 1 种用法：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="comment"># 将正则表达式先编译成 Pattern 对象</span></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.match(<span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.search(<span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.findall(<span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>再看第2种：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="built_in">print</span> re.match(r<span class="string">'\d+'</span>, <span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> re.search(r<span class="string">'\d+'</span>, <span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(r<span class="string">'\d+'</span>, <span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；<br>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；<br>下面，我们用一个例子展示这两种方法。</p>
+<p>先看第 1 种用法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="comment"># 将正则表达式先编译成 Pattern 对象</span></span><br><span class="line">pattern = re.compile(r<span class="string">'\d+'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.match(<span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.search(<span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> pattern.findall(<span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>再看第2种：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"><span class="built_in">print</span> re.match(r<span class="string">'\d+'</span>, <span class="string">'123, 123'</span>)</span><br><span class="line"><span class="built_in">print</span> re.search(r<span class="string">'\d+'</span>, <span class="string">'234, 234'</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(r<span class="string">'\d+'</span>, <span class="string">'345, 345'</span>)</span><br></pre></td></tr></table></figure></p>
 <p>如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。</p>
 <p>因此，我们推荐使用第 1 种用法。</p>
 <h1 id="2-2-pattern"><a href="#2-2-pattern" class="headerlink" title="2.2 pattern "></a><span id="jump1">2.2 pattern </span></h1><p>pattern由原子和元字符组成的。</p>
@@ -545,13 +508,12 @@ matching string: 12
 </table>
 
 
-<p>原子表
-用中括号把多个原子括起来组成一个表，各原子地位平等。</p>
+<p>原子表<br>用中括号把多个原子括起来组成一个表，各原子地位平等。</p>
 <table>
   <th width="40%," bgcolor="black"><font face="黑体" color="white">举例</font></th>
   <th width="60%," bgcolor="black"><font face="黑体" color="white">描述</font></th>
 <tr>
-<td align="center">[Pp]ython</td><td align="center">匹配 “Python” 或 “python”</td>
+<td align="center">[Pp]ython</td><td align="center">匹配 "Python" 或 "python"</td>
 </tr>
 <tr>
 <td align="center" bgcolor="gray">[0-9]</td><td align="center" bgcolor="gray">匹配匹配任何数字。类似于 [0123456789]</td>
@@ -635,11 +597,7 @@ matching string: 12
 </tr>
 </table>
 
-<p><br>
-<br>
-<br>
-<br>
-<br></p>
+<p><br><br><br><br><br><br><br><br><br></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><p>后续：</p>
 <h2 id="3-xpath表达式"><a href="#3-xpath表达式" class="headerlink" title="3 xpath表达式"></a>3 xpath表达式</h2><h2 id="4-json数据处理"><a href="#4-json数据处理" class="headerlink" title="4 json数据处理"></a>4 json数据处理</h2><h2 id="5-urllib初体验"><a href="#5-urllib初体验" class="headerlink" title="5 urllib初体验"></a>5 urllib初体验</h2><h2 id="6-http基本知识"><a href="#6-http基本知识" class="headerlink" title="6 http基本知识"></a>6 http基本知识</h2><h2 id="7-基本的反爬措施"><a href="#7-基本的反爬措施" class="headerlink" title="7 基本的反爬措施"></a>7 基本的反爬措施</h2><h2 id="8-模拟登陆"><a href="#8-模拟登陆" class="headerlink" title="8 模拟登陆"></a>8 模拟登陆</h2><h2 id="9-scrapy框架"><a href="#9-scrapy框架" class="headerlink" title="9 scrapy框架"></a>9 scrapy框架</h2><h2 id="10-分布式爬虫"><a href="#10-分布式爬虫" class="headerlink" title="10 分布式爬虫"></a>10 分布式爬虫</h2>
     </article>
@@ -762,7 +720,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-re中的常用函数"><span class="toc-number">1.</span> <span class="toc-text">2.1 re中的常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数-1"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-search-函数"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">2.1.3 search 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-findall-函数"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">2.1.4 findall 函数</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-pattern"><span class="toc-number">2.</span> <span class="toc-text">2.2 pattern </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-原子"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">2.2.1 原子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-元字符"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2.2.2 元字符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-模式修正符"><span class="toc-number">3.</span> <span class="toc-text">2.3 模式修正符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-xpath表达式"><span class="toc-number">3.2.</span> <span class="toc-text">3 xpath表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-json数据处理"><span class="toc-number">3.3.</span> <span class="toc-text">4 json数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-urllib初体验"><span class="toc-number">3.4.</span> <span class="toc-text">5 urllib初体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-http基本知识"><span class="toc-number">3.5.</span> <span class="toc-text">6 http基本知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基本的反爬措施"><span class="toc-number">3.6.</span> <span class="toc-text">7 基本的反爬措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-模拟登陆"><span class="toc-number">3.7.</span> <span class="toc-text">8 模拟登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-scrapy框架"><span class="toc-number">3.8.</span> <span class="toc-text">9 scrapy框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-分布式爬虫"><span class="toc-number">3.9.</span> <span class="toc-text">10 分布式爬虫</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-re中的常用函数"><span class="toc-number">1.</span> <span class="toc-text">2.1 re中的常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-re-compile-pattern-flag-和re-sub-pattern-repl-string-count-0-flags-0"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">2.1.1 re.compile(pattern[, flag])和re.sub(pattern, repl, string, count=0, flags=0)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#——"><span class="toc-number">1.1.</span> <span class="toc-text">——-</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-match-函数-1"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.1.2 match 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-search-函数"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">2.1.3 search 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-findall-函数"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">2.1.4 findall 函数</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-pattern"><span class="toc-number">2.</span> <span class="toc-text">2.2 pattern </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-原子"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">2.2.1 原子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-元字符"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">2.2.2 元字符</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-模式修正符"><span class="toc-number">3.</span> <span class="toc-text">2.3 模式修正符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-xpath表达式"><span class="toc-number">3.2.</span> <span class="toc-text">3 xpath表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-json数据处理"><span class="toc-number">3.3.</span> <span class="toc-text">4 json数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-urllib初体验"><span class="toc-number">3.4.</span> <span class="toc-text">5 urllib初体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-http基本知识"><span class="toc-number">3.5.</span> <span class="toc-text">6 http基本知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-基本的反爬措施"><span class="toc-number">3.6.</span> <span class="toc-text">7 基本的反爬措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-模拟登陆"><span class="toc-number">3.7.</span> <span class="toc-text">8 模拟登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-scrapy框架"><span class="toc-number">3.8.</span> <span class="toc-text">9 scrapy框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-分布式爬虫"><span class="toc-number">3.9.</span> <span class="toc-text">10 分布式爬虫</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1233,28 +1191,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 32 </div>
     
     <div class="post-archive">
@@ -1267,7 +1203,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
         </li>
     
     
@@ -1292,6 +1228,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1375,11 +1316,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
         </li>
     
@@ -1390,12 +1326,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
         </li>
     
     
@@ -1435,11 +1376,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
         </li>
     
@@ -1460,23 +1396,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
     
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
     
@@ -1517,9 +1453,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
     
-        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
-    
         <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

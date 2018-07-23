@@ -386,6 +386,7 @@ height:50vh;
 </li>
 <li>pandas库的fillna函数也可以处理缺失值，而且更加灵活，但是重用性较弱</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -416,6 +417,7 @@ height:50vh;
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="异常值分析"><a href="#异常值分析" class="headerlink" title="异常值分析"></a>异常值分析</h2><p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
 <ul>
 <li><p>发现异常值</p>
@@ -482,6 +484,7 @@ height:50vh;
 <li>数据二值化</li>
 </ul>
 <p>from sklearn.preprocessing import …</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -533,6 +536,7 @@ height:50vh;
 </tr>
 </tbody>
 </table>
+</div>
 <h1 id="特征编码"><a href="#特征编码" class="headerlink" title="特征编码"></a>特征编码</h1><ul>
 <li>数值型</li>
 <li>类别型</li>
@@ -581,14 +585,14 @@ height:50vh;
 <li>存储量小</li>
 </ul>
 </li>
-<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维—-&gt;K维的稀疏编码<ul>
+<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维——&gt;K维的稀疏编码<ul>
 <li>统计该特征上有多少类，就设置几维(K)的向量</li>
 <li>输入必须是数值型数据（对字符串输入，先调用LabelEncoder变成数字，再用OneHotEncoder）</li>
 <li>存储要求高，通常要求K&lt;10（低基数）</li>
 </ul>
 </li>
 <li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）<ul>
-<li>可先采用降维/聚类：1维—&gt;K维，K为聚类的类别数</li>
+<li>可先采用降维/聚类：1维—-&gt;K维，K为聚类的类别数</li>
 <li>或采用均值编码：在贝叶斯的架构下，利用标签变量，有监督地确定最适合特定特征的编码方式</li>
 </ul>
 </li>
@@ -679,9 +683,7 @@ height:50vh;
 </ul>
 <p>​         分数度量 </p>
 <p>​           相关系数</p>
-<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关
-                  相关系数只对两个实数型随机变量有定义
-            互信息／最大信息系数</p>
+<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>                  相关系数只对两个实数型随机变量有定义<br>            互信息／最大信息系数</p>
 <ul>
 <li>互信息</li>
 </ul>
@@ -1312,28 +1314,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 32 </div>
     
     <div class="post-archive">
@@ -1346,7 +1326,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
         </li>
     
     
@@ -1371,6 +1351,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/23</span><a class="archive-post-title" href= "/2018/07/23/svm前奏：凸优化对偶理论/" >svm前奏：凸优化对偶理论</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1454,11 +1439,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/seaborn常用图形/" >seaborn常用图形</a>
         </li>
     
@@ -1469,12 +1449,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2018/05/03/1/" >python数据可视化</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/腾讯漫画/" >腾讯漫画</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2018/04/28/scrapy/" >scrapy初步</a>
         </li>
     
     
@@ -1514,11 +1499,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2018/04/07/requests/" >requests</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">03/29</span><a class="archive-post-title" href= "/2018/03/29/爬虫/" >'爬虫系列2:python中的正则表达式'</a>
         </li>
     
@@ -1539,23 +1519,23 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="matplotlib python数据可视化"><span class="iconfont-archer">&#xe606;</span>matplotlib python数据可视化</span>
     
-        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="python爬虫"><span class="iconfont-archer">&#xe606;</span>python爬虫</span>
-    
-        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
     
         <span class="sidebar-tag-name" data-tags="大数据 zookeeper"><span class="iconfont-archer">&#xe606;</span>大数据 zookeeper</span>
+    
+        <span class="sidebar-tag-name" data-tags="大数据 linux"><span class="iconfont-archer">&#xe606;</span>大数据 linux</span>
     
         <span class="sidebar-tag-name" data-tags="正则表达式"><span class="iconfont-archer">&#xe606;</span>正则表达式</span>
     
         <span class="sidebar-tag-name" data-tags="大数据"><span class="iconfont-archer">&#xe606;</span>大数据</span>
     
         <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow 深度学习"><span class="iconfont-archer">&#xe606;</span>tensorflow 深度学习</span>
     
         <span class="sidebar-tag-name" data-tags="python,pandas,数据分析"><span class="iconfont-archer">&#xe606;</span>python,pandas,数据分析</span>
     
@@ -1596,9 +1576,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
     
-        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
-    
         <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="深度学习"><span class="iconfont-archer">&#xe60a;</span>深度学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
@@ -1621,7 +1601,24 @@ jsonContent:
     </div>
     <!-- async load share.js -->
     
-        <script src="/scripts/share.js" async></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->    
+        <script src="/scripts/share.js" async></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->    
     
     </body>
 </html>
