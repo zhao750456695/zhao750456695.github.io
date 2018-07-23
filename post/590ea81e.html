@@ -356,9 +356,7 @@
 <li>计算透视表或交叉表</li>
 <li>执行分位数分析以及其他组分析</li>
 </ul>
-<h1 id="1-groupby计数"><a class="markdownIt-Anchor" href="#1-groupby计数"></a> 1 GroupBy计数</h1>
-<h2 id="11-概览-splitapplycombine-拆分操作合并"><a class="markdownIt-Anchor" href="#11-概览-splitapplycombine-拆分操作合并"></a> 1.1 概览 split—apply—combine 拆分—操作—合并</h2>
-<p>运用groupby</p>
+<h1 id="1-GroupBy计数"><a href="#1-GroupBy计数" class="headerlink" title="1 GroupBy计数"></a>1 GroupBy计数</h1><h2 id="1-1-概览-split—-apply—-combine-拆分—-操作—-合并"><a href="#1-1-概览-split—-apply—-combine-拆分—-操作—-合并" class="headerlink" title="1.1 概览 split—-apply—-combine 拆分—-操作—-合并"></a>1.1 概览 split—-apply—-combine 拆分—-操作—-合并</h2><p>运用groupby</p>
 <ul>
 <li>第一阶段 pandas对象（无论是Series还是DataFrame）中的数据根据所提供的的一个或多个键被拆分为多组。拆分操作在对象的特定轴上执行。如，DataFrame可以在其行（axis=0）或列（axis=1）上进行分组。</li>
 <li>第二阶段 将一个函数应用（apply）到各个分组并产生一个新值。</li>
@@ -379,14 +377,14 @@
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -437,17 +435,19 @@
   </tbody>
 </table>
 </div>
+
+
+
 <p>按key1进行分组，计算data1列的均值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df[<span class="string">'data1'</span>].groupby(df[<span class="string">'key1'</span>])</span><br><span class="line">grouped</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;pandas.core.groupby.SeriesGroupBy object at 0x000000000A320860&gt;
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'data1'</span>].groupby(<span class="string">'key1'</span>)</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'data1'</span>].groupby(<span class="string">'key1'</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>---------------------------------------------------------------------------
 
 KeyError                                  Traceback (most recent call last)
 
 &lt;ipython-input-12-eb747cf58d65&gt; in &lt;module&gt;()
-----&gt; 1 df['data1'].groupby('key1')
+----&gt; 1 df[&#39;data1&#39;].groupby(&#39;key1&#39;)
 
 
 D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\generic.py in groupby(self, by, axis, level, as_index, sort, group_keys, squeeze, **kwargs)
@@ -459,7 +459,7 @@ D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\generic.py in groupby(se
 
 
 D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\groupby.py in groupby(obj, by, **kwds)
-   1697         raise TypeError('invalid type: %s' % type(obj))
+   1697         raise TypeError(&#39;invalid type: %s&#39; % type(obj))
    1698 
 -&gt; 1699     return klass(obj, by, **kwds)
    1700 
@@ -482,25 +482,17 @@ D:\ProgramFiles\Anaconda3\lib\site-packages\pandas\core\groupby.py in _get_group
    2692             # Add key to exclusions
 
 
-KeyError: 'key1'
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(<span class="string">'key1'</span>)</span><br><span class="line">grouped</span><br></pre></td></tr></table></figure>
+KeyError: &#39;key1&#39;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(<span class="string">'key1'</span>)</span><br><span class="line">grouped</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;pandas.core.groupby.DataFrameGroupBy object at 0x000000000A198A58&gt;
-</code></pre>
-<p>df[‘data1’].groupby(df[‘key1’])<br><br>
-df[‘data2’].groupby(df[‘key1’])<br><br>
-是<br><br>
-df.groupby(‘key1’)[‘data1’]<br><br>
-df.groupby(‘key1’)[[‘data2’]]<br><br>
-的语法糖</p>
+</code></pre><p>df[‘data1’].groupby(df[‘key1’])<br><br>df[‘data2’].groupby(df[‘key1’])<br><br>是<br><br>df.groupby(‘key1’)[‘data1’]<br><br>df.groupby(‘key1’)[[‘data2’]]<br><br>的语法糖</p>
 <p>变量grouped是一个GroupBy对象，实际上还没有进行任何计算，只是含有一些关于分组键df[‘key1’]的中间数据而已。该对象已经有了接下来对分组执行运算所需要的一切信息。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped.mean()</span><br></pre></td></tr></table></figure>
 <pre><code>key1
 a    0.746672
 b   -0.537585
 Name: data1, dtype: float64
-</code></pre>
-<p>数据（Series）根据分组键进行聚合，产生了一个新的Series，其索引为key1列中的唯一值。之所以结果索引的名称为key1，是因为原始DataFrame的列df[‘key1’]就叫这个名字。</p>
+</code></pre><p>数据（Series）根据分组键进行聚合，产生了一个新的Series，其索引为key1列中的唯一值。之所以结果索引的名称为key1，是因为原始DataFrame的列df[‘key1’]就叫这个名字。</p>
 <p>一次传入多个数组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">means = df[<span class="string">'data1'</span>].groupby([df[<span class="string">'key1'</span>], df[<span class="string">'key2'</span>]]).mean() <span class="comment"># 返回Series</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">means</span><br></pre></td></tr></table></figure>
@@ -510,21 +502,20 @@ a     one     0.880536
 b     one    -0.519439
       two    -0.555730
 Name: data1, dtype: float64
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby([df[<span class="string">'key1'</span>], df[<span class="string">'key2'</span>]]).mean() <span class="comment"># 反回DataFrame df就是个DataFrame</span></span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby([df[<span class="string">'key1'</span>], df[<span class="string">'key2'</span>]]).mean() <span class="comment"># 反回DataFrame df就是个DataFrame</span></span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -567,6 +558,9 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p><strong>分组键是数组</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -574,14 +568,14 @@ Name: data1, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -632,14 +626,17 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">states = np.array([<span class="string">'Ohio'</span>, <span class="string">'California'</span>, <span class="string">'California'</span>, <span class="string">'Ohio'</span>, <span class="string">'Ohio'</span>])</span><br><span class="line">years = np.array([<span class="number">2005</span>, <span class="number">2005</span>, <span class="number">2006</span>, <span class="number">2005</span>, <span class="number">2006</span>])</span><br><span class="line">df[<span class="string">'data1'</span>].groupby([states, years]).mean()</span><br></pre></td></tr></table></figure>
 <pre><code>California  2005    0.478943
             2006   -0.519439
 Ohio        2005   -0.380219
             2006    1.965781
 Name: data1, dtype: float64
-</code></pre>
-<p>可以理解为给df增加了states和years两列，这两列的长度必须和地方列的长度相同。即书中所说，分组键可以是任何长度适当的数组。</p>
+</code></pre><p>可以理解为给df增加了states和years两列，这两列的长度必须和地方列的长度相同。即书中所说，分组键可以是任何长度适当的数组。</p>
 <p><strong>还可以将列名用作分组键</strong></p>
 <p>列名可以使字符串、数字或其他Python对象</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby(<span class="string">'key1'</span>).mean()</span><br></pre></td></tr></table></figure>
@@ -648,14 +645,14 @@ Name: data1, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -684,6 +681,9 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>上面没有key2的值，因为key2不是数值型的，被自动忽略了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>]).size() <span class="comment"># 多列要写成列表</span></span><br></pre></td></tr></table></figure>
 <pre><code>key1  key2
@@ -692,9 +692,7 @@ a     one     2
 b     one     1
       two     1
 dtype: int64
-</code></pre>
-<h2 id="12-对分组进行迭代"><a class="markdownIt-Anchor" href="#12-对分组进行迭代"></a> 1.2 对分组进行迭代</h2>
-<p>GroupBy对象支持迭代，可以产生一组二元元组（由分组名和数据块组成）。</p>
+</code></pre><h2 id="1-2-对分组进行迭代"><a href="#1-2-对分组进行迭代" class="headerlink" title="1.2 对分组进行迭代"></a>1.2 对分组进行迭代</h2><p>GroupBy对象支持迭代，可以产生一组二元元组（由分组名和数据块组成）。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> name, group <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):</span><br><span class="line">    print(name)</span><br><span class="line">    print(group)</span><br></pre></td></tr></table></figure>
 <pre><code>a
       data1     data2 key1 key2
@@ -705,54 +703,50 @@ b
       data1     data2 key1 key2
 2 -0.519439  0.281746    b  one
 3 -0.555730  0.769023    b  two
-</code></pre>
-<p>对于多重键的情况，元组的第一个元素将会是由键值组成的元组：</p>
+</code></pre><p>对于多重键的情况，元组的第一个元素将会是由键值组成的元组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (k1, k2), group <span class="keyword">in</span> df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>]):</span><br><span class="line">    print((k1, k2))</span><br><span class="line">    print(group)</span><br></pre></td></tr></table></figure>
-<pre><code>('a', 'one')
+<pre><code>(&#39;a&#39;, &#39;one&#39;)
       data1     data2 key1 key2
 0 -0.204708  1.393406    a  one
 4  1.965781  1.246435    a  one
-('a', 'two')
+(&#39;a&#39;, &#39;two&#39;)
       data1     data2 key1 key2
 1  0.478943  0.092908    a  two
-('b', 'one')
+(&#39;b&#39;, &#39;one&#39;)
       data1     data2 key1 key2
 2 -0.519439  0.281746    b  one
-('b', 'two')
+(&#39;b&#39;, &#39;two&#39;)
      data1     data2 key1 key2
 3 -0.55573  0.769023    b  two
-</code></pre>
-<p>可以对这些数据片段做任何操作，下面是将这些数据片段做成一个字典：</p>
+</code></pre><p>可以对这些数据片段做任何操作，下面是将这些数据片段做成一个字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(df.groupby(<span class="string">'key1'</span>))</span><br></pre></td></tr></table></figure>
-<pre><code>[('a',       data1     data2 key1 key2
+<pre><code>[(&#39;a&#39;,       data1     data2 key1 key2
   0 -0.204708  1.393406    a  one
   1  0.478943  0.092908    a  two
-  4  1.965781  1.246435    a  one), ('b',       data1     data2 key1 key2
+  4  1.965781  1.246435    a  one), (&#39;b&#39;,       data1     data2 key1 key2
   2 -0.519439  0.281746    b  one
   3 -0.555730  0.769023    b  two)]
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br></pre></td></tr></table></figure>
-<pre><code>{'a':       data1     data2 key1 key2
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br></pre></td></tr></table></figure>
+<pre><code>{&#39;a&#39;:       data1     data2 key1 key2
  0 -0.204708  1.393406    a  one
  1  0.478943  0.092908    a  two
- 4  1.965781  1.246435    a  one, 'b':       data1     data2 key1 key2
+ 4  1.965781  1.246435    a  one, &#39;b&#39;:       data1     data2 key1 key2
  2 -0.519439  0.281746    b  one
  3 -0.555730  0.769023    b  two}
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pieces = dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br><span class="line">pieces[<span class="string">'b'</span>]</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pieces = dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br><span class="line">pieces[<span class="string">'b'</span>]</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -782,6 +776,9 @@ b
   </tbody>
 </table>
 </div>
+
+
+
 <p>key1（这列中的唯一值）就是字典的键，这可能是分组键的名称的由来？</p>
 <p>groupby默认是在axis=0上进行分组的，通过设置也可以在其他任何轴上进行分组。下面根据dtypes对列进行分组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dtypes</span><br></pre></td></tr></table></figure>
@@ -790,30 +787,21 @@ data2    float64
 key1      object
 key2      object
 dtype: object
-</code></pre>
-<p>df.dtypes是键<br>
-<br>取的是列，data1、data2这两列一组，key1、key2这两列另一组</p>
+</code></pre><p>df.dtypes是键<br><br>取的是列，data1、data2这两列一组，key1、key2这两列另一组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(df.dtypes, axis=<span class="number">1</span>)</span><br><span class="line">dict(list(grouped))</span><br></pre></td></tr></table></figure>
-<pre><code>{dtype('float64'):       data1     data2
+<pre><code>{dtype(&#39;float64&#39;):       data1     data2
  0 -0.204708  1.393406
  1  0.478943  0.092908
  2 -0.519439  0.281746
  3 -0.555730  0.769023
- 4  1.965781  1.246435, dtype('O'):   key1 key2
+ 4  1.965781  1.246435, dtype(&#39;O&#39;):   key1 key2
  0    a  one
  1    a  two
  2    b  one
  3    b  two
  4    a  one}
-</code></pre>
-<h2 id="13-选取一个或一组列"><a class="markdownIt-Anchor" href="#13-选取一个或一组列"></a> 1.3 选取一个或一组列</h2>
-<p>对于由DataFrame产生的GroupBy对象，如果用一个（单个字符串）或一组（字符串数组）列名对其进行索引，可以实现选取部分列进行聚合的目的。</p>
-<p>df[‘data1’].groupby(df[‘key1’])<br><br>
-df[‘data2’].groupby(df[‘key1’])<br><br>
-是<br><br>
-df.groupby(‘key1’)[‘data1’]<br><br>
-df.groupby(‘key1’)[[‘data2’]]<br><br>
-的语法糖</p>
+</code></pre><h2 id="1-3-选取一个或一组列"><a href="#1-3-选取一个或一组列" class="headerlink" title="1.3 选取一个或一组列"></a>1.3 选取一个或一组列</h2><p>对于由DataFrame产生的GroupBy对象，如果用一个（单个字符串）或一组（字符串数组）列名对其进行索引，可以实现选取部分列进行聚合的目的。</p>
+<p>df[‘data1’].groupby(df[‘key1’])<br><br>df[‘data2’].groupby(df[‘key1’])<br><br>是<br><br>df.groupby(‘key1’)[‘data1’]<br><br>df.groupby(‘key1’)[[‘data2’]]<br><br>的语法糖</p>
 <p>如果传入的是列表或数组（[‘data2’]）， 返回的对象是一个已分组的DataFrame</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</span><br></pre></td></tr></table></figure>
 <div>
@@ -821,14 +809,14 @@ df.groupby(‘key1’)[[‘data2’]]<br><br>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -865,20 +853,20 @@ df.groupby(‘key1’)[[‘data2’]]<br><br>
   </tbody>
 </table>
 </div>
-<p>如果传入的是标量形式的单个列名（‘data2’），返回的对象是已分组的Series</p>
+
+
+
+<p>如果传入的是标量形式的单个列名（’data2’），返回的对象是已分组的Series</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s_grouped = df.groupby([<span class="string">'key1'</span>, <span class="string">'key2'</span>])[<span class="string">'data2'</span>]</span><br><span class="line">s_grouped</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;pandas.core.groupby.SeriesGroupBy object at 0x000000000A198B70&gt;
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s_grouped.mean()</span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s_grouped.mean()</span><br></pre></td></tr></table></figure>
 <pre><code>key1  key2
 a     one     1.319920
       two     0.092908
 b     one     0.281746
       two     0.769023
 Name: data2, dtype: float64
-</code></pre>
-<h2 id="14-通过字典或series进行分组"><a class="markdownIt-Anchor" href="#14-通过字典或series进行分组"></a> 1.4 通过字典或Series进行分组</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">people = DataFrame(np.random.randn(<span class="number">5</span>, <span class="number">5</span>),</span><br><span class="line">                   columns=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>],</span><br><span class="line">                   index=[<span class="string">'Joe'</span>, <span class="string">'Steve'</span>, <span class="string">'Wes'</span>, <span class="string">'Jim'</span>, <span class="string">'Travis'</span>])</span><br><span class="line">people.ix[<span class="number">2</span>:<span class="number">3</span>, [<span class="string">'b'</span>, <span class="string">'c'</span>]] = np.nan <span class="comment"># Add a few NA values</span></span><br><span class="line">people</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="1-4-通过字典或Series进行分组"><a href="#1-4-通过字典或Series进行分组" class="headerlink" title="1.4 通过字典或Series进行分组"></a>1.4 通过字典或Series进行分组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">people = DataFrame(np.random.randn(<span class="number">5</span>, <span class="number">5</span>),</span><br><span class="line">                   columns=[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>],</span><br><span class="line">                   index=[<span class="string">'Joe'</span>, <span class="string">'Steve'</span>, <span class="string">'Wes'</span>, <span class="string">'Jim'</span>, <span class="string">'Travis'</span>])</span><br><span class="line">people.ix[<span class="number">2</span>:<span class="number">3</span>, [<span class="string">'b'</span>, <span class="string">'c'</span>]] = np.nan <span class="comment"># Add a few NA values</span></span><br><span class="line">people</span><br></pre></td></tr></table></figure>
 <pre><code>D:\ProgramFiles\Anaconda3\lib\site-packages\ipykernel_launcher.py:4: DeprecationWarning: 
 .ix is deprecated. Please use
 .loc for label based indexing or
@@ -887,20 +875,19 @@ Name: data2, dtype: float64
 See the documentation here:
 http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecated
   after removing the cwd from sys.path.
-</code></pre>
-<div>
+</code></pre><div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -957,6 +944,9 @@ http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecat
   </tbody>
 </table>
 </div>
+
+
+
 <p><strong>字典</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mapping = &#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'red'</span>, <span class="string">'b'</span>: <span class="string">'red'</span>, <span class="string">'c'</span>: <span class="string">'blue'</span>, <span class="string">'d'</span>: <span class="string">'blue'</span>, <span class="string">'e'</span>: <span class="string">'red'</span>, <span class="string">'f'</span>: <span class="string">'orange'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">by_column = people.groupby(mapping, axis=<span class="number">1</span>)</span><br><span class="line">by_column.sum()</span><br></pre></td></tr></table></figure>
@@ -965,14 +955,14 @@ http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecat
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1011,6 +1001,9 @@ http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecat
   </tbody>
 </table>
 </div>
+
+
+
 <p><strong>Series</strong></p>
 <p>Series也有同样的功能，它可以被看做一个固定大小的映射。对于上面的例子，如果用Series作为分组键，则pandas会检查Series以确保其索引跟分组轴是对齐的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map_series = Series(mapping)</span><br><span class="line">map_series</span><br></pre></td></tr></table></figure>
@@ -1021,23 +1014,21 @@ d      blue
 e       red
 f    orange
 dtype: object
-</code></pre>
-<h2 id="15-通过函数进行分组"><a class="markdownIt-Anchor" href="#15-通过函数进行分组"></a> 1.5 通过函数进行分组</h2>
-<p>任何被当做分组键的函数都会在各个索引值上被调用一次，其返回值会被用作分组名称。如下面返回的长度，成为了分组名称：</p>
+</code></pre><h2 id="1-5-通过函数进行分组"><a href="#1-5-通过函数进行分组" class="headerlink" title="1.5 通过函数进行分组"></a>1.5 通过函数进行分组</h2><p>任何被当做分组键的函数都会在各个索引值上被调用一次，其返回值会被用作分组名称。如下面返回的长度，成为了分组名称：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.groupby(len).sum()</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1078,6 +1069,9 @@ dtype: object
   </tbody>
 </table>
 </div>
+
+
+
 <p>可以将函数跟数组、列表、字典、Series混合使用，任何东西最终都会被转换为数组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key_list = [<span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'two'</span>]</span><br><span class="line">people.groupby([len, key_list]).min()</span><br></pre></td></tr></table></figure>
 <div>
@@ -1085,14 +1079,14 @@ dtype: object
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1145,8 +1139,10 @@ dtype: object
   </tbody>
 </table>
 </div>
-<h2 id="16-根据索引级别分组"><a class="markdownIt-Anchor" href="#16-根据索引级别分组"></a> 1.6 根据索引级别分组</h2>
-<p>层次化索引数据集能根据索引级别进行聚合，要实现该目的，通过level关键字传入级别编号或名称即可。</p>
+
+
+
+<h2 id="1-6-根据索引级别分组"><a href="#1-6-根据索引级别分组" class="headerlink" title="1.6 根据索引级别分组"></a>1.6 根据索引级别分组</h2><p>层次化索引数据集能根据索引级别进行聚合，要实现该目的，通过level关键字传入级别编号或名称即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">columns = pd.MultiIndex.from_arrays([[<span class="string">'US'</span>, <span class="string">'US'</span>, <span class="string">'US'</span>, <span class="string">'JP'</span>, <span class="string">'JP'</span>], [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>]], names=[<span class="string">'cty'</span>, <span class="string">'tenor'</span>])</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hier_df = DataFrame(np.random.randn(<span class="number">4</span>, <span class="number">5</span>), columns=columns)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hier_df</span><br></pre></td></tr></table></figure>
@@ -1155,14 +1151,14 @@ dtype: object
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1216,20 +1212,24 @@ dtype: object
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hier_df.groupby(level=<span class="string">'cty'</span>, axis=<span class="number">1</span>).count()</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1263,10 +1263,12 @@ dtype: object
   </tbody>
 </table>
 </div>
-<h1 id="2-数据聚合"><a class="markdownIt-Anchor" href="#2-数据聚合"></a> 2 数据聚合</h1>
-<p>聚合是从数组产生标量值的转换过程，如mean、sum、count、min以及sum等。</p>
-<h2 id="21-常见的聚合方法"><a class="markdownIt-Anchor" href="#21-常见的聚合方法"></a> 2.1 常见的聚合方法</h2>
-<p>GroupBy方法</p>
+
+
+
+<h1 id="2-数据聚合"><a href="#2-数据聚合" class="headerlink" title="2 数据聚合"></a>2 数据聚合</h1><p>聚合是从数组产生标量值的转换过程，如mean、sum、count、min以及sum等。</p>
+<h2 id="2-1-常见的聚合方法"><a href="#2-1-常见的聚合方法" class="headerlink" title="2.1 常见的聚合方法"></a>2.1 常见的聚合方法</h2><p>GroupBy方法</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1309,6 +1311,7 @@ dtype: object
 </tr>
 </tbody>
 </table>
+</div>
 <p>然而，并非只是能使用上面的方法，上面的方法只不过是将一些常见的聚合运算方法进行了优化。一些Series和DataFrame的聚合方法都是可以使用的，如计算中位数的quantile：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -1316,14 +1319,14 @@ dtype: object
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1374,13 +1377,16 @@ dtype: object
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grouped = df.groupby(<span class="string">'key1'</span>)</span><br><span class="line">grouped[<span class="string">'data1'</span>].quantile(<span class="number">0.9</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>key1
 a    1.668413
 b   -0.523068
 Name: data1, dtype: float64
-</code></pre>
-<p>GroupBy会高效地对Series进行切片，然后对各片调用piece.quantile(0.9)，最后将这些结果组装成最后的结果。</p>
+</code></pre><p>GroupBy会高效地对Series进行切片，然后对各片调用piece.quantile(0.9)，最后将这些结果组装成最后的结果。</p>
 <p>除了上面两种情况，还可以使用自己定义的函数，这时就要用到agg（aggregate）了：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peak_to_peak</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> arr.max() - arr.min()</span><br><span class="line"></span><br><span class="line">grouped.agg(peak_to_peak)</span><br></pre></td></tr></table></figure>
 <div>
@@ -1388,14 +1394,14 @@ Name: data1, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1450,6 +1456,9 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>上面的函数作用在了每组的各列</p>
 <p>最后，有些方法虽然不是聚合运算，但是也可以用在这里，如describe：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped.describe()</span><br></pre></td></tr></table></figure>
@@ -1458,14 +1467,14 @@ Name: data1, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1555,21 +1564,23 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
-<h2 id="22-多函数聚合"><a class="markdownIt-Anchor" href="#22-多函数聚合"></a> 2.2 多函数聚合</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">'https://raw.githubusercontent.com/zhao750456695/dataset/master/tips.csv'</span></span><br><span class="line">tips = pd.read_csv(path)</span><br><span class="line">tips.head()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-多函数聚合"><a href="#2-2-多函数聚合" class="headerlink" title="2.2 多函数聚合"></a>2.2 多函数聚合</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">'https://raw.githubusercontent.com/zhao750456695/dataset/master/tips.csv'</span></span><br><span class="line">tips = pd.read_csv(path)</span><br><span class="line">tips.head()</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1638,6 +1649,9 @@ Name: data1, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>包括：<br></p>
 <ul>
 <li>对不同的列使用不同的聚合函数</li>
@@ -1655,22 +1669,21 @@ Female  No        0.156921
 Male    No        0.160669
         Yes       0.152771
 Name: tips_pct, dtype: float64
-</code></pre>
-<p>如果传入一组函数或函数名，得到的DataFrame的列就会以相应的函数命名：</p>
+</code></pre><p>如果传入一组函数或函数名，得到的DataFrame的列就会以相应的函数命名：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped_pct.agg([<span class="string">'mean'</span>, <span class="string">'std'</span>, peak_to_peak])</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1719,6 +1732,9 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>出入的一个由（name, function）元组组成的列表，则各元组的第一个元素就会被用作DataFrame的列名（可以将这种二元元组列表看做一个有序映射）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped_pct.agg([(<span class="string">'foo'</span>, <span class="string">'mean'</span>), (<span class="string">'bar'</span>, np.std)])</span><br></pre></td></tr></table></figure>
 <div>
@@ -1726,14 +1742,14 @@ Name: tips_pct, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1776,22 +1792,24 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
-<p><strong>对不同的列使用不同的聚合函数</strong><br>
-对于DataFrame，你可以定义一组应用于全部列的函数，或不同的列应用不同的函数。</p>
+
+
+
+<p><strong>对不同的列使用不同的聚合函数</strong><br>对于DataFrame，你可以定义一组应用于全部列的函数，或不同的列应用不同的函数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">functions = [<span class="string">'count'</span>, <span class="string">'mean'</span>, <span class="string">'max'</span>]</span><br><span class="line">result = grouped[<span class="string">'tips_pct'</span>, <span class="string">'total_bill'</span>].agg(functions)</span><br><span class="line">result</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1864,6 +1882,9 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>结果DataFrame拥有层次化的列，这相当于分别对各列进行聚合，然后用concat将结果组装到一起，列名用作keys参数。</p>
 <p>也可以出入带有自定义名称的元组列表</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftuples = [(<span class="string">'Durchschnitt'</span>, <span class="string">'mean'</span>), (<span class="string">'Abweichung'</span>, np.var)]</span><br></pre></td></tr></table></figure>
@@ -1873,14 +1894,14 @@ Name: tips_pct, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1941,6 +1962,9 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
 <p>下面对不同的列应用不同的函数，向agg传入一个列名映射到函数的字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped.agg(&#123;<span class="string">'tip'</span>: np.max, <span class="string">'size'</span>: <span class="string">'sum'</span>&#125;)</span><br></pre></td></tr></table></figure>
 <div>
@@ -1948,14 +1972,14 @@ Name: tips_pct, dtype: float64
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1998,20 +2022,24 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grouped.agg(&#123;<span class="string">'tips_pct'</span>: [<span class="string">'min'</span>, <span class="string">'max'</span>, <span class="string">'mean'</span>, <span class="string">'std'</span>], <span class="string">'size'</span>: <span class="string">'sum'</span>&#125;)</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2078,22 +2106,24 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
-<h2 id="23-以无索引的形式返回聚合数据"><a class="markdownIt-Anchor" href="#23-以无索引的形式返回聚合数据"></a> 2.3 以“无索引”的形式返回聚合数据</h2>
-<p>上面的实例都有<strong>由唯一分组键组成的索引（可能还是层次化的）</strong>，可以用as_index=False禁用该功能</p>
+
+
+
+<h2 id="2-3-以“无索引”的形式返回聚合数据"><a href="#2-3-以“无索引”的形式返回聚合数据" class="headerlink" title="2.3 以“无索引”的形式返回聚合数据"></a>2.3 以“无索引”的形式返回聚合数据</h2><p>上面的实例都有<strong>由唯一分组键组成的索引（可能还是层次化的）</strong>，可以用as_index=False禁用该功能</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.groupby([<span class="string">'sex'</span>, <span class="string">'smoker'</span>], as_index=<span class="keyword">False</span>).mean()</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2147,11 +2177,11 @@ Name: tips_pct, dtype: float64
   </tbody>
 </table>
 </div>
-<h1 id="3-分组级运算和转换"><a class="markdownIt-Anchor" href="#3-分组级运算和转换"></a> 3 分组级运算和转换</h1>
-<p>聚合只不过是分组运算的其中一种，是数据转换的一个特例，它接受将一维数组简化为标量值的函数。<br><br>
-transform和apply方法，能够执行更多的其他分组运算。</p>
-<h2 id="31-transform"><a class="markdownIt-Anchor" href="#31-transform"></a> 3.1 transform</h2>
-<p>下面为一个DataFrame添加一个用于存放各索引分组平均值的列。一个办法是：</p>
+
+
+
+<h1 id="3-分组级运算和转换"><a href="#3-分组级运算和转换" class="headerlink" title="3 分组级运算和转换"></a>3 分组级运算和转换</h1><p>聚合只不过是分组运算的其中一种，是数据转换的一个特例，它接受将一维数组简化为标量值的函数。<br><br>transform和apply方法，能够执行更多的其他分组运算。</p>
+<h2 id="3-1-transform"><a href="#3-1-transform" class="headerlink" title="3.1 transform"></a>3.1 transform</h2><p>下面为一个DataFrame添加一个用于存放各索引分组平均值的列。一个办法是：</p>
 <p>先聚合，列名前添加前缀，创建新的DataFrame</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -2159,14 +2189,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2217,20 +2247,24 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">k1_means = df.groupby(<span class="string">'key1'</span>).mean().add_prefix(<span class="string">'mean_'</span>)</span><br><span class="line">k1_means</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2259,6 +2293,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>再合并</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df, k1_means, left_on=<span class="string">'key1'</span>, right_index=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -2266,14 +2303,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2336,6 +2373,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>比较麻烦，用transform可以大大简化。</p>
 <p>下面介绍transform</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people</span><br></pre></td></tr></table></figure>
@@ -2344,14 +2384,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2408,6 +2448,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>使用transform</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key=[<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'one'</span>]</span><br><span class="line">people.groupby(key).transform(np.mean)</span><br></pre></td></tr></table></figure>
 <div>
@@ -2415,14 +2458,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2479,6 +2522,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>使用apply</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.groupby(key).apply(np.mean)</span><br></pre></td></tr></table></figure>
 <div>
@@ -2486,14 +2532,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2526,6 +2572,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>直接使用mean，和apply的结果是一样的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.groupby(key).mean()</span><br></pre></td></tr></table></figure>
 <div>
@@ -2533,14 +2582,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2573,6 +2622,9 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
 <p>下面用transform添加均值：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -2580,14 +2632,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2638,20 +2690,24 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby(<span class="string">'key1'</span>).transform(<span class="string">'mean'</span>)</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2690,6 +2746,10 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[[<span class="string">'data1_mean'</span>, <span class="string">'data2_mean'</span>]] = df.groupby(<span class="string">'key1'</span>).transform(<span class="string">'mean'</span>)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <div>
@@ -2697,14 +2757,14 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2767,14 +2827,15 @@ transform和apply方法，能够执行更多的其他分组运算。</p>
   </tbody>
 </table>
 </div>
-<p>简单方便又快捷<br><br>
-transform会保留原来的索引，把得到的标量广播出去，如根据key分组，a得到的data1均值是0.746672，这个均值会给所有key1是a的行。</p>
+
+
+
+<p>简单方便又快捷<br><br>transform会保留原来的索引，把得到的标量广播出去，如根据key分组，a得到的data1均值是0.746672，这个均值会给所有key1是a的行。</p>
 <p>tansform的过程：</p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqjb2ge3sbj20jg09cq49.jpg" alt=""></p>
 <p>apply的过程：</p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqjb29tztbj20jg09r0tp.jpg" alt=""></p>
-<h2 id="32-apply一般性的拆分应用合并"><a class="markdownIt-Anchor" href="#32-apply一般性的拆分应用合并"></a> 3.2 apply：一般性的“拆分—应用—合并”</h2>
-<p>和agg一样，transform是有着严格的使用条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值（如np.mean），要命产生一个相同大小的结果数组。</p>
+<h2 id="3-2-apply：一般性的“拆分—-应用—-合并”"><a href="#3-2-apply：一般性的“拆分—-应用—-合并”" class="headerlink" title="3.2 apply：一般性的“拆分—-应用—-合并”"></a>3.2 apply：一般性的“拆分—-应用—-合并”</h2><p>和agg一样，transform是有着严格的使用条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值（如np.mean），要命产生一个相同大小的结果数组。</p>
 <p>最一般化的GroupBy方法还是是apply，apply会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">'https://raw.githubusercontent.com/zhao750456695/dataset/master/tips.csv'</span></span><br><span class="line">tips = pd.read_csv(path)</span><br><span class="line">tips[<span class="string">'tips_pct'</span>] = tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>]</span><br><span class="line">tips.head()</span><br></pre></td></tr></table></figure>
 <div>
@@ -2782,14 +2843,14 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2864,24 +2925,26 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
   </tbody>
 </table>
 </div>
+
+
+
 <p>回到这个消费数据集上，假设想根据分组选出最高的5个tip_pct值，先编写一个函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(df, n=<span class="number">5</span>, column=<span class="string">'tips_pct'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> df.sort_index(by=column)[-n: ]</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top(tips, n=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>D:\ProgramFiles\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
-</code></pre>
-<div>
+</code></pre><div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2967,23 +3030,25 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
   </tbody>
 </table>
 </div>
+
+
+
 <p>现在对smoker分组并使用apply：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.groupby(<span class="string">'smoker'</span>).apply(top)</span><br></pre></td></tr></table></figure>
 <pre><code>D:\ProgramFiles\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
-</code></pre>
-<div>
+</code></pre><div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3128,24 +3193,26 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
   </tbody>
 </table>
 </div>
+
+
+
 <p>这里发生了什么？top函数在DataFrame的各个片段上调用，然后结果由pandas.concat组装到一起，并以分组名称进行标记。于是，最终结果就有了一个层次化索引，<strong>其内层索引来自原DataFrame</strong>。</p>
 <p>如果传给apply的函数能够接受其他参数或关键字，则可以将这些内容放在函数名后面一并传入：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.groupby([<span class="string">'smoker'</span>, <span class="string">'day'</span>]).apply(top, n=<span class="number">1</span>, column=<span class="string">'total_bill'</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>D:\ProgramFiles\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
-</code></pre>
-<div>
+</code></pre><div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3278,6 +3345,9 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
   </tbody>
 </table>
 </div>
+
+
+
 <p>前面用到过describe，其实只是一种快捷方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = tips.groupby(<span class="string">'smoker'</span>)[<span class="string">'tips_pct'</span>].describe()</span><br><span class="line">result</span><br></pre></td></tr></table></figure>
 <div>
@@ -3285,14 +3355,14 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3345,6 +3415,10 @@ transform会保留原来的索引，把得到的标量广播出去，如根据ke
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.unstack(<span class="string">'smoker'</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>       smoker
 count  No        151.000000
@@ -3364,28 +3438,25 @@ min    No          0.056797
 max    No          0.291990
        Yes         0.710345
 dtype: float64
-</code></pre>
-<p>在GroupBy中，当你调用诸如describe之类的方法时，实际上只是应用了下面两条代码的快捷方式而已：</p>
-<p>f = lambda x: x.describe()<br><br>
-grouped.apply(f)</p>
+</code></pre><p>在GroupBy中，当你调用诸如describe之类的方法时，实际上只是应用了下面两条代码的快捷方式而已：</p>
+<p>f = lambda x: x.describe()<br><br>grouped.apply(f)</p>
 <p><strong>禁止分组键</strong></p>
 <p>从上面知，分组键会跟原始对象的索引共同构成结果对象中的层次化索引。将group_keys=False传入groupby即可禁止该效果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.groupby(<span class="string">'smoker'</span>, group_keys=<span class="keyword">False</span>).apply(top)</span><br></pre></td></tr></table></figure>
 <pre><code>D:\ProgramFiles\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
-</code></pre>
-<div>
+</code></pre><div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3515,8 +3586,10 @@ grouped.apply(f)</p>
   </tbody>
 </table>
 </div>
-<h2 id="33-分位数和桶分析"><a class="markdownIt-Anchor" href="#33-分位数和桶分析"></a> 3.3 分位数和桶分析</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(&#123;<span class="string">'data1'</span>: np.random.randn(<span class="number">1000</span>),</span><br><span class="line">                   <span class="string">'data2'</span>: np.random.randn(<span class="number">1000</span>)&#125;)</span><br><span class="line">factor = pd.cut(frame.data1, <span class="number">4</span>)</span><br><span class="line">factor[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-3-分位数和桶分析"><a href="#3-3-分位数和桶分析" class="headerlink" title="3.3 分位数和桶分析"></a>3.3 分位数和桶分析</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">frame = DataFrame(&#123;<span class="string">'data1'</span>: np.random.randn(<span class="number">1000</span>),</span><br><span class="line">                   <span class="string">'data2'</span>: np.random.randn(<span class="number">1000</span>)&#125;)</span><br><span class="line">factor = pd.cut(frame.data1, <span class="number">4</span>)</span><br><span class="line">factor[:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
 <pre><code>0     (0.489, 2.208]
 1    (-2.956, -1.23]
 2     (-1.23, 0.489]
@@ -3529,22 +3602,21 @@ grouped.apply(f)</p>
 9     (-1.23, 0.489]
 Name: data1, dtype: category
 Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.489, 2.208] &lt; (2.208, 3.928]]
-</code></pre>
-<p>cut返回的Factor对象可以直接用于groupby。因此，可以像下面这样对data2做一些统计计算：</p>
+</code></pre><p>cut返回的Factor对象可以直接用于groupby。因此，可以像下面这样对data2做一些统计计算：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_stats</span><span class="params">(group)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">'min'</span>: group.min(), <span class="string">'max'</span>: group.max(),</span><br><span class="line">            <span class="string">'count'</span>: group.count(), <span class="string">'mean'</span>: group.mean()&#125;</span><br><span class="line"></span><br><span class="line">grouped = frame.data2.groupby(factor)</span><br><span class="line">grouped.apply(get_stats).unstack()</span><br><span class="line"></span><br><span class="line"><span class="comment">#ADAPT the output is not sorted in the book while this is the case now (swap first two lines)</span></span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3595,20 +3667,24 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Return quantile numbers</span></span><br><span class="line">grouping = pd.qcut(frame.data1, <span class="number">10</span>, labels=<span class="keyword">False</span>)</span><br><span class="line">grouped = frame.data2.groupby(grouping)</span><br><span class="line">grouped.apply(get_stats).unstack()</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3701,6 +3777,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>上面是长度相等的桶，要根据样本分位数得到大小相等的桶，使用qcut即可。传入labels=False即可只获得分位数的编号。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Return quantile numbers</span></span><br><span class="line">grouping = pd.qcut(frame.data1, <span class="number">10</span>, labels=<span class="keyword">False</span>)</span><br><span class="line">grouped = frame.data2.groupby(grouping)</span><br><span class="line">grouped.apply(get_stats).unstack()</span><br></pre></td></tr></table></figure>
 <div>
@@ -3708,14 +3787,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3808,9 +3887,10 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
-<h1 id="4-透视表和交叉表"><a class="markdownIt-Anchor" href="#4-透视表和交叉表"></a> 4 透视表和交叉表</h1>
-<h2 id="41-透视表"><a class="markdownIt-Anchor" href="#41-透视表"></a> 4.1 透视表</h2>
-<p>透视表是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据<strong>行和列上的分组键</strong>将数据分配到各个矩形区域中。</p>
+
+
+
+<h1 id="4-透视表和交叉表"><a href="#4-透视表和交叉表" class="headerlink" title="4 透视表和交叉表"></a>4 透视表和交叉表</h1><h2 id="4-1-透视表"><a href="#4-1-透视表" class="headerlink" title="4.1 透视表"></a>4.1 透视表</h2><p>透视表是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据<strong>行和列上的分组键</strong>将数据分配到各个矩形区域中。</p>
 <p>回到小费数据集上，假设我想要根据sex和smoker计算分组平均数（pivot_table的默认聚合类型），并将sex和smoker放到行的索引上：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.pivot_table(index=[<span class="string">'sex'</span>, <span class="string">'smoker'</span>])</span><br></pre></td></tr></table></figure>
 <div>
@@ -3818,14 +3898,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3880,6 +3960,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>这对groupby来说很简单，现在，假设只想聚合tips_pct和size，而且想根据day进行分组。我将smoker放到列上，把day放到行上：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.pivot_table([<span class="string">'tips_pct'</span>, <span class="string">'size'</span>], index=[<span class="string">'sex'</span>, <span class="string">'day'</span>], columns=<span class="string">'smoker'</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -3887,14 +3970,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3983,6 +4066,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>还可以对这个列表进一步处理，出入margins=True添加分项小计。这将会添加标签为ALL的行和列，其值对应于单个等级中所有数据的分组统计。在下面的例子中，ALL值为平均值：不单独考虑烟民与非烟民（ALL列），不单独考虑行分组两个级别中的任何单项（ALL行）。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.pivot_table([<span class="string">'tips_pct'</span>, <span class="string">'size'</span>], index=[<span class="string">'sex'</span>, <span class="string">'day'</span>], columns=<span class="string">'smoker'</span>, margins=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -3990,14 +4076,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4116,6 +4202,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>要使用其他的聚合函数，将其传给aggfunc即可。例如，使用count或len可以得到有关分组大小的交叉表：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.pivot_table(<span class="string">'tips_pct'</span>, index=[<span class="string">'sex'</span>, <span class="string">'smoker'</span>], columns=<span class="string">'day'</span>, aggfunc=len, margins=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -4123,14 +4212,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4200,6 +4289,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>如果存在空的组合（也就是NA），可能希望设置一个fill_value:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tips.pivot_table(<span class="string">'size'</span>, index=[<span class="string">'time'</span>, <span class="string">'sex'</span>, <span class="string">'smoker'</span>], columns=<span class="string">'day'</span>, aggfunc=<span class="string">'sum'</span>, fill_value=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -4207,14 +4299,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4303,22 +4395,24 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
-<h2 id="42-交叉表"><a class="markdownIt-Anchor" href="#42-交叉表"></a> 4.2 交叉表</h2>
-<p>交叉表是一种计算分组频率的特殊透视表。</p>
+
+
+
+<h2 id="4-2-交叉表"><a href="#4-2-交叉表" class="headerlink" title="4.2 交叉表"></a>4.2 交叉表</h2><p>交叉表是一种计算分组频率的特殊透视表。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io</span><br><span class="line">data = <span class="string">"""\</span></span><br><span class="line"><span class="string">Sample    Gender    Handedness</span></span><br><span class="line"><span class="string">1    Female    Right-handed</span></span><br><span class="line"><span class="string">2    Male    Left-handed</span></span><br><span class="line"><span class="string">3    Female    Right-handed</span></span><br><span class="line"><span class="string">4    Male    Right-handed</span></span><br><span class="line"><span class="string">5    Male    Left-handed</span></span><br><span class="line"><span class="string">6    Male    Right-handed</span></span><br><span class="line"><span class="string">7    Female    Right-handed</span></span><br><span class="line"><span class="string">8    Female    Left-handed</span></span><br><span class="line"><span class="string">9    Male    Right-handed</span></span><br><span class="line"><span class="string">10    Female    Right-handed"""</span></span><br><span class="line">data = pd.read_table(io.StringIO(data), sep=<span class="string">'\s+'</span>)</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
 <div>
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4393,6 +4487,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>想要根据性别和用手习惯对这段数据进行汇总：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab(data.Gender, data.Handedness, margins=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -4400,14 +4497,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4446,6 +4543,9 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
+
 <p>前两个参数可以是数组、Series或数组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab([tips.time, tips.day], tips.smoker, margins=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
 <div>
@@ -4453,14 +4553,14 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
     .dataframe thead tr:only-child th {
         text-align: right;
     }
-<pre><code>.dataframe thead th {
-    text-align: left;
-}
 
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-</code></pre>
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4528,6 +4628,8 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
   </tbody>
 </table>
 </div>
+
+
 
       
     </div>
@@ -4655,7 +4757,7 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -4717,7 +4819,7 @@ Categories (4, interval[float64]): [(-2.956, -1.23] &lt; (-1.23, 0.489] &lt; (0.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-groupby计数"><span class="nav-number">1.</span> <span class="nav-text"> 1 GroupBy计数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-概览-splitapplycombine-拆分操作合并"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 概览 split—apply—combine 拆分—操作—合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-对分组进行迭代"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 对分组进行迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-选取一个或一组列"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 选取一个或一组列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-通过字典或series进行分组"><span class="nav-number">1.4.</span> <span class="nav-text"> 1.4 通过字典或Series进行分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-通过函数进行分组"><span class="nav-number">1.5.</span> <span class="nav-text"> 1.5 通过函数进行分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-根据索引级别分组"><span class="nav-number">1.6.</span> <span class="nav-text"> 1.6 根据索引级别分组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据聚合"><span class="nav-number">2.</span> <span class="nav-text"> 2 数据聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-常见的聚合方法"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1 常见的聚合方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-多函数聚合"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2 多函数聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-以无索引的形式返回聚合数据"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3 以“无索引”的形式返回聚合数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-分组级运算和转换"><span class="nav-number">3.</span> <span class="nav-text"> 3 分组级运算和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-transform"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-apply一般性的拆分应用合并"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 apply：一般性的“拆分—应用—合并”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-分位数和桶分析"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 分位数和桶分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-透视表和交叉表"><span class="nav-number">4.</span> <span class="nav-text"> 4 透视表和交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#41-透视表"><span class="nav-number">4.1.</span> <span class="nav-text"> 4.1 透视表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-交叉表"><span class="nav-number">4.2.</span> <span class="nav-text"> 4.2 交叉表</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-GroupBy计数"><span class="nav-number">1.</span> <span class="nav-text">1 GroupBy计数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-概览-split—-apply—-combine-拆分—-操作—-合并"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概览 split—-apply—-combine 拆分—-操作—-合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-对分组进行迭代"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 对分组进行迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-选取一个或一组列"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 选取一个或一组列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-通过字典或Series进行分组"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 通过字典或Series进行分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-通过函数进行分组"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 通过函数进行分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-根据索引级别分组"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 根据索引级别分组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据聚合"><span class="nav-number">2.</span> <span class="nav-text">2 数据聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-常见的聚合方法"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 常见的聚合方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-多函数聚合"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 多函数聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-以“无索引”的形式返回聚合数据"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 以“无索引”的形式返回聚合数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-分组级运算和转换"><span class="nav-number">3.</span> <span class="nav-text">3 分组级运算和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-transform"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-apply：一般性的“拆分—-应用—-合并”"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 apply：一般性的“拆分—-应用—-合并”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-分位数和桶分析"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 分位数和桶分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-透视表和交叉表"><span class="nav-number">4.</span> <span class="nav-text">4 透视表和交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-透视表"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 透视表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-交叉表"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 交叉表</span></a></li></ol></li></ol></div>
             
 
           </div>

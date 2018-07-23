@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin] 选项与参数： -f  ：忽略大小写的差异，例如 A 与 a 视为编码相同； -b  ：忽略最前面的空格符部分； -M">
+<meta name="description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin]选项与参数：-f  ：忽略大小写的差异，例如 A 与 a 视为编码相同；-b  ：忽略最前面的空格符部分；-M  ：以月">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux中的sort、cut、wc命令">
 <meta property="og:url" content="http://yoursite.com/post/d9a9646d.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin] 选项与参数： -f  ：忽略大小写的差异，例如 A 与 a 视为编码相同； -b  ：忽略最前面的空格符部分； -M">
+<meta property="og:description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin]选项与参数：-f  ：忽略大小写的差异，例如 A 与 a 视为编码相同；-b  ：忽略最前面的空格符部分；-M  ：以月">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux中的sort、cut、wc命令">
-<meta name="twitter:description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin] 选项与参数： -f  ：忽略大小写的差异，例如 A 与 a 视为编码相同； -b  ：忽略最前面的空格符部分； -M">
+<meta name="twitter:description" content="sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。 sort语法 [root@www ~]# sort [-fbMnrtuk][file or stdin]选项与参数：-f  ：忽略大小写的差异，例如 A 与 a 视为编码相同；-b  ：忽略最前面的空格符部分；-M  ：以月">
 
 
 
@@ -324,16 +324,7 @@
       
         <p>sort 命令对 File 参数指定的文件中的行排序，并将结果写到标准输出。如果 File 参数指定多个文件，那么 sort 命令将这些文件连接起来，并当作一个文件进行排序。</p>
 <p>sort语法</p>
-<p>[root@www ~]# sort [-fbMnrtuk][file or stdin]<br>
-选项与参数：<br>
--f  ：忽略大小写的差异，例如 A 与 a 视为编码相同；<br>
--b  ：忽略最前面的空格符部分；<br>
--M  ：以月份的名字来排序，例如 JAN, DEC 等等的排序方法；<br>
--n  ：使用『纯数字』进行排序(默认是以文字型态来排序的)；<br>
--r  ：反向排序；<br>
--u  ：就是 uniq ，相同的数据中，仅出现一行代表；<br>
--t  ：分隔符，默认是用 [tab] 键来分隔；<br>
--k  ：以那个区间 (field) 来进行排序的意思</p>
+<p>[root@www ~]# sort [-fbMnrtuk][file or stdin]<br>选项与参数：<br>-f  ：忽略大小写的差异，例如 A 与 a 视为编码相同；<br>-b  ：忽略最前面的空格符部分；<br>-M  ：以月份的名字来排序，例如 JAN, DEC 等等的排序方法；<br>-n  ：使用『纯数字』进行排序(默认是以文字型态来排序的)；<br>-r  ：反向排序；<br>-u  ：就是 uniq ，相同的数据中，仅出现一行代表；<br>-t  ：分隔符，默认是用 [tab] 键来分隔；<br>-k  ：以那个区间 (field) 来进行排序的意思</p>
 <p>对/etc/passwd 的账号进行排序</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# cat /etc/passwd | sort</span><br><span class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">apache:x:48:48:Apache:/var/www:/sbin/nologin</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br></pre></td></tr></table></figure>
 <p>sort 是默认以第一个数据来排序，而且默认是以字符串形式来排序,所以由字母 a 开始升序排序。</p>
@@ -347,19 +338,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd |  sort -t&apos;:&apos; -k 6.2,6.4 -k 1r      </span><br><span class="line">sync:x:4:65534:sync:/bin:/bin/sync</span><br><span class="line">proxy:x:13:13:proxy:/bin:/bin/sh</span><br><span class="line">bin:x:2:2:bin:/bin:/bin/sh</span><br><span class="line">sys:x:3:3:sys:/dev:/bin/sh</span><br></pre></td></tr></table></figure>
 <p>查看/etc/passwd有多少个shell:对/etc/passwd的第七个域进行排序，然后去重:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd |  sort -t&apos;:&apos; -k 7 -u</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">syslog:x:101:102::/home/syslog:/bin/false</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/bin/sh</span><br><span class="line">sync:x:4:65534:sync:/bin:/bin/sync</span><br><span class="line">sshd:x:104:65534::/var/run/sshd:/usr/sbin/nologin</span><br></pre></td></tr></table></figure>
-<h1 id="uniq"><a class="markdownIt-Anchor" href="#uniq"></a> uniq</h1>
-<p>uniq命令可以去除排序过的文件中的重复行，因此uniq经常和sort合用。也就是说，为了使uniq起作用，所有的重复行必须是相邻的。</p>
+<h1 id="uniq"><a href="#uniq" class="headerlink" title="uniq"></a>uniq</h1><p> uniq命令可以去除排序过的文件中的重复行，因此uniq经常和sort合用。也就是说，为了使uniq起作用，所有的重复行必须是相邻的。</p>
 <p>uniq语法</p>
-<p>[root@www ~]# uniq [-icu]<br>
-选项与参数：<br>
--i   ：忽略大小写字符的不同；<br>
--c  ：进行计数<br>
--u  ：只显示唯一的行</p>
+<p>[root@www ~]# uniq [-icu]<br>选项与参数：<br>-i   ：忽略大小写字符的不同；<br>-c  ：进行计数<br>-u  ：只显示唯一的行</p>
 <p>testfile的内容如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat testfile</span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line">friend</span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
 <p>未经排序的文件，将会发现没有任何行被去重</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">uniq testfile</span><br><span class="line"></span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line">friend</span><br><span class="line">hello</span><br><span class="line">world</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
-<p>去重之前要进行排序</p>
+<p> 去重之前要进行排序</p>
 <p>排序文件，默认是去重</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat testfile | sort | uniq</span><br><span class="line"></span><br><span class="line">friend</span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
 <p>排序之后删除了重复行，同时在行首位置输出该行重复的次数</p>
@@ -368,15 +354,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sort testfile | uniq -dc</span><br><span class="line"></span><br><span class="line">3 hello</span><br><span class="line">2 world</span><br></pre></td></tr></table></figure>
 <p>仅显示不重复的行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sort testfile | uniq -u</span><br><span class="line">friend</span><br></pre></td></tr></table></figure>
-<h1 id="cut"><a class="markdownIt-Anchor" href="#cut"></a> cut</h1>
-<p>cut命令可以从一个文本文件或者文本流中提取文本列。</p>
+<h1 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h1><p>cut命令可以从一个文本文件或者文本流中提取文本列。</p>
 <p>cut语法</p>
-<p>[root@www ~]# cut -d’分隔字符’ -f fields &lt;==用于有特定分隔字符<br>
-[root@www ~]# cut -c 字符区间            &lt;==用于排列整齐的信息<br>
-选项与参数：<br>
--d  ：后面接分隔字符。与 -f 一起使用；<br>
--f  ：依据 -d 的分隔字符将一段信息分割成为数段，用 -f 取出第几段的意思；<br>
--c  ：以字符 (characters) 的单位取出固定字符区间；</p>
+<p>[root@www ~]# cut -d’分隔字符’ -f fields &lt;==用于有特定分隔字符<br>[root@www ~]# cut -c 字符区间            &lt;==用于排列整齐的信息<br>选项与参数：<br>-d  ：后面接分隔字符。与 -f 一起使用；<br>-f  ：依据 -d 的分隔字符将一段信息分割成为数段，用 -f 取出第几段的意思；<br>-c  ：以字符 (characters) 的单位取出固定字符区间；</p>
 <p>PATH 变量如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]# echo $PATH</span><br><span class="line">/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/X11R6/bin:/usr/games</span><br><span class="line"></span><br><span class="line">#1 | 2       | 3   | 4       | 5            | 6            | 7</span><br></pre></td></tr></table></figure>
 <p>将 PATH 变量取出，我要找出第五个路径。</p>
@@ -391,23 +371,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo $PATH | cut -d &apos;:&apos; -f 1-3,5</span><br><span class="line">/bin:/usr/bin:/sbin:/usr/local/bin</span><br></pre></td></tr></table></figure>
 <p>实用例子:只显示/etc/passwd的用户和shell</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd | cut -d &apos;:&apos; -f 1,7</span><br><span class="line"></span><br><span class="line">root:/bin/bash</span><br><span class="line">daemon:/bin/sh</span><br><span class="line">bin:/bin/sh</span><br></pre></td></tr></table></figure>
-<h1 id="wc"><a class="markdownIt-Anchor" href="#wc"></a> wc</h1>
-<p>统计文件里面有多少单词，多少行，多少字符。</p>
+<h1 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h1><p>统计文件里面有多少单词，多少行，多少字符。</p>
 <p>wc语法</p>
-<p>[root@www ~]# wc [-lwm]<br>
-选项与参数：<br>
--l  ：仅列出行；<br>
--w  ：仅列出多少字(英文单字)；<br>
--m  ：多少字符；</p>
+<p>[root@www ~]# wc [-lwm]<br>选项与参数：<br>-l  ：仅列出行；<br>-w  ：仅列出多少字(英文单字)；<br>-m  ：多少字符；</p>
 <p>默认使用wc统计/etc/passwd</p>
 <p>wc /etc/passwd</p>
-<p>40   45 1719 /etc/passwd<br>
-40是行数，45是单词数，1719是字节数</p>
+<p>40   45 1719 /etc/passwd<br>40是行数，45是单词数，1719是字节数</p>
 <p>wc的命令比较简单使用，每个参数使用如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wc -l /etc/passwd   #统计行数，在对记录数时，很常用</span><br><span class="line"></span><br><span class="line">40 /etc/passwd       #表示系统有40个账户</span><br><span class="line"></span><br><span class="line">wc -w /etc/passwd  #统计单词出现次数</span><br><span class="line"></span><br><span class="line">45 /etc/passwd</span><br><span class="line"></span><br><span class="line">wc -m /etc/passwd  #统计文件的字符数</span><br><span class="line"></span><br><span class="line">1719</span><br></pre></td></tr></table></figure>
 <p>参考 <a href="http://vbird.dic.ksu.edu.tw/linux_basic/0320bash_6.php#pipe_2" target="_blank" rel="noopener">http://vbird.dic.ksu.edu.tw/linux_basic/0320bash_6.php#pipe_2</a></p>
-<pre><code>  http://www.cnblogs.com/stephen-liu74/archive/2011/11/10/2240461.html</code></pre>
-
+<pre><code>  http://www.cnblogs.com/stephen-liu74/archive/2011/11/10/2240461.html
+</code></pre>
       
     </div>
     
@@ -534,7 +508,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -596,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#uniq"><span class="nav-number">1.</span> <span class="nav-text"> uniq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cut"><span class="nav-number">2.</span> <span class="nav-text"> cut</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wc"><span class="nav-number">3.</span> <span class="nav-text"> wc</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#uniq"><span class="nav-number">1.</span> <span class="nav-text">uniq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cut"><span class="nav-number">2.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wc"><span class="nav-number">3.</span> <span class="nav-text">wc</span></a></li></ol></div>
             
 
           </div>

@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="什么是shell  Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的   Shell脚本的执行方式  第一种：输入脚本的绝对路径或">
+<meta name="description" content="什么是shell Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的  Shell脚本的执行方式 第一种：输入脚本的绝对路径或相对路径">
 <meta name="keywords" content="大数据 linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell编程基础">
 <meta property="og:url" content="http://yoursite.com/post/6e95fc76.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="什么是shell  Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的   Shell脚本的执行方式  第一种：输入脚本的绝对路径或">
+<meta property="og:description" content="什么是shell Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的  Shell脚本的执行方式 第一种：输入脚本的绝对路径或相对路径">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell编程基础">
-<meta name="twitter:description" content="什么是shell  Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的   Shell脚本的执行方式  第一种：输入脚本的绝对路径或">
+<meta name="twitter:description" content="什么是shell Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell Shell也是一门编程语言&amp;lt;解释型的编程语言&amp;gt;，即shell脚本 一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的  Shell脚本的执行方式 第一种：输入脚本的绝对路径或相对路径">
 
 
 
@@ -322,50 +322,39 @@
       
 
       
-        <h1 id="什么是shell"><a class="markdownIt-Anchor" href="#什么是shell"></a> 什么是shell</h1>
-<ul>
+        <h1 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h1><ul>
 <li>Shell是用户与内核进行交互操作的一种接口，目前最流行的Shell称为bashShell</li>
 <li>Shell也是一门编程语言&lt;解释型的编程语言&gt;，即shell脚本</li>
 <li>一个系统可以存在多个shell，可以通过cat /etc/shells命令查看系统中安装的shell，不同的shell可能支持的命令语法是不相同的</li>
 </ul>
-<h1 id="shell脚本的执行方式"><a class="markdownIt-Anchor" href="#shell脚本的执行方式"></a> Shell脚本的执行方式</h1>
-<ul>
+<h1 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h1><ul>
 <li>第一种：输入脚本的绝对路径或相对路径</li>
 </ul>
 <p>首先要赋予+x权限</p>
-<p>/root/helloWorld.sh</p>
-<p>./helloWorld.sh</p>
+<p>  /root/helloWorld.sh</p>
+<p>  ./helloWorld.sh</p>
 <p>或者，不用赋予+x权限，而用解释器解释执行</p>
-<p>sh  <a href="http://helloworld.sh" target="_blank" rel="noopener">helloworld.sh</a></p>
+<p>sh  helloworld.sh</p>
 <ul>
-<li>
-<p>第二种：bash或sh +脚本</p>
+<li><p>第二种：bash或sh +脚本</p>
 <p>sh /root/helloWorld.sh</p>
-<p>sh <a href="http://helloWorld.sh" target="_blank" rel="noopener">helloWorld.sh</a></p>
+<p>sh helloWorld.sh</p>
 </li>
-<li>
-<p>第三种：在脚本的路径前再加&quot;.&quot;</p>
+<li><p>第三种：在脚本的路径前再加”.”</p>
 <p>. /root/helloWorld.sh</p>
 <p>. ./helloWorld.sh</p>
 </li>
-<li>
-<p>区别：第一种和第二种会新开一个bash，不同bash中的变量无法共享</p>
+<li><p>区别：第一种和第二种会新开一个bash，不同bash中的变量无法共享</p>
 </li>
 </ul>
-<h1 id="shell中的变量"><a class="markdownIt-Anchor" href="#shell中的变量"></a> Shell中的变量</h1>
-<ul>
-<li>
-<p>LinuxShell中的变量分为“系统变量”和“用户自定义变量”，可以通过set命令查看那系统变量</p>
-</li>
-<li>
-<p>系统变量：$HOME、$PWD、$SHELL、$USER等等</p>
-</li>
-<li>
-<p>显示当前shell中所有变量  :   set</p>
-</li>
+<h1 id="Shell中的变量"><a href="#Shell中的变量" class="headerlink" title="Shell中的变量"></a>Shell中的变量</h1><ul>
+<li>LinuxShell中的变量分为“系统变量”和“用户自定义变量”，可以通过set命令查看那系统变量</li>
+<li>系统变量：$HOME、$PWD、$SHELL、$USER等等</li>
 </ul>
-<h1 id="定义变量"><a class="markdownIt-Anchor" href="#定义变量"></a> 定义变量</h1>
 <ul>
+<li>显示当前shell中所有变量  :   set</li>
+</ul>
+<h1 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h1><ul>
 <li>变量＝值 （例如STR=abc）</li>
 <li>等号两侧不能有空格</li>
 <li>变量名称一般习惯为大写</li>
@@ -373,72 +362,58 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# x=hello world</span><br><span class="line">-bash: world: command not found</span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello world&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# y=bb</span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello $bb&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello</span><br><span class="line">[root@VM_0_14_centos ~]# x=&quot;hello $y&quot;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello bb</span><br><span class="line">[root@VM_0_14_centos ~]# x=&apos;hello $y&apos;</span><br><span class="line">[root@VM_0_14_centos ~]# echo $x</span><br><span class="line">hello $y</span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>A=9 unsetA 撤销变量 A</p>
-</li>
-<li>
-<p>readonly B=2 声明静态的变量B=2 ，不能 unset</p>
-</li>
-<li>
-<p>export变量名可把变量提升为全局环境变量，可供其他shell程序使用</p>
-</li>
+<li>A=9 unsetA 撤销变量 A</li>
 </ul>
-<h1 id="将命令的返回值赋给变量"><a class="markdownIt-Anchor" href="#将命令的返回值赋给变量"></a> 将命令的返回值赋给变量</h1>
 <ul>
+<li>readonly B=2 声明静态的变量B=2 ，不能 unset</li>
+<li>export变量名可把变量提升为全局环境变量，可供其他shell程序使用</li>
+</ul>
+<h1 id="将命令的返回值赋给变量"><a href="#将命令的返回值赋给变量" class="headerlink" title="将命令的返回值赋给变量"></a>将命令的返回值赋给变量</h1><ul>
 <li>A=`ls -la` 反引号，运行里面的命令，并把结果返回给变量A</li>
 <li>A=$(ls -la) 等价于反引号</li>
 </ul>
-<h1 id="shell中的特殊变量"><a class="markdownIt-Anchor" href="#shell中的特殊变量"></a> Shell中的特殊变量</h1>
-<ul>
+<h1 id="Shell中的特殊变量"><a href="#Shell中的特殊变量" class="headerlink" title="Shell中的特殊变量"></a>Shell中的特殊变量</h1><ul>
 <li>$? 表示上一个命令退出的状态</li>
-<li>
- 表示当前进程编号
-
-</li>
+<li>$$ 表示当前进程编号</li>
+<li>$0 表示当前脚本名称</li>
 <li>$n 表示n位置的输入参数（n代表数字，n&gt;=1）</li>
 <li>$#   表示参数的个数，常用于循环</li>
-<li>$*和$@ 都表示参数列表</li>
+<li>$*和$@ 都表示参数列表 </li>
 </ul>
-<p>*<em>$<em>与$@区别</em></em></p>
+<p><strong>$*与$@区别</strong></p>
 <ul>
-<li>$* 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号&quot;&quot;包含时，都以$1  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>…</mo></mrow><annotation encoding="application/x-tex">2  …</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord">2</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span></span></span></span>n 的形式输出所有参数</li>
-<li>当它们被双引号&quot; “包含时，”$*“会将所有的参数作为一个整体，以”$1$2 … n"的形式输出所有参数；"@“会将各个参数分开，以”$1&quot;“<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi mathvariant="normal">&quot;</mi><mo>…</mo><mi mathvariant="normal">&quot;</mi></mrow><annotation encoding="application/x-tex">2&quot; … &quot;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord">2</span><span class="mord">&quot;</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord">&quot;</span></span></span></span>n” 的形式输出所有参数</li>
+<li>$* 和 $@ 都表示传递给函数或脚本的所有参数，不被双引号””包含时，都以$1  $2  …$n 的形式输出所有参数</li>
+<li>当它们被双引号” “包含时，”$*”会将所有的参数作为一个整体，以”$1$2 … $n”的形式输出所有参数；”$@”会将各个参数分开，以”$1””$2” … “$n” 的形式输出所有参数</li>
 </ul>
-<h1 id="运算符"><a class="markdownIt-Anchor" href="#运算符"></a> 运算符</h1>
-<ul>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
 <li>格式 :expr m + n或$((m+n)) <strong>注意expr运算符间要有空格</strong></li>
 <li>例如计算（2 ＋3 ）×4 的值</li>
 </ul>
-<p>1 .分步计算<br>
-S=`expr 2 + 3`<br>
-expr $S \* 4</p>
+<p>1 .分步计算<br>  S=`expr 2 + 3`<br>  expr $S \* 4 </p>
 <p>2.一步完成计算</p>
-<p>expr `expr 2 + 3 ` * 4</p>
-<p>echo `expr \`expr 2 + 3\` \* 4`   # 各种转义太麻烦了</p>
-<p>或</p>
-<p>$(((2+3)*4))</p>
-<h1 id="for循环"><a class="markdownIt-Anchor" href="#for循环"></a> for循环</h1>
-<ul>
-<li>
-<p>第一种：</p>
+<p>  expr `expr 2 + 3 ` * 4</p>
+<p>  echo `expr \\`expr 2 + 3\\` \* 4`   # 各种转义太麻烦了</p>
+<p>  或</p>
+<p>  $(((2+3)*4))</p>
+<h1 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h1><ul>
+<li><p>第一种：</p>
 <p>for N in 1 2 3</p>
 <p>do</p>
-<p>echo $N</p>
+<p>  echo $N</p>
 <p>done</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in 1 2 3</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo $N</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <p>或</p>
 <p>for N in 1 2 3; do echo $N; done</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in 1 2 3; do echo $N; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <p>或</p>
-<p>for N in {1…3}; do echo $N; done</p>
+<p>for N in {1..3}; do echo $N; done</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for N in &#123;1..3&#125;; do echo $N; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <p>​</p>
 </li>
-<li>
-<p>•第二种：</p>
+<li><p>•第二种：</p>
 <p>for((i = 0;i&lt;= 5; i++))</p>
 <p>do</p>
-<p>echo “welcome $i times”</p>
+<p>  echo “welcome $i times”</p>
 <p>done</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# for((i = 0;i&lt;= 5; i++))</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo &quot;welcome $i times&quot;</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">welcome 0 times</span><br><span class="line">welcome 1 times</span><br><span class="line">welcome 2 times</span><br><span class="line">welcome 3 times</span><br><span class="line">welcome 4 times</span><br><span class="line">welcome 5 times</span><br></pre></td></tr></table></figure>
 <p>或</p>
@@ -447,8 +422,7 @@ expr $S \* 4</p>
 <p>​</p>
 </li>
 </ul>
-<h1 id="while循环"><a class="markdownIt-Anchor" href="#while循环"></a> while循环</h1>
-<ul>
+<h1 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h1><ul>
 <li>第一种</li>
 </ul>
 <p>while expression</p>
@@ -457,59 +431,46 @@ expr $S \* 4</p>
 <p>…</p>
 <p>done</p>
 <ul>
-<li>
-<p>第二种</p>
+<li><p>第二种</p>
 <p>i=1</p>
 <p>while((i&lt;=3))</p>
 <p>do</p>
-<p>echo $i</p>
-<p>let i++</p>
+<p>  echo $i</p>
+<p>  let i++</p>
 <p>done</p>
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# while((i&lt;=3))</span><br><span class="line">&gt; </span><br><span class="line">&gt; do</span><br><span class="line">&gt; </span><br><span class="line">&gt;   echo $i</span><br><span class="line">&gt; </span><br><span class="line">&gt;   let i++</span><br><span class="line">&gt; </span><br><span class="line">&gt; done</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<h1 id="case语句"><a class="markdownIt-Anchor" href="#case语句"></a> case语句</h1>
-<ul>
+<h1 id="case语句"><a href="#case语句" class="headerlink" title="case语句"></a>case语句</h1><ul>
 <li>格式</li>
 </ul>
 <p>case $1 in</p>
 <p>start)</p>
-<p>echo “starting”</p>
-<p>;;</p>
+<p>  echo “starting”</p>
+<p>  ;;</p>
 <p>stop)</p>
-<p>echo “stoping”</p>
-<p>;;</p>
+<p>  echo “stoping”</p>
+<p>  ;;</p>
 <p>*)</p>
-<p>echo &quot;Usage: {start|stop} “</p>
+<p>  echo “Usage: {start|stop} “</p>
 <p>esac</p>
 <p>$1 脚本后紧跟第一个参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# vim case.sh</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">	echo &quot;starting&quot;</span><br><span class="line">	;;</span><br><span class="line">stop)</span><br><span class="line">	echo &quot;stoping&quot;</span><br><span class="line">	;;</span><br><span class="line">*)</span><br><span class="line">	echo &quot;Usage: &#123;start|stop&#125; “</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@VM_0_14_centos ~]# chmod 777 case.sh</span><br><span class="line">[root@VM_0_14_centos ~]# ./case.sh start  </span><br><span class="line">starting</span><br></pre></td></tr></table></figure>
-<h1 id="read命令"><a class="markdownIt-Anchor" href="#read命令"></a> read命令</h1>
-<ul>
-<li>
-<p>read-p(提示语句)-n(字符个数) -t(等待时间)</p>
-<p>read -p “please input your name:” NAME</p>
+<h1 id="read命令"><a href="#read命令" class="headerlink" title="read命令"></a>read命令</h1><ul>
+<li><p>read-p(提示语句)-n(字符个数) -t(等待时间) </p>
+<p>  read -p “please input your name:” NAME</p>
 </li>
 </ul>
 <p>从终端交互式的获取输入参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]#  read -p &quot;please input your name:&quot; n</span><br><span class="line">please input your name:123</span><br><span class="line">[root@VM_0_14_centos ~]# echo $n</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
-<h1 id="if判断"><a class="markdownIt-Anchor" href="#if判断"></a> if判断</h1>
-<ul>
+<h1 id="if判断"><a href="#if判断" class="headerlink" title="if判断"></a>if判断</h1><ul>
 <li>语法</li>
 </ul>
-<p>if condition<br>
-then<br>
-statements<br>
-[elif condition<br>
-then statements. …]<br>
-[else<br>
-statements ]<br>
-fi</p>
+<p>if condition<br>then<br>    statements<br>[elif condition<br>    then statements. ..]<br>[else<br>    statements ]<br>fi</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">read -p &quot;please input your name:&quot; NAME</span><br><span class="line">#printf &apos;%s\n&apos; $NAME</span><br><span class="line">if [ $NAME = root ]</span><br><span class="line">        then</span><br><span class="line">                echo &quot;hello $&#123;NAME&#125;,  welcome !&quot;</span><br><span class="line">        elif [ $NAME = itcast ]</span><br><span class="line">                then</span><br><span class="line">                        echo &quot;hello $&#123;NAME&#125;,  welcome !&quot;</span><br><span class="line">        else</span><br><span class="line">                echo &quot;SB, get out here !&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<p>将上面的脚本（<a href="http://hello.sh" target="_blank" rel="noopener">hello.sh</a>）运行</p>
+<p>将上面的脚本（hello.sh）运行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# ./hello.sh        </span><br><span class="line">please input your name:root</span><br><span class="line">hello root,  welcome !</span><br></pre></td></tr></table></figure>
-<h1 id="判断语句"><a class="markdownIt-Anchor" href="#判断语句"></a> 判断语句</h1>
-<ul>
+<h1 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h1><ul>
 <li>[ condition ] (注意condition前后要有空格)</li>
 </ul>
 <p>#非空返回true，可使用$?验证（0为true，&gt;1为false）</p>
@@ -518,9 +479,8 @@ fi</p>
 <p>#空返回false</p>
 <p>[  ]</p>
 <ul>
-<li>
-<p>[condition ] &amp;&amp; echo OK</p>
-<p>条件满足，执行echo OK</p>
+<li><p>[condition ] &amp;&amp; echo OK</p>
+<p>  条件满足，执行echo OK</p>
 <p>​</p>
 </li>
 </ul>
@@ -545,14 +505,14 @@ fi</p>
 <p>-b文件存在并且是一个块设备</p>
 <p>-L 文件存在并且是一个链接</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# ls</span><br><span class="line">anaconda-ks.cfg  apps  case.sh  hello.sh  h.py  ma6174</span><br><span class="line">[root@VM_0_14_centos ~]# [ -f case.sh ]</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">0</span><br><span class="line">[root@VM_0_14_centos ~]# [ -w cash.sh ]     ## 没有cash.sh 所以也就没有写的权限</span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">1</span><br><span class="line">[root@VM_0_14_centos ~]# [ -w case.sh ] </span><br><span class="line">[root@VM_0_14_centos ~]# echo $?</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<h1 id="shell自定义函数"><a class="markdownIt-Anchor" href="#shell自定义函数"></a> Shell自定义函数</h1>
-<ul>
-<li>语法</li>
-</ul>
+<h1 id="Shell自定义函数"><a href="#Shell自定义函数" class="headerlink" title="Shell自定义函数"></a>Shell自定义函数</h1><ul>
+<li><p>语法</p>
 <p>[ function ] funname [()]</p>
+</li>
+</ul>
 <p>{</p>
-<p>action;</p>
-<p>[return int;]</p>
+<p>   action;</p>
+<p>   [return int;]</p>
 <p>}</p>
 <p>functionstart()  / function start / start()</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">      1 #!/bin/bash</span><br><span class="line">      2 fSum 3 2; # fSum还没有定义，因此会报错</span><br><span class="line">      3 function fSum()</span><br><span class="line">      4 &#123;</span><br><span class="line">      5  echo $1,$2</span><br><span class="line">      6  return $(($1+$2));</span><br><span class="line">      7 &#125;</span><br><span class="line">      8 total=$?;</span><br><span class="line">      9 echo &quot;第一次调用后的返回结果：&quot;$total</span><br><span class="line">     10 fSum 5 7;</span><br><span class="line">     11 total=$?;          # total获得了函数返回值即return的值12</span><br><span class="line">     12 echo $total,$?;</span><br><span class="line">     </span><br><span class="line">[root@VM_0_14_centos ~]# ./hello.sh </span><br><span class="line">./hello.sh: line 2: fSum: command not found</span><br><span class="line">第一次调用后的返回结果：0</span><br><span class="line">5,7</span><br><span class="line">12,0</span><br></pre></td></tr></table></figure>
@@ -561,16 +521,14 @@ fi</p>
 </ul>
 <p>1.必须在调用函数地方之前，先声明函数，shell脚本是逐行运行。不会像其它语言一样先预编译</p>
 <p>2.函数返回值，只能通过$? 系统变量获得，可以显示加：return返回，如果不加，将以最后一条命令运行结果，作为返回值。return后跟数值n(0-255)</p>
-<h1 id="脚本调试"><a class="markdownIt-Anchor" href="#脚本调试"></a> 脚本调试</h1>
-<ul>
-<li>sh -vx <a href="http://helloWorld.sh" target="_blank" rel="noopener">helloWorld.sh</a></li>
+<h1 id="脚本调试"><a href="#脚本调试" class="headerlink" title="脚本调试"></a>脚本调试</h1><ul>
+<li>sh -vx helloWorld.sh</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_14_centos ~]# sh -vx ./hello.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line">fSum 3 2;</span><br><span class="line">+ fSum 3 2</span><br><span class="line">./hello.sh: line 2: fSum: command not found</span><br><span class="line">function fSum()</span><br><span class="line">&#123;</span><br><span class="line"> echo $1,$2</span><br><span class="line"> return $(($1+$2));</span><br><span class="line">&#125;</span><br><span class="line">total=$?;</span><br><span class="line">+ total=0</span><br><span class="line">echo &quot;第一次调用后的返回结果：&quot;$total</span><br><span class="line">+ echo $&apos;\347\254\254\344\270\200\346\254\241\350\260\203\347\224\250\345\220\216\347\232\204\350\277\224\345\233\236\347\273\223\346\236\234\357\274\2320&apos;</span><br><span class="line">第一次调用后的返回结果：0</span><br><span class="line">fSum 5 7;</span><br><span class="line">+ fSum 5 7</span><br><span class="line">+ echo 5,7</span><br><span class="line">5,7</span><br><span class="line">+ return 12</span><br><span class="line">total=$?;</span><br><span class="line">+ total=12</span><br><span class="line">echo $total,$?;</span><br><span class="line">+ echo 12,0</span><br><span class="line">12,0</span><br></pre></td></tr></table></figure>
 <ul>
 <li>或者在脚本中增加set -x</li>
 </ul>
-<h1 id="sed命令"><a class="markdownIt-Anchor" href="#sed命令"></a> sed命令</h1>
-<ul>
+<h1 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h1><ul>
 <li>sed全称是：Stream EDitor即流编辑器，是一个很好的文本处理工具，本身是一个管道命令，处理时，把当前处理的行存储在临时缓冲区中，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行。它是以行为单位进行处理，可以将数据行进行替换、删除、新增、选取等特定工作。</li>
 </ul>
 <p><strong>sed选项</strong></p>
@@ -587,18 +545,12 @@ fi</p>
 <li>p ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed-n 一起运行</li>
 <li>s ：取代，可以直接进行取代的工作！通常这个 s 的动作可以搭配正规表示法！例如1,20s/old/new/g</li>
 </ul>
-<h1 id="awk命令"><a class="markdownIt-Anchor" href="#awk命令"></a> awk命令</h1>
-<ul>
+<h1 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h1><ul>
 <li>AWK是一种优良的文本处理工具。其名称得自于它的创始人 Alfred</li>
 </ul>
-<p>Aho 、Peter<br>
-Weinberger 和 Brian<br>
-Kernighan 姓氏的首个字母，AWK 提供了极其强大的功能：可以进行样式装入、流控制、数学运算符、进程控制语句甚至于内置的变量和函数。它具备了一个完整的语言所应具有的几乎所有精美特性。实际上<br>
-AWK 的确拥有自己的语言：AWK 程序设计语言，<br>
-三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<p>Aho 、Peter<br>Weinberger 和 Brian<br>Kernighan 姓氏的首个字母，AWK 提供了极其强大的功能：可以进行样式装入、流控制、数学运算符、进程控制语句甚至于内置的变量和函数。它具备了一个完整的语言所应具有的几乎所有精美特性。实际上<br>AWK 的确拥有自己的语言：AWK 程序设计语言，<br>三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
 <p><strong>awk命令格式</strong></p>
-<p>awk<br>
-‘pattern1 {action1} pattern2 {action2} …’ filename</p>
+<p>awk<br>‘pattern1 {action1} pattern2 {action2} …’ filename</p>
 
       
     </div>
@@ -726,7 +678,7 @@ AWK 的确拥有自己的语言：AWK 程序设计语言，<br>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -788,7 +740,7 @@ AWK 的确拥有自己的语言：AWK 程序设计语言，<br>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是shell"><span class="nav-number">1.</span> <span class="nav-text"> 什么是shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell脚本的执行方式"><span class="nav-number">2.</span> <span class="nav-text"> Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell中的变量"><span class="nav-number">3.</span> <span class="nav-text"> Shell中的变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义变量"><span class="nav-number">4.</span> <span class="nav-text"> 定义变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将命令的返回值赋给变量"><span class="nav-number">5.</span> <span class="nav-text"> 将命令的返回值赋给变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell中的特殊变量"><span class="nav-number">6.</span> <span class="nav-text"> Shell中的特殊变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符"><span class="nav-number">7.</span> <span class="nav-text"> 运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for循环"><span class="nav-number">8.</span> <span class="nav-text"> for循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#while循环"><span class="nav-number">9.</span> <span class="nav-text"> while循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#case语句"><span class="nav-number">10.</span> <span class="nav-text"> case语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#read命令"><span class="nav-number">11.</span> <span class="nav-text"> read命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if判断"><span class="nav-number">12.</span> <span class="nav-text"> if判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断语句"><span class="nav-number">13.</span> <span class="nav-text"> 判断语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell自定义函数"><span class="nav-number">14.</span> <span class="nav-text"> Shell自定义函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本调试"><span class="nav-number">15.</span> <span class="nav-text"> 脚本调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sed命令"><span class="nav-number">16.</span> <span class="nav-text"> sed命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#awk命令"><span class="nav-number">17.</span> <span class="nav-text"> awk命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是shell"><span class="nav-number">1.</span> <span class="nav-text">什么是shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">2.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell中的变量"><span class="nav-number">3.</span> <span class="nav-text">Shell中的变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义变量"><span class="nav-number">4.</span> <span class="nav-text">定义变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将命令的返回值赋给变量"><span class="nav-number">5.</span> <span class="nav-text">将命令的返回值赋给变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell中的特殊变量"><span class="nav-number">6.</span> <span class="nav-text">Shell中的特殊变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符"><span class="nav-number">7.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for循环"><span class="nav-number">8.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#while循环"><span class="nav-number">9.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#case语句"><span class="nav-number">10.</span> <span class="nav-text">case语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#read命令"><span class="nav-number">11.</span> <span class="nav-text">read命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if判断"><span class="nav-number">12.</span> <span class="nav-text">if判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断语句"><span class="nav-number">13.</span> <span class="nav-text">判断语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell自定义函数"><span class="nav-number">14.</span> <span class="nav-text">Shell自定义函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本调试"><span class="nav-number">15.</span> <span class="nav-text">脚本调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sed命令"><span class="nav-number">16.</span> <span class="nav-text">sed命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#awk命令"><span class="nav-number">17.</span> <span class="nav-text">awk命令</span></a></li></ol></div>
             
 
           </div>
