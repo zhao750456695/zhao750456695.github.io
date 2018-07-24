@@ -89,10 +89,14 @@
 <meta property="og:site_name" content="FinGeek|http:&#x2F;&#x2F;zhaojie.tech">
 <meta property="og:description" content="秃是不好的，但凸是极好的。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-24T05:44:01.989Z">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1ftl1dpx0cvj208901f3ya.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/c3a5a043ly1ftl12t41myj20ix0a3wes.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftl16j4p02j20oa05r74e.jpg">
+<meta property="og:updated_time" content="2018-07-24T08:35:36.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="svm前奏：凸优化对偶">
 <meta name="twitter:description" content="秃是不好的，但凸是极好的。">
+<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/c3a5a043ly1ftl1dpx0cvj208901f3ya.jpg">
 
 
 
@@ -358,8 +362,7 @@ minf(x)   \qquad x \in\mathbb{R}</script><p>局部最优解常规解法</p>
 <li><p>向量范数</p>
 <p>2-norm：$||X||_2=\sqrt{\sum^n\limits_{i=1}|X_i|^2}=X^T X$</p>
 <p>1-norm：$||X||_1= \sum\limits^n_{i=1}|X_i|$</p>
-<p>$\infin$-norm：$||X||_\infin = \max\limits_{i=1,…,n}|X_i|$</p>
-<p>​</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1ftl1dpx0cvj208901f3ya.jpg" alt=""></p>
 <p>上面的向量范数可以统一成下面的形式：</p>
 <p>p-norm,$p\ge 1$：$||X||_P=(\sum\limits^n_{i=1}|X_i|^p)^{\frac{1}{p}}$</p>
 <p>当p趋于无穷时就是无穷范数。</p>
@@ -371,8 +374,7 @@ minf(x)   \qquad x \in\mathbb{R}</script><p>局部最优解常规解法</p>
 <p>​    -  $||X||\ge 0$</p>
 <p>​    - 齐次性： $||\alpha X||=|\alpha| ||X||$</p>
 <p>​    - 三角不等式：$||X+Y|| \le ||X||+||Y||$</p>
-<pre><code> 近似范数，如$||X||_0$计算非0元的个数，实际上不是真正的范数。
-</code></pre><ul>
+<ul>
 <li>范数球</li>
 </ul>
 <h3 id="凸集的性质"><a href="#凸集的性质" class="headerlink" title="凸集的性质"></a>凸集的性质</h3><p>凸集的交集是凸集，凸集的并集不一定是凸集。</p>
@@ -473,13 +475,7 @@ h_i(x)=0\quad for \quad i=1,2,...,p</script><p>$h_i(x)=0$,所以$\sum\limits_{i=
 <p><strong>于是g是这个仿射函数的逐点下确界，总是凹的，即使原问题非凸</strong>。</p>
 <p>有个比较具体的证明过程：<a href="https://blog.csdn.net/u014540876/article/details/79153913" target="_blank" rel="noopener">https://blog.csdn.net/u014540876/article/details/79153913</a></p>
 <p>如果$\widetilde{x}$是一个可行点，则</p>
-<p>$g(\lambda,v)=\min\limits_{x\in D}L(x,\lambda,v)\le L(\widetilde{x}, \lambda,v)=f_0(\widetilde{x})+\sum\limits_{i=1}^m\lambda_if_i(\widetilde{x})+\sum\limits_{i=1}^pv_ih_i(\widetilde{x}))\le f_0(\widetilde{x})$</p>
-<p>所以$g(\lambda,v)\le f_0(\widetilde{x})$，而$x^<em>$也是可行点，即在$\widetilde{x}中，所以有$$g(\lambda,v)\le f_0(x^</em>)=p^*$</p>
-<p>所以，对偶函数是原函数最优值的下界</p>
-<p>如果$d^<em>$是$g(\lambda,v)$ 最大值，则$d^</em>\le p^*$</p>
-<p>强弱对偶</p>
-<p>弱对偶：$d^<em>\le p^</em>$，无论凸或非凸问题，总成立。</p>
-<p>强对偶：$d^<em>=p^</em>$,该条件通常不成立，但对于凸优化问题通常成立。</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1ftl12t41myj20ix0a3wes.jpg" alt=""></p>
 <p>凸优化问题可以写为：</p>
 <script type="math/tex; mode=display">
 minimize \quad f_0(x)\\
@@ -492,9 +488,7 @@ subject\quad to\quad Ax=b</script><p>强对偶依然成立。</p>
 <h3 id="从对偶问题解主问题"><a href="#从对偶问题解主问题" class="headerlink" title="从对偶问题解主问题"></a>从对偶问题解主问题</h3><p>如果强对偶成立，$( x^<em> , \lambda^</em> ,v^*)$是主问题的最优解，有</p>
 <script type="math/tex; mode=display">
 p^*=f_0(x^*)=d^*=g(\lambda^*,v^*)=\min\limits_x(f_0(x)+\sum\limits_{i=1}^m\lambda_i^*f_i(x)+\sum\limits_{i=1}^pv_i^*h_i(x))\\
-\le f_0(x^*)+\sum\limits_{i=1}^m\lambda_i^*f_i(x^*)+\sum\limits_{i=1}^mv_i^*h_i(x^*)\le f_0(x^*)</script><p>因为$ f_0(x^<em>)=d^</em> $，上式的小于等于号只能取等号，于是后面的两个求和都是0，$ \sum\limits_{i=1}^mv_i^<em>h_i(x^</em>)=0 $一直成立，因此$ \sum\limits_{i=1}^m\lambda_i^<em>f_i(x^</em>)=0 $</p>
-<p>结论1：$ \sum\limits_{i=1}^m \lambda_i^<em> f_i(x^</em>)=0 $</p>
-<p>结论2：$L(x, \lambda^<em> , v^</em>)关于x^<em>$处取极小值，有$ \nabla_x L(x^</em>, \lambda^<em> , v^</em>)=0 $</p>
+\le f_0(x^*)+\sum\limits_{i=1}^m\lambda_i^*f_i(x^*)+\sum\limits_{i=1}^mv_i^*h_i(x^*)\le f_0(x^*)</script><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftl16j4p02j20oa05r74e.jpg" alt=""></p>
 <script type="math/tex; mode=display">
 g(\lambda^*,v^*)=L(x^*,\lambda^*,v^*)\\
 g(\lambda^*,v^*)=\min\limits_xL(X,\lambda^*,v^*)</script><h3 id="KKT条件"><a href="#KKT条件" class="headerlink" title="KKT条件"></a>KKT条件</h3><p>凸优化问题</p>
