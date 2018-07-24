@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="python enumerate用法总结  enumerate()说明   enumerate()是python的内置函数   enumerate在字典上是枚举、列举的意思   对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值   enumerate多用于在for循环中得到计数   例如对于一个seq，得到：">
+<meta name="description" content="python enumerate用法总结enumerate()说明 enumerate()是python的内置函数  enumerate在字典上是枚举、列举的意思  对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值  enumerate多用于在for循环中得到计数  例如对于一个seq，得到： 1(0, seq">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python中常见的内置函数">
 <meta property="og:url" content="http://yoursite.com/post/963825dc.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="python enumerate用法总结  enumerate()说明   enumerate()是python的内置函数   enumerate在字典上是枚举、列举的意思   对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值   enumerate多用于在for循环中得到计数   例如对于一个seq，得到：">
+<meta property="og:description" content="python enumerate用法总结enumerate()说明 enumerate()是python的内置函数  enumerate在字典上是枚举、列举的意思  对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值  enumerate多用于在for循环中得到计数  例如对于一个seq，得到： 1(0, seq">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://img-blog.csdn.net/20160612190332206">
 <meta property="og:updated_time" content="2018-07-23T05:02:20.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中常见的内置函数">
-<meta name="twitter:description" content="python enumerate用法总结  enumerate()说明   enumerate()是python的内置函数   enumerate在字典上是枚举、列举的意思   对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值   enumerate多用于在for循环中得到计数   例如对于一个seq，得到：">
+<meta name="twitter:description" content="python enumerate用法总结enumerate()说明 enumerate()是python的内置函数  enumerate在字典上是枚举、列举的意思  对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值  enumerate多用于在for循环中得到计数  例如对于一个seq，得到： 1(0, seq">
 <meta name="twitter:image" content="https://img-blog.csdn.net/20160612190332206">
 
 
@@ -324,33 +324,23 @@
       
 
       
-        <h6 id="python-enumerate用法总结"><a class="markdownIt-Anchor" href="#python-enumerate用法总结"></a> python enumerate用法总结</h6>
-<h2 id="enumerate说明"><a class="markdownIt-Anchor" href="#enumerate说明"></a> enumerate()说明</h2>
-<ul>
-<li>
-<p>enumerate()是python的内置函数</p>
+        <h6 id="python-enumerate用法总结"><a href="#python-enumerate用法总结" class="headerlink" title="python enumerate用法总结"></a>python enumerate用法总结</h6><h2 id="enumerate-说明"><a href="#enumerate-说明" class="headerlink" title="enumerate()说明"></a>enumerate()说明</h2><ul>
+<li><p>enumerate()是python的内置函数</p>
 </li>
-<li>
-<p>enumerate在字典上是枚举、列举的意思</p>
+<li><p>enumerate在字典上是枚举、列举的意思</p>
 </li>
-<li>
-<p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p>
+<li><p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p>
 </li>
-<li>
-<p>enumerate多用于在for循环中得到计数</p>
+<li><p>enumerate多用于在for循环中得到计数</p>
 </li>
-<li>
-<p>例如对于一个seq，得到：</p>
+<li><p>例如对于一个seq，得到：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0, seq[0]), (1, seq[1]), (2, seq[2])1</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>enumerate()返回的是一个enumerate对象，例如：<br>
-<img src="https://img-blog.csdn.net/20160612190332206" alt="这里写图片描述"></p>
+<li><p>enumerate()返回的是一个enumerate对象，例如：<br><img src="https://img-blog.csdn.net/20160612190332206" alt="这里写图片描述"></p>
 </li>
 </ul>
 <hr>
-<h2 id="enumerate使用"><a class="markdownIt-Anchor" href="#enumerate使用"></a> enumerate()使用</h2>
-<ul>
+<h2 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h2><ul>
 <li>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;]</span><br><span class="line">for i in range (len(list1)):</span><br><span class="line">    print i ,list1[i]123</span><br></pre></td></tr></table></figure>
@@ -363,8 +353,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;]</span><br><span class="line">for index, item in enumerate(list1, 1):</span><br><span class="line">    print index, item</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">1 这</span><br><span class="line">2 是</span><br><span class="line">3 一个</span><br><span class="line">4 测试12345678</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="补充"><a class="markdownIt-Anchor" href="#补充"></a> 补充</h2>
-<p>如果要统计文件的行数，可以这样写：</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果要统计文件的行数，可以这样写：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count = len(open(filepath, &apos;r&apos;).readlines())1</span><br></pre></td></tr></table></figure>
 <p>这种方法简单，但是可能比较慢，当<strong>文件比较大</strong>时甚至不能工作。</p>
 <p>可以利用enumerate()：</p>
@@ -557,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#python-enumerate用法总结"><span class="nav-number">1.</span> <span class="nav-text"> python enumerate用法总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate说明"><span class="nav-number"></span> <span class="nav-text"> enumerate()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate使用"><span class="nav-number"></span> <span class="nav-text"> enumerate()使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number"></span> <span class="nav-text"> 补充</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#python-enumerate用法总结"><span class="nav-number">1.</span> <span class="nav-text">python enumerate用法总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate-说明"><span class="nav-number"></span> <span class="nav-text">enumerate()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate-使用"><span class="nav-number"></span> <span class="nav-text">enumerate()使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number"></span> <span class="nav-text">补充</span></a></div>
             
 
           </div>

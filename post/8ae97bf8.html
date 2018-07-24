@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="特征工程概览   数据探索 数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析  缺失值 异常值   特征分布特征分析  统计量 直方图   特征之间的相关性   缺失值分析 统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见">
+<meta name="description" content="特征工程概览 数据探索数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析 缺失值 异常值   特征分布特征分析 统计量 直方图   特征之间的相关性  缺失值分析统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见填补方法 均值m">
 <meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="特征工程">
 <meta property="og:url" content="http://yoursite.com/post/8ae97bf8.html">
 <meta property="og:site_name" content="FinGeek">
-<meta property="og:description" content="特征工程概览   数据探索 数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析  缺失值 异常值   特征分布特征分析  统计量 直方图   特征之间的相关性   缺失值分析 统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见">
+<meta property="og:description" content="特征工程概览 数据探索数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析 缺失值 异常值   特征分布特征分析 统计量 直方图   特征之间的相关性  缺失值分析统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见填补方法 均值m">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc7zd7emoj20fd03twew.jpg">
@@ -108,7 +108,7 @@
 <meta property="og:updated_time" content="2018-07-23T05:02:20.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征工程">
-<meta name="twitter:description" content="特征工程概览   数据探索 数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析  缺失值 异常值   特征分布特征分析  统计量 直方图   特征之间的相关性   缺失值分析 统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见">
+<meta name="twitter:description" content="特征工程概览 数据探索数据探索有助于选择合适的数据预处理和建模方法。  数据质量分析 缺失值 异常值   特征分布特征分析 统计量 直方图   特征之间的相关性  缺失值分析统计缺失样本数目及缺失率 缺失值处理  删除含有（1个或多个）缺失值的样本（行） 删除缺失值太多的特征（列） 对缺失值进行插补 不处理  缺失值的填补  scikit-learn的类Imputer提供了一些常见填补方法 均值m">
 <meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg">
 
 
@@ -339,27 +339,22 @@
       
 
       
-        <h1 id="特征工程概览"><a class="markdownIt-Anchor" href="#特征工程概览"></a> 特征工程概览</h1>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg" alt=""></p>
-<h1 id="数据探索"><a class="markdownIt-Anchor" href="#数据探索"></a> 数据探索</h1>
-<p>数据探索有助于选择合适的数据预处理和建模方法。</p>
+        <h1 id="特征工程概览"><a href="#特征工程概览" class="headerlink" title="特征工程概览"></a>特征工程概览</h1><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg" alt=""></p>
+<h1 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h1><p>数据探索有助于选择合适的数据预处理和建模方法。</p>
 <ul>
-<li>数据质量分析
-<ul>
+<li>数据质量分析<ul>
 <li>缺失值</li>
 <li>异常值</li>
 </ul>
 </li>
-<li>特征分布特征分析
-<ul>
+<li>特征分布特征分析<ul>
 <li>统计量</li>
 <li>直方图</li>
 </ul>
 </li>
 <li>特征之间的相关性</li>
 </ul>
-<h2 id="缺失值分析"><a class="markdownIt-Anchor" href="#缺失值分析"></a> 缺失值分析</h2>
-<p>统计缺失样本数目及缺失率</p>
+<h2 id="缺失值分析"><a href="#缺失值分析" class="headerlink" title="缺失值分析"></a>缺失值分析</h2><p>统计缺失样本数目及缺失率</p>
 <p>缺失值处理</p>
 <ul>
 <li>删除含有（1个或多个）缺失值的样本（行）</li>
@@ -369,8 +364,7 @@
 </ul>
 <p>缺失值的填补</p>
 <ul>
-<li>scikit-learn的类Imputer提供了一些常见填补方法
-<ul>
+<li>scikit-learn的类Imputer提供了一些常见填补方法<ul>
 <li>均值mean（默认方法）</li>
 <li>中位数median</li>
 <li>众数most_frequent</li>
@@ -378,6 +372,7 @@
 </li>
 <li>pandas库的fillna函数也可以处理缺失值，而且更加灵活，但是重用性较弱</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -408,31 +403,27 @@
 </tr>
 </tbody>
 </table>
-<h2 id="异常值分析"><a class="markdownIt-Anchor" href="#异常值分析"></a> 异常值分析</h2>
-<p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
+</div>
+<h2 id="异常值分析"><a href="#异常值分析" class="headerlink" title="异常值分析"></a>异常值分析</h2><p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
 <ul>
-<li>
-<p>发现异常值</p>
+<li><p>发现异常值</p>
 <ul>
 <li>最大值/最小值分析</li>
-<li>2<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">σ</span></span></span></span>原则</li>
+<li>2$\sigma$原则</li>
 <li>箱型图</li>
 <li>直方图（尾巴）</li>
 <li>散点图（散点图上孤立的点）</li>
 <li>分位数（0.5%-99.5%分位数以外）</li>
 </ul>
 </li>
-<li>
-<p>异常值处理：类似缺失值处理</p>
+<li><p>异常值处理：类似缺失值处理</p>
 <ul>
 <li>注意分析异常值产生的原因</li>
 </ul>
 <p>​</p>
 </li>
 </ul>
-<h2 id="特征分布分析"><a class="markdownIt-Anchor" href="#特征分布分析"></a> 特征分布分析</h2>
-<h3 id="直方图"><a class="markdownIt-Anchor" href="#直方图"></a> 直方图</h3>
-<p>直方图：每个取值在数据集中出现的次数，可视为概率函数(PDF)的估计(seaborn可视化工具比较简单)</p>
+<h2 id="特征分布分析"><a href="#特征分布分析" class="headerlink" title="特征分布分析"></a>特征分布分析</h2><h3 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h3><p>直方图：每个取值在数据集中出现的次数，可视为概率函数(PDF)的估计(seaborn可视化工具比较简单)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.ditplot(tranin.price.values, bins=50, kde=True)</span><br></pre></td></tr></table></figure>
 <p>核密度估计</p>
 <ul>
@@ -443,42 +434,35 @@
 <ul>
 <li>核密度估计</li>
 <li>order=[‘low’, ‘medium’, ‘high’]</li>
-<li>sns.violinplot(x=‘interest_level’, y= ‘price’, data=train, order=order)</li>
+<li>sns.violinplot(x=’interest_level’, y= ‘price’, data=train, order=order)</li>
 </ul>
-<h3 id="表示集中趋势的统计量"><a class="markdownIt-Anchor" href="#表示集中趋势的统计量"></a> 表示集中趋势的统计量</h3>
-<ul>
+<h3 id="表示集中趋势的统计量"><a href="#表示集中趋势的统计量" class="headerlink" title="表示集中趋势的统计量"></a>表示集中趋势的统计量</h3><ul>
 <li>均值</li>
 <li>中值</li>
 <li>众数</li>
 </ul>
-<h3 id="表示散布程度的统计量"><a class="markdownIt-Anchor" href="#表示散布程度的统计量"></a> 表示散布程度的统计量</h3>
-<ul>
+<h3 id="表示散布程度的统计量"><a href="#表示散布程度的统计量" class="headerlink" title="表示散布程度的统计量"></a>表示散布程度的统计量</h3><ul>
 <li>方差</li>
 <li>四分位数间距</li>
-<li>IQR在箱体图boxplot(seaborn.boxplot())中用到：分布的图形概述
-<ul>
+<li>IQR在箱体图boxplot(seaborn.boxplot())中用到：分布的图形概述<ul>
 <li>长方形为IQR</li>
 <li>中间的线为中值</li>
 <li>两头的虚线：1.51QR</li>
 </ul>
 </li>
 </ul>
-<h3 id="相关性"><a class="markdownIt-Anchor" href="#相关性"></a> 相关性</h3>
-<ul>
-<li>希望特征与标签强相关
-<ul>
+<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><ul>
+<li>希望特征与标签强相关<ul>
 <li>分类直方图可以从某种程度上看出特征与标签的相关性：不同类别的直方图差异大</li>
 </ul>
 </li>
-<li>特征与特征之间强相关的话意味着信息冗余
-<ul>
+<li>特征与特征之间强相关的话意味着信息冗余<ul>
 <li>可以两个特征只保留一个</li>
 <li>或采用主成分分析（PCA)等降维</li>
 </ul>
 </li>
 </ul>
-<h1 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h1>
-<p>数据取值范围缩放</p>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>数据取值范围缩放</p>
 <ul>
 <li>数据标准化（Standardization）</li>
 <li>数据归一化（Scaling）</li>
@@ -486,6 +470,7 @@
 <li>数据二值化</li>
 </ul>
 <p>from sklearn.preprocessing import …</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -537,46 +522,38 @@
 </tr>
 </tbody>
 </table>
-<h1 id="特征编码"><a class="markdownIt-Anchor" href="#特征编码"></a> 特征编码</h1>
-<ul>
+</div>
+<h1 id="特征编码"><a href="#特征编码" class="headerlink" title="特征编码"></a>特征编码</h1><ul>
 <li>数值型</li>
 <li>类别型</li>
 <li>时间类</li>
 <li>文本型</li>
 <li>统计型</li>
 </ul>
-<h2 id="数值型特征"><a class="markdownIt-Anchor" href="#数值型特征"></a> 数值型特征</h2>
+<h2 id="数值型特征"><a href="#数值型特征" class="headerlink" title="数值型特征"></a>数值型特征</h2><ul>
+<li><p>有时候数值特征并不能直接适用于线性模型，可以选择使用log(x+1)变换来处理我们的数值特征，其中x表示数值特征</p>
 <ul>
-<li>
-<p>有时候数值特征并不能直接适用于线性模型，可以选择使用log(x+1)变换来处理我们的数值特征，其中x表示数值特征</p>
-<ul>
-<li>
-<p>检查数据偏斜度（skewness），并以此衡量数据分布的形状</p>
+<li><p>检查数据偏斜度（skewness），并以此衡量数据分布的形状</p>
 </li>
-<li>
-<p>当使用回归方法时，如果目标变量出现偏斜，则有必要对目标变量进行对数变换(log-transform)。通过对数变换，可以改善数据的线性度。</p>
+<li><p>当使用回归方法时，如果目标变量出现偏斜，则有必要对目标变量进行对数变换(log-transform)。通过对数变换，可以改善数据的线性度。</p>
 <p><code>train.SalePrice=np.loglp(train.SalesPrice)</code></p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc7zd7emoj20fd03twew.jpg" alt=""></p>
 </li>
 </ul>
 </li>
-<li>
-<p>还可以根据需要进行多项式扩展数值特征</p>
+<li><p>还可以根据需要进行多项式扩展数值特征</p>
 </li>
 </ul>
 <p>模型很多时候是线性模型，可以在特征上做一些工作，让模型包含一些非线性特征</p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc858vs43j20y60bldhc.jpg" alt=""></p>
 <p>默认值为2，则特征两两组合，先和自己再和其他</p>
-<h2 id="数值型特征离散化"><a class="markdownIt-Anchor" href="#数值型特征离散化"></a> 数值型特征离散化</h2>
-<ul>
-<li>有时候将数值型属性转换成类别表示更有意义
-<ul>
+<h2 id="数值型特征离散化"><a href="#数值型特征离散化" class="headerlink" title="数值型特征离散化"></a>数值型特征离散化</h2><ul>
+<li>有时候将数值型属性转换成类别表示更有意义<ul>
 <li>如年龄，根据人生阶段划分往往更有意义</li>
 <li>房屋到街道的距离分为远、中、近</li>
 </ul>
 </li>
-<li>了解领域背景知识，确保特征划分成分区有意义
-<ul>
+<li>了解领域背景知识，确保特征划分成分区有意义<ul>
 <li>所有落入一个分区的数值都呈现出共同的特征</li>
 <li>在实际应用中，需要仔细考虑分区的粒度，防止过拟合</li>
 </ul>
@@ -584,45 +561,36 @@
 <li>也可以采用聚类技术实现分组</li>
 </ul>
 <p>注意：如果数据的准确率很重要的话，此时离散化不合适</p>
-<h2 id="类别型特征"><a class="markdownIt-Anchor" href="#类别型特征"></a> 类别型特征</h2>
-<ul>
-<li>有些模型只能处理数值型数据。如果给定的数据是不同的类型，必须先将数据编程数值型。
-<ul>
+<h2 id="类别型特征"><a href="#类别型特征" class="headerlink" title="类别型特征"></a>类别型特征</h2><ul>
+<li>有些模型只能处理数值型数据。如果给定的数据是不同的类型，必须先将数据编程数值型。<ul>
 <li>用0和1来代表样本是否有某种特性</li>
 </ul>
 </li>
-<li>LbabelEncoder：用有序数对不连续的数字或者文本进行编号
-<ul>
+<li>LbabelEncoder：用有序数对不连续的数字或者文本进行编号<ul>
 <li>如用数字表示房屋质量：分别用1、2 、3表示质量差、中、好</li>
 <li>存储量小</li>
 </ul>
 </li>
-<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维----&gt;K维的稀疏编码
-<ul>
+<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维——&gt;K维的稀疏编码<ul>
 <li>统计该特征上有多少类，就设置几维(K)的向量</li>
 <li>输入必须是数值型数据（对字符串输入，先调用LabelEncoder变成数字，再用OneHotEncoder）</li>
 <li>存储要求高，通常要求K&lt;10（低基数）</li>
 </ul>
 </li>
-<li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）
-<ul>
-<li>可先采用降维/聚类：1维—&gt;K维，K为聚类的类别数</li>
+<li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）<ul>
+<li>可先采用降维/聚类：1维—-&gt;K维，K为聚类的类别数</li>
 <li>或采用均值编码：在贝叶斯的架构下，利用标签变量，有监督地确定最适合特定特征的编码方式</li>
 </ul>
 </li>
 </ul>
-<h2 id="均值编码"><a class="markdownIt-Anchor" href="#均值编码"></a> 均值编码</h2>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc8wl4rsaj20t30ajq45.jpg" alt=""></p>
+<h2 id="均值编码"><a href="#均值编码" class="headerlink" title="均值编码"></a>均值编码</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc8wl4rsaj20t30ajq45.jpg" alt=""></p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc8zvjf8sj20s00be75g.jpg" alt=""></p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc90307n8j20t20bi0vw.jpg" alt=""></p>
-<h2 id="日期型特征"><a class="markdownIt-Anchor" href="#日期型特征"></a> 日期型特征</h2>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc944nnp8j20s30b3dgj.jpg" alt=""></p>
-<h2 id="文本型特征"><a class="markdownIt-Anchor" href="#文本型特征"></a> 文本型特征</h2>
-<p>文本型特征无法直接送到学习器，需要先进行特征提取</p>
+<h2 id="日期型特征"><a href="#日期型特征" class="headerlink" title="日期型特征"></a>日期型特征</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc944nnp8j20s30b3dgj.jpg" alt=""></p>
+<h2 id="文本型特征"><a href="#文本型特征" class="headerlink" title="文本型特征"></a>文本型特征</h2><p>文本型特征无法直接送到学习器，需要先进行特征提取</p>
 <p>scikit-learn采用简单的文本特征提取，更多文本特征提取可采用Natural Language Tookit（NLTK）</p>
 <ul>
-<li>词向量（1-gram模型）：即词袋模型，统计次出现的次数（词频）
-<ul>
+<li>词向量（1-gram模型）：即词袋模型，统计次出现的次数（词频）<ul>
 <li>CountVectorizer</li>
 </ul>
 </li>
@@ -631,8 +599,7 @@
 <p>TF-IDF特征：</p>
 <ul>
 <li>TF(Term Frequency)：衡量一个term在文档中出现的多频繁</li>
-<li>IDF(Inverse Document Frequency)：衡量一个term有多重要
-<ul>
+<li>IDF(Inverse Document Frequency)：衡量一个term有多重要<ul>
 <li>有些词出现的很多，但是并没有什么作用 ‘is’、‘the’…</li>
 <li>将罕见的词重要性调高，常见词重要性调低</li>
 </ul>
@@ -644,11 +611,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.feature_extraction.text.TfidfTransformer(norm=&apos;l2&apos;, use_idf=True, smooth_idf=True, sublinear_tf=False)</span><br></pre></td></tr></table></figure>
 <p>可用词云可视化</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from wordcloud import WordCloud</span><br><span class="line">wordcloud = WordCloud(background_color=&apos;white&apos;, width=600, height=300,</span><br><span class="line">max_font_size=50, max_words=40)</span><br><span class="line">wordcloud.generate(text)</span><br></pre></td></tr></table></figure>
-<h1 id="构造特征"><a class="markdownIt-Anchor" href="#构造特征"></a> 构造特征</h1>
-<p>将特征进行混合或组合以得到新的特征</p>
+<h1 id="构造特征"><a href="#构造特征" class="headerlink" title="构造特征"></a>构造特征</h1><p>将特征进行混合或组合以得到新的特征</p>
 <ul>
-<li>根据经验组合特征
-<ul>
+<li>根据经验组合特征<ul>
 <li>如经纬度组合到一起，就代表地理上特定的区域</li>
 </ul>
 </li>
@@ -660,8 +625,7 @@
 <li>串联</li>
 <li>加减乘除：房间单价=房屋价格/房间数</li>
 <li>差分</li>
-<li>统计
-<ul>
+<li>统计<ul>
 <li>均值：节假日数据的统计信息、平均一周（月）的人数</li>
 <li>加减平均：超过平均值</li>
 <li>分位数/线：你超过了x%的用户</li>
@@ -670,8 +634,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="特征选择"><a class="markdownIt-Anchor" href="#特征选择"></a> 特征选择</h1>
-<p>原因：</p>
+<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>原因：</p>
 <ul>
 <li>冗余：部分特征之间相关度太高</li>
 <li>噪声</li>
@@ -679,8 +642,7 @@
 <p>特征选择vs.降维</p>
 <ul>
 <li>降维(PCA/SVD)：对原始特征进行线性组合，得到低维表示</li>
-<li>特征选择：剔除与预测关系不大的特征子集
-<ul>
+<li>特征选择：剔除与预测关系不大的特征子集<ul>
 <li>减少特征数目，防止过拟合，提高模型泛化能力</li>
 <li>有助于更好地理解特征的特性及其与响应之间的关系</li>
 </ul>
@@ -688,8 +650,7 @@
 </ul>
 <p>如何：</p>
 <ul>
-<li>
-<p>删除方差过小的特征</p>
+<li><p>删除方差过小的特征</p>
 <p>方差小意味着变化很小（标准差小），意味着该特征包含信息少，特征区分度很低</p>
 <p><code>class sklearn.feature_selection.VarianceThreshold(threshold=0.0)</code></p>
 <ul>
@@ -697,8 +658,7 @@
 <li>threshold缺省值为0，保留所有特征</li>
 </ul>
 </li>
-<li>
-<p>过滤型</p>
+<li><p>过滤型</p>
 <p>根据单变量的统计测试选择分数最佳特征</p>
 <ul>
 <li>sklearn.feature_selection.SelectKBest：选择分数最高的k个特征</li>
@@ -707,11 +667,9 @@
 </ul>
 </li>
 </ul>
-<p>​         分数度量</p>
+<p>​         分数度量 </p>
 <p>​           相关系数</p>
-<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>
-相关系数只对两个实数型随机变量有定义<br>
-互信息／最大信息系数</p>
+<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>                  相关系数只对两个实数型随机变量有定义<br>            互信息／最大信息系数</p>
 <ul>
 <li>互信息</li>
 </ul>
@@ -730,24 +688,19 @@
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb417b0aj20i40cfjve.jpg" alt=""></p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb4zp60kj20l50d9gq0.jpg" alt=""></p>
 <ul>
-<li>
-<p>嵌入型</p>
+<li><p>嵌入型</p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb5w4ifzj20n809m0tj.jpg" alt=""></p>
 <p>​</p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frcb6zvdzxj20og0b3gqh.jpg" alt=""></p>
 <p>​</p>
 <p>​</p>
 <p>​</p>
-<h1 id="如何获取重要特征"><a class="markdownIt-Anchor" href="#如何获取重要特征"></a> 如何获取重要特征</h1>
+<h1 id="如何获取重要特征"><a href="#如何获取重要特征" class="headerlink" title="如何获取重要特征"></a>如何获取重要特征</h1></li>
+<li><p>相关领域的专家知识</p>
 </li>
-<li>
-<p>相关领域的专家知识</p>
+<li><p>深度学习自动学习特征</p>
 </li>
-<li>
-<p>深度学习自动学习特征</p>
-</li>
-<li>
-<p>试验、经验与发现</p>
+<li><p>试验、经验与发现</p>
 </li>
 </ul>
 
@@ -939,7 +892,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程概览"><span class="nav-number">1.</span> <span class="nav-text"> 特征工程概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据探索"><span class="nav-number">2.</span> <span class="nav-text"> 数据探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺失值分析"><span class="nav-number">2.1.</span> <span class="nav-text"> 缺失值分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常值分析"><span class="nav-number">2.2.</span> <span class="nav-text"> 异常值分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征分布分析"><span class="nav-number">2.3.</span> <span class="nav-text"> 特征分布分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直方图"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示集中趋势的统计量"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 表示集中趋势的统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示散布程度的统计量"><span class="nav-number">2.3.3.</span> <span class="nav-text"> 表示散布程度的统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关性"><span class="nav-number">2.3.4.</span> <span class="nav-text"> 相关性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.</span> <span class="nav-text"> 数据预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征编码"><span class="nav-number">4.</span> <span class="nav-text"> 特征编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值型特征"><span class="nav-number">4.1.</span> <span class="nav-text"> 数值型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值型特征离散化"><span class="nav-number">4.2.</span> <span class="nav-text"> 数值型特征离散化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类别型特征"><span class="nav-number">4.3.</span> <span class="nav-text"> 类别型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#均值编码"><span class="nav-number">4.4.</span> <span class="nav-text"> 均值编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期型特征"><span class="nav-number">4.5.</span> <span class="nav-text"> 日期型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本型特征"><span class="nav-number">4.6.</span> <span class="nav-text"> 文本型特征</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造特征"><span class="nav-number">5.</span> <span class="nav-text"> 构造特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征选择"><span class="nav-number">6.</span> <span class="nav-text"> 特征选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取重要特征"><span class="nav-number">7.</span> <span class="nav-text"> 如何获取重要特征</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程概览"><span class="nav-number">1.</span> <span class="nav-text">特征工程概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据探索"><span class="nav-number">2.</span> <span class="nav-text">数据探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺失值分析"><span class="nav-number">2.1.</span> <span class="nav-text">缺失值分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常值分析"><span class="nav-number">2.2.</span> <span class="nav-text">异常值分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征分布分析"><span class="nav-number">2.3.</span> <span class="nav-text">特征分布分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直方图"><span class="nav-number">2.3.1.</span> <span class="nav-text">直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示集中趋势的统计量"><span class="nav-number">2.3.2.</span> <span class="nav-text">表示集中趋势的统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示散布程度的统计量"><span class="nav-number">2.3.3.</span> <span class="nav-text">表示散布程度的统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关性"><span class="nav-number">2.3.4.</span> <span class="nav-text">相关性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征编码"><span class="nav-number">4.</span> <span class="nav-text">特征编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值型特征"><span class="nav-number">4.1.</span> <span class="nav-text">数值型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值型特征离散化"><span class="nav-number">4.2.</span> <span class="nav-text">数值型特征离散化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类别型特征"><span class="nav-number">4.3.</span> <span class="nav-text">类别型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#均值编码"><span class="nav-number">4.4.</span> <span class="nav-text">均值编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期型特征"><span class="nav-number">4.5.</span> <span class="nav-text">日期型特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本型特征"><span class="nav-number">4.6.</span> <span class="nav-text">文本型特征</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造特征"><span class="nav-number">5.</span> <span class="nav-text">构造特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征选择"><span class="nav-number">6.</span> <span class="nav-text">特征选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取重要特征"><span class="nav-number">7.</span> <span class="nav-text">如何获取重要特征</span></a></li></ol></div>
             
 
           </div>
