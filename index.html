@@ -695,22 +695,32 @@
       
         
           
-            <p>1、先安装git  </p>
+            <p>1、先安装git</p>
 <p>ubuntu:   apt-get install git</p>
 <p>centos:    yum install git</p>
-<p>2、下载xgboost仓库，注意有—recursive(有子模块哦）</p>
-<p>git clone —recursive <a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="noopener">https://github.com/dmlc/xgboost.git</a><br>cd xgboost<br>./build.sh<br>cd python-package<br>python setup.py install</p>
+<p>2、下载xgboost仓库，注意有–recursive(有子模块哦）</p>
+<p>git clone --recursive <a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="noopener">https://github.com/dmlc/xgboost.git</a><br>
+cd xgboost<br>
+./build.sh<br>
+cd python-package<br>
+python <a href="http://setup.py" target="_blank" rel="noopener">setup.py</a> install</p>
 <p>3、测试</p>
 <p>python</p>
 <p>import xgboost</p>
 <p>如果服务器太慢，可以本地下载，再上传到服务器</p>
 <p>运行 bash ./build.sh出现“SYNTAX ERROR:UNEXPECTED END OF FILE”错误</p>
 <p>原因是</p>
-<p>dos文件传输到unix系统时,会在每行的结尾多一个^M,在vim的时候,当你用如下命令查看：cat -A SCRIPT<br>示例：<br>[root@localhost~]#cat -A installhttp.sh</p>
+<p>dos文件传输到unix系统时,会在每行的结尾多一个^M,在vim的时候,当你用如下命令查看：cat -A SCRIPT<br>
+示例：<br>
+[root@localhost~]#cat -A <a href="http://installhttp.sh" target="_blank" rel="noopener">installhttp.sh</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#！/bin/bash^M$</span><br><span class="line">#The script is autoinstallhttp.sh^M$</span><br><span class="line">#Author Joah^M$</span><br><span class="line">#Version 1.0.0^M$</span><br><span class="line">version=`grep -o &quot; [0-9]\&gt;&quot; /etc/centos-release`^M$</span><br><span class="line">if [ $version -eq 7 ];do^M$</span><br><span class="line">echo &quot;We will install newversion.Please wait!&quot;^M$</span><br></pre></td></tr></table></figure>
-<p>2、解决方法<br>使用命令dos2unix命令将SCRIPT脚本格式</p>
+<p>2、解决方法<br>
+使用命令dos2unix命令将SCRIPT脚本格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost~]#dos2unix installhttp.sh </span><br><span class="line">dos2unix: converting file installhttp.sh to UNIX format ...</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
-<p>或者：<br>[root@localhost/app]#vim installhttp.sh<br>:set fileformat=unix<br>:wq </p>
+<p>或者：<br>
+[root@localhost/app]#vim <a href="http://installhttp.sh" target="_blank" rel="noopener">installhttp.sh</a><br>
+:set fileformat=unix<br>
+:wq</p>
 
           
         
@@ -837,11 +847,11 @@
 <p><strong>下载python3.6编译安装</strong></p>
 <p>到python官网下载<a href="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org</a></p>
 <p>下载最新版源码，使用make altinstall，如果使用make install，在系统中将会有两个不同版本的Python在/usr/bin/目录中。这将会导致很多问题，而且不好处理。</p>
-<p># wget<a href="https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz</a></p>
+<p># wgethttps://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz</p>
 <p># tar -xzvf Python-3.6.0.tgz -C  /tmp</p>
 <p># cd  /tmp/Python-3.6.0/</p>
 <p>把Python3.6安装到 /usr/local 目录</p>
-<p># ./configure —prefix=<strong>/usr/local</strong></p>
+<p># ./configure --prefix=<strong>/usr/local</strong></p>
 <p># make</p>
 <p># make altinstall</p>
 <p>解决问题：</p>
@@ -986,7 +996,7 @@
 <p>搜索镜像，如搜索与python相关的镜像</p>
 <p><code>docker search python</code></p>
 <p>想把镜像下载下来</p>
-<p><code>docker pull  镜像名字</code></p>
+<p><code>docker pull 镜像名字</code></p>
 <p>查看本地的镜像</p>
 <p><code>docker images</code></p>
 <p>创建容器 tid 创建并运行一个容器，但不进入 依据选定的镜像创建</p>
@@ -1004,11 +1014,11 @@
 <p>封装镜像</p>
 <p><code>docker commit 容器id 镜像名字:版本号</code></p>
 <p>从容器里面拷文件到宿主机</p>
-<p>在宿主机里面执行以下命令<code>docker cp 容器名：要拷贝的文件在容器里面的路径       要拷贝到宿主机的相应路径</code></p>
+<p>在宿主机里面执行以下命令<code>docker cp 容器名：要拷贝的文件在容器里面的路径 要拷贝到宿主机的相应路径</code></p>
 <p>从宿主机拷文件到容器里面</p>
 <p>在宿主机里面执行如下命令<code>docker cp 要拷贝的文件路径 容器名：要拷贝到容器里面对应的路径</code></p>
 <p>通过docker save命令，将镜像保存为tar文件</p>
-<p><code>docker save -o /root/google-cadvisor.tar google/cadvisor</code>     </p>
+<p><code>docker save -o /root/google-cadvisor.tar google/cadvisor</code></p>
 <p>通过docker load命令将tar文件加载进来</p>
 <p><code>docker load -i /root/google-cadvisor.tar</code></p>
 <p><code>docker images</code></p>
@@ -1139,23 +1149,33 @@
       
         
           
-            <h6 id="python-enumerate用法总结"><a href="#python-enumerate用法总结" class="headerlink" title="python enumerate用法总结"></a>python enumerate用法总结</h6><h2 id="enumerate-说明"><a href="#enumerate-说明" class="headerlink" title="enumerate()说明"></a>enumerate()说明</h2><ul>
-<li><p>enumerate()是python的内置函数</p>
+            <h6 id="python-enumerate用法总结"><a class="markdownIt-Anchor" href="#python-enumerate用法总结"></a> python enumerate用法总结</h6>
+<h2 id="enumerate说明"><a class="markdownIt-Anchor" href="#enumerate说明"></a> enumerate()说明</h2>
+<ul>
+<li>
+<p>enumerate()是python的内置函数</p>
 </li>
-<li><p>enumerate在字典上是枚举、列举的意思</p>
+<li>
+<p>enumerate在字典上是枚举、列举的意思</p>
 </li>
-<li><p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p>
+<li>
+<p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p>
 </li>
-<li><p>enumerate多用于在for循环中得到计数</p>
+<li>
+<p>enumerate多用于在for循环中得到计数</p>
 </li>
-<li><p>例如对于一个seq，得到：</p>
+<li>
+<p>例如对于一个seq，得到：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0, seq[0]), (1, seq[1]), (2, seq[2])1</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>enumerate()返回的是一个enumerate对象，例如：<br><img src="https://img-blog.csdn.net/20160612190332206" alt="这里写图片描述"></p>
+<li>
+<p>enumerate()返回的是一个enumerate对象，例如：<br>
+<img src="https://img-blog.csdn.net/20160612190332206" alt="这里写图片描述"></p>
 </li>
 </ul>
 <hr>
-<h2 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h2><ul>
+<h2 id="enumerate使用"><a class="markdownIt-Anchor" href="#enumerate使用"></a> enumerate()使用</h2>
+<ul>
 <li>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;]</span><br><span class="line">for i in range (len(list1)):</span><br><span class="line">    print i ,list1[i]123</span><br></pre></td></tr></table></figure>
@@ -1168,7 +1188,8 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&quot;这&quot;, &quot;是&quot;, &quot;一个&quot;, &quot;测试&quot;]</span><br><span class="line">for index, item in enumerate(list1, 1):</span><br><span class="line">    print index, item</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">1 这</span><br><span class="line">2 是</span><br><span class="line">3 一个</span><br><span class="line">4 测试12345678</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果要统计文件的行数，可以这样写：</p>
+<h2 id="补充"><a class="markdownIt-Anchor" href="#补充"></a> 补充</h2>
+<p>如果要统计文件的行数，可以这样写：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count = len(open(filepath, &apos;r&apos;).readlines())1</span><br></pre></td></tr></table></figure>
 <p>这种方法简单，但是可能比较慢，当<strong>文件比较大</strong>时甚至不能工作。</p>
 <p>可以利用enumerate()：</p>
@@ -1293,18 +1314,19 @@
       
         
           
-            <h1 id="property"><a href="#property" class="headerlink" title="@property"></a>@property</h1><p>@property使我们可以直接像调用属性一样调用方法，并且能都进行检查，而不必另设置getter、setter方法，像下面都名为score就好了：</p>
+            <h1 id="property"><a class="markdownIt-Anchor" href="#property"></a> @property</h1>
+<p>@property使我们可以直接像调用属性一样调用方法，并且能都进行检查，而不必另设置getter、setter方法，像下面都名为score就好了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def score(self):</span><br><span class="line">        return self._score</span><br><span class="line"></span><br><span class="line">    @score.setter</span><br><span class="line">    def score(self, value):</span><br><span class="line">        if not isinstance(value, int):</span><br><span class="line">            raise ValueError(&apos;score must be an integer!&apos;)</span><br><span class="line">        if value &lt; 0 or value &gt; 100:</span><br><span class="line">            raise ValueError(&apos;score must between 0 ~ 100!&apos;)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
 <p><code>@property</code>的实现比较复杂，我们先考察如何使用。把一个getter方法变成属性，只需要加上<code>@property</code>就可以了，此时，<code>@property</code>本身又创建了另一个装饰器<code>@score.setter</code>，负责把一个setter方法变成属性赋值，于是，我们就拥有一个可控的属性操作：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.score = 60 # OK，实际转化为s.set_score(60)</span><br><span class="line">&gt;&gt;&gt; s.score # OK，实际转化为s.get_score()</span><br><span class="line">60</span><br><span class="line">&gt;&gt;&gt; s.score = 9999</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between 0 ~ 100!</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def birth(self):</span><br><span class="line">        return self._birth</span><br><span class="line"></span><br><span class="line">    @birth.setter</span><br><span class="line">    def birth(self, value):</span><br><span class="line">        self._birth = value</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def age(self):</span><br><span class="line">        return 2015 - self._birth</span><br></pre></td></tr></table></figure>
 <p>上面的<code>birth</code>是可读写属性，而<code>age</code>就是一个<em>只读</em>属性，因为<code>age</code>可以根据<code>birth</code>和当前时间计算出来。</p>
 <p><code>@property</code>广泛应用在类的定义中，可以让调用者写出简短的代码，同时保证对参数进行必要的检查，这样，程序运行时就减少了出错的可能性。</p>
-<h1 id="classmethod和-classmethod"><a href="#classmethod和-classmethod" class="headerlink" title="@classmethod和@classmethod"></a>@classmethod和@classmethod</h1><p>Python其实有3个方法,即静态方法(staticmethod),类方法(classmethod)和实例方法,如下:</p>
+<h1 id="classmethod和classmethod"><a class="markdownIt-Anchor" href="#classmethod和classmethod"></a> @classmethod和@classmethod</h1>
+<p>Python其实有3个方法,即静态方法(staticmethod),类方法(classmethod)和实例方法,如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def foo(x):</span><br><span class="line">    print &quot;executing foo(%s)&quot;%(x)</span><br><span class="line"></span><br><span class="line">class A(object):</span><br><span class="line">    def foo(self,x):</span><br><span class="line">        print &quot;executing foo(%s,%s)&quot;%(self,x)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def class_foo(cls,x):</span><br><span class="line">        print &quot;executing class_foo(%s,%s)&quot;%(cls,x)</span><br><span class="line"></span><br><span class="line">    @staticmethod</span><br><span class="line">    def static_foo(x):</span><br><span class="line">        print &quot;executing static_foo(%s)&quot;%x</span><br><span class="line"></span><br><span class="line">a=A()</span><br></pre></td></tr></table></figure>
 <p>这里先理解下函数参数里面的self和cls.这个self和cls是对类或者实例的绑定,对于一般的函数来说我们可以这么调用<code>foo(x)</code>,这个函数就是最常用的,它的工作跟任何东西(类,实例)无关.对于实例方法,我们知道在类里每次定义方法的时候都需要绑定这个实例,就是<code>foo(self, x)</code>,为什么要这么做呢?因为实例方法的调用离不开实例,我们需要把实例自己传给函数,调用的时候是这样的<code>a.foo(x)</code>(其实是<code>foo(a, x)</code>).类方法一样,只不过它传递的是类而不是实例,<code>A.class_foo(x)</code>.注意这里的self和cls可以替换别的参数,但是python的约定是这俩,还是不要改的好.</p>
 <p>对于静态方法其实和普通的方法一样,不需要对谁进行绑定,唯一的区别是调用的时候需要使用<code>a.static_foo(x)</code>或者<code>A.static_foo(x)</code>来调用.</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1329,9 +1351,8 @@
 </tr>
 </tbody>
 </table>
-</div>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class A(object):</span><br><span class="line">    def foo(self, x):</span><br><span class="line">        print(&quot;executing foo(%s,%s)&quot; % (self, x))</span><br><span class="line">        print(&apos;self:&apos;, self)</span><br><span class="line">    @classmethod</span><br><span class="line">    def class_foo(cls, x):</span><br><span class="line">        print(&quot;executing class_foo(%s,%s)&quot; % (cls, x))</span><br><span class="line">        print(&apos;cls:&apos;, cls)</span><br><span class="line">    @staticmethod</span><br><span class="line">    def static_foo(x):</span><br><span class="line">        print(&quot;executing static_foo(%s)&quot; % x)  </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">A.static_foo(&apos;h&apos;)</span><br><span class="line">executing static_foo(h)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A.class_foo(&apos;h&apos;)</span><br><span class="line">executing class_foo(&lt;class &apos;__main__.A&apos;&gt;,h)</span><br><span class="line">cls: &lt;class &apos;__main__.A&apos;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A.foo(&apos;h&apos;)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">TypeError                                 Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input-46-901d70beca99&gt; in &lt;module&gt;()</span><br><span class="line">----&gt; 1 A.foo(&apos;h&apos;)</span><br><span class="line"></span><br><span class="line">TypeError: foo() missing 1 required positional argument: &apos;x&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">a.foo(&apos;h&apos;)</span><br><span class="line">executing foo(&lt;__main__.A object at 0x0000000009A5FE48&gt;,h)</span><br><span class="line">self: &lt;__main__.A object at 0x0000000009A5FE48&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@classmethod和@classmethod二者是为类量身定制的，但是实例非要使用，也不会报错。</span><br><span class="line">a.static_foo(&apos;h&apos;)</span><br><span class="line">executing static_foo(h)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a.class_foo(&apos;h&apos;)</span><br><span class="line">executing class_foo(&lt;class &apos;__main__.A&apos;&gt;,h)</span><br><span class="line">cls: &lt;class &apos;__main__.A&apos;&gt;</span><br></pre></td></tr></table></figure>
-<p>应用场景:编写类时需要采用很多不同的方式来创建实例，而我们只有一个<strong>init</strong>函数，此时静态方法就派上用场了</p>
+<p>应用场景:编写类时需要采用很多不同的方式来创建实例，而我们只有一个__init__函数，此时静态方法就派上用场了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Date:</span><br><span class="line">    def __init__(self,year,month,day):</span><br><span class="line">        self.year=year</span><br><span class="line">        self.month=month</span><br><span class="line">        self.day=day</span><br><span class="line">    @staticmethod</span><br><span class="line">    def now(): #用Date.now()的形式去产生实例,该实例用的是当前时间</span><br><span class="line">        t=time.localtime() #获取结构化的时间格式</span><br><span class="line">        return Date(t.tm_year,t.tm_mon,t.tm_mday) #新建实例并且返回</span><br><span class="line">    @staticmethod</span><br><span class="line">    def tomorrow():#用Date.tomorrow()的形式去产生实例,该实例用的是明天的时间</span><br><span class="line">        t=time.localtime(time.time()+86400)</span><br><span class="line">        return Date(t.tm_year,t.tm_mon,t.tm_mday)</span><br><span class="line"></span><br><span class="line">a=Date(&apos;1987&apos;,11,27) #自己定义时间</span><br><span class="line">b=Date.now() #采用当前时间</span><br><span class="line">c=Date.tomorrow() #采用明天的时间</span><br><span class="line"></span><br><span class="line">print(a.year,a.month,a.day)</span><br><span class="line">print(b.year,b.month,b.day)</span><br><span class="line">print(c.year,c.month,c.day)</span><br></pre></td></tr></table></figure>
           
         
@@ -1457,7 +1478,9 @@
 <p>函数其实接受的是一个元组args和一个字典kwargs，并在内部完成如下转换：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a, b, c = args</span><br><span class="line"></span><br><span class="line">d = kwargs.get(&apos;d&apos;: d_default_value)</span><br><span class="line"></span><br><span class="line">e = kwargs.get(&apos;e&apos;: e_default_value)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>dict.get(key, default=None)<br>key — 字典中要查找的键。<br>default — 如果指定键的值不存在时，返回该默认值值。</p>
+<p>dict.get(key, default=None)<br>
+key – 字典中要查找的键。<br>
+default – 如果指定键的值不存在时，返回该默认值值。</p>
 <p>Python 字典(Dictionary) get() 函数返回指定键的值，如果值不在字典中返回默认值。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;#!/usr/bin/python</span><br><span class="line">&gt;</span><br><span class="line">&gt;dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 27&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Age&apos;)</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Sex&apos;, &quot;Never&quot;)</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;Value : 27</span><br><span class="line">&gt;Value : Never</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
@@ -1586,22 +1609,27 @@
       
         
           
-            <h1 id="特征工程概览"><a href="#特征工程概览" class="headerlink" title="特征工程概览"></a>特征工程概览</h1><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg" alt=""></p>
-<h1 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h1><p>数据探索有助于选择合适的数据预处理和建模方法。</p>
+            <h1 id="特征工程概览"><a class="markdownIt-Anchor" href="#特征工程概览"></a> 特征工程概览</h1>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg" alt=""></p>
+<h1 id="数据探索"><a class="markdownIt-Anchor" href="#数据探索"></a> 数据探索</h1>
+<p>数据探索有助于选择合适的数据预处理和建模方法。</p>
 <ul>
-<li>数据质量分析<ul>
+<li>数据质量分析
+<ul>
 <li>缺失值</li>
 <li>异常值</li>
 </ul>
 </li>
-<li>特征分布特征分析<ul>
+<li>特征分布特征分析
+<ul>
 <li>统计量</li>
 <li>直方图</li>
 </ul>
 </li>
 <li>特征之间的相关性</li>
 </ul>
-<h2 id="缺失值分析"><a href="#缺失值分析" class="headerlink" title="缺失值分析"></a>缺失值分析</h2><p>统计缺失样本数目及缺失率</p>
+<h2 id="缺失值分析"><a class="markdownIt-Anchor" href="#缺失值分析"></a> 缺失值分析</h2>
+<p>统计缺失样本数目及缺失率</p>
 <p>缺失值处理</p>
 <ul>
 <li>删除含有（1个或多个）缺失值的样本（行）</li>
@@ -1611,7 +1639,8 @@
 </ul>
 <p>缺失值的填补</p>
 <ul>
-<li>scikit-learn的类Imputer提供了一些常见填补方法<ul>
+<li>scikit-learn的类Imputer提供了一些常见填补方法
+<ul>
 <li>均值mean（默认方法）</li>
 <li>中位数median</li>
 <li>众数most_frequent</li>
@@ -1619,7 +1648,6 @@
 </li>
 <li>pandas库的fillna函数也可以处理缺失值，而且更加灵活，但是重用性较弱</li>
 </ul>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1650,27 +1678,31 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="异常值分析"><a href="#异常值分析" class="headerlink" title="异常值分析"></a>异常值分析</h2><p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
+<h2 id="异常值分析"><a class="markdownIt-Anchor" href="#异常值分析"></a> 异常值分析</h2>
+<p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
 <ul>
-<li><p>发现异常值</p>
+<li>
+<p>发现异常值</p>
 <ul>
 <li>最大值/最小值分析</li>
-<li>2$\sigma$原则</li>
+<li>2<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">σ</span></span></span></span>原则</li>
 <li>箱型图</li>
 <li>直方图（尾巴）</li>
 <li>散点图（散点图上孤立的点）</li>
 <li>分位数（0.5%-99.5%分位数以外）</li>
 </ul>
 </li>
-<li><p>异常值处理：类似缺失值处理</p>
+<li>
+<p>异常值处理：类似缺失值处理</p>
 <ul>
 <li>注意分析异常值产生的原因</li>
 </ul>
 <p>​</p>
 </li>
 </ul>
-<h2 id="特征分布分析"><a href="#特征分布分析" class="headerlink" title="特征分布分析"></a>特征分布分析</h2><h3 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h3><p>直方图：每个取值在数据集中出现的次数，可视为概率函数(PDF)的估计(seaborn可视化工具比较简单)</p>
+<h2 id="特征分布分析"><a class="markdownIt-Anchor" href="#特征分布分析"></a> 特征分布分析</h2>
+<h3 id="直方图"><a class="markdownIt-Anchor" href="#直方图"></a> 直方图</h3>
+<p>直方图：每个取值在数据集中出现的次数，可视为概率函数(PDF)的估计(seaborn可视化工具比较简单)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.ditplot(tranin.price.values, bins=50, kde=True)</span><br></pre></td></tr></table></figure>
 <p>核密度估计</p>
 <ul>
@@ -1681,35 +1713,42 @@
 <ul>
 <li>核密度估计</li>
 <li>order=[‘low’, ‘medium’, ‘high’]</li>
-<li>sns.violinplot(x=’interest_level’, y= ‘price’, data=train, order=order)</li>
+<li>sns.violinplot(x=‘interest_level’, y= ‘price’, data=train, order=order)</li>
 </ul>
-<h3 id="表示集中趋势的统计量"><a href="#表示集中趋势的统计量" class="headerlink" title="表示集中趋势的统计量"></a>表示集中趋势的统计量</h3><ul>
+<h3 id="表示集中趋势的统计量"><a class="markdownIt-Anchor" href="#表示集中趋势的统计量"></a> 表示集中趋势的统计量</h3>
+<ul>
 <li>均值</li>
 <li>中值</li>
 <li>众数</li>
 </ul>
-<h3 id="表示散布程度的统计量"><a href="#表示散布程度的统计量" class="headerlink" title="表示散布程度的统计量"></a>表示散布程度的统计量</h3><ul>
+<h3 id="表示散布程度的统计量"><a class="markdownIt-Anchor" href="#表示散布程度的统计量"></a> 表示散布程度的统计量</h3>
+<ul>
 <li>方差</li>
 <li>四分位数间距</li>
-<li>IQR在箱体图boxplot(seaborn.boxplot())中用到：分布的图形概述<ul>
+<li>IQR在箱体图boxplot(seaborn.boxplot())中用到：分布的图形概述
+<ul>
 <li>长方形为IQR</li>
 <li>中间的线为中值</li>
 <li>两头的虚线：1.51QR</li>
 </ul>
 </li>
 </ul>
-<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><ul>
-<li>希望特征与标签强相关<ul>
+<h3 id="相关性"><a class="markdownIt-Anchor" href="#相关性"></a> 相关性</h3>
+<ul>
+<li>希望特征与标签强相关
+<ul>
 <li>分类直方图可以从某种程度上看出特征与标签的相关性：不同类别的直方图差异大</li>
 </ul>
 </li>
-<li>特征与特征之间强相关的话意味着信息冗余<ul>
+<li>特征与特征之间强相关的话意味着信息冗余
+<ul>
 <li>可以两个特征只保留一个</li>
 <li>或采用主成分分析（PCA)等降维</li>
 </ul>
 </li>
 </ul>
-<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>数据取值范围缩放</p>
+<h1 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h1>
+<p>数据取值范围缩放</p>
 <ul>
 <li>数据标准化（Standardization）</li>
 <li>数据归一化（Scaling）</li>
@@ -1717,7 +1756,6 @@
 <li>数据二值化</li>
 </ul>
 <p>from sklearn.preprocessing import …</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1769,38 +1807,46 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h1 id="特征编码"><a href="#特征编码" class="headerlink" title="特征编码"></a>特征编码</h1><ul>
+<h1 id="特征编码"><a class="markdownIt-Anchor" href="#特征编码"></a> 特征编码</h1>
+<ul>
 <li>数值型</li>
 <li>类别型</li>
 <li>时间类</li>
 <li>文本型</li>
 <li>统计型</li>
 </ul>
-<h2 id="数值型特征"><a href="#数值型特征" class="headerlink" title="数值型特征"></a>数值型特征</h2><ul>
-<li><p>有时候数值特征并不能直接适用于线性模型，可以选择使用log(x+1)变换来处理我们的数值特征，其中x表示数值特征</p>
+<h2 id="数值型特征"><a class="markdownIt-Anchor" href="#数值型特征"></a> 数值型特征</h2>
 <ul>
-<li><p>检查数据偏斜度（skewness），并以此衡量数据分布的形状</p>
+<li>
+<p>有时候数值特征并不能直接适用于线性模型，可以选择使用log(x+1)变换来处理我们的数值特征，其中x表示数值特征</p>
+<ul>
+<li>
+<p>检查数据偏斜度（skewness），并以此衡量数据分布的形状</p>
 </li>
-<li><p>当使用回归方法时，如果目标变量出现偏斜，则有必要对目标变量进行对数变换(log-transform)。通过对数变换，可以改善数据的线性度。</p>
+<li>
+<p>当使用回归方法时，如果目标变量出现偏斜，则有必要对目标变量进行对数变换(log-transform)。通过对数变换，可以改善数据的线性度。</p>
 <p><code>train.SalePrice=np.loglp(train.SalesPrice)</code></p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc7zd7emoj20fd03twew.jpg" alt=""></p>
 </li>
 </ul>
 </li>
-<li><p>还可以根据需要进行多项式扩展数值特征</p>
+<li>
+<p>还可以根据需要进行多项式扩展数值特征</p>
 </li>
 </ul>
 <p>模型很多时候是线性模型，可以在特征上做一些工作，让模型包含一些非线性特征</p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc858vs43j20y60bldhc.jpg" alt=""></p>
 <p>默认值为2，则特征两两组合，先和自己再和其他</p>
-<h2 id="数值型特征离散化"><a href="#数值型特征离散化" class="headerlink" title="数值型特征离散化"></a>数值型特征离散化</h2><ul>
-<li>有时候将数值型属性转换成类别表示更有意义<ul>
+<h2 id="数值型特征离散化"><a class="markdownIt-Anchor" href="#数值型特征离散化"></a> 数值型特征离散化</h2>
+<ul>
+<li>有时候将数值型属性转换成类别表示更有意义
+<ul>
 <li>如年龄，根据人生阶段划分往往更有意义</li>
 <li>房屋到街道的距离分为远、中、近</li>
 </ul>
 </li>
-<li>了解领域背景知识，确保特征划分成分区有意义<ul>
+<li>了解领域背景知识，确保特征划分成分区有意义
+<ul>
 <li>所有落入一个分区的数值都呈现出共同的特征</li>
 <li>在实际应用中，需要仔细考虑分区的粒度，防止过拟合</li>
 </ul>
@@ -1808,36 +1854,45 @@
 <li>也可以采用聚类技术实现分组</li>
 </ul>
 <p>注意：如果数据的准确率很重要的话，此时离散化不合适</p>
-<h2 id="类别型特征"><a href="#类别型特征" class="headerlink" title="类别型特征"></a>类别型特征</h2><ul>
-<li>有些模型只能处理数值型数据。如果给定的数据是不同的类型，必须先将数据编程数值型。<ul>
+<h2 id="类别型特征"><a class="markdownIt-Anchor" href="#类别型特征"></a> 类别型特征</h2>
+<ul>
+<li>有些模型只能处理数值型数据。如果给定的数据是不同的类型，必须先将数据编程数值型。
+<ul>
 <li>用0和1来代表样本是否有某种特性</li>
 </ul>
 </li>
-<li>LbabelEncoder：用有序数对不连续的数字或者文本进行编号<ul>
+<li>LbabelEncoder：用有序数对不连续的数字或者文本进行编号
+<ul>
 <li>如用数字表示房屋质量：分别用1、2 、3表示质量差、中、好</li>
 <li>存储量小</li>
 </ul>
 </li>
-<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维——&gt;K维的稀疏编码<ul>
+<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维----&gt;K维的稀疏编码
+<ul>
 <li>统计该特征上有多少类，就设置几维(K)的向量</li>
 <li>输入必须是数值型数据（对字符串输入，先调用LabelEncoder变成数字，再用OneHotEncoder）</li>
 <li>存储要求高，通常要求K&lt;10（低基数）</li>
 </ul>
 </li>
-<li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）<ul>
-<li>可先采用降维/聚类：1维—-&gt;K维，K为聚类的类别数</li>
+<li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）
+<ul>
+<li>可先采用降维/聚类：1维—&gt;K维，K为聚类的类别数</li>
 <li>或采用均值编码：在贝叶斯的架构下，利用标签变量，有监督地确定最适合特定特征的编码方式</li>
 </ul>
 </li>
 </ul>
-<h2 id="均值编码"><a href="#均值编码" class="headerlink" title="均值编码"></a>均值编码</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc8wl4rsaj20t30ajq45.jpg" alt=""></p>
+<h2 id="均值编码"><a class="markdownIt-Anchor" href="#均值编码"></a> 均值编码</h2>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc8wl4rsaj20t30ajq45.jpg" alt=""></p>
 <p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc8zvjf8sj20s00be75g.jpg" alt=""></p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc90307n8j20t20bi0vw.jpg" alt=""></p>
-<h2 id="日期型特征"><a href="#日期型特征" class="headerlink" title="日期型特征"></a>日期型特征</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc944nnp8j20s30b3dgj.jpg" alt=""></p>
-<h2 id="文本型特征"><a href="#文本型特征" class="headerlink" title="文本型特征"></a>文本型特征</h2><p>文本型特征无法直接送到学习器，需要先进行特征提取</p>
+<h2 id="日期型特征"><a class="markdownIt-Anchor" href="#日期型特征"></a> 日期型特征</h2>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc944nnp8j20s30b3dgj.jpg" alt=""></p>
+<h2 id="文本型特征"><a class="markdownIt-Anchor" href="#文本型特征"></a> 文本型特征</h2>
+<p>文本型特征无法直接送到学习器，需要先进行特征提取</p>
 <p>scikit-learn采用简单的文本特征提取，更多文本特征提取可采用Natural Language Tookit（NLTK）</p>
 <ul>
-<li>词向量（1-gram模型）：即词袋模型，统计次出现的次数（词频）<ul>
+<li>词向量（1-gram模型）：即词袋模型，统计次出现的次数（词频）
+<ul>
 <li>CountVectorizer</li>
 </ul>
 </li>
@@ -1846,7 +1901,8 @@
 <p>TF-IDF特征：</p>
 <ul>
 <li>TF(Term Frequency)：衡量一个term在文档中出现的多频繁</li>
-<li>IDF(Inverse Document Frequency)：衡量一个term有多重要<ul>
+<li>IDF(Inverse Document Frequency)：衡量一个term有多重要
+<ul>
 <li>有些词出现的很多，但是并没有什么作用 ‘is’、‘the’…</li>
 <li>将罕见的词重要性调高，常见词重要性调低</li>
 </ul>
@@ -1858,9 +1914,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.feature_extraction.text.TfidfTransformer(norm=&apos;l2&apos;, use_idf=True, smooth_idf=True, sublinear_tf=False)</span><br></pre></td></tr></table></figure>
 <p>可用词云可视化</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from wordcloud import WordCloud</span><br><span class="line">wordcloud = WordCloud(background_color=&apos;white&apos;, width=600, height=300,</span><br><span class="line">max_font_size=50, max_words=40)</span><br><span class="line">wordcloud.generate(text)</span><br></pre></td></tr></table></figure>
-<h1 id="构造特征"><a href="#构造特征" class="headerlink" title="构造特征"></a>构造特征</h1><p>将特征进行混合或组合以得到新的特征</p>
+<h1 id="构造特征"><a class="markdownIt-Anchor" href="#构造特征"></a> 构造特征</h1>
+<p>将特征进行混合或组合以得到新的特征</p>
 <ul>
-<li>根据经验组合特征<ul>
+<li>根据经验组合特征
+<ul>
 <li>如经纬度组合到一起，就代表地理上特定的区域</li>
 </ul>
 </li>
@@ -1872,7 +1930,8 @@
 <li>串联</li>
 <li>加减乘除：房间单价=房屋价格/房间数</li>
 <li>差分</li>
-<li>统计<ul>
+<li>统计
+<ul>
 <li>均值：节假日数据的统计信息、平均一周（月）的人数</li>
 <li>加减平均：超过平均值</li>
 <li>分位数/线：你超过了x%的用户</li>
@@ -1881,7 +1940,8 @@
 </ul>
 </li>
 </ul>
-<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>原因：</p>
+<h1 id="特征选择"><a class="markdownIt-Anchor" href="#特征选择"></a> 特征选择</h1>
+<p>原因：</p>
 <ul>
 <li>冗余：部分特征之间相关度太高</li>
 <li>噪声</li>
@@ -1889,7 +1949,8 @@
 <p>特征选择vs.降维</p>
 <ul>
 <li>降维(PCA/SVD)：对原始特征进行线性组合，得到低维表示</li>
-<li>特征选择：剔除与预测关系不大的特征子集<ul>
+<li>特征选择：剔除与预测关系不大的特征子集
+<ul>
 <li>减少特征数目，防止过拟合，提高模型泛化能力</li>
 <li>有助于更好地理解特征的特性及其与响应之间的关系</li>
 </ul>
@@ -1897,7 +1958,8 @@
 </ul>
 <p>如何：</p>
 <ul>
-<li><p>删除方差过小的特征</p>
+<li>
+<p>删除方差过小的特征</p>
 <p>方差小意味着变化很小（标准差小），意味着该特征包含信息少，特征区分度很低</p>
 <p><code>class sklearn.feature_selection.VarianceThreshold(threshold=0.0)</code></p>
 <ul>
@@ -1905,7 +1967,8 @@
 <li>threshold缺省值为0，保留所有特征</li>
 </ul>
 </li>
-<li><p>过滤型</p>
+<li>
+<p>过滤型</p>
 <p>根据单变量的统计测试选择分数最佳特征</p>
 <ul>
 <li>sklearn.feature_selection.SelectKBest：选择分数最高的k个特征</li>
@@ -1914,9 +1977,11 @@
 </ul>
 </li>
 </ul>
-<p>​         分数度量 </p>
+<p>​         分数度量</p>
 <p>​           相关系数</p>
-<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>                  相关系数只对两个实数型随机变量有定义<br>            互信息／最大信息系数</p>
+<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>
+相关系数只对两个实数型随机变量有定义<br>
+互信息／最大信息系数</p>
 <ul>
 <li>互信息</li>
 </ul>
@@ -1935,19 +2000,24 @@
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb417b0aj20i40cfjve.jpg" alt=""></p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb4zp60kj20l50d9gq0.jpg" alt=""></p>
 <ul>
-<li><p>嵌入型</p>
+<li>
+<p>嵌入型</p>
 <p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb5w4ifzj20n809m0tj.jpg" alt=""></p>
 <p>​</p>
 <p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frcb6zvdzxj20og0b3gqh.jpg" alt=""></p>
 <p>​</p>
 <p>​</p>
 <p>​</p>
-<h1 id="如何获取重要特征"><a href="#如何获取重要特征" class="headerlink" title="如何获取重要特征"></a>如何获取重要特征</h1></li>
-<li><p>相关领域的专家知识</p>
+<h1 id="如何获取重要特征"><a class="markdownIt-Anchor" href="#如何获取重要特征"></a> 如何获取重要特征</h1>
 </li>
-<li><p>深度学习自动学习特征</p>
+<li>
+<p>相关领域的专家知识</p>
 </li>
-<li><p>试验、经验与发现</p>
+<li>
+<p>深度学习自动学习特征</p>
+</li>
+<li>
+<p>试验、经验与发现</p>
 </li>
 </ul>
 

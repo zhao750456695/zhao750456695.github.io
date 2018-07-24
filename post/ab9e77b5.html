@@ -326,7 +326,9 @@
 <p>函数其实接受的是一个元组args和一个字典kwargs，并在内部完成如下转换：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a, b, c = args</span><br><span class="line"></span><br><span class="line">d = kwargs.get(&apos;d&apos;: d_default_value)</span><br><span class="line"></span><br><span class="line">e = kwargs.get(&apos;e&apos;: e_default_value)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>dict.get(key, default=None)<br>key — 字典中要查找的键。<br>default — 如果指定键的值不存在时，返回该默认值值。</p>
+<p>dict.get(key, default=None)<br>
+key – 字典中要查找的键。<br>
+default – 如果指定键的值不存在时，返回该默认值值。</p>
 <p>Python 字典(Dictionary) get() 函数返回指定键的值，如果值不在字典中返回默认值。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;#!/usr/bin/python</span><br><span class="line">&gt;</span><br><span class="line">&gt;dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 27&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Age&apos;)</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Sex&apos;, &quot;Never&quot;)</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;Value : 27</span><br><span class="line">&gt;Value : Never</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
