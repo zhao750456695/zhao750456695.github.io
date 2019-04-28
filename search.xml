@@ -3,6 +3,45 @@
   
     
     <entry>
+      <title>本人部分项目简介和Gitbub链接</title>
+      <link href="/post/3739e45b.html"/>
+      <url>/post/3739e45b.html</url>
+      <content type="html"><![CDATA[<p>尊敬的老师您好，</p><p>部分项目连接地址：<a href="https://github.com/zhao750456695/cvpro" target="_blank" rel="noopener">https://github.com/zhao750456695/cvpro</a></p><p>部分项目仍在上传更新当中，5月1日前跟新完毕。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> cv </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title></title>
+      <link href="/post/0.html"/>
+      <url>/post/0.html</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>搭建Hadoop集群</title>
+      <link href="/post/4bc279d1.html"/>
+      <url>/post/4bc279d1.html</url>
+      <content type="html"><![CDATA[<p>系统：centos7</p><h1 id="Vmware虚拟机设置固定IP地址"><a href="#Vmware虚拟机设置固定IP地址" class="headerlink" title="Vmware虚拟机设置固定IP地址"></a>Vmware虚拟机设置固定IP地址</h1><p>一、在菜单栏选择编辑→ 虚拟网络编辑器，打开虚拟网络编辑器对话框，选择Net网络连接方式，随意设置子网IP，点击NAT设置页面，查看子网掩码和网关，后面修改静态IP会用到。</p><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftrw6cgssaj20al05tjru.jpg" alt=""></p><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftrw7yzu8xj20gq0eu75k.jpg" alt=""></p><p>不要勾选 使用本地DHCP服务将IP地址分配给虚拟机 这项</p><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftrwal5qnyj20gd0fomxo.jpg" alt=""></p><p>设置网关，记住这个网关，要在下面设置时使用。</p><p>二、检查物理主机 网卡设置，打开网络和共享中心→ 更改适配器设置→，在VMware Network Adapter VMnet8上单击右键，选择属性按钮打开属性对话框。  </p><p>双击Internet协议版本4 在出现的对话框中填入 子网掩码 和 默认网关</p><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftrwd2kokgj20o50fbdgz.jpg" alt=""></p><p>三、进入虚拟机，设置固定IP地址。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysconfig/network-scripts/</span><br></pre></td></tr></table></figure><p><a href="http://www.linuxidc.com/topicnews.aspx?tid=14" target="_blank" rel="noopener">CentOS</a>7里面的网卡名称不再是eth0,1,2而改成enoxxxxxx的格式，en代表的是enthernet以太网，o代表onboard内置，这种新的方式不但长，而且难记，不过优点也比较突出，有编号唯一性，迁移系统的时候不容易出错，网卡名称可以改动。</p><p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1ftrwgromdkj20g405ewel.jpg" alt=""></p><p>于是，网卡就是上面的ifcfg-ens33</p><p>编辑该文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ifcfg-ens33</span><br></pre></td></tr></table></figure><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1ftrwjen8q8j20en07vaa6.jpg" alt=""></p><p>依照上面修改该文件</p><p>添加ip地址、子网掩码和网关</p><p>BOOTPROTO设置为none</p><p>systemctl  restart  network：重启网络</p><p>有几台虚拟机就设置几次ip</p><p>还要设置DNS</p><p>在上面结尾加上下面两句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DNS1=8.8.8.8</span><br><span class="line">DNS2=4.2.2.2</span><br></pre></td></tr></table></figure><h1 id="安装Hadoop"><a href="#安装Hadoop" class="headerlink" title="安装Hadoop"></a>安装Hadoop</h1><p>之前我们只有root，现在创建hadoop用户</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd hadoop</span><br><span class="line">passwd haddop</span><br></pre></td></tr></table></figure><p>输入密码 我们密码也用hadoop</p><p>可以用hadoop登陆了</p><p>关闭防火墙</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//临时关闭</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">//禁止开机启动</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure><p>修改sudo<br>        su root<br>        vim /etc/sudoers<br>        给hadoop用户添加执行的权限</p><p>CentOS7 设置主机名及IP映射</p><p>使用 vi 编辑器打开 /etc/hosts 文件</p><p>在文件尾部添加内容，格式：IP地址 主机名（中间用空格分隔），保存退出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.242.130 Master</span><br></pre></td></tr></table></figure><p>设置主机名</p><p>编辑hostname主机名</p><p><code>/etc/hostname</code>中可以设置主机名</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /usr/local/hadoop/hadoop_data/hdfs</span><br><span class="line">mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode</span><br><span class="line">sudo chown -R hadoop:hadoop /usr/local/hadoop</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 大数据 hadoop </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>test</title>
       <link href="/post/d87f7e0c.html"/>
       <url>/post/d87f7e0c.html</url>

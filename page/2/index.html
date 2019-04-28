@@ -251,6 +251,784 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/f1b59888.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/f1b59888.html" itemprop="url">python中的@property、@classmethod和@staticmethod</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T11:57:09+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="property"><a href="#property" class="headerlink" title="@property"></a>@property</h1><p>@property使我们可以直接像调用属性一样调用方法，并且能都进行检查，而不必另设置getter、setter方法，像下面都名为score就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def score(self):</span><br><span class="line">        return self._score</span><br><span class="line"></span><br><span class="line">    @score.setter</span><br><span class="line">    def score(self, value):</span><br><span class="line">        if not isinstance(value, int):</span><br><span class="line">            raise ValueError(&apos;score must be an integer!&apos;)</span><br><span class="line">        if value &lt; 0 or value &gt; 100:</span><br><span class="line">            raise ValueError(&apos;score must between 0 ~ 100!&apos;)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure>
+<p><code>@property</code>的实现比较复杂，我们先考察如何使用。把一个getter方法变成属性，只需要加上<code>@property</code>就可以了，此时，<code>@property</code>本身又创建了另一个装饰器<code>@score.setter</code>，负责把一个setter方法变成属性赋值，于是，我们就拥有一个可控的属性操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.score = 60 # OK，实际转化为s.set_score(60)</span><br><span class="line">&gt;&gt;&gt; s.score # OK，实际转化为s.get_score()</span><br><span class="line">60</span><br><span class="line">&gt;&gt;&gt; s.score = 9999</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between 0 ~ 100!</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def birth(self):</span><br><span class="line">        return self._birth</span><br><span class="line"></span><br><span class="line">    @birth.setter</span><br><span class="line">    def birth(self, value):</span><br><span class="line">        self._birth = value</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def age(self):</span><br><span class="line">        return 2015 - self._birth</span><br></pre></td></tr></table></figure>
+<p>上面的<code>birth</code>是可读写属性，而<code>age</code>就是一个<em>只读</em>属性，因为<code>age</code>可以根据<code>birth</code>和当前时间计算出来。</p>
+<p><code>@property</code>广泛应用在类的定义中，可以让调用者写出简短的代码，同时保证对参数进行必要的检查，这样，程序运行时就减少了出错的可能性。</p>
+<h1 id="classmethod和-classmethod"><a href="#classmethod和-classmethod" class="headerlink" title="@classmethod和@classmethod"></a>@classmethod和@classmethod</h1><p>Python其实有3个方法,即静态方法(staticmethod),类方法(classmethod)和实例方法,如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def foo(x):</span><br><span class="line">    print &quot;executing foo(%s)&quot;%(x)</span><br><span class="line"></span><br><span class="line">class A(object):</span><br><span class="line">    def foo(self,x):</span><br><span class="line">        print &quot;executing foo(%s,%s)&quot;%(self,x)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def class_foo(cls,x):</span><br><span class="line">        print &quot;executing class_foo(%s,%s)&quot;%(cls,x)</span><br><span class="line"></span><br><span class="line">    @staticmethod</span><br><span class="line">    def static_foo(x):</span><br><span class="line">        print &quot;executing static_foo(%s)&quot;%x</span><br><span class="line"></span><br><span class="line">a=A()</span><br></pre></td></tr></table></figure>
+<p>这里先理解下函数参数里面的self和cls.这个self和cls是对类或者实例的绑定,对于一般的函数来说我们可以这么调用<code>foo(x)</code>,这个函数就是最常用的,它的工作跟任何东西(类,实例)无关.对于实例方法,我们知道在类里每次定义方法的时候都需要绑定这个实例,就是<code>foo(self, x)</code>,为什么要这么做呢?因为实例方法的调用离不开实例,我们需要把实例自己传给函数,调用的时候是这样的<code>a.foo(x)</code>(其实是<code>foo(a, x)</code>).类方法一样,只不过它传递的是类而不是实例,<code>A.class_foo(x)</code>.注意这里的self和cls可以替换别的参数,但是python的约定是这俩,还是不要改的好.</p>
+<p>对于静态方法其实和普通的方法一样,不需要对谁进行绑定,唯一的区别是调用的时候需要使用<code>a.static_foo(x)</code>或者<code>A.static_foo(x)</code>来调用.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>实例方法</th>
+<th>类方法</th>
+<th>静态方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a = A()</td>
+<td>a.foo(x)</td>
+<td>a.class_foo(x)</td>
+<td>a.static_foo(x)</td>
+</tr>
+<tr>
+<td>A</td>
+<td>不可用</td>
+<td>A.class_foo(x)</td>
+<td>A.static_foo(x)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class A(object):</span><br><span class="line">    def foo(self, x):</span><br><span class="line">        print(&quot;executing foo(%s,%s)&quot; % (self, x))</span><br><span class="line">        print(&apos;self:&apos;, self)</span><br><span class="line">    @classmethod</span><br><span class="line">    def class_foo(cls, x):</span><br><span class="line">        print(&quot;executing class_foo(%s,%s)&quot; % (cls, x))</span><br><span class="line">        print(&apos;cls:&apos;, cls)</span><br><span class="line">    @staticmethod</span><br><span class="line">    def static_foo(x):</span><br><span class="line">        print(&quot;executing static_foo(%s)&quot; % x)  </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">A.static_foo(&apos;h&apos;)</span><br><span class="line">executing static_foo(h)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A.class_foo(&apos;h&apos;)</span><br><span class="line">executing class_foo(&lt;class &apos;__main__.A&apos;&gt;,h)</span><br><span class="line">cls: &lt;class &apos;__main__.A&apos;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A.foo(&apos;h&apos;)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">TypeError                                 Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input-46-901d70beca99&gt; in &lt;module&gt;()</span><br><span class="line">----&gt; 1 A.foo(&apos;h&apos;)</span><br><span class="line"></span><br><span class="line">TypeError: foo() missing 1 required positional argument: &apos;x&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">a.foo(&apos;h&apos;)</span><br><span class="line">executing foo(&lt;__main__.A object at 0x0000000009A5FE48&gt;,h)</span><br><span class="line">self: &lt;__main__.A object at 0x0000000009A5FE48&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@classmethod和@classmethod二者是为类量身定制的，但是实例非要使用，也不会报错。</span><br><span class="line">a.static_foo(&apos;h&apos;)</span><br><span class="line">executing static_foo(h)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a.class_foo(&apos;h&apos;)</span><br><span class="line">executing class_foo(&lt;class &apos;__main__.A&apos;&gt;,h)</span><br><span class="line">cls: &lt;class &apos;__main__.A&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>应用场景:编写类时需要采用很多不同的方式来创建实例，而我们只有一个<strong>init</strong>函数，此时静态方法就派上用场了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Date:</span><br><span class="line">    def __init__(self,year,month,day):</span><br><span class="line">        self.year=year</span><br><span class="line">        self.month=month</span><br><span class="line">        self.day=day</span><br><span class="line">    @staticmethod</span><br><span class="line">    def now(): #用Date.now()的形式去产生实例,该实例用的是当前时间</span><br><span class="line">        t=time.localtime() #获取结构化的时间格式</span><br><span class="line">        return Date(t.tm_year,t.tm_mon,t.tm_mday) #新建实例并且返回</span><br><span class="line">    @staticmethod</span><br><span class="line">    def tomorrow():#用Date.tomorrow()的形式去产生实例,该实例用的是明天的时间</span><br><span class="line">        t=time.localtime(time.time()+86400)</span><br><span class="line">        return Date(t.tm_year,t.tm_mon,t.tm_mday)</span><br><span class="line"></span><br><span class="line">a=Date(&apos;1987&apos;,11,27) #自己定义时间</span><br><span class="line">b=Date.now() #采用当前时间</span><br><span class="line">c=Date.tomorrow() #采用明天的时间</span><br><span class="line"></span><br><span class="line">print(a.year,a.month,a.day)</span><br><span class="line">print(b.year,b.month,b.day)</span><br><span class="line">print(c.year,c.month,c.day)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/ab9e77b5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/ab9e77b5.html" itemprop="url">python中的*args、**kwargs</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-20T13:05:38+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在python中，函数参数的工作方式很简单，当编写func(a, b, c, d=some, e=value)时，位置和关键字参数其实分别是被打包成元组和字典的。</p>
+<p>函数其实接受的是一个元组args和一个字典kwargs，并在内部完成如下转换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a, b, c = args</span><br><span class="line"></span><br><span class="line">d = kwargs.get(&apos;d&apos;: d_default_value)</span><br><span class="line"></span><br><span class="line">e = kwargs.get(&apos;e&apos;: e_default_value)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>dict.get(key, default=None)<br>key — 字典中要查找的键。<br>default — 如果指定键的值不存在时，返回该默认值值。</p>
+<p>Python 字典(Dictionary) get() 函数返回指定键的值，如果值不在字典中返回默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;#!/usr/bin/python</span><br><span class="line">&gt;</span><br><span class="line">&gt;dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 27&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Age&apos;)</span><br><span class="line">&gt;print &quot;Value : %s&quot; %  dict.get(&apos;Sex&apos;, &quot;Never&quot;)</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;</span><br><span class="line">&gt;Value : 27</span><br><span class="line">&gt;Value : Never</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>这一切都是在幕后悄悄发生的。当然，它还会执行一些错误检查，还允许你将位置参数当成关键字参数那样进行指定(即使它们在函数定义中并不是关键字参数)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def say_hello_then_call_f(f, *args, **kwargs):</span><br><span class="line"></span><br><span class="line">    print(&apos;args is&apos;, args)</span><br><span class="line"></span><br><span class="line">    print(&apos;kwargs is&apos;, kwargs)</span><br><span class="line"></span><br><span class="line">    print(&apos;Hello!Now I am going to call %s&apos; % f)</span><br><span class="line"></span><br><span class="line">    return f(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">def g(x, y, z=1):</span><br><span class="line"></span><br><span class="line">    return (x+y) / z</span><br><span class="line"></span><br><span class="line">say_hello_then_call_f(g, 1, 2, z=5.)</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">args is (1, 2)</span><br><span class="line">kwargs is &#123;&apos;z&apos;: 5.0&#125;</span><br><span class="line">Hello!Now I am going to call &lt;function g at 0x7f00404e0510&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Out[2]: 0.6</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/8ae97bf8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JieZhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/8ae97bf8.html" itemprop="url">特征工程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T20:45:08+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="特征工程概览"><a href="#特征工程概览" class="headerlink" title="特征工程概览"></a>特征工程概览</h1><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc6fow71cj20kq0k8ae9.jpg" alt=""></p>
+<h1 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h1><p>数据探索有助于选择合适的数据预处理和建模方法。</p>
+<ul>
+<li>数据质量分析<ul>
+<li>缺失值</li>
+<li>异常值</li>
+</ul>
+</li>
+<li>特征分布特征分析<ul>
+<li>统计量</li>
+<li>直方图</li>
+</ul>
+</li>
+<li>特征之间的相关性</li>
+</ul>
+<h2 id="缺失值分析"><a href="#缺失值分析" class="headerlink" title="缺失值分析"></a>缺失值分析</h2><p>统计缺失样本数目及缺失率</p>
+<p>缺失值处理</p>
+<ul>
+<li>删除含有（1个或多个）缺失值的样本（行）</li>
+<li>删除缺失值太多的特征（列）</li>
+<li>对缺失值进行插补</li>
+<li>不处理</li>
+</ul>
+<p>缺失值的填补</p>
+<ul>
+<li>scikit-learn的类Imputer提供了一些常见填补方法<ul>
+<li>均值mean（默认方法）</li>
+<li>中位数median</li>
+<li>众数most_frequent</li>
+</ul>
+</li>
+<li>pandas库的fillna函数也可以处理缺失值，而且更加灵活，但是重用性较弱</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">插补方法</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">均值/中值/众数插补</td>
+<td style="text-align:center">用该属性的均值/中值/众数进行插补 通常数值型变量用均值/中值、类别型变量用众数插补</td>
+</tr>
+<tr>
+<td style="text-align:center">固定值插补</td>
+<td style="text-align:center">根据背景知识用某个常量进行插补</td>
+</tr>
+<tr>
+<td style="text-align:center">最近邻插补</td>
+<td style="text-align:center">寻找最相似的样本，用该样本的属性值插补 可采用相关系数矩阵来确定哪个变量（X）与缺失值所在变量（Y）最相关。然后把所有样本按X的取值大小进行排序，变量Y的缺失值可以用排在缺失值前的那个样本的数据来代替</td>
+</tr>
+<tr>
+<td style="text-align:center">回归方法</td>
+<td style="text-align:center">选择若干个预测缺失值的自变量X，然后建立回归方程估计缺失值</td>
+</tr>
+<tr>
+<td style="text-align:center">插值法</td>
+<td style="text-align:center">利用该变量已有数据建立合适的插值函数进行插补</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="异常值分析"><a href="#异常值分析" class="headerlink" title="异常值分析"></a>异常值分析</h2><p>异常值也被成为离群点，是样本的某属性值明显偏离其余观测值。通常认为这些点是噪声，对模型有坏的影响。</p>
+<ul>
+<li><p>发现异常值</p>
+<ul>
+<li>最大值/最小值分析</li>
+<li>2$\sigma$原则</li>
+<li>箱型图</li>
+<li>直方图（尾巴）</li>
+<li>散点图（散点图上孤立的点）</li>
+<li>分位数（0.5%-99.5%分位数以外）</li>
+</ul>
+</li>
+<li><p>异常值处理：类似缺失值处理</p>
+<ul>
+<li>注意分析异常值产生的原因</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
+<h2 id="特征分布分析"><a href="#特征分布分析" class="headerlink" title="特征分布分析"></a>特征分布分析</h2><h3 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h3><p>直方图：每个取值在数据集中出现的次数，可视为概率函数(PDF)的估计(seaborn可视化工具比较简单)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.ditplot(tranin.price.values, bins=50, kde=True)</span><br></pre></td></tr></table></figure>
+<p>核密度估计</p>
+<ul>
+<li>Kernel Density Estimation，KDE</li>
+<li>直方图的加窗平滑</li>
+</ul>
+<p>在分类任务中，关心不同类别的特征分布</p>
+<ul>
+<li>核密度估计</li>
+<li>order=[‘low’, ‘medium’, ‘high’]</li>
+<li>sns.violinplot(x=’interest_level’, y= ‘price’, data=train, order=order)</li>
+</ul>
+<h3 id="表示集中趋势的统计量"><a href="#表示集中趋势的统计量" class="headerlink" title="表示集中趋势的统计量"></a>表示集中趋势的统计量</h3><ul>
+<li>均值</li>
+<li>中值</li>
+<li>众数</li>
+</ul>
+<h3 id="表示散布程度的统计量"><a href="#表示散布程度的统计量" class="headerlink" title="表示散布程度的统计量"></a>表示散布程度的统计量</h3><ul>
+<li>方差</li>
+<li>四分位数间距</li>
+<li>IQR在箱体图boxplot(seaborn.boxplot())中用到：分布的图形概述<ul>
+<li>长方形为IQR</li>
+<li>中间的线为中值</li>
+<li>两头的虚线：1.51QR</li>
+</ul>
+</li>
+</ul>
+<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><ul>
+<li>希望特征与标签强相关<ul>
+<li>分类直方图可以从某种程度上看出特征与标签的相关性：不同类别的直方图差异大</li>
+</ul>
+</li>
+<li>特征与特征之间强相关的话意味着信息冗余<ul>
+<li>可以两个特征只保留一个</li>
+<li>或采用主成分分析（PCA)等降维</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>数据取值范围缩放</p>
+<ul>
+<li>数据标准化（Standardization）</li>
+<li>数据归一化（Scaling）</li>
+<li>数据正规化（Normalization）</li>
+<li>数据二值化</li>
+</ul>
+<p>from sklearn.preprocessing import …</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类</th>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">StandardScaler</td>
+<td style="text-align:center">无量纲化</td>
+<td style="text-align:center">标准化，基于特征矩阵的列，将特征值转换至服从标准正态分布</td>
+</tr>
+<tr>
+<td style="text-align:center">MinMaxScaler</td>
+<td style="text-align:center">无量纲化</td>
+<td style="text-align:center">区间缩放，基于最大最小值，将特征值转换到[0,1]区间上</td>
+</tr>
+<tr>
+<td style="text-align:center">Normalizer</td>
+<td style="text-align:center">归一化</td>
+<td style="text-align:center">基于特征矩阵的行，将样本向量转换为“单位向量”</td>
+</tr>
+<tr>
+<td style="text-align:center">Binarizer</td>
+<td style="text-align:center">二值化</td>
+<td style="text-align:center">基于给定阈值，将定量特征按阈值划分</td>
+</tr>
+<tr>
+<td style="text-align:center">OneHotEncoder</td>
+<td style="text-align:center">哑编码</td>
+<td style="text-align:center">将定性数据编码为定量数据</td>
+</tr>
+<tr>
+<td style="text-align:center">Imputer</td>
+<td style="text-align:center">缺失值处理</td>
+<td style="text-align:center">计算缺失值，缺失值可填充为均值等</td>
+</tr>
+<tr>
+<td style="text-align:center">PolynomialFeatures</td>
+<td style="text-align:center">多项式数据转换</td>
+<td style="text-align:center">多项式数据转换</td>
+</tr>
+<tr>
+<td style="text-align:center">Function Transformer</td>
+<td style="text-align:center">自定义单元格数据转换</td>
+<td style="text-align:center">使用单变元的函数来转换数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="特征编码"><a href="#特征编码" class="headerlink" title="特征编码"></a>特征编码</h1><ul>
+<li>数值型</li>
+<li>类别型</li>
+<li>时间类</li>
+<li>文本型</li>
+<li>统计型</li>
+</ul>
+<h2 id="数值型特征"><a href="#数值型特征" class="headerlink" title="数值型特征"></a>数值型特征</h2><ul>
+<li><p>有时候数值特征并不能直接适用于线性模型，可以选择使用log(x+1)变换来处理我们的数值特征，其中x表示数值特征</p>
+<ul>
+<li><p>检查数据偏斜度（skewness），并以此衡量数据分布的形状</p>
+</li>
+<li><p>当使用回归方法时，如果目标变量出现偏斜，则有必要对目标变量进行对数变换(log-transform)。通过对数变换，可以改善数据的线性度。</p>
+<p><code>train.SalePrice=np.loglp(train.SalesPrice)</code></p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frc7zd7emoj20fd03twew.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>还可以根据需要进行多项式扩展数值特征</p>
+</li>
+</ul>
+<p>模型很多时候是线性模型，可以在特征上做一些工作，让模型包含一些非线性特征</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc858vs43j20y60bldhc.jpg" alt=""></p>
+<p>默认值为2，则特征两两组合，先和自己再和其他</p>
+<h2 id="数值型特征离散化"><a href="#数值型特征离散化" class="headerlink" title="数值型特征离散化"></a>数值型特征离散化</h2><ul>
+<li>有时候将数值型属性转换成类别表示更有意义<ul>
+<li>如年龄，根据人生阶段划分往往更有意义</li>
+<li>房屋到街道的距离分为远、中、近</li>
+</ul>
+</li>
+<li>了解领域背景知识，确保特征划分成分区有意义<ul>
+<li>所有落入一个分区的数值都呈现出共同的特征</li>
+<li>在实际应用中，需要仔细考虑分区的粒度，防止过拟合</li>
+</ul>
+</li>
+<li>也可以采用聚类技术实现分组</li>
+</ul>
+<p>注意：如果数据的准确率很重要的话，此时离散化不合适</p>
+<h2 id="类别型特征"><a href="#类别型特征" class="headerlink" title="类别型特征"></a>类别型特征</h2><ul>
+<li>有些模型只能处理数值型数据。如果给定的数据是不同的类型，必须先将数据编程数值型。<ul>
+<li>用0和1来代表样本是否有某种特性</li>
+</ul>
+</li>
+<li>LbabelEncoder：用有序数对不连续的数字或者文本进行编号<ul>
+<li>如用数字表示房屋质量：分别用1、2 、3表示质量差、中、好</li>
+<li>存储量小</li>
+</ul>
+</li>
+<li>如果不希望有序数关系，采用哑编码（OneHotEncoder）：将类别型整数输入从1维——&gt;K维的稀疏编码<ul>
+<li>统计该特征上有多少类，就设置几维(K)的向量</li>
+<li>输入必须是数值型数据（对字符串输入，先调用LabelEncoder变成数字，再用OneHotEncoder）</li>
+<li>存储要求高，通常要求K&lt;10（低基数）</li>
+</ul>
+</li>
+<li>对高基数类别型特征：通常有成百上千个不同的取值（如邮政编码、街道名称…）<ul>
+<li>可先采用降维/聚类：1维—-&gt;K维，K为聚类的类别数</li>
+<li>或采用均值编码：在贝叶斯的架构下，利用标签变量，有监督地确定最适合特定特征的编码方式</li>
+</ul>
+</li>
+</ul>
+<h2 id="均值编码"><a href="#均值编码" class="headerlink" title="均值编码"></a>均值编码</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc8wl4rsaj20t30ajq45.jpg" alt=""></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frc8zvjf8sj20s00be75g.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc90307n8j20t20bi0vw.jpg" alt=""></p>
+<h2 id="日期型特征"><a href="#日期型特征" class="headerlink" title="日期型特征"></a>日期型特征</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frc944nnp8j20s30b3dgj.jpg" alt=""></p>
+<h2 id="文本型特征"><a href="#文本型特征" class="headerlink" title="文本型特征"></a>文本型特征</h2><p>文本型特征无法直接送到学习器，需要先进行特征提取</p>
+<p>scikit-learn采用简单的文本特征提取，更多文本特征提取可采用Natural Language Tookit（NLTK）</p>
+<ul>
+<li>词向量（1-gram模型）：即词袋模型，统计次出现的次数（词频）<ul>
+<li>CountVectorizer</li>
+</ul>
+</li>
+<li>n-gram模型：将词或 扩展为n个词语组成的短语</li>
+</ul>
+<p>TF-IDF特征：</p>
+<ul>
+<li>TF(Term Frequency)：衡量一个term在文档中出现的多频繁</li>
+<li>IDF(Inverse Document Frequency)：衡量一个term有多重要<ul>
+<li>有些词出现的很多，但是并没有什么作用 ‘is’、‘the’…</li>
+<li>将罕见的词重要性调高，常见词重要性调低</li>
+</ul>
+</li>
+<li>TF(t)=(词t在当前文中出现次数)/(当前文档中出现的单词的总次数)</li>
+<li>IDF(t)=ln(总文档数/含t的文档数)</li>
+<li>TF-IDF(t)=TF(t)*IDF(t)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.feature_extraction.text.TfidfTransformer(norm=&apos;l2&apos;, use_idf=True, smooth_idf=True, sublinear_tf=False)</span><br></pre></td></tr></table></figure>
+<p>可用词云可视化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from wordcloud import WordCloud</span><br><span class="line">wordcloud = WordCloud(background_color=&apos;white&apos;, width=600, height=300,</span><br><span class="line">max_font_size=50, max_words=40)</span><br><span class="line">wordcloud.generate(text)</span><br></pre></td></tr></table></figure>
+<h1 id="构造特征"><a href="#构造特征" class="headerlink" title="构造特征"></a>构造特征</h1><p>将特征进行混合或组合以得到新的特征</p>
+<ul>
+<li>根据经验组合特征<ul>
+<li>如经纬度组合到一起，就代表地理上特定的区域</li>
+</ul>
+</li>
+<li>Top K个特征组合</li>
+<li>GBDT得到特征序列，组合这些特征</li>
+</ul>
+<p>组合方式</p>
+<ul>
+<li>串联</li>
+<li>加减乘除：房间单价=房屋价格/房间数</li>
+<li>差分</li>
+<li>统计<ul>
+<li>均值：节假日数据的统计信息、平均一周（月）的人数</li>
+<li>加减平均：超过平均值</li>
+<li>分位数/线：你超过了x%的用户</li>
+<li>次序</li>
+<li>比例</li>
+</ul>
+</li>
+</ul>
+<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>原因：</p>
+<ul>
+<li>冗余：部分特征之间相关度太高</li>
+<li>噪声</li>
+</ul>
+<p>特征选择vs.降维</p>
+<ul>
+<li>降维(PCA/SVD)：对原始特征进行线性组合，得到低维表示</li>
+<li>特征选择：剔除与预测关系不大的特征子集<ul>
+<li>减少特征数目，防止过拟合，提高模型泛化能力</li>
+<li>有助于更好地理解特征的特性及其与响应之间的关系</li>
+</ul>
+</li>
+</ul>
+<p>如何：</p>
+<ul>
+<li><p>删除方差过小的特征</p>
+<p>方差小意味着变化很小（标准差小），意味着该特征包含信息少，特征区分度很低</p>
+<p><code>class sklearn.feature_selection.VarianceThreshold(threshold=0.0)</code></p>
+<ul>
+<li>删除方差小于threshold的特征</li>
+<li>threshold缺省值为0，保留所有特征</li>
+</ul>
+</li>
+<li><p>过滤型</p>
+<p>根据单变量的统计测试选择分数最佳特征</p>
+<ul>
+<li>sklearn.feature_selection.SelectKBest：选择分数最高的k个特征</li>
+<li>sklearn.feature_selection.SelectPercentile:选择分数最高的百分比特征</li>
+<li>缺点：没有考虑到特征之间的关联作用，可能把有用的关联特征误踢掉</li>
+</ul>
+</li>
+</ul>
+<p>​         分数度量 </p>
+<p>​           相关系数</p>
+<p>​                 相关系数只对线性关系敏感，不太能发现非线性相关<br>                  相关系数只对两个实数型随机变量有定义<br>            互信息／最大信息系数</p>
+<ul>
+<li>互信息</li>
+</ul>
+<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1frcard2gtlj20qg095aao.jpg" alt=""></p>
+<ul>
+<li>最大信息系数</li>
+</ul>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcasn6c3mj20ms0a6wgo.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcaycph7mj20m709lgmd.jpg" alt=""></p>
+<p>sklearn</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcazjto1vj20n30b4aeq.jpg" alt=""></p>
+<ul>
+<li>包裹型</li>
+</ul>
+<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1frcb36zodyj20lu07974t.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb417b0aj20i40cfjve.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb4zp60kj20l50d9gq0.jpg" alt=""></p>
+<ul>
+<li><p>嵌入型</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1frcb5w4ifzj20n809m0tj.jpg" alt=""></p>
+<p>​</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1frcb6zvdzxj20og0b3gqh.jpg" alt=""></p>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+<h1 id="如何获取重要特征"><a href="#如何获取重要特征" class="headerlink" title="如何获取重要特征"></a>如何获取重要特征</h1></li>
+<li><p>相关领域的专家知识</p>
+</li>
+<li><p>深度学习自动学习特征</p>
+</li>
+<li><p>试验、经验与发现</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	<div>
+	
+	</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/f78af6eb.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1863,575 +2641,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/52c64aaf.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JieZhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/52c64aaf.html" itemprop="url">R语言再基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-05T15:59:49+08:00">
-                2018-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="R语言基础数据结构"><a href="#R语言基础数据结构" class="headerlink" title="R语言基础数据结构"></a>R语言基础数据结构</h1><p>基本数据类型：向量、数组、列表</p>
-<p>向量是最基本的，被称为原子型</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr0j5se574j20hc09p403.jpg" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 向量</span></span><br><span class="line"></span><br><span class="line">var1 &lt;- c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>) <span class="comment"># 字符型</span></span><br><span class="line">var2 &lt;- c(<span class="number">21</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">54</span>, <span class="number">32</span>) <span class="comment"># 数值型</span></span><br><span class="line">var3 &lt;- c(<span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">FALSE</span>) <span class="comment"># 逻辑型</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 几种快速生成目标向量的快捷方式</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>:<span class="number">10</span> <span class="comment"># 连续整数序列</span></span><br><span class="line"></span><br><span class="line">rep(<span class="number">1</span>:<span class="number">3</span>, each = <span class="number">4</span>) <span class="comment"># 按照单个序列每一个元素重复指定次数</span></span><br><span class="line">rep(<span class="number">1</span>:<span class="number">3</span>, times = <span class="number">4</span>) <span class="comment"># 按照单个序列每一个元素重复指定次数</span></span><br><span class="line"></span><br><span class="line">seq(from = <span class="number">1</span>, to = <span class="number">100</span>, by = <span class="number">5</span>) <span class="comment"># 起点-终点-间隔</span></span><br><span class="line">seq(from = <span class="number">1</span>, by = <span class="number">5</span>, length = <span class="number">20</span>) <span class="comment"># 起点-间隔-长度</span></span><br><span class="line">seq(to = <span class="number">100</span>, by = <span class="number">5</span>, length = <span class="number">20</span>) <span class="comment"># 终点-间隔-长度</span></span><br><span class="line"></span><br><span class="line">rev(<span class="number">1</span>:<span class="number">5</span>) <span class="comment">#次序颠倒</span></span><br><span class="line"></span><br><span class="line">letters <span class="comment"># 内置小写字母字符串对象</span></span><br><span class="line">LETTERS <span class="comment"># 内置大写字母字符串对象</span></span><br><span class="line"></span><br><span class="line">sample(<span class="number">1</span>:<span class="number">10</span>, size = <span class="number">10</span>, replace = <span class="literal">FALSE</span>) <span class="comment"># 可放回抽样</span></span><br><span class="line">sample(<span class="number">1</span>:<span class="number">10</span>, size = <span class="number">10</span>, replace = <span class="literal">TRUE</span>) <span class="comment"># 不放回抽样</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在R语言中快速生成百分比</span></span><br><span class="line"></span><br><span class="line">sprintf(<span class="string">"%.2f%%"</span>, <span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line">sca::percent(seq(<span class="number">0</span>, <span class="number">0.1</span>, <span class="number">0.01</span>), d=<span class="number">2</span>, sep=<span class="string">""</span>)</span><br><span class="line">scales::percent(runif(<span class="number">10</span>, <span class="number">0</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># byrow 是否按行排列</span></span><br><span class="line">martx1 &lt;- matrix(<span class="number">1</span>:<span class="number">40</span>, nrow = <span class="number">8</span>, byrow = <span class="literal">FALSE</span>);martx1</span><br><span class="line">martx2 &lt;- matrix(<span class="number">1</span>:<span class="number">40</span>, nrow = <span class="number">8</span>, byrow = <span class="literal">TRUE</span>);martx2</span><br><span class="line">martx3 &lt;- matrix(<span class="number">1</span>:<span class="number">40</span>, ncol = <span class="number">8</span>, byrow = <span class="literal">FALSE</span>);martx3</span><br><span class="line">martx4 &lt;- matrix(<span class="number">1</span>:<span class="number">40</span>, ncol = <span class="number">8</span>, byrow = <span class="literal">TRUE</span>);martx4</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#dim参数长度为2时，输出结果即为矩阵（矩阵即时数字的二维呈现）</span></span><br><span class="line">array(<span class="number">1</span>:<span class="number">100</span>, dim = c(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># dim参数是一个数字向量，分别为行-列-第三维度</span></span><br><span class="line">array(<span class="number">1</span>:<span class="number">100</span>, dim = c(<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<p>结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&gt; array(1:100, dim = c(4, 5, 5))</span><br><span class="line">, , 1</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]    1    5    9   13   17</span><br><span class="line">[2,]    2    6   10   14   18</span><br><span class="line">[3,]    3    7   11   15   19</span><br><span class="line">[4,]    4    8   12   16   20</span><br><span class="line"></span><br><span class="line">, , 2</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]   21   25   29   33   37</span><br><span class="line">[2,]   22   26   30   34   38</span><br><span class="line">[3,]   23   27   31   35   39</span><br><span class="line">[4,]   24   28   32   36   40</span><br><span class="line"></span><br><span class="line">, , 3</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]   41   45   49   53   57</span><br><span class="line">[2,]   42   46   50   54   58</span><br><span class="line">[3,]   43   47   51   55   59</span><br><span class="line">[4,]   44   48   52   56   60</span><br><span class="line"></span><br><span class="line">, , 4</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]   61   65   69   73   77</span><br><span class="line">[2,]   62   66   70   74   78</span><br><span class="line">[3,]   63   67   71   75   79</span><br><span class="line">[4,]   64   68   72   76   80</span><br><span class="line"></span><br><span class="line">, , 5</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]   81   85   89   93   97</span><br><span class="line">[2,]   82   86   90   94   98</span><br><span class="line">[3,]   83   87   91   95   99</span><br><span class="line">[4,]   84   88   92   96  100</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 数据框</span><br><span class="line">mydata1 &lt;- data.frame(</span><br><span class="line">  name1 = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;),</span><br><span class="line">  name2 = c(21, 34, 56, 54, 32),</span><br><span class="line">  name3 = c(TRUE, FALSE, TRUE, FALSE, FALSE)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; mydata1</span><br><span class="line">  name1 name2 name3</span><br><span class="line">1     A    21  TRUE</span><br><span class="line">2     B    34 FALSE</span><br><span class="line">3     C    56  TRUE</span><br><span class="line">4     D    54 FALSE</span><br><span class="line">5     E    32 FALSE</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表</span></span><br><span class="line"></span><br><span class="line">mylist &lt;- list(</span><br><span class="line">  object1 = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">  object2 = matrix(<span class="number">1</span>:<span class="number">20</span>, nrow = <span class="number">4</span>, byrow = <span class="literal">FALSE</span>),</span><br><span class="line">  object3 = array(<span class="number">1</span>:<span class="number">27</span>, dim = c(<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>)),</span><br><span class="line">  object4 = data.frame(</span><br><span class="line">    name1 = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">    name2 = c(<span class="number">21</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">54</span>, <span class="number">32</span>),</span><br><span class="line">    name3 = c(<span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">FALSE</span>)</span><br><span class="line">  )</span><br><span class="line">)</span><br><span class="line">mylist</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&gt; mylist</span><br><span class="line">$object1</span><br><span class="line">[1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot;</span><br><span class="line"></span><br><span class="line">$object2</span><br><span class="line">     [,1] [,2] [,3] [,4] [,5]</span><br><span class="line">[1,]    1    5    9   13   17</span><br><span class="line">[2,]    2    6   10   14   18</span><br><span class="line">[3,]    3    7   11   15   19</span><br><span class="line">[4,]    4    8   12   16   20</span><br><span class="line"></span><br><span class="line">$object3</span><br><span class="line">, , 1</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3]</span><br><span class="line">[1,]    1    4    7</span><br><span class="line">[2,]    2    5    8</span><br><span class="line">[3,]    3    6    9</span><br><span class="line"></span><br><span class="line">, , 2</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3]</span><br><span class="line">[1,]   10   13   16</span><br><span class="line">[2,]   11   14   17</span><br><span class="line">[3,]   12   15   18</span><br><span class="line"></span><br><span class="line">, , 3</span><br><span class="line"></span><br><span class="line">     [,1] [,2] [,3]</span><br><span class="line">[1,]   19   22   25</span><br><span class="line">[2,]   20   23   26</span><br><span class="line">[3,]   21   24   27</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$object4</span><br><span class="line">  name1 name2 name3</span><br><span class="line">1     A    21  TRUE</span><br><span class="line">2     B    34 FALSE</span><br><span class="line">3     C    56  TRUE</span><br><span class="line">4     D    54 FALSE</span><br><span class="line">5     E    32 FALSE</span><br></pre></td></tr></table></figure>
-<h1 id="变量格式转换与因子变量"><a href="#变量格式转换与因子变量" class="headerlink" title="变量格式转换与因子变量"></a>变量格式转换与因子变量</h1><p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fr0kpfvabqj20ne0bmgpw.jpg" alt=""></p>
-<p>因子变量</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr0kun9g6ej20n40bdtav.jpg" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var1 &lt;- c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>)</span><br><span class="line">&gt; typeof(var1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"character"</span></span><br><span class="line">&gt; mode(var1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"character"</span></span><br><span class="line">&gt; class(var1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"character"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; var2 &lt;- c(<span class="number">21</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">54</span>, <span class="number">32</span>)</span><br><span class="line">&gt; typeof(var2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"double"</span></span><br><span class="line">&gt; mode(var2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(var2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; var21 &lt;- c(<span class="number">21.5</span>, <span class="number">34.6</span>, <span class="number">56.3</span>, <span class="number">54.9</span>, <span class="number">3.2</span>)</span><br><span class="line">&gt; typeof(var21)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"double"</span></span><br><span class="line">&gt; mode(var21)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(var21)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; var22 &lt;- c(<span class="number">21L</span>, <span class="number">34L</span>, <span class="number">56L</span>, <span class="number">54L</span>, <span class="number">32L</span>)</span><br><span class="line">&gt; typeof(var22)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br><span class="line">&gt; mode(var22)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(var22)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; martx1 &lt;- matrix(<span class="number">1</span>:<span class="number">40</span>, nrow = <span class="number">8</span>, byrow = <span class="literal">FALSE</span>)</span><br><span class="line">&gt; typeof(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br><span class="line">&gt; mode(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"matrix"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用is._函数查看独享符合的类型</span></span><br><span class="line">&gt; is.integer(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line">&gt; is.numeric(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line">&gt; is.matrix(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line">&gt; is.array(martx1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 转为向量</span></span><br><span class="line">&gt; as.numeric(martx1)</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span> <span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27</span></span><br><span class="line">[<span class="number">28</span>] <span class="number">28</span> <span class="number">29</span> <span class="number">30</span> <span class="number">31</span> <span class="number">32</span> <span class="number">33</span> <span class="number">34</span> <span class="number">35</span> <span class="number">36</span> <span class="number">37</span> <span class="number">38</span> <span class="number">39</span> <span class="number">40</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; mydata1 &lt;- data.frame(</span><br><span class="line">+     name1 = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">+     name2 = c(<span class="number">21</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">54</span>, <span class="number">32</span>),</span><br><span class="line">+     name3 = c(<span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">FALSE</span>)</span><br><span class="line">+ )</span><br><span class="line">&gt; typeof(mydata1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"list"</span></span><br><span class="line">&gt; mode(mydata1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"list"</span></span><br><span class="line">&gt; class(mydata1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"data.frame"</span></span><br><span class="line">&gt; is.list(mydata1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br><span class="line">&gt; is.data.frame(mydata1)</span><br><span class="line">[<span class="number">1</span>] <span class="literal">TRUE</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; myarray1 &lt;- array(<span class="number">1</span>:<span class="number">100</span>, dim=c(<span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">&gt; typeof(myarray1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br><span class="line">&gt; mode(myarray1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(myarray1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"array"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; mylist &lt;- list(</span><br><span class="line">+     object1 = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">+     object2 = matrix(<span class="number">1</span>:<span class="number">20</span>, nrow = <span class="number">4</span>, byrow = <span class="literal">FALSE</span>),</span><br><span class="line">+     object3 = array(<span class="number">1</span>:<span class="number">27</span>, dim = c(<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>)),</span><br><span class="line">+     object4 = data.frame(</span><br><span class="line">+         name1 = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">+         name2 = c(<span class="number">21</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">54</span>, <span class="number">32</span>),</span><br><span class="line">+         name3 = c(<span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">TRUE</span>, <span class="literal">FALSE</span>, <span class="literal">FALSE</span>)</span><br><span class="line">+     )</span><br><span class="line">+ )</span><br><span class="line">&gt; typeof(mylist)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"list"</span></span><br><span class="line">&gt; mode(mylist)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"list"</span></span><br><span class="line">&gt; class(mylist)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"list"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; fact1 &lt;- factor(</span><br><span class="line">+     x = rep(LETTERS[<span class="number">1</span>:<span class="number">5</span>], each = <span class="number">3</span>),</span><br><span class="line">+     levels = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">+     ordered = <span class="literal">FALSE</span></span><br><span class="line">+ )</span><br><span class="line">&gt; fact1</span><br><span class="line"> [<span class="number">1</span>] A A A B B B C C C D D D E E E</span><br><span class="line">Levels: A B C D E</span><br><span class="line">&gt; str(fact1)</span><br><span class="line"> Factor w/ <span class="number">5</span> levels <span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"C"</span>,<span class="string">"D"</span>,..: <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span> <span class="number">3</span> <span class="number">3</span> <span class="number">4</span> <span class="keyword">...</span></span><br><span class="line">&gt; typeof(fact1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br><span class="line">&gt; mode(fact1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(fact1)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"factor"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; fact1 &lt;- factor(</span><br><span class="line">+     x = rep(LETTERS[<span class="number">1</span>:<span class="number">5</span>], each = <span class="number">3</span>),</span><br><span class="line">+     levels = c(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>),</span><br><span class="line">+     ordered = <span class="literal">TRUE</span></span><br><span class="line">+ )</span><br><span class="line">&gt; fact1</span><br><span class="line"> [<span class="number">1</span>] A A A B B B C C C D D D E E E</span><br><span class="line">Levels: A &lt; B &lt; C &lt; D &lt; E</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; fact2 &lt;- factor(</span><br><span class="line">+     x = rep(<span class="number">1</span>:<span class="number">5</span>, each = <span class="number">3</span>),</span><br><span class="line">+     levels = <span class="number">1</span>:<span class="number">5</span>,</span><br><span class="line">+     labels = c(<span class="string">"婴儿"</span>, <span class="string">"儿童"</span>, <span class="string">"少年"</span>, <span class="string">"青年"</span>, <span class="string">"老年"</span>),</span><br><span class="line">+     ordered = <span class="literal">TRUE</span></span><br><span class="line">+ )</span><br><span class="line">&gt; fact2</span><br><span class="line"> [<span class="number">1</span>] 婴儿 婴儿 婴儿 儿童 儿童 儿童 少年 少年 少年 青年 青年 青年 老年 老年 老年</span><br><span class="line">Levels: 婴儿 &lt; 儿童 &lt; 少年 &lt; 青年 &lt; 老年</span><br><span class="line">&gt; </span><br><span class="line">&gt; str(fact2)</span><br><span class="line"> Ord.factor w/ <span class="number">5</span> levels <span class="string">"婴儿"</span>&lt;<span class="string">"儿童"</span>&lt;..: <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span> <span class="number">3</span> <span class="number">3</span> <span class="number">4</span> <span class="keyword">...</span></span><br><span class="line">&gt; typeof(fact2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"integer"</span></span><br><span class="line">&gt; mode(fact2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(fact2)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"ordered"</span> <span class="string">"factor"</span></span><br></pre></td></tr></table></figure>
-<p>自定义区间分箱生成因子</p>
-<p>使用自定义区间分箱</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; fact3 &lt;- cut(</span><br><span class="line">+     x = sample(<span class="number">1</span>:<span class="number">100</span>, size = <span class="number">100</span>, replace = <span class="literal">TRUE</span>),</span><br><span class="line">+     breaks = c(<span class="number">0</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>, <span class="number">80</span>, <span class="number">100</span>),</span><br><span class="line">+     labels = c(<span class="string">"0~20"</span>, <span class="string">"20~40"</span>, <span class="string">"40~60"</span>, <span class="string">"60~80"</span>, <span class="string">"80~100"</span>),</span><br><span class="line">+     include.lowest = <span class="literal">TRUE</span>, <span class="comment"># 默认是左开右闭的 这样包括最小值，第一个区间是左闭右闭的，其他仍是左开右闭</span></span><br><span class="line">+     ordered = <span class="literal">TRUE</span></span><br><span class="line">+ )</span><br><span class="line">&gt; fact3</span><br><span class="line">  [<span class="number">1</span>] <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>   <span class="number">40</span>~<span class="number">60</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">40</span>~<span class="number">60</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span>  <span class="number">60</span>~<span class="number">80</span> </span><br><span class="line"> [<span class="number">12</span>] <span class="number">40</span>~<span class="number">60</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">60</span>~<span class="number">80</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span>  <span class="number">60</span>~<span class="number">80</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">60</span>~<span class="number">80</span> </span><br><span class="line"> [<span class="number">23</span>] <span class="number">40</span>~<span class="number">60</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">80</span>~<span class="number">100</span> <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">60</span>~<span class="number">80</span>  <span class="number">60</span>~<span class="number">80</span>  <span class="number">60</span>~<span class="number">80</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">80</span>~<span class="number">100</span> <span class="number">80</span>~<span class="number">100</span></span><br><span class="line"> [<span class="number">34</span>] <span class="number">40</span>~<span class="number">60</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">60</span>~<span class="number">80</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>   <span class="number">60</span>~<span class="number">80</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span> </span><br><span class="line"> [<span class="number">45</span>] <span class="number">80</span>~<span class="number">100</span> <span class="number">0</span>~<span class="number">20</span>   <span class="number">60</span>~<span class="number">80</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">80</span>~<span class="number">100</span> <span class="number">40</span>~<span class="number">60</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>  </span><br><span class="line"> [<span class="number">56</span>] <span class="number">60</span>~<span class="number">80</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">80</span>~<span class="number">100</span> <span class="number">40</span>~<span class="number">60</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>  </span><br><span class="line"> [<span class="number">67</span>] <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>   <span class="number">20</span>~<span class="number">40</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">60</span>~<span class="number">80</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>  </span><br><span class="line"> [<span class="number">78</span>] <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>   <span class="number">0</span>~<span class="number">20</span>   <span class="number">40</span>~<span class="number">60</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">60</span>~<span class="number">80</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">80</span>~<span class="number">100</span> <span class="number">40</span>~<span class="number">60</span> </span><br><span class="line"> [<span class="number">89</span>] <span class="number">60</span>~<span class="number">80</span>  <span class="number">20</span>~<span class="number">40</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">60</span>~<span class="number">80</span>  <span class="number">80</span>~<span class="number">100</span> <span class="number">20</span>~<span class="number">40</span>  <span class="number">40</span>~<span class="number">60</span>  <span class="number">60</span>~<span class="number">80</span>  <span class="number">0</span>~<span class="number">20</span>   <span class="number">60</span>~<span class="number">80</span>  <span class="number">40</span>~<span class="number">60</span> </span><br><span class="line">[<span class="number">100</span>] <span class="number">40</span>~<span class="number">60</span> </span><br><span class="line">Levels: <span class="number">0</span>~<span class="number">20</span> &lt; <span class="number">20</span>~<span class="number">40</span> &lt; <span class="number">40</span>~<span class="number">60</span> &lt; <span class="number">60</span>~<span class="number">80</span> &lt; <span class="number">80</span>~<span class="number">100</span></span><br></pre></td></tr></table></figure>
-<p>使用分位数作为分箱区间</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; value1 = sample(<span class="number">1</span>:<span class="number">100</span>, size=<span class="number">100</span>, replace = <span class="literal">TRUE</span>)</span><br><span class="line">&gt; </span><br><span class="line">&gt; qa &lt;- quantile(</span><br><span class="line">+     x = value1,</span><br><span class="line">+     probs = seq(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0.2</span>)</span><br><span class="line">+ )</span><br><span class="line">&gt; qa</span><br><span class="line">   <span class="number">0</span>%   <span class="number">20</span>%   <span class="number">40</span>%   <span class="number">60</span>%   <span class="number">80</span>%  <span class="number">100</span>% </span><br><span class="line">  <span class="number">1.0</span>  <span class="number">13.6</span>  <span class="number">35.6</span>  <span class="number">59.6</span>  <span class="number">78.2</span> <span class="number">100.0</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; fact3 &lt;- cut(</span><br><span class="line">+     x = value1,</span><br><span class="line">+     breaks = c(<span class="number">0</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>, <span class="number">80</span>, <span class="number">100</span>),</span><br><span class="line">+     labels = c(<span class="string">"0~20%"</span>, <span class="string">"20~40%"</span>, <span class="string">"40~60%"</span>, <span class="string">"60~80%"</span>, <span class="string">"80~100%"</span>),</span><br><span class="line">+     include.lowest = <span class="literal">TRUE</span>,</span><br><span class="line">+     ordered = <span class="literal">TRUE</span></span><br><span class="line">+ )</span><br><span class="line">&gt; fact3</span><br><span class="line">  [<span class="number">1</span>] <span class="number">40</span>~<span class="number">60</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">60</span>~<span class="number">80</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">60</span>~<span class="number">80</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">40</span>~<span class="number">60</span>% </span><br><span class="line"> [<span class="number">11</span>] <span class="number">60</span>~<span class="number">80</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">80</span>~<span class="number">100</span>% <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">80</span>~<span class="number">100</span>% <span class="number">40</span>~<span class="number">60</span>%  <span class="number">40</span>~<span class="number">60</span>% </span><br><span class="line"> [<span class="number">21</span>] <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%   <span class="number">40</span>~<span class="number">60</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">60</span>~<span class="number">80</span>% </span><br><span class="line"> [<span class="number">31</span>] <span class="number">0</span>~<span class="number">20</span>%   <span class="number">80</span>~<span class="number">100</span>% <span class="number">80</span>~<span class="number">100</span>% <span class="number">20</span>~<span class="number">40</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">0</span>~<span class="number">20</span>%   <span class="number">80</span>~<span class="number">100</span>%</span><br><span class="line"> [<span class="number">41</span>] <span class="number">20</span>~<span class="number">40</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">20</span>~<span class="number">40</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%  </span><br><span class="line"> [<span class="number">51</span>] <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">40</span>~<span class="number">60</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">60</span>~<span class="number">80</span>% </span><br><span class="line"> [<span class="number">61</span>] <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%   <span class="number">40</span>~<span class="number">60</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%  </span><br><span class="line"> [<span class="number">71</span>] <span class="number">40</span>~<span class="number">60</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">80</span>~<span class="number">100</span>% <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">80</span>~<span class="number">100</span>% <span class="number">80</span>~<span class="number">100</span>% <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">20</span>~<span class="number">40</span>% </span><br><span class="line"> [<span class="number">81</span>] <span class="number">20</span>~<span class="number">40</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">80</span>~<span class="number">100</span>% <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">20</span>~<span class="number">40</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">40</span>~<span class="number">60</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%  </span><br><span class="line"> [<span class="number">91</span>] <span class="number">0</span>~<span class="number">20</span>%   <span class="number">80</span>~<span class="number">100</span>% <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">0</span>~<span class="number">20</span>%   <span class="number">0</span>~<span class="number">20</span>%   <span class="number">60</span>~<span class="number">80</span>%  <span class="number">60</span>~<span class="number">80</span>%  <span class="number">60</span>~<span class="number">80</span>% </span><br><span class="line">Levels: <span class="number">0</span>~<span class="number">20</span>% &lt; <span class="number">20</span>~<span class="number">40</span>% &lt; <span class="number">40</span>~<span class="number">60</span>% &lt; <span class="number">60</span>~<span class="number">80</span>% &lt; <span class="number">80</span>~<span class="number">100</span>%</span><br></pre></td></tr></table></figure>
-<h1 id="数据索引与切片、聚合"><a href="#数据索引与切片、聚合" class="headerlink" title="数据索引与切片、聚合"></a>数据索引与切片、聚合</h1><p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fr0quguzfuj20pz0bw410.jpg" alt=""></p>
-<p>索引向量</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; variable1 &lt;- <span class="number">1</span>:<span class="number">100</span></span><br><span class="line">&gt; <span class="comment"># 索引前10个值</span></span><br><span class="line">&gt; variable1[<span class="number">1</span>:<span class="number">10</span>]</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span></span><br><span class="line">&gt; <span class="comment"># 索引第4、6、8、9个值</span></span><br><span class="line">&gt; variable1[c(<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>)]</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span> <span class="number">6</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line">&gt; <span class="comment"># 布尔索引</span></span><br><span class="line">&gt; variable1[sample(x = c(<span class="literal">TRUE</span>, <span class="literal">FALSE</span>), size = <span class="number">100</span>, replace = <span class="literal">TRUE</span>)]</span><br><span class="line"> [<span class="number">1</span>]  <span class="number">4</span>  <span class="number">8</span> <span class="number">10</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span> <span class="number">20</span> <span class="number">22</span> <span class="number">24</span> <span class="number">25</span> <span class="number">28</span> <span class="number">29</span> <span class="number">30</span> <span class="number">33</span> <span class="number">35</span> <span class="number">39</span> <span class="number">43</span> <span class="number">44</span> <span class="number">45</span> <span class="number">51</span> <span class="number">52</span> <span class="number">53</span> <span class="number">55</span></span><br><span class="line">[<span class="number">28</span>] <span class="number">59</span> <span class="number">60</span> <span class="number">62</span> <span class="number">63</span> <span class="number">69</span> <span class="number">70</span> <span class="number">73</span> <span class="number">75</span> <span class="number">76</span> <span class="number">77</span> <span class="number">79</span> <span class="number">81</span> <span class="number">83</span> <span class="number">91</span> <span class="number">92</span> <span class="number">93</span> <span class="number">98</span> <span class="number">99</span></span><br><span class="line">&gt; <span class="comment"># 条件索引（偶数）</span></span><br><span class="line">&gt; variable1[variable1%%<span class="number">2</span> == <span class="number">0</span>]</span><br><span class="line"> [<span class="number">1</span>]   <span class="number">2</span>   <span class="number">4</span>   <span class="number">6</span>   <span class="number">8</span>  <span class="number">10</span>  <span class="number">12</span>  <span class="number">14</span>  <span class="number">16</span>  <span class="number">18</span>  <span class="number">20</span>  <span class="number">22</span>  <span class="number">24</span>  <span class="number">26</span>  <span class="number">28</span>  <span class="number">30</span>  <span class="number">32</span>  <span class="number">34</span>  <span class="number">36</span>  <span class="number">38</span>  <span class="number">40</span></span><br><span class="line">[<span class="number">21</span>]  <span class="number">42</span>  <span class="number">44</span>  <span class="number">46</span>  <span class="number">48</span>  <span class="number">50</span>  <span class="number">52</span>  <span class="number">54</span>  <span class="number">56</span>  <span class="number">58</span>  <span class="number">60</span>  <span class="number">62</span>  <span class="number">64</span>  <span class="number">66</span>  <span class="number">68</span>  <span class="number">70</span>  <span class="number">72</span>  <span class="number">74</span>  <span class="number">76</span>  <span class="number">78</span>  <span class="number">80</span></span><br><span class="line">[<span class="number">41</span>]  <span class="number">82</span>  <span class="number">84</span>  <span class="number">86</span>  <span class="number">88</span>  <span class="number">90</span>  <span class="number">92</span>  <span class="number">94</span>  <span class="number">96</span>  <span class="number">98</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
-<p>索引数据框</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入数据集数据，是个数据框</span></span><br><span class="line">&gt; mydata1 &lt;- ggplot2::mpg</span><br><span class="line">&gt; head(mydata1)</span><br><span class="line"><span class="comment"># A tibble: 6 x 11</span></span><br><span class="line">  manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class  </span><br><span class="line">  &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span><br><span class="line"><span class="number">1</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> auto(l5)   f        <span class="number">18</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">2</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> manual(m5) f        <span class="number">21</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">3</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> manual(m6) f        <span class="number">20</span>    <span class="number">31</span> p     compact</span><br><span class="line"><span class="number">4</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> auto(av)   f        <span class="number">21</span>    <span class="number">30</span> p     compact</span><br><span class="line"><span class="number">5</span> audi         a4     <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> auto(l5)   f        <span class="number">16</span>    <span class="number">26</span> p     compact</span><br><span class="line"><span class="number">6</span> audi         a4     <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> manual(m5) f        <span class="number">18</span>    <span class="number">26</span> p     compact</span><br><span class="line">&gt; str(mydata1)</span><br><span class="line">Classes ‘tbl_df’, ‘tbl’ and <span class="string">'data.frame'</span>:	<span class="number">234</span> obs. of  <span class="number">11</span> variables:</span><br><span class="line"> $ manufacturer: chr  <span class="string">"audi"</span> <span class="string">"audi"</span> <span class="string">"audi"</span> <span class="string">"audi"</span> <span class="keyword">...</span></span><br><span class="line"> $ model       : chr  <span class="string">"a4"</span> <span class="string">"a4"</span> <span class="string">"a4"</span> <span class="string">"a4"</span> <span class="keyword">...</span></span><br><span class="line"> $ displ       : num  <span class="number">1.8</span> <span class="number">1.8</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2.8</span> <span class="number">2.8</span> <span class="number">3.1</span> <span class="number">1.8</span> <span class="number">1.8</span> <span class="number">2</span> <span class="keyword">...</span></span><br><span class="line"> $ year        : int  <span class="number">1999</span> <span class="number">1999</span> <span class="number">2008</span> <span class="number">2008</span> <span class="number">1999</span> <span class="number">1999</span> <span class="number">2008</span> <span class="number">1999</span> <span class="number">1999</span> <span class="number">2008</span> <span class="keyword">...</span></span><br><span class="line"> $ cyl         : int  <span class="number">4</span> <span class="number">4</span> <span class="number">4</span> <span class="number">4</span> <span class="number">6</span> <span class="number">6</span> <span class="number">6</span> <span class="number">4</span> <span class="number">4</span> <span class="number">4</span> <span class="keyword">...</span></span><br><span class="line"> $ trans       : chr  <span class="string">"auto(l5)"</span> <span class="string">"manual(m5)"</span> <span class="string">"manual(m6)"</span> <span class="string">"auto(av)"</span> <span class="keyword">...</span></span><br><span class="line"> $ drv         : chr  <span class="string">"f"</span> <span class="string">"f"</span> <span class="string">"f"</span> <span class="string">"f"</span> <span class="keyword">...</span></span><br><span class="line"> $ cty         : int  <span class="number">18</span> <span class="number">21</span> <span class="number">20</span> <span class="number">21</span> <span class="number">16</span> <span class="number">18</span> <span class="number">18</span> <span class="number">18</span> <span class="number">16</span> <span class="number">20</span> <span class="keyword">...</span></span><br><span class="line"> $ hwy         : int  <span class="number">29</span> <span class="number">29</span> <span class="number">31</span> <span class="number">30</span> <span class="number">26</span> <span class="number">26</span> <span class="number">27</span> <span class="number">26</span> <span class="number">25</span> <span class="number">28</span> <span class="keyword">...</span></span><br><span class="line"> $ fl          : chr  <span class="string">"p"</span> <span class="string">"p"</span> <span class="string">"p"</span> <span class="string">"p"</span> <span class="keyword">...</span></span><br><span class="line"> $ class       : chr  <span class="string">"compact"</span> <span class="string">"compact"</span> <span class="string">"compact"</span> <span class="string">"compact"</span> <span class="keyword">...</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># 列索引</span></span><br><span class="line">&gt; mydata1[, c(<span class="number">2</span>, <span class="number">3</span>)]</span><br><span class="line"><span class="comment"># A tibble: 234 x 2</span></span><br><span class="line">   model      displ</span><br><span class="line">   &lt;chr&gt;      &lt;dbl&gt;</span><br><span class="line"> <span class="number">1</span> a4          <span class="number">1.80</span></span><br><span class="line"> <span class="number">2</span> a4          <span class="number">1.80</span></span><br><span class="line"> <span class="number">3</span> a4          <span class="number">2.00</span></span><br><span class="line"> <span class="number">4</span> a4          <span class="number">2.00</span></span><br><span class="line"> <span class="number">5</span> a4          <span class="number">2.80</span></span><br><span class="line"> <span class="number">6</span> a4          <span class="number">2.80</span></span><br><span class="line"> <span class="number">7</span> a4          <span class="number">3.10</span></span><br><span class="line"> <span class="number">8</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line"> <span class="number">9</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line"><span class="number">10</span> a4 quattro  <span class="number">2.00</span></span><br><span class="line"><span class="comment"># ... with 224 more rows</span></span><br><span class="line">&gt; mydata1[, c(<span class="string">"model"</span>, <span class="string">"displ"</span>)]</span><br><span class="line"><span class="comment"># A tibble: 234 x 2</span></span><br><span class="line">   model      displ</span><br><span class="line">   &lt;chr&gt;      &lt;dbl&gt;</span><br><span class="line"> <span class="number">1</span> a4          <span class="number">1.80</span></span><br><span class="line"> <span class="number">2</span> a4          <span class="number">1.80</span></span><br><span class="line"> <span class="number">3</span> a4          <span class="number">2.00</span></span><br><span class="line"> <span class="number">4</span> a4          <span class="number">2.00</span></span><br><span class="line"> <span class="number">5</span> a4          <span class="number">2.80</span></span><br><span class="line"> <span class="number">6</span> a4          <span class="number">2.80</span></span><br><span class="line"> <span class="number">7</span> a4          <span class="number">3.10</span></span><br><span class="line"> <span class="number">8</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line"> <span class="number">9</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line"><span class="number">10</span> a4 quattro  <span class="number">2.00</span></span><br><span class="line"><span class="comment"># ... with 224 more rows</span></span><br><span class="line">&gt; <span class="comment"># 行索引</span></span><br><span class="line">&gt; mydata1[<span class="number">1</span>:<span class="number">5</span>, ]</span><br><span class="line"><span class="comment"># A tibble: 5 x 11</span></span><br><span class="line">  manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class  </span><br><span class="line">  &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span><br><span class="line"><span class="number">1</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> auto(l5)   f        <span class="number">18</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">2</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> manual(m5) f        <span class="number">21</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">3</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> manual(m6) f        <span class="number">20</span>    <span class="number">31</span> p     compact</span><br><span class="line"><span class="number">4</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> auto(av)   f        <span class="number">21</span>    <span class="number">30</span> p     compact</span><br><span class="line"><span class="number">5</span> audi         a4     <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> auto(l5)   f        <span class="number">16</span>    <span class="number">26</span> p     compact</span><br><span class="line">&gt; mydata1[c(<span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>), ]</span><br><span class="line"><span class="comment"># A tibble: 5 x 11</span></span><br><span class="line">  manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class</span><br><span class="line">  &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span><br><span class="line"><span class="number">1</span> audi         a4          <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> auto(l5)   f        <span class="number">18</span>    <span class="number">29</span> p     comp~</span><br><span class="line"><span class="number">2</span> audi         a4          <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> auto(av)   f        <span class="number">21</span>    <span class="number">30</span> p     comp~</span><br><span class="line"><span class="number">3</span> audi         a4          <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> manual(m5) f        <span class="number">18</span>    <span class="number">26</span> p     comp~</span><br><span class="line"><span class="number">4</span> audi         a4 quattro  <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> manual(m5) <span class="number">4</span>        <span class="number">18</span>    <span class="number">26</span> p     comp~</span><br><span class="line"><span class="number">5</span> audi         a4 quattro  <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> auto(l5)   <span class="number">4</span>        <span class="number">16</span>    <span class="number">25</span> p     comp~</span><br><span class="line">&gt; mydata1[c(<span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>), c(<span class="string">"model"</span>, <span class="string">"displ"</span>)]</span><br><span class="line"><span class="comment"># A tibble: 5 x 2</span></span><br><span class="line">  model      displ</span><br><span class="line">  &lt;chr&gt;      &lt;dbl&gt;</span><br><span class="line"><span class="number">1</span> a4          <span class="number">1.80</span></span><br><span class="line"><span class="number">2</span> a4          <span class="number">2.00</span></span><br><span class="line"><span class="number">3</span> a4          <span class="number">2.80</span></span><br><span class="line"><span class="number">4</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line"><span class="number">5</span> a4 quattro  <span class="number">1.80</span></span><br><span class="line">&gt; <span class="comment"># 条件索引</span></span><br><span class="line">&gt; <span class="comment"># 或条件</span></span><br><span class="line">&gt; mydata1[mydata1$model == <span class="string">"audi"</span> | mydata1$manufacturer == <span class="string">"mercury"</span>, ]</span><br><span class="line"><span class="comment"># A tibble: 4 x 11</span></span><br><span class="line">  manufacturer model           displ  year   cyl trans drv     cty   hwy fl    class</span><br><span class="line">  &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span><br><span class="line"><span class="number">1</span> mercury      mountaineer 4wd  <span class="number">4.00</span>  <span class="number">1999</span>     <span class="number">6</span> auto~ <span class="number">4</span>        <span class="number">14</span>    <span class="number">17</span> r     suv  </span><br><span class="line"><span class="number">2</span> mercury      mountaineer 4wd  <span class="number">4.00</span>  <span class="number">2008</span>     <span class="number">6</span> auto~ <span class="number">4</span>        <span class="number">13</span>    <span class="number">19</span> r     suv  </span><br><span class="line"><span class="number">3</span> mercury      mountaineer 4wd  <span class="number">4.60</span>  <span class="number">2008</span>     <span class="number">8</span> auto~ <span class="number">4</span>        <span class="number">13</span>    <span class="number">19</span> r     suv  </span><br><span class="line"><span class="number">4</span> mercury      mountaineer 4wd  <span class="number">5.00</span>  <span class="number">1999</span>     <span class="number">8</span> auto~ <span class="number">4</span>        <span class="number">13</span>    <span class="number">17</span> r     suv  </span><br><span class="line">&gt; <span class="comment"># 且条件</span></span><br><span class="line">&gt; mydata1[mydata1$model == <span class="string">"a4"</span> &amp; mydata1$manufacturer == <span class="string">"audi"</span>, ]</span><br><span class="line"><span class="comment"># A tibble: 7 x 11</span></span><br><span class="line">  manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class  </span><br><span class="line">  &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  </span><br><span class="line"><span class="number">1</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> auto(l5)   f        <span class="number">18</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">2</span> audi         a4     <span class="number">1.80</span>  <span class="number">1999</span>     <span class="number">4</span> manual(m5) f        <span class="number">21</span>    <span class="number">29</span> p     compact</span><br><span class="line"><span class="number">3</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> manual(m6) f        <span class="number">20</span>    <span class="number">31</span> p     compact</span><br><span class="line"><span class="number">4</span> audi         a4     <span class="number">2.00</span>  <span class="number">2008</span>     <span class="number">4</span> auto(av)   f        <span class="number">21</span>    <span class="number">30</span> p     compact</span><br><span class="line"><span class="number">5</span> audi         a4     <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> auto(l5)   f        <span class="number">16</span>    <span class="number">26</span> p     compact</span><br><span class="line"><span class="number">6</span> audi         a4     <span class="number">2.80</span>  <span class="number">1999</span>     <span class="number">6</span> manual(m5) f        <span class="number">18</span>    <span class="number">26</span> p     compact</span><br><span class="line"><span class="number">7</span> audi         a4     <span class="number">3.10</span>  <span class="number">2008</span>     <span class="number">6</span> auto(av)   f        <span class="number">18</span>    <span class="number">27</span> p     compact</span><br></pre></td></tr></table></figure>
-<p>使用内置的subset函数来实现基本的切片索引</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 使用内置的subset函数来实现基本的切片索引</span></span><br><span class="line">&gt; subset(mydata1, model ==<span class="string">"audi"</span> | manufacturer == <span class="string">"mercury"</span>, select = c(<span class="string">"model"</span>, <span class="string">"manufacturer"</span>, <span class="string">"year"</span>))</span><br><span class="line"><span class="comment"># A tibble: 4 x 3</span></span><br><span class="line">  model           manufacturer  year</span><br><span class="line">  &lt;chr&gt;           &lt;chr&gt;        &lt;int&gt;</span><br><span class="line"><span class="number">1</span> mountaineer 4wd mercury       <span class="number">1999</span></span><br><span class="line"><span class="number">2</span> mountaineer 4wd mercury       <span class="number">2008</span></span><br><span class="line"><span class="number">3</span> mountaineer 4wd mercury       <span class="number">2008</span></span><br><span class="line"><span class="number">4</span> mountaineer 4wd mercury       <span class="number">1999</span></span><br><span class="line">&gt; subset(mydata1, model == <span class="string">"a4"</span> | manufacturer == <span class="string">"audi"</span>, select = c(<span class="string">"model"</span>, <span class="string">"manufacturer"</span>, <span class="string">"year"</span>))</span><br><span class="line"><span class="comment"># A tibble: 18 x 3</span></span><br><span class="line">   model      manufacturer  year</span><br><span class="line">   &lt;chr&gt;      &lt;chr&gt;        &lt;int&gt;</span><br><span class="line"> <span class="number">1</span> a4         audi          <span class="number">1999</span></span><br><span class="line"> <span class="number">2</span> a4         audi          <span class="number">1999</span></span><br><span class="line"> <span class="number">3</span> a4         audi          <span class="number">2008</span></span><br><span class="line"> <span class="number">4</span> a4         audi          <span class="number">2008</span></span><br><span class="line"> <span class="number">5</span> a4         audi          <span class="number">1999</span></span><br><span class="line"> <span class="number">6</span> a4         audi          <span class="number">1999</span></span><br><span class="line"> <span class="number">7</span> a4         audi          <span class="number">2008</span></span><br><span class="line"> <span class="number">8</span> a4 quattro audi          <span class="number">1999</span></span><br><span class="line"> <span class="number">9</span> a4 quattro audi          <span class="number">1999</span></span><br><span class="line"><span class="number">10</span> a4 quattro audi          <span class="number">2008</span></span><br><span class="line"><span class="number">11</span> a4 quattro audi          <span class="number">2008</span></span><br><span class="line"><span class="number">12</span> a4 quattro audi          <span class="number">1999</span></span><br><span class="line"><span class="number">13</span> a4 quattro audi          <span class="number">1999</span></span><br><span class="line"><span class="number">14</span> a4 quattro audi          <span class="number">2008</span></span><br><span class="line"><span class="number">15</span> a4 quattro audi          <span class="number">2008</span></span><br><span class="line"><span class="number">16</span> a6 quattro audi          <span class="number">1999</span></span><br><span class="line"><span class="number">17</span> a6 quattro audi          <span class="number">2008</span></span><br><span class="line"><span class="number">18</span> a6 quattro audi          <span class="number">2008</span></span><br></pre></td></tr></table></figure>
-<p>使用dplyr包里面更为高效的函数实现切片索引</p>
-<p>%&gt;%管道函数 左侧传给右侧</p>
-<p>filter筛选行 select筛选列</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">library</span>(dplyr)</span><br><span class="line"></span><br><span class="line">载入程辑包：‘dplyr’</span><br><span class="line"></span><br><span class="line">The following objects are masked from ‘package:stats’:</span><br><span class="line"></span><br><span class="line">    filter, lag</span><br><span class="line"></span><br><span class="line">The following objects are masked from ‘package:base’:</span><br><span class="line"></span><br><span class="line">    intersect, setdiff, setequal, union</span><br><span class="line"></span><br><span class="line">Warning message:</span><br><span class="line">程辑包‘dplyr’是用R版本<span class="number">3.4</span><span class="number">.3</span> 来建造的 </span><br><span class="line">&gt; </span><br><span class="line">&gt; mydata1 %&gt;% filter(model==<span class="string">"audi"</span> | manufacturer==<span class="string">"mercury"</span>) %&gt;% select(model, manufacturer,year)</span><br><span class="line"><span class="comment"># A tibble: 4 x 3</span></span><br><span class="line">  model           manufacturer  year</span><br><span class="line">  &lt;chr&gt;           &lt;chr&gt;        &lt;int&gt;</span><br><span class="line"><span class="number">1</span> mountaineer 4wd mercury       <span class="number">1999</span></span><br><span class="line"><span class="number">2</span> mountaineer 4wd mercury       <span class="number">2008</span></span><br><span class="line"><span class="number">3</span> mountaineer 4wd mercury       <span class="number">2008</span></span><br><span class="line"><span class="number">4</span> mountaineer 4wd mercury       <span class="number">1999</span></span><br><span class="line">Warning message:</span><br><span class="line">package ‘bindrcpp’ was built under R version <span class="number">3.4</span><span class="number">.4</span> </span><br><span class="line">&gt; mydata1 %&gt;% filter(model==<span class="string">"a4"</span> &amp; manufacturer==<span class="string">"audi"</span>) %&gt;% select(model, manufacturer, year)</span><br><span class="line"><span class="comment"># A tibble: 7 x 3</span></span><br><span class="line">  model manufacturer  year</span><br><span class="line">  &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;</span><br><span class="line"><span class="number">1</span> a4    audi          <span class="number">1999</span></span><br><span class="line"><span class="number">2</span> a4    audi          <span class="number">1999</span></span><br><span class="line"><span class="number">3</span> a4    audi          <span class="number">2008</span></span><br><span class="line"><span class="number">4</span> a4    audi          <span class="number">2008</span></span><br><span class="line"><span class="number">5</span> a4    audi          <span class="number">1999</span></span><br><span class="line"><span class="number">6</span> a4    audi          <span class="number">1999</span></span><br><span class="line"><span class="number">7</span> a4    audi          <span class="number">2008</span></span><br></pre></td></tr></table></figure>
-<p>数据聚合计算</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt; iris1 &lt;- iris</span><br><span class="line">&gt; head(iris1)</span><br><span class="line">  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span><br><span class="line"><span class="number">1</span>          <span class="number">5.1</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">2</span>          <span class="number">4.9</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">3</span>          <span class="number">4.7</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">4</span>          <span class="number">4.6</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">5</span>          <span class="number">5.0</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">6</span>          <span class="number">5.4</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>  setosa</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># transform函数只能基于已有变量进行计算，无法基于新生成的变量进行计算</span></span><br><span class="line">&gt; iris1 &lt;- transform(</span><br><span class="line">+     iris1,</span><br><span class="line">+     dek=Sepal.Length/Sepal.Width,</span><br><span class="line">+     pek=Petal.Length+Petal.Width</span><br><span class="line">+ )</span><br><span class="line">&gt; iris1</span><br><span class="line">    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species      dek pek</span><br><span class="line"><span class="number">1</span>            <span class="number">5.1</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa <span class="number">1.457143</span> <span class="number">1.6</span></span><br><span class="line"><span class="number">2</span>            <span class="number">4.9</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa <span class="number">1.633333</span> <span class="number">1.6</span></span><br><span class="line"><span class="number">3</span>            <span class="number">4.7</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>     setosa <span class="number">1.468750</span> <span class="number">1.5</span></span><br><span class="line"><span class="number">4</span>            <span class="number">4.6</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>     setosa <span class="number">1.483871</span> <span class="number">1.7</span></span><br><span class="line"><span class="number">5</span>            <span class="number">5.0</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa <span class="number">1.388889</span> <span class="number">1.6</span></span><br><span class="line"><span class="number">6</span>            <span class="number">5.4</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>     setosa <span class="number">1.384615</span> <span class="number">2.1</span></span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line"><span class="number">139</span>          <span class="number">6.0</span>         <span class="number">3.0</span>          <span class="number">4.8</span>         <span class="number">1.8</span>  virginica <span class="number">2.000000</span> <span class="number">6.6</span></span><br><span class="line"><span class="number">140</span>          <span class="number">6.9</span>         <span class="number">3.1</span>          <span class="number">5.4</span>         <span class="number">2.1</span>  virginica <span class="number">2.225806</span> <span class="number">7.5</span></span><br><span class="line"><span class="number">141</span>          <span class="number">6.7</span>         <span class="number">3.1</span>          <span class="number">5.6</span>         <span class="number">2.4</span>  virginica <span class="number">2.161290</span> <span class="number">8.0</span></span><br><span class="line"><span class="number">142</span>          <span class="number">6.9</span>         <span class="number">3.1</span>          <span class="number">5.1</span>         <span class="number">2.3</span>  virginica <span class="number">2.225806</span> <span class="number">7.4</span></span><br><span class="line"> [ reached getOption(<span class="string">"max.print"</span>) -- omitted <span class="number">8</span> rows ]</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># mutate函数实现了基于新生成的变量进行计算的需求</span></span><br><span class="line">&gt; iris1 &lt;- dplyr::mutate(</span><br><span class="line">+     iris1,</span><br><span class="line">+     dek=Sepal.Length+Sepal.Width,</span><br><span class="line">+     jek=sqrt(dek)</span><br><span class="line">+ )</span><br><span class="line">&gt; iris1</span><br><span class="line">    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species  dek pek      jek</span><br><span class="line"><span class="number">1</span>            <span class="number">5.1</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa  <span class="number">8.6</span> <span class="number">1.6</span> <span class="number">2.932576</span></span><br><span class="line"><span class="number">2</span>            <span class="number">4.9</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa  <span class="number">7.9</span> <span class="number">1.6</span> <span class="number">2.810694</span></span><br><span class="line"><span class="number">3</span>            <span class="number">4.7</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>     setosa  <span class="number">7.9</span> <span class="number">1.5</span> <span class="number">2.810694</span></span><br><span class="line"><span class="number">4</span>            <span class="number">4.6</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>     setosa  <span class="number">7.7</span> <span class="number">1.7</span> <span class="number">2.774887</span></span><br><span class="line"><span class="number">5</span>            <span class="number">5.0</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa  <span class="number">8.6</span> <span class="number">1.6</span> <span class="number">2.932576</span></span><br><span class="line"><span class="number">6</span>            <span class="number">5.4</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>     setosa  <span class="number">9.3</span> <span class="number">2.1</span> <span class="number">3.049590</span></span><br><span class="line"><span class="number">7</span>            <span class="number">4.6</span>         <span class="number">3.4</span>          <span class="number">1.4</span>         <span class="number">0.3</span>     setosa  <span class="number">8.0</span> <span class="number">1.7</span> <span class="number">2.828427</span></span><br><span class="line"><span class="number">8</span>            <span class="number">5.0</span>         <span class="number">3.4</span>          <span class="number">1.5</span>         <span class="number">0.2</span>     setosa  <span class="number">8.4</span> <span class="number">1.7</span> <span class="number">2.898275</span></span><br><span class="line"><span class="number">9</span>            <span class="number">4.4</span>         <span class="number">2.9</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa  <span class="number">7.3</span> <span class="number">1.6</span> <span class="number">2.701851</span></span><br><span class="line"></span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line"><span class="number">121</span>          <span class="number">6.9</span>         <span class="number">3.2</span>          <span class="number">5.7</span>         <span class="number">2.3</span>  virginica <span class="number">10.1</span> <span class="number">8.0</span> <span class="number">3.178050</span></span><br><span class="line"><span class="number">122</span>          <span class="number">5.6</span>         <span class="number">2.8</span>          <span class="number">4.9</span>         <span class="number">2.0</span>  virginica  <span class="number">8.4</span> <span class="number">6.9</span> <span class="number">2.898275</span></span><br><span class="line"><span class="number">123</span>          <span class="number">7.7</span>         <span class="number">2.8</span>          <span class="number">6.7</span>         <span class="number">2.0</span>  virginica <span class="number">10.5</span> <span class="number">8.7</span> <span class="number">3.240370</span></span><br><span class="line"><span class="number">124</span>          <span class="number">6.3</span>         <span class="number">2.7</span>          <span class="number">4.9</span>         <span class="number">1.8</span>  virginica  <span class="number">9.0</span> <span class="number">6.7</span> <span class="number">3.000000</span></span><br><span class="line"><span class="number">125</span>          <span class="number">6.7</span>         <span class="number">3.3</span>          <span class="number">5.7</span>         <span class="number">2.1</span>  virginica <span class="number">10.0</span> <span class="number">7.8</span> <span class="number">3.162278</span></span><br><span class="line"> [ reached getOption(<span class="string">"max.print"</span>) -- omitted <span class="number">25</span> rows ]</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># within函数</span></span><br><span class="line">&gt; mydata &lt;- data.frame(</span><br><span class="line">+     Name = sample(LETTERS[<span class="number">1</span>:<span class="number">20</span>]),</span><br><span class="line">+     old = runif(<span class="number">20</span>, <span class="number">5</span>, <span class="number">65</span>) %&gt;% round(<span class="number">0</span>)</span><br><span class="line">+ )</span><br><span class="line">&gt; </span><br><span class="line">&gt; mydata &lt;- within(mydata,&#123;</span><br><span class="line">+     agecat &lt;- <span class="literal">NA</span></span><br><span class="line">+     agecat[old &gt; <span class="number">55</span>] &lt;- <span class="string">"Elder"</span></span><br><span class="line">+     agecat[old &gt;= <span class="number">35</span> &amp; old &lt;= <span class="number">55</span>] &lt;- <span class="string">"Middle Aged"</span></span><br><span class="line">+     agecat[old &lt; <span class="number">35</span>] &lt;- <span class="string">"Young"</span></span><br><span class="line">+ &#125;)</span><br><span class="line">&gt; mydata</span><br><span class="line">   Name old      agecat</span><br><span class="line"><span class="number">1</span>     Q  <span class="number">14</span>       Young</span><br><span class="line"><span class="number">2</span>     C  <span class="number">31</span>       Young</span><br><span class="line"><span class="number">3</span>     E  <span class="number">27</span>       Young</span><br><span class="line"><span class="number">4</span>     S  <span class="number">32</span>       Young</span><br><span class="line"><span class="number">5</span>     A  <span class="number">36</span> Middle Aged</span><br><span class="line"><span class="number">6</span>     D  <span class="number">25</span>       Young</span><br><span class="line"><span class="number">7</span>     B  <span class="number">11</span>       Young</span><br><span class="line"><span class="number">8</span>     L  <span class="number">53</span> Middle Aged</span><br><span class="line"><span class="number">9</span>     I  <span class="number">31</span>       Young</span><br><span class="line"><span class="number">10</span>    G  <span class="number">25</span>       Young</span><br><span class="line"><span class="number">11</span>    R  <span class="number">16</span>       Young</span><br><span class="line"><span class="number">12</span>    P  <span class="number">51</span> Middle Aged</span><br><span class="line"><span class="number">13</span>    J  <span class="number">30</span>       Young</span><br><span class="line"><span class="number">14</span>    N  <span class="number">38</span> Middle Aged</span><br><span class="line"><span class="number">15</span>    K  <span class="number">20</span>       Young</span><br><span class="line"><span class="number">16</span>    H  <span class="number">53</span> Middle Aged</span><br><span class="line"><span class="number">17</span>    O  <span class="number">13</span>       Young</span><br><span class="line"><span class="number">18</span>    M  <span class="number">63</span>       Elder</span><br><span class="line"><span class="number">19</span>    <span class="literal">F</span>  <span class="number">65</span>       Elder</span><br><span class="line"><span class="number">20</span>    <span class="literal">T</span>  <span class="number">22</span>       Young</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt; mydata$old_n &lt;- ifelse(</span><br><span class="line">+     mydata$old &gt; <span class="number">55</span>, <span class="string">"Elder"</span>,</span><br><span class="line">+     ifelse(</span><br><span class="line">          <span class="comment"># 满足mydata$old &gt;= 35 &amp; mydata$old &lt;= "Middle Aged"，否则是"Young"</span></span><br><span class="line">+         mydata$old &gt;= <span class="number">35</span> &amp; mydata$old &lt;= <span class="number">55</span>, <span class="string">"Middle Aged"</span>, <span class="string">"Young"</span></span><br><span class="line">+     )</span><br><span class="line">+ )</span><br><span class="line">&gt; </span><br><span class="line">&gt; mydata</span><br><span class="line">   Name old      agecat       old_n</span><br><span class="line"><span class="number">1</span>     Q  <span class="number">14</span>       Young       Young</span><br><span class="line"><span class="number">2</span>     C  <span class="number">31</span>       Young       Young</span><br><span class="line"><span class="number">3</span>     E  <span class="number">27</span>       Young       Young</span><br><span class="line"><span class="number">4</span>     S  <span class="number">32</span>       Young       Young</span><br><span class="line"><span class="number">5</span>     A  <span class="number">36</span> Middle Aged Middle Aged</span><br><span class="line"><span class="number">6</span>     D  <span class="number">25</span>       Young       Young</span><br><span class="line"><span class="number">7</span>     B  <span class="number">11</span>       Young       Young</span><br><span class="line"><span class="number">8</span>     L  <span class="number">53</span> Middle Aged Middle Aged</span><br><span class="line"><span class="number">9</span>     I  <span class="number">31</span>       Young       Young</span><br><span class="line"><span class="number">10</span>    G  <span class="number">25</span>       Young       Young</span><br><span class="line"><span class="number">11</span>    R  <span class="number">16</span>       Young       Young</span><br><span class="line"><span class="number">12</span>    P  <span class="number">51</span> Middle Aged Middle Aged</span><br><span class="line"><span class="number">13</span>    J  <span class="number">30</span>       Young       Young</span><br><span class="line"><span class="number">14</span>    N  <span class="number">38</span> Middle Aged Middle Aged</span><br><span class="line"><span class="number">15</span>    K  <span class="number">20</span>       Young       Young</span><br><span class="line"><span class="number">16</span>    H  <span class="number">53</span> Middle Aged Middle Aged</span><br><span class="line"><span class="number">17</span>    O  <span class="number">13</span>       Young       Young</span><br><span class="line"><span class="number">18</span>    M  <span class="number">63</span>       Elder       Elder</span><br><span class="line"><span class="number">19</span>    <span class="literal">F</span>  <span class="number">65</span>       Elder       Elder</span><br><span class="line"><span class="number">20</span>    <span class="literal">T</span>  <span class="number">22</span>       Young       Young</span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># aggregate聚合函数（只能实现一个聚合指标）</span></span><br><span class="line"><span class="comment"># ~右边Species是分组依据，左边是要计算的数据，iris1是数据框名称，mean是要进行的运算</span></span><br><span class="line">&gt; aggregate(Sepal.Length~Species, iris1, mean)</span><br><span class="line">     Species Sepal.Length</span><br><span class="line"><span class="number">1</span>     setosa        <span class="number">5.006</span></span><br><span class="line"><span class="number">2</span> versicolor        <span class="number">5.936</span></span><br><span class="line"><span class="number">3</span>  virginica        <span class="number">6.588</span></span><br><span class="line">&gt; aggregate(Sepal.Length~Species, iris1, sum)</span><br><span class="line">     Species Sepal.Length</span><br><span class="line"><span class="number">1</span>     setosa        <span class="number">250.3</span></span><br><span class="line"><span class="number">2</span> versicolor        <span class="number">296.8</span></span><br><span class="line"><span class="number">3</span>  virginica        <span class="number">329.4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># group_by+summarize实现了基于分组的自由聚合（与SQL中的标准聚合语法group by +聚合函数差不多）</span></span><br><span class="line">&gt; iris1 %&gt;% </span><br><span class="line">+     group_by(Species) %&gt;%</span><br><span class="line">+     <span class="comment"># 可聚合多个变量</span></span><br><span class="line">+      summarize(</span><br><span class="line">+         means = mean(Sepal.Length),</span><br><span class="line">+         sums = sum(Sepal.Length)</span><br><span class="line">+     )</span><br><span class="line"><span class="comment"># A tibble: 3 x 3</span></span><br><span class="line">  Species    means  sums</span><br><span class="line">  &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt;</span><br><span class="line"><span class="number">1</span> setosa      <span class="number">5.01</span>  <span class="number">250.</span></span><br><span class="line"><span class="number">2</span> versicolor  <span class="number">5.94</span>  <span class="number">297.</span></span><br><span class="line"><span class="number">3</span> virginica   <span class="number">6.59</span>  <span class="number">329.</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># tapply专门用于聚合变量，但也只能聚合一个</span></span><br><span class="line">&gt; tapply(iris1$Sepal.Length, iris$Species, mean)</span><br><span class="line">    setosa versicolor  virginica </span><br><span class="line">     <span class="number">5.006</span>      <span class="number">5.936</span>      <span class="number">6.588</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plyr包里面的ddply函数是一个极其高效的向量化聚合函数</span></span><br><span class="line">&gt; <span class="keyword">library</span>(<span class="string">'plyr'</span>)</span><br><span class="line">&gt; ddply(</span><br><span class="line">+     iris1,</span><br><span class="line">+     .(Species),</span><br><span class="line">+     summarize,</span><br><span class="line">+     means = mean(Sepal.Length),</span><br><span class="line">+     sums = sum(Sepal.Length)</span><br><span class="line">+ )</span><br><span class="line">     Species means  sums</span><br><span class="line"><span class="number">1</span>     setosa <span class="number">5.006</span> <span class="number">250.3</span></span><br><span class="line"><span class="number">2</span> versicolor <span class="number">5.936</span> <span class="number">296.8</span></span><br><span class="line"><span class="number">3</span>  virginica <span class="number">6.588</span> <span class="number">329.4</span></span><br></pre></td></tr></table></figure>
-<h1 id="数据合并、追加与塑性"><a href="#数据合并、追加与塑性" class="headerlink" title="数据合并、追加与塑性"></a>数据合并、追加与塑性</h1><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fr0w2xxa0xj20rq090wi9.jpg" alt=""></p>
-<h1 id="字符串处理与正则表达式"><a href="#字符串处理与正则表达式" class="headerlink" title="字符串处理与正则表达式"></a>字符串处理与正则表达式</h1><h1 id="管道函数与向量化运算"><a href="#管道函数与向量化运算" class="headerlink" title="管道函数与向量化运算"></a>管道函数与向量化运算</h1><h1 id="非结构化数据与列表"><a href="#非结构化数据与列表" class="headerlink" title="非结构化数据与列表"></a>非结构化数据与列表</h1><h1 id="R语言与数据库交互"><a href="#R语言与数据库交互" class="headerlink" title="R语言与数据库交互"></a>R语言与数据库交互</h1><h1 id="数据梳理神器（data-table"><a href="#数据梳理神器（data-table" class="headerlink" title="数据梳理神器（data.table)"></a>数据梳理神器（data.table)</h1>
-          
-        
-      
-    </div>
-    
-    
-    
-	<div>
-	
-	</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/a1360cb8.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JieZhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/a1360cb8.html" itemprop="url">用Eclipse创建第一个java程序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-05T13:57:32+08:00">
-                2018-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>启动eclipse</p>
-<p>File ——&gt; New ——&gt; Create Java Project</p>
-<p>输入项目名称，自己起名即可，如helloworld</p>
-<p>新创建的项目结构如下：</p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fr0fdplqs2j20yx0hkdhs.jpg" alt=""></p>
-<p>在scr下，右键点击Package</p>
-<p>name中输入my：</p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fr0fgi324hj20mp0h5jsd.jpg" alt=""></p>
-<p>src下面会多一个叫my的包</p>
-<p>下面添加代码</p>
-<p>右键my</p>
-<p>New ——&gt; Class</p>
-<p>Name输入HelloWorld</p>
-<p>勾选public static void main(String[] args)</p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fr0ftmnrg7j20gi0j5js7.jpg" alt=""></p>
-<p>my下多了一个java文件：</p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fr0fvce59ij20t90d1757.jpg" alt=""></p>
-<p>于是可以在HelloWorld.java中编写第一个程序：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> my;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        System.out.println(<span class="string">"helloworld"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>右键 Run as ——&gt; 1 Java Application</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	<div>
-	
-	</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/534f1aa6.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JieZhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FinGeek|http://zhaojie.tech">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/534f1aa6.html" itemprop="url">seaborn常用图形</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-03T10:36:20+08:00">
-                2018-05-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="style"><a href="#style" class="headerlink" title="style"></a>style</h1><h2 id="风格管理"><a href="#风格管理" class="headerlink" title="风格管理"></a>风格管理</h2><ul>
-<li>darkgrid/whitegrid：更关注数值</li>
-<li>dark/white：更关注整体趋势</li>
-<li>ticks：强化刻度</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"whitegrid"</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.despine()</span><br></pre></td></tr></table></figure>
-<h2 id="尺度参数设置"><a href="#尺度参数设置" class="headerlink" title="尺度参数设置"></a>尺度参数设置</h2><ul>
-<li>paper</li>
-<li>talk</li>
-<li>notebook</li>
-<li>poster</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.set_context(<span class="string">"poster"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="颜色管理"><a href="#颜色管理" class="headerlink" title="颜色管理"></a>颜色管理</h2><h3 id="分类调色板"><a href="#分类调色板" class="headerlink" title="分类调色板"></a>分类调色板</h3><ul>
-<li>适用于分类描述的数据，而且分类之间无序</li>
-<li>hls颜色系统，色调+亮度+饱和度（hue + luminance + saturation）</li>
-<li>husl颜色系统，hls中不同颜色存在视差，eg.黄色偏亮，蓝色偏暗，husl使得更加平衡</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_palette(sns.color_palette(<span class="string">"hls"</span>, <span class="number">10</span>), desat=<span class="number">0.9</span>)</span><br><span class="line">current_palette = sns.color_palette()</span><br><span class="line">sns.palplot(current_palette)</span><br></pre></td></tr></table></figure>
-<h3 id="序列调色板"><a href="#序列调色板" class="headerlink" title="序列调色板"></a>序列调色板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.palplot(sns.color_palette(&quot;Greens&quot;,10))</span><br></pre></td></tr></table></figure>
-<h3 id="交叉调色板"><a href="#交叉调色板" class="headerlink" title="交叉调色板"></a>交叉调色板</h3><ul>
-<li>主要通过亮度和饱和度区分有序分类</li>
-<li>关注单级数据</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.palplot(sns.color_palette(<span class="string">"coolwarm"</span>,<span class="number">11</span>))</span><br></pre></td></tr></table></figure>
-<h1 id="变量间的关系"><a href="#变量间的关系" class="headerlink" title="变量间的关系"></a>变量间的关系</h1><h2 id="绘制线性回归模型"><a href="#绘制线性回归模型" class="headerlink" title="绘制线性回归模型"></a>绘制线性回归模型</h2><p><strong>一般形式</strong></p>
-<ul>
-<li><p>最简单的方式：散点图 + 线性回归 + 95%置信区间</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips) <span class="comment"># confidence interval</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="C:\Users\my\AppData\Local\Temp\1525330528669.png" alt=""></p>
-<p><strong>局部加权回归散点平滑</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips, lowess=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy5oa68rqj20dx09uq32.jpg" alt=""></p>
-<p><strong>方法1 加抖动</strong></p>
-<p>有时散点图上的点会重合在一起，可以加个抖动给抖动开。</p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy5u34qobj20dr0bwdfz.jpg" alt="img"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"size"</span>, y=<span class="string">"tip"</span>, data=tips, x_jitter=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy5veeuy6j20c80a2wem.jpg" alt=""></p>
-<p><strong>方法2 离散取值上用均值和置信区间代替散点</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"size"</span>, y=<span class="string">"tip"</span>, data=tips, x_estimator=np.mean)</span><br></pre></td></tr></table></figure>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy5ze28b8j20dh09vmx9.jpg" alt=""></p>
-<h2 id="拟合不同模型"><a href="#拟合不同模型" class="headerlink" title="拟合不同模型"></a>拟合不同模型</h2><p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy617u1vlj20ll0dyjro.jpg" alt=""></p>
-<p><strong>指定阶数</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'II'"</span>), ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;, order=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy65xeiopj20ea09r74c.jpg" alt=""></p>
-<p><strong>异常值</strong></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy67ivgeqj20lx0bjmxb.jpg" alt=""></p>
-<p><strong>逻辑回归</strong></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy69i81bxj20jz0e3t94.jpg" alt=""></p>
-<p><strong>残差曲线</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy6cr90rkj20kx09pdfx.jpg" alt=""></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy6e05dmij20i00bx0sw.jpg" alt=""></p>
-<h2 id="变量间条件关系"><a href="#变量间条件关系" class="headerlink" title="变量间条件关系"></a>变量间条件关系</h2><p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy6fkiee2j20f70c3aaj.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy6gjosj2j20i00cjwf1.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy6hl0q1wj20nh0dq759.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy6im9jr0j20m10jcq5a.jpg" alt=""></p>
-<h2 id="控制图片的大小和形状"><a href="#控制图片的大小和形状" class="headerlink" title="控制图片的大小和形状"></a>控制图片的大小和形状</h2><p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy6kce1dhj20ja0i43zv.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy6lgmbktj20s308nab1.jpg" alt=""></p>
-<h1 id="分布"><a href="#分布" class="headerlink" title="分布"></a>分布</h1><h2 id="单变量"><a href="#单变量" class="headerlink" title="单变量"></a>单变量</h2><p><strong>灰度图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy7r0efr9j20iy09nmx7.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy7ri9jp4j20cz0a3dfv.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy7rc01j5j20ee099glr.jpg" alt=""></p>
-<p><strong>核密度估计</strong></p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy8ag8sz2j20ij09ddg1.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8amiqllj20cz0cumxo.jpg" alt=""></p>
-<p><strong>模型参数拟合</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy8c3g3uxj20cs09omxc.jpg" alt=""></p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy8czr5lqj20c709gmxf.jpg" alt=""></p>
-<h2 id="双变量分布"><a href="#双变量分布" class="headerlink" title="双变量分布"></a>双变量分布</h2><p><strong>散点图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy8e1tzl6j20dh0dj0t9.jpg" alt=""></p>
-<p><strong>六角箱图</strong></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8f8yq7rj20gn0h3mza.jpg" alt=""></p>
-<p><strong>核密度估计</strong></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8gbe27qj20f70dqaae.jpg" alt=""></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy8hf6490j20fs0gr3zs.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy8iih6sdj20k60fdaad.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8je2i4wj20l00g2754.jpg" alt=""></p>
-<h2 id="数据集中的两两关系"><a href="#数据集中的两两关系" class="headerlink" title="数据集中的两两关系"></a>数据集中的两两关系</h2><p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy8kzuf0bj20iy0hgmzm.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8m6rz2cj20gl0i142b.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8n5kd43j20i40he40s.jpg" alt=""></p>
-<h1 id="分类数据"><a href="#分类数据" class="headerlink" title="分类数据"></a>分类数据</h1><h2 id="分类散点图"><a href="#分类散点图" class="headerlink" title="分类散点图"></a>分类散点图</h2><p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqy8ujlfxfj20dl0b3aa9.jpg" alt=""></p>
-<p>点重叠在一起，可以抖动</p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy8vanbgoj20e009x3yr.jpg" alt=""></p>
-<p>或者蜂群图</p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy8wriu3nj20gm0c8t95.jpg" alt=""></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy8xzapfej20dn0awaah.jpg" alt=""></p>
-<h2 id="分类分布图"><a href="#分类分布图" class="headerlink" title="分类分布图"></a>分类分布图</h2><p><strong>箱图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqycef36fjj20d20addfx.jpg" alt=""></p>
-<p><strong>提琴图</strong></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqycg24kfoj20ep098wew.jpg" alt=""></p>
-<p><img src="http://wx1.sinaimg.cn/mw690/c3a5a043ly1fqycg7uqe7j20i709hgm4.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqycgp8ui8j20hv09j0t9.jpg" alt=""></p>
-<h2 id="分类统计估计图"><a href="#分类统计估计图" class="headerlink" title="分类统计估计图"></a>分类统计估计图</h2><p><strong>统计柱状图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy90jxp3lj20m70fuwex.jpg" alt=""></p>
-<p><strong>灰度柱状图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy91hevqqj20fi09hdfu.jpg" alt=""></p>
-<p><strong>点图</strong></p>
-<p><img src="http://wx3.sinaimg.cn/mw690/c3a5a043ly1fqy929o6wjj20lm0fzmxr.jpg" alt=""></p>
-<p><img src="http://wx4.sinaimg.cn/mw690/c3a5a043ly1fqy936948qj20kw0i2aan.jpg" alt=""></p>
-<p><strong>分类子图</strong></p>
-<p><img src="http://wx2.sinaimg.cn/mw690/c3a5a043ly1fqy940hiprj20k409mdga.jpg" alt=""></p>
-<p><strong>多分类标准的子图</strong></p>
-<p><img src="C:\Users\my\Desktop\图片\多分类.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	<div>
-	
-	</div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2482,7 +2691,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2504,7 +2713,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -2548,7 +2757,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
